@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- import CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+</head>
+<body>
+<el-container>
+    <el-header>
+        <div id="app">
+            <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+                <el-menu-item index="1">个人中心</el-menu-item>
+                <el-menu-item index="2"><a href="index.html" target="_blank">首页</a></el-menu-item>
+                <el-menu-item index="3"><a href="index.html" target="_blank">购物车</a></el-menu-item>
+            </el-menu>
+        </div>
+    </el-header>
+
+    <el-container>
+        <el-aside id="app2" width="1205px">
+            <el-row class="tac">
+                <el-col :span="4">
+                    <el-menu
+                            default-active="2"
+                            class="el-menu-vertical-demo"
+                            @open="handleOpen"
+                            @close="handleClose"
+                            background-color="#545c64"
+                            text-color="#fff"
+                            active-text-color="#ffd04b">
+
+                        <el-menu-item index="2">
+                            <i class="el-icon-user"></i>
+                            <span slot="title">我的资料</span>
+                        </el-menu-item>
+                        <el-menu-item index="3">
+                            <i class="el-icon-goods"></i>
+                            <span slot="title">我的商品</span>
+                        </el-menu-item>
+
+                        <el-submenu index="4">
+                            <template slot="title">
+                                <i class="el-icon-s-order"></i>
+                                <span>订单管理</span>
+                            </template>
+                            <el-menu-item-group>
+                                <el-menu-item index="1-1">我的已购</el-menu-item>
+                                <el-menu-item index="1-2">我的售出</el-menu-item>
+                            </el-menu-item-group>
+                        </el-submenu>
+
+                        <el-menu-item index="5">
+                            <i class="el-icon-star-off"></i>
+                            <span slot="title">商品收藏</span>
+                        </el-menu-item>
+                        <el-menu-item index="6">
+                            <i class="el-icon-position"></i>
+                            <span slot="title">收货地址</span>
+                        </el-menu-item>
+                    </el-menu>
+                </el-col>
+            </el-row>
+        </el-aside>
+
+        <el-main id="app3">
+            <el-form ref="form" :model="form" label-width="80px">
+                <el-form-item label="头像">
+                    <template>
+                        <div class="demo-type">
+                            <div>
+                                <el-avatar icon="el-icon-user-solid"></el-avatar>
+                            </div>
+                        </div>
+                    </template>
+                </el-form-item>
+                <el-form-item label="用户名">
+                    <el-input v-model="form.name"></el-input>
+                </el-form-item>
+                <el-form-item label="学校">
+                    <el-input v-model="form.name"></el-input>
+                </el-form-item>
+                <el-form-item label="电话">
+                    <el-input v-model="form.name"></el-input>
+                </el-form-item>
+                <el-form-item label="邮箱">
+                    <el-input v-model="form.name"></el-input>
+                </el-form-item>
+                <el-form-item label="密码">
+                    <template>
+                        <div id="app4" class="login-container">
+                            <el-input
+                                    v-model="pwd"
+                                    :type="type"
+                                    class="pwd-input">
+                                <i slot="suffix"
+                                        class="icon-style"
+                                        :class="elIcon"
+                                        autocomplete="auto"
+                                        @click="flag = !flag"/>
+                            </el-input>
+                        </div>
+                    </template>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="onSubmit">修改</el-button>
+                    <el-button>取消</el-button>
+                </el-form-item>
+            </el-form>
+        </el-main>
+    </el-container>
+</el-container>
+</body>
+
+<!-- import Vue before Element -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script>
+    new Vue({
+        el: "#app",
+        methods: {
+            handleOpen(key, keyPath) {
+                console.log(key, keyPath);
+            },
+            handleClose(key, keyPath) {
+                console.log(key, keyPath);
+            }
+        }
+    })
+</script>
+<script>
+    new Vue({
+        el: "#app2",
+        methods: {
+            handleOpen(key, keyPath) {
+                console.log(key, keyPath);
+            },
+            handleClose(key, keyPath) {
+                console.log(key, keyPath);
+            }
+        }
+    })
+</script>
+
+<script>
+    new Vue({
+        el: "#app3",
+        data() {
+            return {
+                form: {
+                    name: '',
+                    region: '',
+                    date1: '',
+                    date2: '',
+                    delivery: false,
+                    type: [],
+                    resource: '',
+                    desc: ''
+                }
+            }
+        },
+        methods: {
+            onSubmit() {
+                console.log('submit!');
+            }
+        }
+    })
+</script>
+<script>
+    new Vue({
+        el: "#app4",
+        data() {
+            return {
+                pwd: "123456",
+                flag: false
+            };
+        },
+        computed: {
+            type() {
+                return this.flag ? "text" : "password";
+            },
+            elIcon() {
+                return this.flag ? "el-icon-minus" : "el-icon-view";
+            }
+        }
+    });
+</script>
+
+<style>
+    .icon-style {
+        margin-top: 8px;
+        font-size: 18px;
+    }
+
+    .pwd-input {
+        border: 1px solid #fff;
+        width: 250px;
+    }
+</style>
+</html>

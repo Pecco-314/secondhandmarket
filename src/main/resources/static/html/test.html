@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-ch">
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script th:src="@{../static/js/info.js}"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>个人中心</title>
+    <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" rel="stylesheet" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <link href="../css/style.css" rel="stylesheet">
+</head>
+<body>
+
+
+<nav class="ui inverted attached segment">
+    <div class="ui container">
+        <div class="ui inverted secondary stackable menu">
+            <h2 class="ui header item">二手交易市场</h2>
+            <a>
+                <div class="ui search">
+                    <div class="ui icon input">
+                        <input class="prompt" type="text" placeholder="热卖单品">
+                        <i class="search icon"></i>
+                    </div>
+                    <div class="results"></div>
+                </div>
+            </a>
+            <a class="m-item item m-mobile-hide" href="#">发布商品</a>
+        </div>
+    </div>
+</nav>
+<nav class="ui inverted attached segment">
+    <div class="ui container">
+            <a class="m-item item m-mobile-hide" href="#"><i class="user icon"></i> 个人中心</a>
+            <a class="m-item item m-mobile-hide" href="index.html"><i class="home icon"></i> 首页</a>
+            <a class="m-item item m-mobile-hide" href="#"><i class="dolly icon"></i> 购物车</a>
+    </div>
+</nav>
+
+<div class="ui grid m-container">
+    <!--个人信息-->
+    <div class="three wide column">
+    <div class="ui segments">
+        <div class="ui pink segment">
+            <div class="ui fluid vertical menu">
+                <a class="item" href="#">我的资料</a>
+                <a class="item" href="#">我的商品</a>
+                <a class="item" href="#">订单管理</a>
+                <a class="item" href="#">商品收藏</a>
+                <a class="item" href="#">收货地址</a>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="center floated ten wide column ">
+        <div class="ui segment">
+            <div>
+            <span>头像</span>
+            <img class="ui avatar image" src="../img/profile.jpg">
+            </div>
+
+            <div class="ui form">
+                <div class="inline field">
+                    <label>用户名</label>
+                    <input type="text" >
+                </div>
+            </div>
+
+            <div class="ui form">
+                <div class="inline field">
+                    <label>学校</label>
+                    <input type="text" >
+                </div>
+            </div>
+
+            <div class="ui form">
+                <div class="inline field">
+                    <label>电话</label>
+                    <input type="text" >
+                </div>
+            </div>
+
+            <div class="ui form">
+                <div class="inline field">
+                    <label>邮箱</label>
+                    <input type="text" >
+                </div>
+            </div>
+
+            <div class="ui form password">
+                <div class="inline field">
+                <label for="pass">密码:</label>
+                <input type="password" class="n-txtCss" name="pass" id="pass" value="" />
+                <i class="fa fa-eye-slash" onclick="showhide()" id="eye"></i>
+                </div>
+            </div>
+
+            <button class="ui secondary button">
+                修改
+            </button>
+            <button class="ui button">
+                取消
+            </button>
+
+        </div>
+    </div>
+
+</div>
+
+
+</body>
+
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script type="text/javascript">
+
+    var a=document.getElementById("eye");
+    var b=document.getElementById("pass");
+    function showhide(){
+        if(b.type=="password"){
+            b.type='text';
+            a.className='fa fa-eye'
+        }else{
+            b.type='password';
+            a.className='fa fa-eye-slash'
+        }
+    }
+</script>
+
+<script>
+var app = new Vue({
+el: '#app',
+data: {
+message: 'Hello Vue!'
+}
+})
+</script>
+
+</html>
