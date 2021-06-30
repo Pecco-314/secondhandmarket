@@ -1,0 +1,40 @@
+body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#login-box-container {
+    max-width: 100%;
+    height: auto;
+}
+
+#login-box-container img {
+    width: 100%;
+    display: block;
+    border: 0;
+}
+
+#login-box {
+    position: absolute;
+    right: 10%;
+    top: 20%;
+}
+
+.box-card {
+    width: 300px;
+}
+
+.link-container {
+    display: flex;
+    justify-content: flex-end;
+    line-height: normal;
+}
+
+.link-container .el-link {
+    margin-left: 10px;
+}
+
+.form-bottom {
+    margin-bottom: 0;
+}
