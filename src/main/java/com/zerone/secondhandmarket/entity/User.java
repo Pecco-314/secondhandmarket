@@ -14,7 +14,7 @@ public class User {
     private String password;
     private String phone_number;
     private String email;
-    private UserHead head=UserHead.HEAD0;//用户头像，取值为0,1,2，默认为0
+    private UserHead head=UserHead.HEAD0;//用户头像
 
 
     @Override

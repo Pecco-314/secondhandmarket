@@ -4,11 +4,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data               //生成get()、set()
-@AllArgsConstructor //全参构造函数
-@NoArgsConstructor  //无参构造函数
+@AllArgsConstructor//全参构造
+@NoArgsConstructor//无参构造
 public class ShoppingCart {
-    private int user_id;
-    private int item_id;
+    /**
+     * 用户ID
+     */
+    private int userID;
+    /**
+     * 物品ID
+     */
+    private int itemID;
+    /**
+     * 数量
+     */
     private int quantity;
-
 }

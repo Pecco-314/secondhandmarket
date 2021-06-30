@@ -13,8 +13,8 @@ public class SecondHandMarketController {
     UserService userService=new UserService();
     @RequestMapping("/")
     public String run() {
-        User user=new User(1,"pecco","123456","1111111","123@qq.com", UserHead.HEAD0);
-        userService.insertUser(user);
+      //  User user=new User(1,"pecco","123456","1111111","123@qq.com", UserHead.HEAD0);
+        //userService.insertUser(user);
         return "index";
     }
 
