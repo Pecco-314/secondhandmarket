@@ -20,11 +20,11 @@
             <el-divider class="h-rule"></el-divider>
             <el-form ref="form" :model="form">
                 <el-form-item>
-                    <el-input class="transparency-input" v-model="form.username" placeholder="请输入用户名"
-                              prefix-icon="el-icon-user"></el-input>
+                    <el-input class="transparency-input" v-model="form.email" placeholder="电子邮箱地址"
+                              prefix-icon="el-icon-message"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-input class="transparency-input" type="password" v-model="form.password" placeholder="请输入密码"
+                    <el-input class="transparency-input" type="password" v-model="form.password" placeholder="密码"
                               prefix-icon="el-icon-lock"></el-input>
                 </el-form-item>
                 <el-form-item>
@@ -43,6 +43,7 @@
 </body>
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="../js/header.js"></script>
 <script src="../js/login.js"></script>
 </html>
