@@ -10,8 +10,22 @@ import java.util.Map;
 @Controller
 public class TestController {
     @ResponseBody
-    @RequestMapping("/login")
-    public String login(@RequestBody Map<String, Object> data) {
+    @RequestMapping("/login/user")
+    public String userLogin(@RequestBody Map<String, Object> data) {
+        System.out.println(data.toString());
+        return "succeed";
+    }
+
+    @ResponseBody
+    @RequestMapping("/login/admin")
+    public String adminLogin(@RequestBody Map<String, Object> data) {
+        System.out.println(data.toString());
+        return "succeed";
+    }
+
+    @ResponseBody
+    @RequestMapping("/register")
+    public String register(@RequestBody Map<String, Object> data) {
         System.out.println(data.toString());
         return "succeed";
     }
