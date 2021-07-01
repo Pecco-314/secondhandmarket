@@ -1,4 +1,4 @@
-body {
+.full-screen-body {
     width: 100%;
     margin: 0;
     padding: 0;
@@ -7,6 +7,7 @@ body {
 #login-box-container {
     max-width: 100%;
     height: auto;
+    position: relative;
     display: flex;
     justify-content: center;
 }
@@ -20,12 +21,12 @@ body {
 #login-box {
     position: absolute;
     transform: scale(1.1);
-    top: 25%;
+    top: 18%;
 }
 
 #login-box .box-card {
     width: 300px;
-    background-color: rgba(0,0,0, 0.75);
+    background-color: rgba(0, 0, 0, 0.75);
     border-width: 0;
 }
 
@@ -47,7 +48,7 @@ body {
 }
 
 .transparency-input input {
-    background-color: rgba(255,255,255,0);
+    background-color: rgba(255, 255, 255, 0);
     color: rgb(220, 220, 220)
 }
 
@@ -64,6 +65,46 @@ body {
 
 .form-bottom {
     margin-bottom: 0;
+}
+
+.page-header-container {
+    display: flex;
+    justify-content: center;
+}
+
+.page-header {
+    width: 75%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center
+}
+
+.page-header .logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 250px;
+    margin-right: auto;
+}
+
+.page-header .logo-container img {
+    height: 40px;
+    padding: 15px
+}
+
+.page-header #search-box {
+    width: 360px;
+    justify-content: flex-start;
+}
+
+.page-header .sale-button-container {
+    width: 200px;
+    display: flex;
+    justify-content: center;
+}
+
+.page-header .sale-button {
+    width: 120px;
 }
 
 .password {
