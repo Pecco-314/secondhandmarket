@@ -1,11 +1,8 @@
-package com.zerone.secondhandmarket.Controller.Function;
+package com.zerone.secondhandmarket.Module;
 
-import com.zerone.secondhandmarket.Controller.EntityForController.ItemFilter;
+import com.zerone.secondhandmarket.Message.ItemFilter;
 import com.zerone.secondhandmarket.ViewObject.ResultVo;
 import com.zerone.secondhandmarket.entity.Item;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 public class ItemModule {
     public static ResultVo getItemList(ItemFilter itemFilter){

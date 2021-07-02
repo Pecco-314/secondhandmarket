@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller("OrdinaryIndent")
 public class IndentController {
-    @GetMapping("user/{userid}/history")
-    @ResponseBody
-    public ResultVo getHistoryIdent(@PathVariable int userid){
-        return null;
-    }
+//    @GetMapping("user/{userid}/history")
+//    @ResponseBody
+//    public ResultVo getHistoryIdent(@PathVariable int userid){
+//        return null;
+//    }
 }
