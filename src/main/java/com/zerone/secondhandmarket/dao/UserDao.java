@@ -14,7 +14,8 @@ public interface UserDao {
 
     // 用于更新用户
     int updateUser(User user);
-
+    //插入或更新用户
+    int insertOrUpdateUser(User user);
     // 通过id查询用户
     User getUserById(int userId);
     // 通过邮箱查询用户

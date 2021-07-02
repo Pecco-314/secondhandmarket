@@ -28,14 +28,14 @@ public class SecondHandMarketController {
         //System.out.println(userService.getUserById(3).toString());
         //System.out.println(adminService.getAdminById(2).toString());
         //System.out.println(userService.getUserByEmail("111@qq.com").toString());
-//        List<User> users=userService.getUserList();
-//        for(User user1:users)
-//            System.out.println(user1);
+        List<User> users=userService.getUserList();
+        for(User user1:users)
+            System.out.println(user1);
         //String str=userService.getUserByEmail("123@qq.com").toString();
         //System.out.println(str);
         //userService.insertUser(user);
-        userService.updateUser(user);
-        adminService.updateAdmin(admin);
+       //userService.updateUser(user);
+        //adminService.updateAdmin(admin);
         return "index";
     }
 

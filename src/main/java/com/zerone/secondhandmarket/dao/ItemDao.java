@@ -2,7 +2,6 @@ package com.zerone.secondhandmarket.dao;
 
 import com.zerone.secondhandmarket.entity.Item;
 import com.zerone.secondhandmarket.entity.ItemType;
-import com.zerone.secondhandmarket.entity.User;
 
 import java.util.List;
 

@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor //全参构造函数
 @NoArgsConstructor  //无参构造函数
 public class Item {
-    private enum ITEMCHECK
+    public enum ITEMCHECK
     {
         TRUE,FALSE,UNCHECKED;
     }

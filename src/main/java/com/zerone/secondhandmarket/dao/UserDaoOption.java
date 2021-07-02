@@ -16,6 +16,12 @@ public class UserDaoOption {
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 
+    public int insertOrUpdateUser(User user) {
+        if (getUserById(user.getUser_id()) != null)
+            updateUser(user);
+        else insertUser(user);
+        return 0;
+    }
 
     public int insertUser(User user) {
         String sql = "insert into user(Nickname,user_id,phone_number,email,password,head_portrait) " +
