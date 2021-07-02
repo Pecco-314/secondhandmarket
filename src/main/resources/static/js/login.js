@@ -1,3 +1,13 @@
+/* response : {
+    "status": <number>,
+    "message": <string>,
+    "data": {
+        "id": <string>,
+        "token": <string>,
+    },
+}
+ */
+
 function isPossiblyEmail(text) {
     return /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(text);
 }
@@ -5,6 +15,23 @@ function isPossiblyEmail(text) {
 function isPossiblyID(text) {
     return /^\d+$/.test(text);
 }
+
+function handleSuccessfulResponse(response, userType) {
+    let data = response.data;
+    $.cookie("id", data.id, {expires: 7, path: '/'});
+    $.cookie("token", data.token, {expires: 7, path: '/'});
+    $.cookie("userType", userType, {expires: 7, path: '/'});
+    window.open("index.html");
+}
+
+function showErrorInForm(app, formName, propName, rulesName, message) {
+    let currentRules = app[rulesName][propName];
+    app[rulesName][propName] = [{validator: (rule, value, callback) => callback(new Error(message))}]
+    app.$refs[formName].validateField(propName);
+    app[rulesName][propName] = currentRules
+}
+
+const url = 'http://localhost:8088'
 
 let loginBox = new Vue({
     el: "#login-box",
@@ -103,12 +130,21 @@ let loginBox = new Vue({
                         password: this.userLoginForm.password
                     }
                     $.ajax({
-                        url: 'http://localhost:8088/login/user',
+                        url: `${url}/login/user`,
                         method: 'post',
                         data: JSON.stringify(userData),
                         contentType: "application/json;charset=utf-8",
-                        success: (data) => {
-                            console.log(data);
+                        success: (responseStr) => {
+                            let response = JSON.parse(responseStr);
+                            if (response.status === 10200) {
+                                handleSuccessfulResponse(response, 'user');
+                            } else if (response.status === 10400) {
+                                showErrorInForm(loginBox, "userLoginForm", "emailOrID", "userLoginRules", response.message);
+                            } else if (response.status === 10401) {
+                                showErrorInForm(loginBox, "userLoginForm", "password", "userLoginRules", response.message);
+                            } else {
+                                alert(`未知错误（状态码：${response.status}）`);
+                            }
                         }
                     })
                 }
@@ -123,12 +159,21 @@ let loginBox = new Vue({
                         password: this.adminLoginForm.password
                     }
                     $.ajax({
-                        url: 'http://localhost:8088/login/admin',
+                        url: `{url}/login/admin`,
                         method: 'post',
                         data: JSON.stringify(adminData),
                         contentType: "application/json;charset=utf-8",
-                        success: (data) => {
-                            console.log(data);
+                        success: (responseStr) => {
+                            let response = JSON.parse(responseStr);
+                            if (response.status === 10200) {
+                                handleSuccessfulResponse(response, 'admin');
+                            } else if (response.status === 10400) {
+                                showErrorInForm(loginBox, "adminLoginForm", "id", "adminLoginRules", response.message);
+                            } else if (response.status === 10401) {
+                                showErrorInForm(loginBox, "adminLoginForm", "password", "adminLoginRules", response.message);
+                            } else {
+                                alert(`未知错误（状态码：${response.status}）`);
+                            }
                         }
                     })
                 }
@@ -143,12 +188,19 @@ let loginBox = new Vue({
                         password: this.registerForm.password
                     }
                     $.ajax({
-                        url: 'http://localhost:8088/register',
+                        url: `${url}/register`,
                         method: 'post',
                         data: JSON.stringify(registerData),
                         contentType: "application/json;charset=utf-8",
-                        success: (data) => {
-                            console.log(data);
+                        success: (responseStr) => {
+                            let response = JSON.parse(responseStr);
+                            if (response.status === 10200) {
+                                handleSuccessfulResponse(response, 'user');
+                            } else if (response.status === 10402) {
+                                showErrorInForm(loginBox, "registerForm", "email", "registerRules", response.message);
+                            } else {
+                                alert(`未知错误（状态码：${response.status}）`);
+                            }
                         }
                     })
                 }

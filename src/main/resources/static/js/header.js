@@ -4,6 +4,14 @@ Vue.component('page-header', {
     }),
     methods: {
         openMainPage: () => window.open('index.html'),
+        openPostPage: () => {
+            let id = $.cookie('id');
+            if (id === undefined) {
+                window.open('login.html');
+            } else {
+                window.open('post.html');
+            }
+        }
     },
     template: `
     <div class="page-header-container">
@@ -17,7 +25,7 @@ Vue.component('page-header', {
                 </el-input>
             </div>
             <div class="sale-button-container">
-                <el-button icon="el-icon-sell" class="sale-button">发布商品</el-button>
+                <el-button icon="el-icon-sell" class="sale-button" v-on:click="openPostPage">发布商品</el-button>
             </div>
         </div>
     </div>`
