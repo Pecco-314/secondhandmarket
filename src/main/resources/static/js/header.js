@@ -2,10 +2,13 @@ Vue.component('page-header', {
     data: () => ({
         searchContent: ""
     }),
+    methods: {
+        openMainPage: () => window.open('index.html'),
+    },
     template: `
     <div class="page-header-container">
         <div class="page-header">
-            <div class="logo-container">
+            <div class="logo-container" v-on:click="openMainPage">
                 <img src="../img/logo.png">
             </div>
             <div id="search-box">
@@ -14,7 +17,7 @@ Vue.component('page-header', {
                 </el-input>
             </div>
             <div class="sale-button-container">
-                <el-button type="primary" icon="el-icon-sell" class="sale-button">发布商品</el-button>
+                <el-button icon="el-icon-sell" class="sale-button">发布商品</el-button>
             </div>
         </div>
     </div>`

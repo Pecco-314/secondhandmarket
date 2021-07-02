@@ -95,6 +95,7 @@
 .page-header-container {
     display: flex;
     justify-content: center;
+    cursor: pointer;
 }
 
 .page-header {
@@ -108,7 +109,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 250px;
+    width: 140px;
     margin-right: auto;
 }
 
@@ -130,6 +131,8 @@
 
 .page-header .sale-button {
     width: 120px;
+    background-color: rgb(0, 69, 107);
+    color: white
 }
 
 .main-nav {
