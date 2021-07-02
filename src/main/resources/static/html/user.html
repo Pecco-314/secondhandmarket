@@ -3,31 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <!-- import CSS -->
+    <title>个人中心</title>
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="../css/style.css">
+
 </head>
 <body>
+<div id="page-header">
+    <page-header></page-header>
+</div>
 <el-container>
-    <el-header>
-        <div id="app">
-            <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-                <el-menu-item index="1">个人中心</el-menu-item>
-                <el-menu-item index="2"><a href="index.html" target="_blank">首页</a></el-menu-item>
-                <el-menu-item index="3"><a href="index.html" target="_blank">购物车</a></el-menu-item>
-            </el-menu>
+    <el-header height="100px">
+        <div class="main-nav">
+            <div class="page-header">
+                <div class="nav-atag">
+                    个人中心
+                </div>
+                <div class="nav-index">
+                    <a href="index.html" class="nav-index" >首页</a>
+                </div>
+                <div class="nav-cart">
+                    <a href="index.html" class="nav-cart" >购物车</a>
+                </div>
+            </div>
         </div>
+
     </el-header>
 
-    <el-container>
-        <el-aside id="app2" width="1205px">
+    <el-container class="user-container">
+        <el-aside id="app-aside" width="205px" style="float: left">
             <el-row class="tac">
-                <el-col :span="4">
+                <el-col :span="24">
                     <el-menu
                             default-active="2"
                             class="el-menu-vertical-demo"
                             @open="handleOpen"
                             @close="handleClose"
-                            background-color="#545c64"
-                            text-color="#fff"
                             active-text-color="#ffd04b">
 
                         <el-menu-item index="2">
@@ -63,14 +74,12 @@
             </el-row>
         </el-aside>
 
-        <el-main id="app3">
+        <el-main id="app-main" class="user-form-item-content">
             <el-form ref="form" :model="form" label-width="80px">
                 <el-form-item label="头像">
                     <template>
                         <div class="demo-type">
-                            <div>
-                                <el-avatar icon="el-icon-user-solid"></el-avatar>
-                            </div>
+                            <el-avatar icon="el-icon-user-solid"></el-avatar>
                         </div>
                     </template>
                 </el-form-item>
@@ -78,33 +87,20 @@
                     <el-input v-model="form.name"></el-input>
                 </el-form-item>
                 <el-form-item label="学校">
-                    <el-input v-model="form.name"></el-input>
+                    <el-input v-model="form.school"></el-input>
                 </el-form-item>
                 <el-form-item label="电话">
-                    <el-input v-model="form.name"></el-input>
+                    <el-input v-model="form.telephone"></el-input>
                 </el-form-item>
                 <el-form-item label="邮箱">
-                    <el-input v-model="form.name"></el-input>
+                    <el-input v-model="form.email"></el-input>
                 </el-form-item>
-                <el-form-item label="密码">
-                    <template>
-                        <div id="app4" class="login-container">
-                            <el-input
-                                    v-model="pwd"
-                                    :type="type"
-                                    class="pwd-input">
-                                <i slot="suffix"
-                                        class="icon-style"
-                                        :class="elIcon"
-                                        autocomplete="auto"
-                                        @click="flag = !flag"/>
-                            </el-input>
-                        </div>
-                    </template>
+                <el-form-item id="app-pwd" label="密码" >
+                    <el-input placeholder="请输入密码" v-model="form.pwd" show-password></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="onSubmit">修改</el-button>
-                    <el-button>取消</el-button>
+                    <el-button @click="">取消</el-button>
                 </el-form-item>
             </el-form>
         </el-main>
@@ -116,22 +112,14 @@
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 <!-- import JavaScript -->
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+<script src="https://cdn.staticfile.org/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<script src="../js/header.js"></script>
 <script>
     new Vue({
-        el: "#app",
-        methods: {
-            handleOpen(key, keyPath) {
-                console.log(key, keyPath);
-            },
-            handleClose(key, keyPath) {
-                console.log(key, keyPath);
-            }
-        }
-    })
-</script>
-<script>
-    new Vue({
-        el: "#app2",
+        el: "#app-aside",
         methods: {
             handleOpen(key, keyPath) {
                 console.log(key, keyPath);
@@ -145,18 +133,15 @@
 
 <script>
     new Vue({
-        el: "#app3",
+        el: "#app-main",
         data() {
             return {
                 form: {
                     name: '',
-                    region: '',
-                    date1: '',
-                    date2: '',
-                    delivery: false,
-                    type: [],
-                    resource: '',
-                    desc: ''
+                    school: '',
+                    telephone: '',
+                    email: '',
+                    pwd: ''
                 }
             }
         },
@@ -167,25 +152,66 @@
         }
     })
 </script>
+
 <script>
     new Vue({
-        el: "#app4",
-        data() {
-            return {
-                pwd: "123456",
-                flag: false
-            };
-        },
-        computed: {
-            type() {
-                return this.flag ? "text" : "password";
-            },
-            elIcon() {
-                return this.flag ? "el-icon-minus" : "el-icon-view";
+        el: "#app-pwd",
+        data(){
+            return{
+                icon: "el-input__icon el-icon-view",
+                passw: "password",
             }
+        },
+        methods:{
+            //密码的隐藏和显示
+            showPass() {
+                //点击图标是密码隐藏或显示
+                if (this.passw == "text") {
+                    this.passw = "password";
+                    //更换图标
+                    this.icon = "el-input__icon el-icon-view";
+                } else {
+                    this.passw = "text";
+                    this.icon = "el-input__icon el-icon-loading";
+                    setTimeout(()=>{
+                        this.icon = "";
+                    },500)
+                }
+            },
+            //密码失焦事件
+            onBlur(){
+                this.passw = "password";
+                this.icon = "el-input__icon el-icon-view";
+            },
         }
-    });
+    })
 </script>
+
+<style>
+    .el-row {
+        margin-bottom: 20px;
+    }
+    .el-col {
+        border-radius: 4px;
+    }
+    .bg-purple-dark {
+        background: #99a9bf;
+    }
+    .bg-purple {
+        background: #d3dce6;
+    }
+    .bg-purple-light {
+        background: #e5e9f2;
+    }
+    .grid-content {
+        border-radius: 4px;
+        min-height: 36px;
+    }
+    .row-bg {
+        padding: 10px 0;
+        background-color: #f9fafc;
+    }
+</style>
 
 <style>
     .icon-style {

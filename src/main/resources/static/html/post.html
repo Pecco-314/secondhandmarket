@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>发布商品</title>
+    <!-- import CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div id="page-header">
+    <page-header></page-header>
+</div>
+<div class="main-nav">
+    <div class="page-header">
+        <div class="nav-atag">
+            发布商品
+        </div>
+        <div class="nav-index">
+            <a href="index.html" class="nav-index" >首页</a>
+        </div>
+        <div class="nav-cart">
+            <a href="index.html" class="nav-cart" >购物车</a>
+        </div>
+    </div>
+</div>
+
+<div class="app">
+<!--    <div id="header" class="main-nav">-->
+<!--        <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">-->
+<!--            <el-menu-item index="1">发布商品</el-menu-item>-->
+<!--            <el-menu-item index="2"><a href="index.html" target="_blank">首页</a></el-menu-item>-->
+<!--            <el-menu-item index="3"><a href="index.html" target="_blank">购物车</a></el-menu-item>-->
+<!--        </el-menu>-->
+<!--    </div>-->
+
+    <div class="inner">
+        <div class="content-box">
+            <h2 class="text-center title">发布商品</h2>
+            <div id="form">
+                <el-form ref="form" :model="form" label-width="80px" size="medium">
+                    <el-form-item label="名称">
+                        <el-input v-model="form.name"></el-input>
+                    </el-form-item>
+                    <el-form-item label="简介">
+                        <el-input
+                                id="recommend"
+                                type="textarea"
+                                :rows="2"
+                                placeholder="请输入内容"
+                                v-model="textarea">
+                        </el-input>
+                    </el-form-item>
+                    <el-form-item label="类型" prop="goods-type">
+                        <el-cascader v-model="form.soptions" :options="options" :show-all-levels="false" ></el-cascader>
+                    </el-form-item>
+                    <el-form-item label="数量">
+                        <el-input v-model="form.quantity"></el-input>
+                    </el-form-item>
+                    <el-form-item label="单价">
+                        <el-input v-model="form.price"></el-input>
+                    </el-form-item>
+                    <el-form-item label="原价">
+                        <el-input v-model="form.pprice"></el-input>
+                    </el-form-item>
+                    <el-form-item label="图片上传">
+                        <el-upload
+                                class="upload-demo"
+                                drag
+                                action="https://jsonplaceholder.typicode.com/posts/"
+                                multiple>
+                            <i class="el-icon-upload"></i>
+                            <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                            <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+                        </el-upload>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary" style="width:500px" @click="onSubmit">提交</el-button>
+                    </el-form-item>
+                </el-form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<!-- import Vue before Element -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+<script src="https://cdn.staticfile.org/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<script src="../js/header.js"></script>
+<script>
+    new Vue({
+        el: "#icon",
+        data() {
+            return {
+                src: '../img/profile.jpg'
+            }
+        }
+    })
+</script>
+
+<script>
+    new Vue({
+        el: "#header",
+        data() {
+            return {
+                activeIndex: '1',
+            };
+        }
+    })
+</script>
+
+<script>
+    new Vue({
+        el: "#form",
+        data() {
+            return {
+                form: {
+                    name: '',
+                    textarea: '',
+                    soptions: [],
+                    quantity: '',
+                    price: '',
+                    pprice: ''
+                },
+                options: [{
+                    value: 'shuma',
+                    label: '数码产品',},
+                    {value: 'shuji',
+                        label: '书籍教材',},
+                    {value: 'yixie',
+                        label: '衣鞋帽伞',},
+                    {value: 'daibu',
+                        label: '代步工具',},
+                    {value: 'tiyu',
+                        label: '体育健身',},
+                    {value: 'dianqi',
+                        label: '家用电器',},
+                    {value: 'richang',
+                        label: '日常用品',},
+                    {value: 'piaoquan',
+                        label: '票券产品',},
+                    {value: 'qita',
+                        label: '其他',},
+                    ],
+
+        methods: {
+            onSubmit() {
+                console.log('submit!');
+            }
+        }
+    }}})
+</script>
+
+<script>
+    new Vue ({
+        el: "#recommend",
+        data() {
+            return {
+                textarea: ''
+            }
+        }
+    })
+</script>
+
+<style>
+    .grid-content {
+        margin-top: 8px;
+        margin-left: 300px;
+        margin-right: 300px;
+        border-radius: 20px;
+        font-size: 18px;
+    }
+
+</style>
+
+</html>
