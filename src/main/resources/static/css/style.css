@@ -1,8 +1,33 @@
+@import url("//unpkg.com/element-ui@2.15.3/lib/theme-chalk/index.css");
+
 .full-screen-body {
     width: 100%;
     margin: 0;
     padding: 0;
 }
+
+
+ .card-text {
+     font-size: 14px;
+ }
+
+.card-item {
+    margin-bottom: 18px;
+}
+
+.clearfix:before,
+.clearfix:after {
+    display: table;
+    content: "";
+}
+.clearfix:after {
+    clear: both
+}
+
+.box-card {
+    width: 480px;
+}
+
 
 #login-box-container {
     max-width: 100%;
@@ -107,11 +132,15 @@
     width: 120px;
 }
 
-.nav {
-    /*width: 75%;*/
-    display: flex;
-    justify-content: center;
-    align-items: center
+.main-nav {
+    clear: both;
+    *zoom: 1;
+    position: relative;
+    height: 40px;
+    line-height: 40px;
+    background-color: #60A8AF;
+    font-size: 14px;
+    color: #fff;
 }
 
 #app, body, html {
@@ -159,6 +188,44 @@ h2 {
     text-align: center;
 }
 
+.head-inner {
+    z-index: 100;
+}
+
+.nav-atag {
+    cursor: default;
+    font-weight: 700;
+    position: absolute;
+    left: 300px;
+    color: #fff;
+}
+
+.nav-index {
+    cursor: default;
+    font-weight: 700;
+    justify-content: center;
+    color: #fff;
+}
+
+.nav-cart {
+    cursor: default;
+    font-weight: 700;
+    position: relative;
+    left: 50px;
+    color: #fff;
+}
+
+.nav-comingsoon {
+    float: right;
+}
+
+.user-form-item-content {
+    position: relative;
+    line-height: 32px;
+    font-size: 12px;
+    width: 600px
+}
+
 .i-form-item {
     margin-bottom: 24px;
     vertical-align: top;
@@ -181,6 +248,7 @@ h2 {
     position: relative;
     line-height: 32px;
     font-size: 12px;
+    width: 500px
 }
 
 .password{
@@ -199,6 +267,18 @@ h2 {
     cursor: pointer;
 }
 
+.user-container {
+    position: absolute;
+    top: 110px;
+    left: 120px;
+    margin-top: 20px;
+}
+
+.nav-p {
+    position: relative;
+    margin-top: 10px;
+}
+
 /*--display--*/
 .m-inline-block {
     display: inline-block !important;
@@ -214,7 +294,6 @@ h2 {
     margin-left: auto !important;
 }
 
-.text-align,
 button {
     display: block;
     margin: 0 auto;
