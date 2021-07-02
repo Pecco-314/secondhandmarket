@@ -1,8 +1,10 @@
 package com.zerone.secondhandmarket.Tools;
 
+import java.util.Date;
+
 public class TokenProcessor {
     // 编码密码,可自定义
-    private static final String ENCODED_PASSWORD = "test";
+    private static final String ENCODED_PASSWORD = "password";
 
     /**
      * 编码
@@ -10,7 +12,9 @@ public class TokenProcessor {
      * @return
      */
     public static String encoded(String str) {
-        return strToHex(encodedString(str, ENCODED_PASSWORD));
+        //获取系统当前时间
+        Date date=new Date();
+        return strToHex(encodedString(str+"@"+date, ENCODED_PASSWORD));
     }
 
     /**
@@ -64,7 +68,8 @@ public class TokenProcessor {
         if (hexStr != null) {
             hexStr = encodedString(hexStr, ENCODED_PASSWORD);
         }
-        return hexStr;
+        //提取出有效部分
+        return hexStr.split("@")[0];
     }
 
     private static String hexStrToStr(String hexStr) {

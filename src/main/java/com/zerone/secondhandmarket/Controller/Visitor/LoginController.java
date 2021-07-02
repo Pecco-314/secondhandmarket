@@ -27,6 +27,11 @@ public class LoginController {
     @Autowired
     private AdminService adminService=new AdminService();
 
+    @RequestMapping("/login")
+    public String userLogin(){
+        return "login";
+    }
+
     @ResponseBody
     @PostMapping ("/login/user")
     public String userLogin(@RequestBody UserLoginMessage data){
@@ -64,9 +69,10 @@ public class LoginController {
     @PostMapping("/register")
     public String userRegister(@RequestBody RegisterMessage data) {
         String email = data.getEmail();
-        String nickname = data.getNickName();
+        String nickname = data.getNickname();
         String password = data.getPassword();
 
+        System.out.println(nickname);
         ResultVo resultVo=loginModule.userRegister(userService,email,nickname,password);
 
         try {

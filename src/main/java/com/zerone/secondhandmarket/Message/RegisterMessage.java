@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor  //无参构造函数
 public class RegisterMessage {
     private String email;
-    private String nickName;
+    private String nickname;
     private String password;
 }
