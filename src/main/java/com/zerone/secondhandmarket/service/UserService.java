@@ -44,4 +44,6 @@ public class UserService implements UserDao {
     }
     @Override
     public List<User> getUserList(){return daooption.getUserList();}
+    @Override
+    public int insertOrUpdateUser(User user){return daooption.insertOrUpdateUser(user);}
 }
