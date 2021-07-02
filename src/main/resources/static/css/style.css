@@ -55,7 +55,7 @@
     border-width: 0;
 }
 
-#login-box .login-button {
+#login-box .submit-button {
     font-weight: bold;
     width: 100%;
     background-color: rgb(220, 220, 220);

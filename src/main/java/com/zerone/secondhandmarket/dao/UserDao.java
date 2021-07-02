@@ -15,16 +15,15 @@ public interface UserDao {
     // 用于更新用户
     int updateUser(User user);
 
-    // 用于查询用户
-    User getUser(int userId);
-
-    // 用于查询用户列表
-    /*List<User> getUserList(@Param("userCondition") User userCondition,
-                           @Param("rowIndex") int rowIndex,
-                           @Param("pageSize") int pageSize);
+    // 通过id查询用户
+    User getUserById(int userId);
+    // 通过邮箱查询用户
+    User getUserByEmail(String email);
+    // 用于查询所有用户列表
+    List<User> getUserList();
 
     // 用于查询用户列表数量
-    int getUserCount(@Param("userCondition") User userCondition);*/
+   // int getUserCount(@Param("userCondition") User userCondition);
 
 }
 
