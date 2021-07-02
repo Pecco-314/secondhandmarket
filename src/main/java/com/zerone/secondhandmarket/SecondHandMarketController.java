@@ -39,4 +39,14 @@ public class SecondHandMarketController {
         return "index";
     }
 
+    // TODO: 下面这些也许应该放到一个统一的类里？
+    @RequestMapping("/post")
+    public String openPostPage(){
+        return "post";
+    }
+
+    @RequestMapping("/login")
+    public String openLoginPage(){
+        return "login";
+    }
 }

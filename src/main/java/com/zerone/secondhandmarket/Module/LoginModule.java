@@ -37,7 +37,7 @@ public class LoginModule {
                 return new ResultVo(Status.PASSWORDWRONG, "密码错误", new TokenMessage());
             }
             else{
-                return new ResultVo(Status.OK, "登陆成功", new TokenMessage(user.getUser_id(), ""));
+                return new ResultVo(Status.OK, "登录成功", new TokenMessage(user.getUser_id(), ""));
          }
         }
     }
@@ -53,7 +53,7 @@ public class LoginModule {
             if (!administrator.getPassword().equals(password)) {
                 resultVo = new ResultVo(Status.PASSWORDWRONG, "密码错误", new TokenMessage());
             } else
-                resultVo = new ResultVo(Status.OK, "登陆成功", new TokenMessage(administrator.getAdmin_id(),""));
+                resultVo = new ResultVo(Status.OK, "登录成功", new TokenMessage(administrator.getAdmin_id(),""));
 
         }
         return resultVo;

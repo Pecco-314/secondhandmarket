@@ -1,4 +1,4 @@
-/* response : {
+/* response ::= {
     "status": <number>,
     "message": <string>,
     "data": {
@@ -18,10 +18,13 @@ function isPossiblyID(text) {
 
 function handleSuccessfulResponse(response, userType) {
     let data = response.data;
-    $.cookie("id", data.id, {expires: 7, path: '/'});
+    if (userType === 'user')
+        $.cookie("id", data.userID, {expires: 7, path: '/'});
+    else if (userType === 'admin')
+        $.cookie("id", data.adminID, {expires: 7, path: '/'});
     $.cookie("token", data.token, {expires: 7, path: '/'});
     $.cookie("userType", userType, {expires: 7, path: '/'});
-    window.open("index.html");
+    window.open("../");
 }
 
 function showErrorInForm(app, formName, propName, rulesName, message) {

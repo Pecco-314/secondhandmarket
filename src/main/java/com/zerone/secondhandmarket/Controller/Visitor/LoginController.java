@@ -27,11 +27,6 @@ public class LoginController {
     @Autowired
     private AdminService adminService=new AdminService();
 
-    @RequestMapping("/log")
-    public String userLogin(){
-        return "login";
-    }
-
     @ResponseBody
     @PostMapping ("/login/user")
     public String userLogin(@RequestBody UserLoginMessage data){
