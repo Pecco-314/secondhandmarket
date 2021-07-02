@@ -1,5 +1,5 @@
-package com.zerone.secondhandmarket.Controller.EntityForController;
-
+package com.zerone.secondhandmarket.Message;
+//用户下单时发送的信息
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,7 +7,13 @@ import lombok.NoArgsConstructor;
 @Data               //生成get()、set()
 @AllArgsConstructor //全参构造函数
 @NoArgsConstructor  //无参构造函数
-public class IdentFilter {
-    private Integer seller;
+//update or insert
+public class OrderMessage {
+    //locate
     private Integer buyer;
+    private Integer seller;
+    private Integer itemID;
+
+    //update
+    private Integer quantity;
 }
