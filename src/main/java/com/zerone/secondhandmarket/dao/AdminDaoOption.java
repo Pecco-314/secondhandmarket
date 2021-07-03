@@ -18,8 +18,8 @@ public class AdminDaoOption {
 
 
     public int insertAdmin(Administrator admin) {
-        String sql = "insert into administrator(id, admin_name, password) " +
-                "values(:id,:admin_name,:password)";
+        String sql = "insert into administrator(admin_name, password) " +
+                "values(:admin_name,:password)";
         Map<String, Object> param = new HashMap<>();
         param.put("admin_name", admin.getAdmin_name());
         param.put("id",admin.getAdmin_id());

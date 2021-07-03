@@ -1,9 +1,9 @@
-package com.zerone.secondhandmarket.Module;
+package com.zerone.secondhandmarket.module;
 
-import com.zerone.secondhandmarket.Message.TokenMessage;
-import com.zerone.secondhandmarket.Tools.TokenProcessor;
-import com.zerone.secondhandmarket.ViewObject.ResultVo;
-import com.zerone.secondhandmarket.ViewObject.Status;
+import com.zerone.secondhandmarket.message.TokenMessage;
+import com.zerone.secondhandmarket.tools.TokenProcessor;
+import com.zerone.secondhandmarket.viewobject.ResultVo;
+import com.zerone.secondhandmarket.viewobject.Status;
 import com.zerone.secondhandmarket.entity.Administrator;
 import com.zerone.secondhandmarket.entity.User;
 import com.zerone.secondhandmarket.service.AdminService;

@@ -25,11 +25,10 @@ public class UserDaoOption {
     }
 
     public int insertUser(User user) {
-        String sql = "insert into user(Nickname,user_id,phone_number,email,password,head_portrait) " +
-                "values(:name,:id,:phonenum,:email,:password,:head_portrait)";
+        String sql = "insert into user(Nickname,phone_number,email,password,head_portrait) " +
+                "values(:name,:phonenum,:email,:password,:head_portrait)";
         Map<String, Object> param = new HashMap<>();
         param.put("name", user.getUsername());
-        param.put("id", user.getUser_id());
         param.put("phonenum", user.getPhone_number());
         param.put("email", user.getEmail());
         param.put("password", user.getPassword());
