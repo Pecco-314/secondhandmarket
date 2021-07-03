@@ -1,9 +1,14 @@
 package com.zerone.secondhandmarket.controller.OrdinaryUser;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller("OrdinaryItem")
 public class ItemController {
+    @RequestMapping("/post")
+    public String openPostPage(){
+        return "post";
+    }
 //    @GetMapping("/product/filter")
 //    public ResultVo getItemList(@RequestBody ItemFilter itemFilter){
 //        return null;

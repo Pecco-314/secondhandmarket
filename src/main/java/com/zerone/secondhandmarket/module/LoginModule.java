@@ -1,8 +1,9 @@
-package com.zerone.secondhandmarket.module;
+package com.zerone.secondhandmarket.Module;
 
-import com.zerone.secondhandmarket.message.TokenMessage;
-import com.zerone.secondhandmarket.viewobject.ResultVo;
-import com.zerone.secondhandmarket.viewobject.Status;
+import com.zerone.secondhandmarket.Message.TokenMessage;
+import com.zerone.secondhandmarket.Tools.TokenProcessor;
+import com.zerone.secondhandmarket.ViewObject.ResultVo;
+import com.zerone.secondhandmarket.ViewObject.Status;
 import com.zerone.secondhandmarket.entity.Administrator;
 import com.zerone.secondhandmarket.entity.User;
 import com.zerone.secondhandmarket.service.AdminService;
@@ -37,7 +38,7 @@ public class LoginModule {
                 return new ResultVo(Status.PASSWORDWRONG, "密码错误", new TokenMessage());
             }
             else{
-                return new ResultVo(Status.OK, "登陆成功", new TokenMessage(user.getUser_id(), ""));
+                return new ResultVo(Status.OK, "登陆成功", new TokenMessage(user.getUser_id(), TokenProcessor.encoded(user.getUser_id()+"")));
          }
         }
     }
@@ -53,7 +54,7 @@ public class LoginModule {
             if (!administrator.getPassword().equals(password)) {
                 resultVo = new ResultVo(Status.PASSWORDWRONG, "密码错误", new TokenMessage());
             } else
-                resultVo = new ResultVo(Status.OK, "登陆成功", new TokenMessage(administrator.getAdmin_id(),""));
+                resultVo = new ResultVo(Status.OK, "登陆成功", new TokenMessage(administrator.getAdmin_id(), TokenProcessor.encoded(administrator.getAdmin_id()+"")));
 
         }
         return resultVo;

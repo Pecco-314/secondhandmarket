@@ -3,13 +3,13 @@ Vue.component('page-header', {
         searchContent: ""
     }),
     methods: {
-        openMainPage: () => window.open('index.html'),
+        openMainPage: () => window.open('../'),
         openPostPage: () => {
             let id = $.cookie('id');
             if (id === undefined) {
-                window.open('login.html');
+                window.open('../login');
             } else {
-                window.open('post.html');
+                window.open('../post');
             }
         }
     },
