@@ -1,4 +1,5 @@
 package com.zerone.secondhandmarket.entity;
+import com.zerone.secondhandmarket.enums.UserHead;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

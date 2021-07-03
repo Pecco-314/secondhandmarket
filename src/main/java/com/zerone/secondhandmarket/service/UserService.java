@@ -2,6 +2,7 @@ package com.zerone.secondhandmarket.service;
 
 import com.zerone.secondhandmarket.dao.UserDaoOption;
 import com.zerone.secondhandmarket.dao.UserDao;
+import com.zerone.secondhandmarket.entity.SimplifiedUser;
 import com.zerone.secondhandmarket.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,4 +47,6 @@ public class UserService implements UserDao {
     public List<User> getUserList(){return daooption.getUserList();}
     @Override
     public int insertOrUpdateUser(User user){return daooption.insertOrUpdateUser(user);}
+    @Override
+    public SimplifiedUser getSimplifiedUserInfoById(int userId){return  daooption.getSimplifiedUserInfoById(userId);}
 }

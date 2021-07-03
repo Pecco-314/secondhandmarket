@@ -1,4 +1,5 @@
 package com.zerone.secondhandmarket.dao;
+import com.zerone.secondhandmarket.entity.SimplifiedUser;
 import com.zerone.secondhandmarket.entity.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -22,7 +23,8 @@ public interface UserDao {
     User getUserByEmail(String email);
     // 用于查询所有用户列表
     List<User> getUserList();
-
+    //查询用户简略信息
+    SimplifiedUser getSimplifiedUserInfoById(int userId);
     // 用于查询用户列表数量
    // int getUserCount(@Param("userCondition") User userCondition);
 
