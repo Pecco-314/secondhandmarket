@@ -1,13 +1,3 @@
-/* response ::= {
-    "status": <number>,
-    "message": <string>,
-    "data": {
-        "id": <string>,
-        "token": <string>,
-    },
-}
- */
-
 function isPossiblyEmail(text) {
     return /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(text);
 }
@@ -162,7 +152,7 @@ let loginBox = new Vue({
                         password: this.adminLoginForm.password
                     }
                     $.ajax({
-                        url: `{url}/login/admin`,
+                        url: `${url}/login/admin`,
                         method: 'post',
                         data: JSON.stringify(adminData),
                         contentType: "application/json;charset=utf-8",
