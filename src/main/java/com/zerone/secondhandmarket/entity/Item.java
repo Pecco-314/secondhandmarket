@@ -1,5 +1,6 @@
 package com.zerone.secondhandmarket.entity;
 
+import com.zerone.secondhandmarket.enums.ITEMCHECK;
 import com.zerone.secondhandmarket.enums.ItemType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,10 +15,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor //全参构造函数
 @NoArgsConstructor  //无参构造函数
 public class Item {
-    public enum ITEMCHECK
-    {
-        TRUE,FALSE,UNCHECKED;
-    }
     private int item_id;//物品的id
     private int seller_id;//卖家的id
     private String item_name;//物品名称

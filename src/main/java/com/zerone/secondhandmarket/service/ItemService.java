@@ -5,6 +5,7 @@ import com.zerone.secondhandmarket.dao.ItemDaoOption;
 import com.zerone.secondhandmarket.entity.Item;
 import com.zerone.secondhandmarket.enums.ItemType;
 import com.zerone.secondhandmarket.enums.Ordering;
+import com.zerone.secondhandmarket.message.ItemFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -61,7 +62,15 @@ public class ItemService implements ItemDao {
     public List<Item> getItemList() {
         return daooption.getItemList();
     }
+
     //按价格升序或降序获得商品列表，输入ordering
     @Override
-    public List<Item> getItemListOrderByPrice(Ordering ordering){return daooption.getItemListOrderByPrice(ordering);}
+    public List<Item> getItemListOrderByPrice(Ordering ordering) {
+        return daooption.getItemListOrderByPrice(ordering);
+    }
+
+    @Override
+    public List<Item> getItemByFilter(ItemFilter itemFilter) {
+        return daooption.getItemByFilter(itemFilter);
+    }
 }

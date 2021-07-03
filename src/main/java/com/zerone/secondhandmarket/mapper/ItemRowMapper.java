@@ -1,5 +1,6 @@
 package com.zerone.secondhandmarket.mapper;
 import com.zerone.secondhandmarket.entity.Item;
+import com.zerone.secondhandmarket.enums.ITEMCHECK;
 import com.zerone.secondhandmarket.enums.ItemType;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -25,7 +26,7 @@ public class ItemRowMapper implements RowMapper<Item>{
         temp.setKeyword(rs.getString("keyword"));
         temp.setIntroduction(rs.getString("introduction"));
         temp.setItem_pic_path(rs.getString("item_pic_path"));
-        temp.setChecked(Item.ITEMCHECK.valueOf(rs.getString("checked")));
+        temp.setChecked(ITEMCHECK.valueOf(rs.getString("checked")));
         return temp;
     }
 }

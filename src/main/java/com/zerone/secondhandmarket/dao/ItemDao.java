@@ -3,6 +3,7 @@ package com.zerone.secondhandmarket.dao;
 import com.zerone.secondhandmarket.entity.Item;
 import com.zerone.secondhandmarket.enums.ItemType;
 import com.zerone.secondhandmarket.enums.Ordering;
+import com.zerone.secondhandmarket.message.ItemFilter;
 
 import java.util.List;
 
@@ -26,5 +27,6 @@ public interface ItemDao {
     List<Item> getItemList();
     //按价格排序获取商品列表
     List<Item> getItemListOrderByPrice(Ordering ordering);
+ List<Item> getItemByFilter(ItemFilter itemFilter);
 
 }

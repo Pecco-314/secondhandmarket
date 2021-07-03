@@ -4,6 +4,7 @@ import com.zerone.secondhandmarket.entity.Item;
 import com.zerone.secondhandmarket.enums.ItemType;
 import com.zerone.secondhandmarket.enums.Ordering;
 import com.zerone.secondhandmarket.mapper.ItemRowMapper;
+import com.zerone.secondhandmarket.message.ItemFilter;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -126,7 +127,7 @@ public class ItemDaoOption {
 
     //按价格排序获取商品列表
     public List<Item> getItemListOrderByPrice(Ordering ordering) {
-        String sql="";
+        String sql = "";
         if (ordering == Ordering.ASC)
             sql = "select * from item order by price_now ASC";
         else if (ordering == Ordering.DESC)
@@ -134,6 +135,74 @@ public class ItemDaoOption {
         List<Item> items;
         try {
             items = jdbcTemplate.query(sql, new ItemRowMapper());
+        } catch (Exception e) {
+            return null;
+        }
+        return items;
+    }
+
+    //按价格排序获取商品列表
+    public List<Item> getItemByFilter(ItemFilter itemFilter) {
+        String sql = "select * from item";
+        Map<String, Object> param = new HashMap<>();
+        boolean has_where = false;
+        if (itemFilter.getSeller() != null) {
+            if (!has_where) {
+                sql += " where";
+                has_where = true;
+                sql += " seller_id=:seller_id";
+            }
+            else
+            {
+                sql += " and seller_id=:seller_id";
+            }
+
+            param.put("seller_id", itemFilter.getSeller());
+        }
+        if (itemFilter.getType() != null) {
+            if (!has_where) {
+                sql += " where";
+                has_where = true;
+                sql += " item_type=:item_type";
+            }
+            else
+            {
+                sql += " and item_type=:item_type";
+            }
+            param.put("item_type", itemFilter.getType().toString());
+        }
+        if (itemFilter.getKeyWords() != null) {
+            if (!has_where) {
+                sql += " where";
+                has_where = true;
+                sql += " item_name LIKE :item_name";
+            }
+            else
+            {
+                sql += " and item_name LIKE :item_name";
+            }
+            String str = "%" +itemFilter.getKeyWords() + "%";
+            param.put("item_name", str);
+        }
+        if (itemFilter.getCheckCondition() != null) {
+            if (!has_where) {
+                sql += " where";
+                has_where = true;
+                sql += " checked=:checked";
+            }
+            else
+            {
+                sql += " and checked=:checked";
+            }
+            param.put("checked", itemFilter.getCheckCondition().toString());
+        }
+        if (itemFilter.getPriceOrdering() == Ordering.ASC)
+            sql += " order by price_now ASC";
+        if (itemFilter.getPriceOrdering() == Ordering.DESC)
+            sql += " order by price_now DESC";
+        List<Item> items;
+        try {
+            items = jdbcTemplate.query(sql,param, new ItemRowMapper());
         } catch (Exception e) {
             return null;
         }
