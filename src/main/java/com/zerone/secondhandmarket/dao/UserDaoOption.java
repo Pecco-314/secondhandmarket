@@ -1,7 +1,8 @@
 package com.zerone.secondhandmarket.dao;
 
+import com.zerone.secondhandmarket.entity.SimplifiedUser;
 import com.zerone.secondhandmarket.entity.User;
-import com.zerone.secondhandmarket.entity.UserHead;
+import com.zerone.secondhandmarket.mapper.SimplifiedUserRowMapper;
 import com.zerone.secondhandmarket.mapper.UserRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -24,11 +25,10 @@ public class UserDaoOption {
     }
 
     public int insertUser(User user) {
-        String sql = "insert into user(Nickname,user_id,phone_number,email,password,head_portrait) " +
-                "values(:name,:id,:phonenum,:email,:password,:head_portrait)";
+        String sql = "insert into user(Nickname,phone_number,email,password,head_portrait) " +
+                "values(:name,:phonenum,:email,:password,:head_portrait)";
         Map<String, Object> param = new HashMap<>();
         param.put("name", user.getUsername());
-        param.put("id", user.getUser_id());
         param.put("phonenum", user.getPhone_number());
         param.put("email", user.getEmail());
         param.put("password", user.getPassword());
@@ -95,6 +95,19 @@ public class UserDaoOption {
         }
         return users;
     }
-
+    //查询用户简略信息
+   public SimplifiedUser getSimplifiedUserInfoById(int userId)
+    {
+        SimplifiedUser simple_user;
+        String sql = "select user_id,Nickname,head_portrait from user where user_id=:id";
+        Map<String, Object> param = new HashMap<>();
+        param.put("id", userId);
+        try {
+            simple_user = jdbcTemplate.queryForObject(sql.toString(), param, new SimplifiedUserRowMapper());
+        } catch (Exception e) {
+            return null;
+        }
+        return simple_user;
+    }
 
 }

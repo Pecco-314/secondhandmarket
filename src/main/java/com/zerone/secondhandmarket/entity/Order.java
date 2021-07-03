@@ -13,7 +13,7 @@ public class Order {
     private int seller_id;
     private int item_id;//商品id
     private int quantity;//数量
-    private Date ordering_time;//下单时间
+    private String ordering_time;//下单时间 字符串格式必须是"YYYY-MM-DD HH:MM:SS"
 
 
 }

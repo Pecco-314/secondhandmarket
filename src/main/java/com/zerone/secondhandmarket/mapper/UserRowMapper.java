@@ -1,6 +1,6 @@
 package com.zerone.secondhandmarket.mapper;
 import com.zerone.secondhandmarket.entity.User;
-import com.zerone.secondhandmarket.entity.UserHead;
+import com.zerone.secondhandmarket.enums.UserHead;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
