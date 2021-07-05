@@ -15,7 +15,7 @@ public class SellingItemMessage {
     private Integer quantity;
     private Double originalPrice;
     private Double price;
-    private String keyWords;
+    private String[] tags;
     private String introduction;
     private byte[] image;
 }
