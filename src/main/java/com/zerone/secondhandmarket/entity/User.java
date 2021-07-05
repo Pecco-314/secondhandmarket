@@ -1,4 +1,5 @@
 package com.zerone.secondhandmarket.entity;
+
 import com.zerone.secondhandmarket.enums.UserHead;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,7 +16,7 @@ public class User {
     private String password;
     private String phone_number;
     private String email;
-    private UserHead head=UserHead.HEAD0;//用户头像
+    private UserHead head = UserHead.HEAD0;//用户头像
 
 
     @Override

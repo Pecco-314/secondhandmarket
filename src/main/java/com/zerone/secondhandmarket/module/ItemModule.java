@@ -19,6 +19,8 @@ public class ItemModule {
 
     public static ResultVo getItemList(ItemService service, ItemFilter filter) {
         List<Item> list = service.getItemByFilter(filter);
+        //List<SimplifiedItem> list = service.getItemByFilter(filter);
+        //写完了Service的查询方案后改为这句
 
         if (list == null || list.isEmpty()) {
             return new ResultVo(Status.NO_QUALIFIED_ITEMS, "", null);

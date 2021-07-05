@@ -1,4 +1,5 @@
 package com.zerone.secondhandmarket.mapper;
+
 import com.zerone.secondhandmarket.entity.User;
 import com.zerone.secondhandmarket.enums.UserHead;
 import org.springframework.jdbc.core.RowMapper;
@@ -8,8 +9,8 @@ import java.sql.SQLException;
 
 /**
  * 实现RowMapper接口，返回User对象
- * */
-public class UserRowMapper implements RowMapper<User>{
+ */
+public class UserRowMapper implements RowMapper<User> {
 
     @Override
     public User mapRow(ResultSet rs, int i) throws SQLException {

@@ -8,6 +8,7 @@ public class CodeProcessor {
 
     /**
      * 编码
+     *
      * @param str
      * @return
      */
@@ -17,6 +18,7 @@ public class CodeProcessor {
 
     /**
      * 转换
+     *
      * @param str
      * @param password
      * @return
@@ -26,8 +28,8 @@ public class CodeProcessor {
         int pwdLen = pwd.length;
 
         char[] strArray = str.toCharArray();
-        for (int i=0; i<strArray.length; i++) {
-            strArray[i] = (char)(strArray[i] ^ pwd[i%pwdLen] ^ pwdLen);
+        for (int i = 0; i < strArray.length; i++) {
+            strArray[i] = (char) (strArray[i] ^ pwd[i % pwdLen] ^ pwdLen);
         }
         return new String(strArray);
     }
@@ -44,7 +46,7 @@ public class CodeProcessor {
             if (hexStr.length() == 1) {
                 builder.append("0");
                 builder.append(hexStr);
-            }else{
+            } else {
                 builder.append(hexStr);
             }
         }
@@ -53,6 +55,7 @@ public class CodeProcessor {
 
     /**
      * 解码
+     *
      * @param str
      * @return
      */
@@ -77,9 +80,9 @@ public class CodeProcessor {
     private static byte[] hexStrToBytes(String hexStr) {
         String hex;
         int val;
-        byte[] btHexStr = new byte[hexStr.length()/2];
-        for (int i=0; i<btHexStr.length; i++) {
-            hex = hexStr.substring(2*i, 2*i+2);
+        byte[] btHexStr = new byte[hexStr.length() / 2];
+        for (int i = 0; i < btHexStr.length; i++) {
+            hex = hexStr.substring(2 * i, 2 * i + 2);
             val = Integer.valueOf(hex, 16);
             btHexStr[i] = (byte) val;
         }

@@ -12,11 +12,12 @@ public enum ItemType {
     OTHERS("其他");
 
     private String stateInfo;
-    ItemType(String stateInfo)
-    {
 
-        this.stateInfo=stateInfo;
+    ItemType(String stateInfo) {
+
+        this.stateInfo = stateInfo;
     }
+
     public String getStateInfo() {
         return stateInfo;
     }
