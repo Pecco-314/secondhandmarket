@@ -3,7 +3,7 @@ package com.zerone.secondhandmarket.module;
 import com.zerone.secondhandmarket.entity.User;
 import com.zerone.secondhandmarket.service.UserService;
 import com.zerone.secondhandmarket.viewobject.ResultVo;
-import com.zerone.secondhandmarket.viewobject.Status;
+import com.zerone.secondhandmarket.enums.Status;
 
 public class UserModule {
     public ResultVo getUserInfo(UserService userService, int userid) {

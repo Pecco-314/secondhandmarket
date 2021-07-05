@@ -4,7 +4,7 @@ import com.zerone.secondhandmarket.message.ItemFilter;
 import com.zerone.secondhandmarket.service.ItemService;
 import com.zerone.secondhandmarket.viewobject.ResultVo;
 import com.zerone.secondhandmarket.entity.Item;
-import com.zerone.secondhandmarket.viewobject.Status;
+import com.zerone.secondhandmarket.enums.Status;
 
 import java.util.List;
 

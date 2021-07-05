@@ -1,6 +1,7 @@
 package com.zerone.secondhandmarket.viewobject;
 
 
+import com.zerone.secondhandmarket.enums.Status;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

@@ -4,7 +4,7 @@ import com.zerone.secondhandmarket.message.AdminTokenMessage;
 import com.zerone.secondhandmarket.message.UserTokenMessage;
 import com.zerone.secondhandmarket.tools.TokenProcessor;
 import com.zerone.secondhandmarket.viewobject.ResultVo;
-import com.zerone.secondhandmarket.viewobject.Status;
+import com.zerone.secondhandmarket.enums.Status;
 import com.zerone.secondhandmarket.entity.Administrator;
 import com.zerone.secondhandmarket.entity.User;
 import com.zerone.secondhandmarket.service.AdminService;
