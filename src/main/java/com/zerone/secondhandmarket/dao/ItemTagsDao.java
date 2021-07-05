@@ -5,13 +5,13 @@ import com.zerone.secondhandmarket.enums.ItemType;
 
 import java.util.List;
 
-public interface ItemKeywordDao {
+public interface ItemTagsDao {
     // 用于添加商品关键词
-    int insertKeyword(int item_id,String keyword);
+    int insertTag(int itemId, String tag);
 
     // 用于删除关键词
-    int deleteItem(int itemId,String keyword);
+    int deleteItem(int itemId, String tag);
 
     // 通过类型查询商品
-    List<String> getKeywordsByItemId(int itemId);
+    List<String> getTagsByItemId(int itemId);
 }

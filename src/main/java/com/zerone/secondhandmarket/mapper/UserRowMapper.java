@@ -15,14 +15,14 @@ public class UserRowMapper implements RowMapper<User> {
     @Override
     public User mapRow(ResultSet rs, int i) throws SQLException {
 //        获取结果集中的数据
-        User temp = new User();
-        temp.setUser_id(rs.getInt("user_id"));
-        temp.setUsername(rs.getString("Nickname"));
-        temp.setPhone_number(rs.getString("phone_number"));
-        temp.setEmail(rs.getString("email"));
-        temp.setPassword(rs.getString("password"));
-        temp.setHead(UserHead.valueOf(rs.getString("head_portrait")));
-        return temp;
+        User user = new User();
+        user.setId(rs.getInt("user_id"));
+        user.setNickname(rs.getString("Nickname"));
+        user.setPhoneNumber(rs.getString("phone_number"));
+        user.setEmailAddress(rs.getString("email"));
+        user.setPassword(rs.getString("password"));
+        user.setHead(UserHead.valueOf(rs.getString("head_portrait")));
+        return user;
     }
 }
 

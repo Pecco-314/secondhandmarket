@@ -6,18 +6,14 @@ public enum UserHead {
     HEAD0("图片路径**"),
     ;
 
-    private String picPath;
+    private final String imagePath;
 
-    UserHead(String stateInfo) {
+    UserHead(String imagePath) {
 
-        this.picPath = stateInfo;
+        this.imagePath = imagePath;
     }
 
-    public String getPicPath() {
-        return picPath;
-    }
-
-    public void setPicPath(String picPath) {
-        this.picPath = picPath;
+    public String getImagePath() {
+        return imagePath;
     }
 }

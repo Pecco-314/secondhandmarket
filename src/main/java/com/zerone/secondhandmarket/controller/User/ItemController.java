@@ -1,6 +1,6 @@
-package com.zerone.secondhandmarket.controller.OrdinaryUser;
+package com.zerone.secondhandmarket.controller.User;
 
-import com.zerone.secondhandmarket.viewobject.ResultVo;
+import com.zerone.secondhandmarket.viewobject.Result;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,8 +17,8 @@ public class ItemController {
 //        return null;
 //    }
 //
-    @GetMapping("/request/product/{productId}")
-    public ResultVo getItemInfo(@PathVariable("productId") int productId){
+    @GetMapping("/request/item/{itemId}")
+    public Result getItemInfo(@PathVariable("itemId") int itemId){
         return null;
     }
 //

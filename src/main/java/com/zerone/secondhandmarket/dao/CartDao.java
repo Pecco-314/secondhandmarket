@@ -1,13 +1,12 @@
 package com.zerone.secondhandmarket.dao;
 
-import com.zerone.secondhandmarket.entity.ShoppingCart;
-import com.zerone.secondhandmarket.entity.User;
+import com.zerone.secondhandmarket.entity.Cart;
 
 import java.util.List;
 
-public interface ShoppingCartDao {
+public interface CartDao {
     // 用于添加购物车信息
-    int insertCart(ShoppingCart cart);
+    int insertCart(Cart cart);
 
     // 用于删除购物车信息
     int deleteCart(int userId,int itemId);
@@ -15,7 +14,7 @@ public interface ShoppingCartDao {
     int clearCart(int userId);
 
     // 用于更新购物车数量信息
-    int modifyItemQuantity(ShoppingCart cart);
+    int modifyItemQuantity(Cart cart);
     //查询用户购物车信息
-    List<ShoppingCart> getCartListByUserId(int userId);
+    List<Cart> getCartListByUserId(int userId);
 }

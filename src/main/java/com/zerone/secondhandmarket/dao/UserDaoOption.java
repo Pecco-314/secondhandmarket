@@ -18,7 +18,7 @@ public class UserDaoOption {
     private NamedParameterJdbcTemplate jdbcTemplate;
 
     public int insertOrUpdateUser(User user) {
-        if (getUserById(user.getUser_id()) != null)
+        if (getUserById(user.getId()) != null)
             updateUser(user);
         else insertUser(user);
         return 0;
@@ -28,9 +28,9 @@ public class UserDaoOption {
         String sql = "insert into user(Nickname,phone_number,email,password,head_portrait) " +
                 "values(:name,:phonenum,:email,:password,:head_portrait)";
         Map<String, Object> param = new HashMap<>();
-        param.put("name", user.getUsername());
-        param.put("phonenum", user.getPhone_number());
-        param.put("email", user.getEmail());
+        param.put("name", user.getNickname());
+        param.put("phonenum", user.getPhoneNumber());
+        param.put("email", user.getEmailAddress());
         param.put("password", user.getPassword());
         param.put("head_portrait", user.getHead().toString());
         jdbcTemplate.update(sql, param);
@@ -48,10 +48,10 @@ public class UserDaoOption {
     public int updateUser(User user) {
         String sql = "update user set Nickname=:name,phone_number=:phone_number,email=:email,password=:password,head_portrait=:head_portrait  where user_id=:id";
         Map<String, Object> param = new HashMap<>();
-        param.put("name", user.getUsername());
-        param.put("id", user.getUser_id());
-        param.put("phone_number", user.getPhone_number());
-        param.put("email", user.getEmail());
+        param.put("name", user.getNickname());
+        param.put("id", user.getId());
+        param.put("phone_number", user.getPhoneNumber());
+        param.put("email", user.getEmailAddress());
         param.put("password", user.getPassword());
         param.put("head_portrait", user.getHead().toString());
         jdbcTemplate.update(sql, param);
@@ -72,11 +72,11 @@ public class UserDaoOption {
         return user;
     }
 
-    public User getUserByEmail(String email) {
+    public User getUserByEmail(String emailAddress) {
         User user = new User();
         String sql = "select * from user where email=:email";
         Map<String, Object> param = new HashMap<>();
-        param.put("email", email);
+        param.put("email", emailAddress);
         try {
             user = jdbcTemplate.queryForObject(sql.toString(), param, new UserRowMapper());
         } catch (Exception e) {

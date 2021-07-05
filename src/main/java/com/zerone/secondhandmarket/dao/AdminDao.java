@@ -18,7 +18,7 @@ public interface AdminDao {
     // 通过id查询管理员
     Administrator getAdminById(int adminId);
     // 通过用户名查询用户
-    Administrator getAdminByName(String admin_name);
+    Administrator getAdminByNickname(String adminNickname);
     // 用于查询所有管理员列表
     List<Administrator> getAdminList();
 }
