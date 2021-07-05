@@ -102,6 +102,10 @@
     align-items: center
 }
 
+.page-header .search-button{
+    width: 20%;
+}
+
 .page-header .logo-container {
     display: flex;
     justify-content: center;

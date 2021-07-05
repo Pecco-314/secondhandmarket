@@ -21,7 +21,7 @@ Vue.component('page-header', {
             </div>
             <div id="search-box">
                 <el-input class="transparency-input" v-model="searchContent" placeholder="搜索商品">
-                    <el-button slot="append" icon="el-icon-search"></el-button>
+                    <el-button slot="append" icon="el-icon-search" class="search-button"></el-button>
                 </el-input>
             </div>
             <div class="sale-button-container">
