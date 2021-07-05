@@ -4,7 +4,7 @@ import com.zerone.secondhandmarket.message.AdminTokenMessage;
 import com.zerone.secondhandmarket.message.UserTokenMessage;
 import com.zerone.secondhandmarket.tools.CodeProcessor;
 import com.zerone.secondhandmarket.viewobject.ResultVo;
-import com.zerone.secondhandmarket.viewobject.Status;
+import com.zerone.secondhandmarket.enums.Status;
 import com.zerone.secondhandmarket.entity.Administrator;
 import com.zerone.secondhandmarket.entity.User;
 import com.zerone.secondhandmarket.service.AdminService;
@@ -38,8 +38,8 @@ public class LoginModule {
                 return new ResultVo(Status.PASSWORD_WRONG, "密码错误", new UserTokenMessage());
             } else {
                 //获取登录时间
-                Date date=new Date();
-                return new ResultVo(Status.OK, "登陆成功", new UserTokenMessage(user.getUser_id(), CodeProcessor.encoded(user.getUser_id() + "@"+date)));
+                Date date = new Date();
+                return new ResultVo(Status.OK, "登陆成功", new UserTokenMessage(user.getUser_id(), CodeProcessor.encoded(user.getUser_id() + "@" + date)));
             }
         }
     }
@@ -54,7 +54,7 @@ public class LoginModule {
             if (!administrator.getPassword().equals(CodeProcessor.encoded(password))) {
                 resultVo = new ResultVo(Status.PASSWORD_WRONG, "密码错误", new AdminTokenMessage());
             } else {
-                Date date=new Date();
+                Date date = new Date();
                 resultVo = new ResultVo(Status.OK, "登陆成功", new AdminTokenMessage(administrator.getAdmin_id(), CodeProcessor.encoded(administrator.getAdmin_id() + "@" + date)));
             }
         }
