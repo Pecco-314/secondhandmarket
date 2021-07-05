@@ -1,4 +1,4 @@
-package com.zerone.secondhandmarket.Controller.OrdinaryUser;
+package com.zerone.secondhandmarket.controller.OrdinaryUser;
 
 import org.springframework.stereotype.Controller;
 

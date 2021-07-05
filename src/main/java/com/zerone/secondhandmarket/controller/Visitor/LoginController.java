@@ -16,29 +16,31 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Map;
+
 @Controller("VisitorLogin")
 public class LoginController {
-    private LoginModule loginModule=new LoginModule();
-    private ObjectMapper mapper=new ObjectMapper();
+    private LoginModule loginModule = new LoginModule();
+    private ObjectMapper mapper = new ObjectMapper();
     @Autowired
-    private UserService userService=new UserService();
+    private UserService userService = new UserService();
     @Autowired
-    private AdminService adminService=new AdminService();
+    private AdminService adminService = new AdminService();
 
     @RequestMapping("/login")
-    public String userLogin(){
+    public String userLogin() {
         return "login";
     }
 
     @ResponseBody
-    @PostMapping ("/login/user")
-    public String userLogin(@RequestBody UserLoginMessage data){
-        String account= data.getEmailOrID();
-        String password=data.getPassword();
+    @PostMapping("/login/user")
+    public String userLogin(@RequestBody UserLoginMessage data) {
+        String account = data.getEmailOrID();
+        String password = data.getPassword();
 
-        ResultVo result = loginModule.userLogin(userService,account,password);
+        ResultVo result = loginModule.userLogin(userService, account, password);
         try {
-            String json=mapper.writeValueAsString(result);
+            String json = mapper.writeValueAsString(result);
             return json;
         } catch (JsonProcessingException e) {
             e.printStackTrace();
@@ -48,14 +50,14 @@ public class LoginController {
 
     @ResponseBody
     @PostMapping("/login/admin")
-    public String adminLogin(@RequestBody AdminLoginMessage data){
-        String account= data.getId();
-        String password=data.getPassword();
+    public String adminLogin(@RequestBody AdminLoginMessage data) {
+        String account = data.getId();
+        String password = data.getPassword();
 
-        ResultVo resultVo=loginModule.adminLogin(adminService,account,password);
+        ResultVo resultVo = loginModule.adminLogin(adminService, account, password);
 
         try {
-            String json=mapper.writeValueAsString(resultVo);
+            String json = mapper.writeValueAsString(resultVo);
             return json;
         } catch (JsonProcessingException e) {
             e.printStackTrace();
@@ -71,10 +73,10 @@ public class LoginController {
         String password = data.getPassword();
 
         System.out.println(nickname);
-        ResultVo resultVo=loginModule.userRegister(userService,email,nickname,password);
+        ResultVo resultVo = loginModule.userRegister(userService, email, nickname, password);
 
         try {
-            String json=mapper.writeValueAsString(resultVo);
+            String json = mapper.writeValueAsString(resultVo);
             return json;
         } catch (JsonProcessingException e) {
             e.printStackTrace();

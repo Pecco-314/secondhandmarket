@@ -1,5 +1,5 @@
 package com.zerone.secondhandmarket.module;
 
-public class IndentModule {
+public class OrderModule {
 
 }
