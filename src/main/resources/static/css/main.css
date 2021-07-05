@@ -210,9 +210,9 @@ p {
     padding: 0;
 }
 
-* {
-    box-sizing: border-box;
-}
+/** {*/
+/*    box-sizing: border-box;*/
+/*}*/
 
 * {
     -webkit-tap-highlight-color: transparent;
@@ -231,9 +231,9 @@ p {
     display: table;
 }
 
-*,:after,:before {
-    box-sizing: border-box;
-}
+/**,:after,:before {*/
+/*    box-sizing: border-box;*/
+/*}*/
 
 a {
     /*color: #2d8cf0;*/
