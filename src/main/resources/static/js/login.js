@@ -123,7 +123,7 @@ let loginBox = new Vue({
                         password: this.userLoginForm.password
                     }
                     $.ajax({
-                        url: `${url}/login/user`,
+                        url: `${url}/requests/login/user`,
                         method: 'post',
                         data: JSON.stringify(userData),
                         contentType: "application/json;charset=utf-8",
@@ -152,7 +152,7 @@ let loginBox = new Vue({
                         password: this.adminLoginForm.password
                     }
                     $.ajax({
-                        url: `${url}/login/admin`,
+                        url: `${url}/requests/login/admin`,
                         method: 'post',
                         data: JSON.stringify(adminData),
                         contentType: "application/json;charset=utf-8",
@@ -181,7 +181,7 @@ let loginBox = new Vue({
                         password: this.registerForm.password
                     }
                     $.ajax({
-                        url: `${url}/register`,
+                        url: `${url}/requests/register`,
                         method: 'post',
                         data: JSON.stringify(registerData),
                         contentType: "application/json;charset=utf-8",
