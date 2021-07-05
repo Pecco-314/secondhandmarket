@@ -29,5 +29,4 @@ public class Item {
      * 是否通过审核
      */
     private ITEMCHECK checked;
-
 }
