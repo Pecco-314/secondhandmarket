@@ -21,8 +21,8 @@ public class ItemDaoOption {
 
     // 用于添加商品
     public int insertItem(Item item) {
-        String sql = "insert into item(seller_id, item_name, item_type, quantity, price_now, price_original, keyword, introduction, item_pic_path, checked)" +
-                "values(:seller_id, :item_name, :item_type, :quantity, :price_now,:price_original, :keyword, :introduction, :item_pic_path, :checked)";
+        String sql = "insert into item(seller_id, item_name, item_type, quantity, price_now, price_original,introduction, item_pic_path, checked)" +
+                "values(:seller_id, :item_name, :item_type, :quantity, :price_now,:price_original, :introduction, :item_pic_path, :checked)";
         Map<String, Object> param = new HashMap<>();
         param.put("item_name", item.getItem_name());
         param.put("item_id", item.getItem_id());
@@ -31,7 +31,6 @@ public class ItemDaoOption {
         param.put("quantity", item.getQuantity());
         param.put("price_now", item.getPrice_now());
         param.put("price_original", item.getPrice_original());
-        param.put("keyword", item.getKeyword());
         param.put("introduction", item.getIntroduction());
         param.put("item_pic_path", item.getItem_pic_path());
         param.put("checked", item.getChecked().toString());
@@ -51,7 +50,7 @@ public class ItemDaoOption {
 
     // 用于更新商品
     public int updateItem(Item item) {
-        String sql = "update item set seller_id=:seller_id,item_name=:item_name,item_type=:item_type,quantity=:quantity,price_now=:price_now,price_original=:price_original,keyword=:keyword,introduction=:introduction,item_pic_path=:item_pic_path,checked=:checked where item_id=:item_id";
+        String sql = "update item set seller_id=:seller_id,item_name=:item_name,item_type=:item_type,quantity=:quantity,price_now=:price_now,price_original=:price_original,introduction=:introduction,item_pic_path=:item_pic_path,checked=:checked where item_id=:item_id";
         Map<String, Object> param = new HashMap<>();
         param.put("item_name", item.getItem_name());
         param.put("item_id", item.getItem_id());
@@ -60,7 +59,7 @@ public class ItemDaoOption {
         param.put("quantity", item.getQuantity());
         param.put("price_now", item.getPrice_now());
         param.put("price_original", item.getPrice_original());
-        param.put("keyword", item.getKeyword());
+      //  param.put("keyword", item.getKeyword());
         param.put("introduction", item.getIntroduction());
         param.put("item_pic_path", item.getItem_pic_path());
         param.put("checked", item.getChecked().toString());
@@ -141,7 +140,7 @@ public class ItemDaoOption {
         return items;
     }
 
-    //按价格排序获取商品列表
+    //按filter获取商品列表
     public List<Item> getItemByFilter(ItemFilter itemFilter) {
         String sql = "select * from item";
         Map<String, Object> param = new HashMap<>();
@@ -208,4 +207,5 @@ public class ItemDaoOption {
         }
         return items;
     }
+
 }

@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 /**
  * @author lzl
  * @since 2021-06-30
@@ -22,7 +24,7 @@ public class Item {
     private int quantity;//数量
     private double price_now;//现在的价格
     private double price_original;//原来的价格
-    private String keyword;//关键词
+    private List<String> keyword;//关键词
     private String introduction;//简介
     private String item_pic_path;//上传的商品的图片的路径，可能有多张图片存在一个文件夹里，即文件夹路径
     /**
