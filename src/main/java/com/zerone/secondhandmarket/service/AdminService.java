@@ -23,24 +23,31 @@ public class AdminService implements AdminDao {
         daooption.insertAdmin(admin);
         return 0;
     }
+
     @Override
     public int deleteAdmin(int id) {
         daooption.deleteAdmin(id);
         return 0;
     }
+
     @Override
     public int updateAdmin(Administrator admin) {
         daooption.updateAdmin(admin);
         return 0;
     }
+
     @Override
     public Administrator getAdminById(int id) {
         return daooption.getAdminById(id);
     }
+
     @Override
     public Administrator getAdminByName(String name) {
         return daooption.getAdminByName(name);
     }
+
     @Override
-    public List<Administrator> getAdminList(){return daooption.getAdminList();}
+    public List<Administrator> getAdminList() {
+        return daooption.getAdminList();
+    }
 }

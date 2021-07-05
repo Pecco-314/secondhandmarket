@@ -43,10 +43,19 @@ public class UserService implements UserDao {
     public User getUserByEmail(String email) {
         return daooption.getUserByEmail(email);
     }
+
     @Override
-    public List<User> getUserList(){return daooption.getUserList();}
+    public List<User> getUserList() {
+        return daooption.getUserList();
+    }
+
     @Override
-    public int insertOrUpdateUser(User user){return daooption.insertOrUpdateUser(user);}
+    public int insertOrUpdateUser(User user) {
+        return daooption.insertOrUpdateUser(user);
+    }
+
     @Override
-    public SimplifiedUser getSimplifiedUserInfoById(int userId){return  daooption.getSimplifiedUserInfoById(userId);}
+    public SimplifiedUser getSimplifiedUserInfoById(int userId) {
+        return daooption.getSimplifiedUserInfoById(userId);
+    }
 }

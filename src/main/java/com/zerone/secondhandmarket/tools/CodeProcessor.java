@@ -2,23 +2,23 @@ package com.zerone.secondhandmarket.tools;
 
 import java.util.Date;
 
-public class TokenProcessor {
+public class CodeProcessor {
     // 编码密码,可自定义
     private static final String ENCODED_PASSWORD = "password";
 
     /**
      * 编码
+     *
      * @param str
      * @return
      */
     public static String encoded(String str) {
-        //获取系统当前时间
-        Date date=new Date();
-        return strToHex(encodedString(str+"@"+date, ENCODED_PASSWORD));
+        return strToHex(encodedString(str, ENCODED_PASSWORD));
     }
 
     /**
      * 转换
+     *
      * @param str
      * @param password
      * @return
@@ -28,8 +28,8 @@ public class TokenProcessor {
         int pwdLen = pwd.length;
 
         char[] strArray = str.toCharArray();
-        for (int i=0; i<strArray.length; i++) {
-            strArray[i] = (char)(strArray[i] ^ pwd[i%pwdLen] ^ pwdLen);
+        for (int i = 0; i < strArray.length; i++) {
+            strArray[i] = (char) (strArray[i] ^ pwd[i % pwdLen] ^ pwdLen);
         }
         return new String(strArray);
     }
@@ -46,7 +46,7 @@ public class TokenProcessor {
             if (hexStr.length() == 1) {
                 builder.append("0");
                 builder.append(hexStr);
-            }else{
+            } else {
                 builder.append(hexStr);
             }
         }
@@ -55,6 +55,7 @@ public class TokenProcessor {
 
     /**
      * 解码
+     *
      * @param str
      * @return
      */
@@ -69,7 +70,7 @@ public class TokenProcessor {
             hexStr = encodedString(hexStr, ENCODED_PASSWORD);
         }
         //提取出有效部分
-        return hexStr.split("@")[0];
+        return hexStr;
     }
 
     private static String hexStrToStr(String hexStr) {
@@ -79,9 +80,9 @@ public class TokenProcessor {
     private static byte[] hexStrToBytes(String hexStr) {
         String hex;
         int val;
-        byte[] btHexStr = new byte[hexStr.length()/2];
-        for (int i=0; i<btHexStr.length; i++) {
-            hex = hexStr.substring(2*i, 2*i+2);
+        byte[] btHexStr = new byte[hexStr.length() / 2];
+        for (int i = 0; i < btHexStr.length; i++) {
+            hex = hexStr.substring(2 * i, 2 * i + 2);
             val = Integer.valueOf(hex, 16);
             btHexStr[i] = (byte) val;
         }
