@@ -6,6 +6,7 @@ import com.zerone.secondhandmarket.message.AdminLoginMessage;
 import com.zerone.secondhandmarket.message.RegisterMessage;
 import com.zerone.secondhandmarket.message.UserLoginMessage;
 import com.zerone.secondhandmarket.module.LoginModule;
+import com.zerone.secondhandmarket.tools.JSONMapper;
 import com.zerone.secondhandmarket.viewobject.ResultVo;
 import com.zerone.secondhandmarket.service.AdminService;
 import com.zerone.secondhandmarket.service.UserService;
@@ -20,8 +21,6 @@ import java.util.Map;
 
 @Controller("VisitorLogin")
 public class LoginController {
-    private LoginModule loginModule = new LoginModule();
-    private ObjectMapper mapper = new ObjectMapper();
     @Autowired
     private UserService userService = new UserService();
     @Autowired
@@ -38,14 +37,9 @@ public class LoginController {
         String account = data.getEmailOrID();
         String password = data.getPassword();
 
-        ResultVo result = loginModule.userLogin(userService, account, password);
-        try {
-            String json = mapper.writeValueAsString(result);
-            return json;
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return "Error";
+        ResultVo result = LoginModule.userLogin(userService, account, password);
+
+        return JSONMapper.writeValueAsString(result);
     }
 
     @ResponseBody
@@ -54,15 +48,9 @@ public class LoginController {
         String account = data.getId();
         String password = data.getPassword();
 
-        ResultVo resultVo = loginModule.adminLogin(adminService, account, password);
+        ResultVo resultVo = LoginModule.adminLogin(adminService, account, password);
 
-        try {
-            String json = mapper.writeValueAsString(resultVo);
-            return json;
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return "Error";
+        return JSONMapper.writeValueAsString(resultVo);
     }
 
     @ResponseBody
@@ -73,14 +61,8 @@ public class LoginController {
         String password = data.getPassword();
 
         System.out.println(nickname);
-        ResultVo resultVo = loginModule.userRegister(userService, email, nickname, password);
+        ResultVo resultVo = LoginModule.userRegister(userService, email, nickname, password);
 
-        try {
-            String json = mapper.writeValueAsString(resultVo);
-            return json;
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return "Error";
+        return JSONMapper.writeValueAsString(resultVo);
     }
 }

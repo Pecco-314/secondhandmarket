@@ -16,7 +16,7 @@ import java.util.Date;
 @NoArgsConstructor  //无参构造函数
 public class LoginModule {
 
-    public ResultVo userLogin(UserService userService, String account, String password) {
+    public static ResultVo userLogin(UserService userService, String account, String password) {
         User user;
         if (account.contains("@")) {
             //判断为邮箱登录
@@ -44,7 +44,7 @@ public class LoginModule {
         }
     }
 
-    public ResultVo adminLogin(AdminService adminService, String adminName, String password) {
+    public static ResultVo adminLogin(AdminService adminService, String adminName, String password) {
         Administrator administrator = adminService.getAdminById(Integer.parseInt(adminName));
 
         ResultVo resultVo;
@@ -61,7 +61,7 @@ public class LoginModule {
         return resultVo;
     }
 
-    public ResultVo userRegister(UserService userService, String email, String nickname, String password) {
+    public static ResultVo userRegister(UserService userService, String email, String nickname, String password) {
         ResultVo resultVo;
         User user = new User();
 

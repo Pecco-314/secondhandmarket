@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller("OrdinaryItem")
 public class ItemController {
-    @RequestMapping("/post")
+    @RequestMapping("/request/post")
     public String openPostPage(){
         return "post";
     }
@@ -17,7 +17,7 @@ public class ItemController {
 //        return null;
 //    }
 //
-    @GetMapping("/product/{productId}")
+    @GetMapping("/request/product/{productId}")
     public ResultVo getItemInfo(@PathVariable("productId") int productId){
         return null;
     }
