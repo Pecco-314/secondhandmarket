@@ -21,6 +21,11 @@ public enum Status {
     RELEASE_ITEM_ERROR(0),
     INVALID_ITEM(0),
     DELETE_ITEM_ERROR(0),
+
+    NO_QUALIFIED_ORDERS(0),
+    INVALID_ORDER(0),
+    GENERATE_ORDER_ERROR(0),
+
     ;
 
     private final Integer code;

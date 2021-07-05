@@ -3,6 +3,7 @@ package com.zerone.secondhandmarket.tools;
 import com.zerone.secondhandmarket.entity.Item;
 import com.zerone.secondhandmarket.entity.User;
 import com.zerone.secondhandmarket.exception.InvalidInfoException;
+import com.zerone.secondhandmarket.message.OrderMessage;
 
 public class Validation {
     private static final String emailAddressFormat = "[A-Za-z0-9]+@([A-Za-z0-9]+\\.)+[A-Za-z0-9]+";
@@ -12,10 +13,14 @@ public class Validation {
     }
 
     public static void checkItemInfo(Item item) throws InvalidInfoException {
-        
+
     }
 
     public static void checkUserInfo(User user) throws InvalidInfoException {
+
+    }
+
+    public static void checkOrderInfo(OrderMessage order) throws InvalidInfoException {
 
     }
 }

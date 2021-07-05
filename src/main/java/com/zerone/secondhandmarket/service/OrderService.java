@@ -3,6 +3,7 @@ package com.zerone.secondhandmarket.service;
 import com.zerone.secondhandmarket.dao.OrderDao;
 import com.zerone.secondhandmarket.dao.OrderDaoOption;
 import com.zerone.secondhandmarket.entity.Order;
+import com.zerone.secondhandmarket.message.OrderFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,5 +50,9 @@ public class OrderService implements OrderDao {
     // 通过userid查询订单信息
     public List<Order> getOrderByUserId(int userId) {
         return daoOption.getOrderByUserId(userId);
+    }
+
+    public List<Order> getOrderByFilter(OrderFilter filter) {
+        return null;
     }
 }
