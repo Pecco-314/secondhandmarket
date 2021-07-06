@@ -22,11 +22,11 @@ public class OrderDaoOption {
         String sql = "insert into orders(buyer_id, seller_id, item_id, quantity, ordering_time)" +
                 "values(:buyer_id,:seller_id,:item_id,:quantity,:ordering_time)";
         Map<String, Object> param = new HashMap<>();
-        param.put("item_id", order.getItem_id());
-        param.put("seller_id", order.getSeller_id());
-        param.put("buyer_id", order.getBuyer_id());
+        param.put("item_id", order.getItem());
+        param.put("seller_id", order.getSeller());
+        param.put("buyer_id", order.getBuyer());
         param.put("quantity", order.getQuantity());
-        param.put("ordering_time", order.getOrdering_time());
+        param.put("ordering_time", order.getTime());
         return jdbcTemplate.update(sql, param);
     }
 
@@ -45,11 +45,11 @@ public class OrderDaoOption {
         String sql = "update orders set buyer_id=:buyer_id,seller_id=:seller_id,item_id=:item_id,quantity=:quantity,ordering_time=:ordering_time where order_id=:order_id";
         Map<String, Object> param = new HashMap<>();
 
-        param.put("item_id", order.getItem_id());
-        param.put("seller_id", order.getSeller_id());
-        param.put("buyer_id", order.getBuyer_id());
+        param.put("item_id", order.getItem());
+        param.put("seller_id", order.getSeller());
+        param.put("buyer_id", order.getBuyer());
         param.put("quantity", order.getQuantity());
-        param.put("ordering_time", order.getOrdering_time());
+        param.put("ordering_time", order.getTime());
         return jdbcTemplate.update(sql, param);
     }
 

@@ -13,11 +13,11 @@ public class AdminRowMapper implements RowMapper<Administrator>{
     @Override
     public Administrator mapRow(ResultSet rs, int i) throws SQLException {
 //        获取结果集中的数据
-        Administrator temp = new Administrator();
-        temp.setAdmin_id(rs.getInt("id"));
-        temp.setAdmin_name(rs.getString("admin_name"));
-        temp.setPassword(rs.getString("password"));
-        return temp;
+        Administrator admin = new Administrator();
+        admin.setId(rs.getInt("id"));
+        admin.setNickname(rs.getString("admin_name"));
+        admin.setPassword(rs.getString("password"));
+        return admin;
     }
 }
 

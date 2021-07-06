@@ -1,4 +1,4 @@
-package com.zerone.secondhandmarket.controller.OrdinaryUser;
+package com.zerone.secondhandmarket.controller.User;
 
 import com.zerone.secondhandmarket.entity.User;
 import org.springframework.stereotype.Controller;
@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller("OrdinaryUser")
 public class UserController {
-    @GetMapping("user/{userid}")
+    @GetMapping("user/{userId}")
     @ResponseBody
-    public User getUserInfo(@PathVariable int userid){
-        System.out.println(userid);
+    public User getUserInfo(@PathVariable int userId){
+        System.out.println(userId);
         return null;
     }
 //    @GetMapping("user/update")

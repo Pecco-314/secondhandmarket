@@ -18,15 +18,15 @@ public interface ItemDao {
     int updateItem(Item item);
 
     // 通过类型查询商品
-    List<Item> getItemByType(ItemType itemtype);
+    List<Item> getItemByType(ItemType itemType);
     // 通过id查询商品
     Item getItemById(int itemId);
     // 通过类似商品名（关键字）查询商品
-    List<Item> getItemByKeyword(String keyword);
     // 用于查询所有商品列表
     List<Item> getItemList();
     //按价格排序获取商品列表
     List<Item> getItemListOrderByPrice(Ordering ordering);
- List<Item> getItemByFilter(ItemFilter itemFilter);
+
+    List<Item> getItemByFilter(ItemFilter itemFilter);
 
 }

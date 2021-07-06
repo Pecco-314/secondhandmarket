@@ -6,15 +6,15 @@ import lombok.NoArgsConstructor;
 @Data               //生成get()、set()
 @AllArgsConstructor//全参构造
 @NoArgsConstructor//无参构造
-public class ShoppingCart {
+public class Cart {
     /**
      * 用户ID
      */
-    private int userID;
+    private int userId;
     /**
      * 物品ID
      */
-    private int itemID;
+    private int itemId;
     /**
      * 数量
      */

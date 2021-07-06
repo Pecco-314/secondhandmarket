@@ -1,8 +1,6 @@
 package com.zerone.secondhandmarket.dao;
 
-import com.zerone.secondhandmarket.entity.Administrator;
-import com.zerone.secondhandmarket.entity.ShoppingCart;
-import com.zerone.secondhandmarket.mapper.AdminRowMapper;
+import com.zerone.secondhandmarket.entity.Cart;
 import com.zerone.secondhandmarket.mapper.ShoppingCartRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -13,17 +11,17 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class ShoppingCartDaoOption {
+public class CartDaoOption {
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 
     // 用于添加购物车信息
-    public int insertCart(ShoppingCart cart) {
+    public int insertCart(Cart cart) {
         String sql = "insert into shoppingcart(user_id, item_id, quantity) " +
                 "values(:user_id,:item_id,:quantity)";
         Map<String, Object> param = new HashMap<>();
-        param.put("user_id", cart.getUserID());
-        param.put("item_id", cart.getItemID());
+        param.put("user_id", cart.getUserId());
+        param.put("item_id", cart.getItemId());
         param.put("quantity", cart.getQuantity());
         return  jdbcTemplate.update(sql, param);
     }
@@ -48,20 +46,20 @@ public class ShoppingCartDaoOption {
     }
 
     // 用于更新购物车物品数量信息
-    public int modifyItemQuantity(ShoppingCart cart) {
+    public int modifyItemQuantity(Cart cart) {
         String sql = "update shoppingcart set quantity=:quantity  where user_id=:user_id and item_id=:item_id";
         Map<String, Object> param = new HashMap<>();
-        param.put("user_id", cart.getUserID());
-        param.put("item_id", cart.getItemID());
+        param.put("user_id", cart.getUserId());
+        param.put("item_id", cart.getItemId());
         param.put("quantity", cart.getQuantity());
         jdbcTemplate.update(sql, param);
         return 0;
     }
 
     //查询用户购物车信息
-    public List<ShoppingCart> getCartListByUserId(int userId) {
+    public List<Cart> getCartListByUserId(int userId) {
         String sql = "select * from shoppingcart where user_id=:user_id";
-        List<ShoppingCart> carts;
+        List<Cart> carts;
         Map<String, Object> param = new HashMap<>();
         param.put("user_id", userId);
         try {

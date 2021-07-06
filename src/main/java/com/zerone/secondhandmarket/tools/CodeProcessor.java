@@ -1,7 +1,5 @@
 package com.zerone.secondhandmarket.tools;
 
-import java.util.Date;
-
 public class CodeProcessor {
     // 编码密码,可自定义
     private static final String ENCODED_PASSWORD = "password";
@@ -9,21 +7,16 @@ public class CodeProcessor {
     /**
      * 编码
      *
-     * @param str
-     * @return
      */
-    public static String encoded(String str) {
-        return strToHex(encodedString(str, ENCODED_PASSWORD));
+    public static String encode(String str) {
+        return strToHex(encodeString(str, ENCODED_PASSWORD));
     }
 
     /**
      * 转换
      *
-     * @param str
-     * @param password
-     * @return
      */
-    private static String encodedString(String str, String password) {
+    private static String encodeString(String str, String password) {
         char[] pwd = password.toCharArray();
         int pwdLen = pwd.length;
 
@@ -45,10 +38,8 @@ public class CodeProcessor {
             hexStr = Integer.toHexString(bt & 0xFF);
             if (hexStr.length() == 1) {
                 builder.append("0");
-                builder.append(hexStr);
-            } else {
-                builder.append(hexStr);
             }
+            builder.append(hexStr);
         }
         return builder.toString();
     }
@@ -56,10 +47,8 @@ public class CodeProcessor {
     /**
      * 解码
      *
-     * @param str
-     * @return
      */
-    public static String decoded(String str) {
+    public static String decode(String str) {
         String hexStr = null;
         try {
             hexStr = hexStrToStr(str);
@@ -67,7 +56,7 @@ public class CodeProcessor {
             e.printStackTrace();
         }
         if (hexStr != null) {
-            hexStr = encodedString(hexStr, ENCODED_PASSWORD);
+            hexStr = encodeString(hexStr, ENCODED_PASSWORD);
         }
         //提取出有效部分
         return hexStr;
