@@ -239,7 +239,7 @@ public class ItemDaoOption {
             }
             param.put("item_type", itemFilter.getType().toString());
         }
-        if (itemFilter.getKeyWords() != null) {
+        if (itemFilter.getTags() != null) {
             if (!has_where) {
                 sql += " where";
                 has_where = true;
@@ -249,7 +249,7 @@ public class ItemDaoOption {
             {
                 sql += " and item_name LIKE :item_name";
             }
-            String str = "%" +itemFilter.getKeyWords() + "%";
+            String str = "%" +itemFilter.getTags() + "%";
             param.put("item_name", str);
         }
         if (itemFilter.getCheckCondition() != null) {

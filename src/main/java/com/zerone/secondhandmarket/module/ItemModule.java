@@ -39,6 +39,9 @@ public class ItemModule {
     public Result releaseUserItem(ItemService itemService, Item item) {
         try {
             itemService.insertItem(item);
+
+
+
             return new Result(Status.OK, "物品发布成功", null);
         } catch (Exception e) {
             return new Result(Status.RELEASE_ITEM_ERROR, "", null);
