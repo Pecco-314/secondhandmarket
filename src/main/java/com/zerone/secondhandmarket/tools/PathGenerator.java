@@ -1,11 +1,13 @@
 package com.zerone.secondhandmarket.tools;
 
-import com.zerone.secondhandmarket.entity.Item;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class PathGenerator {
-    private static final int itemRandomBits = 10;
+    private static final int itemRandomBits = 3;
 
-    public static String generateItemImagePath(Item item) {
-        return String.format("%s_%d_%s", RandomGenerator.generateRandomString(itemRandomBits), item.getId(), item.getName());
+    public static String generateItemImagePath() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+        return String.format("%s%s", format.format(new Date()), RandomGenerator.generateRandomString(itemRandomBits));
     }
 }
