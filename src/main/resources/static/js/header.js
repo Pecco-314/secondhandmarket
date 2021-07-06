@@ -14,7 +14,7 @@ Vue.component('page-header', {
         }
     },
     template: `
-    <div class="page-header-container">
+    <div class="page-header-container selectable">
         <div class="page-header">
             <div class="logo-container" v-on:click="openMainPage">
                 <img src="../img/logo.png">

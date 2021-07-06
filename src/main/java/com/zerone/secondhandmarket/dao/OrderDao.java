@@ -15,7 +15,7 @@ public interface OrderDao {
 
     // 用于更新商品
     int updateOrder(Order order);
-    // 通过itemid查询订单信息
+    // 通过itemId查询订单信息
     Order getOrderByOrderId(int orderId);
     // 通过关键字查询订单信息
     List<Order> getOrderByKeyword(String keyword);

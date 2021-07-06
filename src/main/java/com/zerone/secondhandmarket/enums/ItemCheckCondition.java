@@ -1,5 +1,5 @@
 package com.zerone.secondhandmarket.enums;
 
-public enum ITEMCHECK {
+public enum ItemCheckCondition {
     TRUE, FALSE, UNCHECKED;
 }

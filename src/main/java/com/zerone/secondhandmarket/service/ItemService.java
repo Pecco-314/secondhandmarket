@@ -17,62 +17,56 @@ import java.util.List;
 @Transactional
 public class ItemService implements ItemDao {
     @Autowired
-    private ItemDaoOption daooption = new ItemDaoOption();
+    private ItemDaoOption daoOption = new ItemDaoOption();
 
     @Override
     // 用于添加商品
     public int insertItem(Item item) {
-        daooption.insertItem(item);
+        daoOption.insertItem(item);
         return 0;
     }
 
     @Override
     // 用于删除商品
     public int deleteItem(int itemId) {
-        daooption.deleteItem(itemId);
+        daoOption.deleteItem(itemId);
         return 0;
     }
 
     @Override
     // 用于更新商品
     public int updateItem(Item item) {
-        daooption.updateItem(item);
+        daoOption.updateItem(item);
         return 0;
     }
 
     @Override
     // 通过类型查询商品
     public List<Item> getItemByType(ItemType itemtype) {
-        return daooption.getItemByType(itemtype);
+        return daoOption.getItemByType(itemtype);
     }
 
     @Override
     // 通过id查询商品
     public Item getItemById(int itemId) {
-        return daooption.getItemById(itemId);
-    }
-
-    @Override
-    // 通过类似商品名（关键字）查询商品
-    public List<Item> getItemByKeyword(String keyword) {
-        return daooption.getItemByKeyword(keyword);
+        return daoOption.getItemById(itemId);
     }
 
     @Override
     // 用于查询所有商品列表，默认顺序
     public List<Item> getItemList() {
-        return daooption.getItemList();
+        return daoOption.getItemList();
     }
 
     //按价格升序或降序获得商品列表，输入ordering
     @Override
     public List<Item> getItemListOrderByPrice(Ordering ordering) {
-        return daooption.getItemListOrderByPrice(ordering);
+        return daoOption.getItemListOrderByPrice(ordering);
     }
 
     @Override
     public List<Item> getItemByFilter(ItemFilter itemFilter) {
-        return daooption.getItemByFilter(itemFilter);
+        return daoOption.getItemByFilter(itemFilter);
     }
 
     @Override

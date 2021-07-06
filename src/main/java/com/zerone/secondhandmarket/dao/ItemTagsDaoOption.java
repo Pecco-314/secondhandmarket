@@ -1,10 +1,6 @@
 package com.zerone.secondhandmarket.dao;
 
-import com.sun.org.apache.xpath.internal.compiler.Keywords;
-import com.zerone.secondhandmarket.entity.Item;
-import com.zerone.secondhandmarket.enums.ItemType;
-import com.zerone.secondhandmarket.mapper.ItemRowMapper;
-import com.zerone.secondhandmarket.mapper.KeywordsRowMapper;
+import com.zerone.secondhandmarket.mapper.TagsRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -14,16 +10,16 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class ItemKeywordDaoOption {
+public class ItemTagsDaoOption {
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
     // 用于添加商品关键词
-    public int insertKeyword(int item_id,String keyword){
+    public int insertTag(int itemId,String tag){
         String sql = "insert into keywords(keyword, item_id)" +
                 "values(:keyword, :item_id)";
         Map<String, Object> param = new HashMap<>();
-        param.put("item_id",item_id);
-        param.put("keyword",keyword);
+        param.put("item_id",itemId);
+        param.put("keyword",tag);
         return jdbcTemplate.update(sql, param);
 
     }
@@ -39,13 +35,13 @@ public class ItemKeywordDaoOption {
         return 0;
     }
     // 通过id查询关键词
-    public List<String> getKeywordsByItemId(int itemId) {
+    public List<String> getTagsByItemId(int itemId) {
         String sql = "select * from keywords where item_id=:item_id";
         Map<String, Object> param = new HashMap<>();
         param.put("item_id", itemId);
         List<String> keywords;
         try {
-            keywords = jdbcTemplate.query(sql, param, new KeywordsRowMapper());
+            keywords = jdbcTemplate.query(sql, param, new TagsRowMapper());
         } catch (Exception e) {
             return null;
         }

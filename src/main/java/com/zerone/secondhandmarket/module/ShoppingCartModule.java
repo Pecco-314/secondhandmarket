@@ -1,14 +1,14 @@
 package com.zerone.secondhandmarket.module;
 
-import com.zerone.secondhandmarket.entity.ShoppingCart;
-import com.zerone.secondhandmarket.viewobject.ResultVo;
+import com.zerone.secondhandmarket.entity.Cart;
+import com.zerone.secondhandmarket.viewobject.Result;
 
 public class ShoppingCartModule {
-    public ResultVo getShoppingCartItem(int userId) {
+    public static Result getShoppingCartItem(int userId) {
         return null;
     }
 
-    public ResultVo ModifyItemCount(ShoppingCart sh) {
+    public static Result ModifyItemCount(Cart sh) {
         return null;
     }
 }

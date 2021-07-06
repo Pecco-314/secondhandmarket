@@ -26,16 +26,16 @@ public class ItemDaoOption {
         String sql = "insert into item(seller_id, item_name, item_type, quantity, price_now, price_original,introduction, item_pic_path, checked)" +
                 "values(:seller_id, :item_name, :item_type, :quantity, :price_now,:price_original, :introduction, :item_pic_path, :checked)";
         Map<String, Object> param = new HashMap<>();
-        param.put("item_name", item.getItem_name());
-        param.put("item_id", item.getItem_id());
-        param.put("seller_id", item.getSeller_id());
+        param.put("item_name", item.getName());
+        param.put("item_id", item.getId());
+        param.put("seller_id", item.getSeller());
         param.put("item_type", item.getType().toString());
         param.put("quantity", item.getQuantity());
-        param.put("price_now", item.getPrice_now());
-        param.put("price_original", item.getPrice_original());
+        param.put("price_now", item.getPrice());
+        param.put("price_original", item.getOriginalPrice());
         param.put("introduction", item.getIntroduction());
-        param.put("item_pic_path", item.getItem_pic_path());
-        param.put("checked", item.getChecked().toString());
+        param.put("item_pic_path", item.getImagePath());
+        param.put("checked", item.getCheckCondition().toString());
         jdbcTemplate.update(sql, param);
         return 0;
     }
@@ -54,17 +54,17 @@ public class ItemDaoOption {
     public int updateItem(Item item) {
         String sql = "update item set seller_id=:seller_id,item_name=:item_name,item_type=:item_type,quantity=:quantity,price_now=:price_now,price_original=:price_original,introduction=:introduction,item_pic_path=:item_pic_path,checked=:checked where item_id=:item_id";
         Map<String, Object> param = new HashMap<>();
-        param.put("item_name", item.getItem_name());
-        param.put("item_id", item.getItem_id());
-        param.put("seller_id", item.getSeller_id());
+        param.put("item_name", item.getName());
+        param.put("item_id", item.getId());
+        param.put("seller_id", item.getSeller());
         param.put("item_type", item.getType().toString());
         param.put("quantity", item.getQuantity());
-        param.put("price_now", item.getPrice_now());
-        param.put("price_original", item.getPrice_original());
+        param.put("price_now", item.getPrice());
+        param.put("price_original", item.getOriginalPrice());
       //  param.put("keyword", item.getKeyword());
         param.put("introduction", item.getIntroduction());
-        param.put("item_pic_path", item.getItem_pic_path());
-        param.put("checked", item.getChecked().toString());
+        param.put("item_pic_path", item.getImagePath());
+        param.put("checked", item.getCheckCondition().toString());
         jdbcTemplate.update(sql, param);
         return 0;
     }
@@ -172,7 +172,7 @@ public class ItemDaoOption {
             }
             param.put("item_type", itemFilter.getType().toString());
         }
-        if (itemFilter.getKeyWords() != null) {
+        if (itemFilter.getTags() != null) {
             if (!has_where) {
                 sql += " where";
                 has_where = true;
@@ -182,7 +182,7 @@ public class ItemDaoOption {
             {
                 sql += " and item_name LIKE :item_name";
             }
-            String str = "%" +itemFilter.getKeyWords() + "%";
+            String str = "%" +itemFilter.getTags() + "%";
             param.put("item_name", str);
         }
         if (itemFilter.getCheckCondition() != null) {

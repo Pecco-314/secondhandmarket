@@ -20,7 +20,7 @@ public interface UserDao {
     // 通过id查询用户
     User getUserById(int userId);
     // 通过邮箱查询用户
-    User getUserByEmail(String email);
+    User getUserByEmail(String emailAddress);
     // 用于查询所有用户列表
     List<User> getUserList();
     //查询用户简略信息

@@ -15,11 +15,11 @@ public class SimplifiedUserRowMapper implements RowMapper<SimplifiedUser> {
     @Override
     public SimplifiedUser mapRow(ResultSet rs, int i) throws SQLException {
 //        获取结果集中的数据
-        SimplifiedUser temp = new SimplifiedUser();
-        temp.setUserID(rs.getInt("user_id"));
-        temp.setNickName(rs.getString("Nickname"));
-        temp.setHead(UserHead.valueOf(rs.getString("head_portrait")));
-        return temp;
+        SimplifiedUser user = new SimplifiedUser();
+        user.setId(rs.getInt("user_id"));
+        user.setNickName(rs.getString("Nickname"));
+        user.setHead(UserHead.valueOf(rs.getString("head_portrait")));
+        return user;
     }
 }
 

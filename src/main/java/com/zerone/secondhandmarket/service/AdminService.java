@@ -42,7 +42,7 @@ public class AdminService implements AdminDao {
     }
 
     @Override
-    public Administrator getAdminByName(String name) {
+    public Administrator getAdminByNickname(String name) {
         return daooption.getAdminByName(name);
     }
 

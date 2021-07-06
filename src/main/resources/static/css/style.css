@@ -1,3 +1,7 @@
+[v-cloak] {
+    display: none;
+}
+
 .full-screen-body {
     width: 100%;
     margin: 0;
@@ -92,7 +96,6 @@
 .page-header-container {
     display: flex;
     justify-content: center;
-    cursor: pointer;
 }
 
 .page-header {
@@ -171,13 +174,14 @@ h2 {
 
 .inner {
     padding: 30px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .content-box {
     width: 600px;
     padding: 10px 30px;
-    margin-left: 300px;
-    margin-right: 300px;
     background-color: #fff;
     border-radius: 6px;
     box-shadow: 0 4px 8px 0 rgba(7, 17, 27, .07);
@@ -431,4 +435,12 @@ dress-form-item-content {
     line-height: 32px;
     font-size: 12px;
     width: 400px
+}
+
+#post-form .textarea textarea{
+    font-family: "微软雅黑";
+}
+
+.selectable {
+    cursor: pointer;
 }

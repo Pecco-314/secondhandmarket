@@ -9,9 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor//全参构造
 @NoArgsConstructor//无参构造
 public class SimplifiedUser {
-    private int userID;
+    private int id;
     private String nickName;
-    private UserHead head=UserHead.HEAD0;//用户头像
-
-
+    private UserHead head;//用户头像
 }

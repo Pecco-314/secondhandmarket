@@ -19,8 +19,7 @@ public interface ItemDao {
     int updateItem(Item item);
 
     // 通过类型查询商品
-    List<Item> getItemByType(ItemType itemtype);
-
+    List<Item> getItemByType(ItemType itemType);
     // 通过id查询商品
     Item getItemById(int itemId);
 
