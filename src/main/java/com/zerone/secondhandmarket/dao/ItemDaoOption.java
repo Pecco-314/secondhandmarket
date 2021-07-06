@@ -1,9 +1,11 @@
 package com.zerone.secondhandmarket.dao;
 
 import com.zerone.secondhandmarket.entity.Item;
+import com.zerone.secondhandmarket.entity.SimplifiedItem;
 import com.zerone.secondhandmarket.enums.ItemType;
 import com.zerone.secondhandmarket.enums.Ordering;
 import com.zerone.secondhandmarket.mapper.ItemRowMapper;
+import com.zerone.secondhandmarket.mapper.SimplifiedItemRowMapper;
 import com.zerone.secondhandmarket.message.ItemFilter;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -207,5 +209,71 @@ public class ItemDaoOption {
         }
         return items;
     }
+    //按filter获取商品列表
+    public List<SimplifiedItem> getSimplifiedItemByFilter(ItemFilter itemFilter) {
+        String sql = "select item_id,item_name,price_now,item_pic_path from item";
+        Map<String, Object> param = new HashMap<>();
+        boolean has_where = false;
+        if (itemFilter.getSeller() != null) {
+            if (!has_where) {
+                sql += " where";
+                has_where = true;
+                sql += " seller_id=:seller_id";
+            }
+            else
+            {
+                sql += " and seller_id=:seller_id";
+            }
 
+            param.put("seller_id", itemFilter.getSeller());
+        }
+        if (itemFilter.getType() != null) {
+            if (!has_where) {
+                sql += " where";
+                has_where = true;
+                sql += " item_type=:item_type";
+            }
+            else
+            {
+                sql += " and item_type=:item_type";
+            }
+            param.put("item_type", itemFilter.getType().toString());
+        }
+        if (itemFilter.getKeyWords() != null) {
+            if (!has_where) {
+                sql += " where";
+                has_where = true;
+                sql += " item_name LIKE :item_name";
+            }
+            else
+            {
+                sql += " and item_name LIKE :item_name";
+            }
+            String str = "%" +itemFilter.getKeyWords() + "%";
+            param.put("item_name", str);
+        }
+        if (itemFilter.getCheckCondition() != null) {
+            if (!has_where) {
+                sql += " where";
+                has_where = true;
+                sql += " checked=:checked";
+            }
+            else
+            {
+                sql += " and checked=:checked";
+            }
+            param.put("checked", itemFilter.getCheckCondition().toString());
+        }
+        if (itemFilter.getPriceOrdering() == Ordering.ASC)
+            sql += " order by price_now ASC";
+        if (itemFilter.getPriceOrdering() == Ordering.DESC)
+            sql += " order by price_now DESC";
+        List<SimplifiedItem> items;
+        try {
+            items = jdbcTemplate.query(sql,param, new SimplifiedItemRowMapper());
+        } catch (Exception e) {
+            return null;
+        }
+        return items;
+    }
 }
