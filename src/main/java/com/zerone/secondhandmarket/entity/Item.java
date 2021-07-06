@@ -27,6 +27,7 @@ public class Item {
     private List<String> tags;//标签
     private String introduction;//简介
     private String imagePath;//上传的商品的图片的路径，可能有多张图片存在一个文件夹里，即文件夹路径
+    private int imageCount; //图片的数量
     /**
      * 是否通过审核
      */
