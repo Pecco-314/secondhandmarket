@@ -8,7 +8,7 @@ public enum ItemType {
     CLOTHES("衣鞋帽伞"),
     TRANSPORT("代步工具"),
     SPORTS("体育健身"),
-    ELECTRICAL("家用电器"),
+    ELECTRIC("家用电器"),
     OTHERS("其他");
 
     private final String description;

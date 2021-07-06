@@ -7,7 +7,6 @@ import com.zerone.secondhandmarket.enums.Ordering;
 import com.zerone.secondhandmarket.mapper.ItemRowMapper;
 import com.zerone.secondhandmarket.mapper.SimplifiedItemRowMapper;
 import com.zerone.secondhandmarket.message.ItemFilter;
-import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -23,7 +22,7 @@ public class ItemDaoOption {
 
     // 用于添加商品
     public int insertItem(Item item) {
-        String sql = "insert into item(seller_id, item_name, item_type, quantity, price_now, price_original,introduction, item_pic_path, checked)" +
+        String sql = "insert into item(seller_id, item_name, item_type, quantity, price_now, price_original,introduction, coverPath, checked)" +
                 "values(:seller_id, :item_name, :item_type, :quantity, :price_now,:price_original, :introduction, :item_pic_path, :checked)";
         Map<String, Object> param = new HashMap<>();
         param.put("item_name", item.getName());
@@ -34,7 +33,7 @@ public class ItemDaoOption {
         param.put("price_now", item.getPrice());
         param.put("price_original", item.getOriginalPrice());
         param.put("introduction", item.getIntroduction());
-        param.put("item_pic_path", item.getImagePath());
+        param.put("item_pic_path", item.getCoverPath());
         param.put("checked", item.getCheckCondition().toString());
         jdbcTemplate.update(sql, param);
         return 0;
@@ -52,7 +51,7 @@ public class ItemDaoOption {
 
     // 用于更新商品
     public int updateItem(Item item) {
-        String sql = "update item set seller_id=:seller_id,item_name=:item_name,item_type=:item_type,quantity=:quantity,price_now=:price_now,price_original=:price_original,introduction=:introduction,item_pic_path=:item_pic_path,checked=:checked where item_id=:item_id";
+        String sql = "update item set seller_id=:seller_id,item_name=:item_name,item_type=:item_type,quantity=:quantity,price_now=:price_now,price_original=:price_original,introduction=:introduction,coverPath=:item_pic_path,checked=:checked where item_id=:item_id";
         Map<String, Object> param = new HashMap<>();
         param.put("item_name", item.getName());
         param.put("item_id", item.getId());
@@ -61,9 +60,8 @@ public class ItemDaoOption {
         param.put("quantity", item.getQuantity());
         param.put("price_now", item.getPrice());
         param.put("price_original", item.getOriginalPrice());
-      //  param.put("keyword", item.getKeyword());
         param.put("introduction", item.getIntroduction());
-        param.put("item_pic_path", item.getImagePath());
+        param.put("item_pic_path", item.getCoverPath());
         param.put("checked", item.getCheckCondition().toString());
         jdbcTemplate.update(sql, param);
         return 0;
@@ -211,7 +209,7 @@ public class ItemDaoOption {
     }
     //按filter获取商品列表
     public List<SimplifiedItem> getSimplifiedItemByFilter(ItemFilter itemFilter) {
-        String sql = "select item_id,item_name,price_now,item_pic_path from item";
+        String sql = "select item_id,item_name,price_now,coverPath from item";
         Map<String, Object> param = new HashMap<>();
         boolean has_where = false;
         if (itemFilter.getSeller() != null) {

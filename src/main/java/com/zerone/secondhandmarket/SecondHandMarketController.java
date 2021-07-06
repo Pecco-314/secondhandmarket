@@ -29,10 +29,11 @@ public class SecondHandMarketController {
     OrderService orderService = new OrderService();
     @RequestMapping("/")
     public String run() {
-        User user = new User(6, "huhu", "123456", "1111111", "111@qq.com", UserHead.HEAD1);
+      //  User user = new User(6, "huhu", "123456", "1111111", "111@qq.com", UserHead.HEAD1);
         Administrator admin = new Administrator(2, "pecco", "123456");
-        Item item = new Item(7, 5, "hat", ItemType.CLOTHES, 2, 100, 30, Arrays.asList("cs"), "this is a book", "1.jpg", ItemCheckCondition.TRUE);
-        Item item2 = new Item(1, 3, "c++++primer", ItemType.CLOTHES, 3, 10, 5, Arrays.asList("cs+"), "this is a book", "1.jpg", ItemCheckCondition.UNCHECKED);
+       Item item = new Item(0, 5, "hat", ItemType.CLOTHES, 2, 100, 30,"this is a hat",null,null,null, ItemCheckCondition.TRUE);
+       itemService.insertItem(item);
+       //Item item2 = new Item(1, 3, "c++++primer", ItemType.CLOTHES, 3, 10, 5, Arrays.asList("cs+"), "this is a book", "1.jpg", ItemCheckCondition.UNCHECKED);
         ItemFilter filter=new ItemFilter();
         filter.setCheckCondition(ItemCheckCondition.TRUE);
       //  filter.setType(ItemType.DIGITAL);

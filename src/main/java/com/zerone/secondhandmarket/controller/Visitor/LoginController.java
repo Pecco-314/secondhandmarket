@@ -28,7 +28,7 @@ public class LoginController {
     }
 
     @ResponseBody
-    @PostMapping("/login/user")
+    @PostMapping("/requests/login/user")
     public String userLogin(@RequestBody UserLoginMessage data) {
         String account = data.getEmailOrID();
         String password = data.getPassword();
@@ -39,7 +39,7 @@ public class LoginController {
     }
 
     @ResponseBody
-    @PostMapping("/login/admin")
+    @PostMapping("/requests/login/admin")
     public String adminLogin(@RequestBody AdminLoginMessage data) {
         String account = data.getId();
         String password = data.getPassword();
@@ -50,7 +50,7 @@ public class LoginController {
     }
 
     @ResponseBody
-    @PostMapping("/register")
+    @PostMapping("/requests/register")
     public String userRegister(@RequestBody RegisterMessage data) {
         String email = data.getEmail();
         String nickname = data.getNickname();

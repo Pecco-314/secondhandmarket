@@ -1,3 +1,7 @@
+function isPossiblyPrice(text) {
+    return /(^[1-9]\d*(\.\d{1,2})?$)|(^0(\.\d{1,2})?$)/.test(text);
+}
+
 let postForm = new Vue({
     el: "#post-form",
     data() {
@@ -5,21 +9,21 @@ let postForm = new Vue({
             postForm: {
                 name: '',
                 type: '',
-                quantity: '',
+                quantity: 1,
                 price: '',
                 originalPrice: '',
                 introduction: '',
             },
             options: [
-                {value: 'shuma', label: '数码产品',},
-                {value: 'shuji', label: '书籍教材',},
-                {value: 'yixie', label: '衣鞋帽伞',},
-                {value: 'daibu', label: '代步工具',},
-                {value: 'tiyu', label: '体育健身',},
-                {value: 'dianqi', label: '家用电器'},
-                {value: 'richang', label: '日常用品',},
-                {value: 'piaoquan', label: '票券产品',},
-                {value: 'qita', label: '其他',},
+                {value: 'DIGITAL', label: '数码产品',},
+                {value: 'BOOK', label: '书籍教材',},
+                {value: 'CLOTHES', label: '衣鞋帽伞',},
+                {value: 'TRANSPORT', label: '代步工具',},
+                {value: 'SPORTS', label: '体育健身',},
+                {value: 'ELECTRIC', label: '家用电器'},
+                {value: 'DAILY_USE', label: '日常用品',},
+                {value: 'TICKET', label: '票券产品',},
+                {value: 'OTHERS', label: '其他',},
             ],
             presetTags: [
                 {name: "原装正品", type: 'info'},
@@ -28,7 +32,41 @@ let postForm = new Vue({
                 {name: "价格可谈", type: 'info'},
                 {name: "一口价", type: 'info'},
             ],
-            images: []
+            images: [],
+            fileList: [],
+            postFormRules: {
+                name: [
+                    {required: true, message: '请输入商品名称', trigger: 'blur'},
+                ],
+                type: [
+                    {required: true, message: '请选择类型', trigger: 'change'},
+                ],
+                price: [
+                    {required: true, message: '请输入单价', trigger: 'blur'},
+                    {
+                        validator: (rule, value, callback) => {
+                            if (isPossiblyPrice(value)) {
+                                callback();
+                            } else {
+                                callback(new Error('请输入数字，最多两位小数'));
+                            }
+                        },
+                        trigger: 'blur'
+                    }
+                ],
+                originalPrice: [
+                    {
+                        validator: (rule, value, callback) => {
+                            if (isPossiblyPrice(value)) {
+                                callback();
+                            } else {
+                                callback(new Error('请输入数字，最多两位小数'));
+                            }
+                        },
+                        trigger: 'blur'
+                    }
+                ],
+            }
         }
     },
     computed: {
@@ -54,9 +92,9 @@ let postForm = new Vue({
             this.$refs.postForm.validate(valid => {
                 if (valid) {
                     let form = this.postForm;
-                    let itemInfo = { // TODO 告诉后端接口修改
+                    let itemInfo = {
                         seller: $.cookie("id"),
-                        token: $.cookie("token"), // HERE
+                        token: $.cookie("token"),
                         name: form.name,
                         type: form.type,
                         quantity: Number.parseInt(form.quantity),
@@ -64,7 +102,7 @@ let postForm = new Vue({
                         price: Number.parseFloat(form.price),
                         tags: this.tags,
                         introduction: form.introduction === "" ? null : form.introduction,
-                        images: this.images // HERE
+                        images: this.images
                     }
                     console.log(itemInfo)
                     $.ajax({

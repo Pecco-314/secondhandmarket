@@ -9,6 +9,8 @@ User Module:
 */
 
 public enum Status {
+    ERROR(0),
+
     OK(10200),
     NOT_FOUND(10400),
     PASSWORD_WRONG(10401),

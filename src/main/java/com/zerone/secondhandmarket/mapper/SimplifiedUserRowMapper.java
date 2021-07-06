@@ -17,8 +17,8 @@ public class SimplifiedUserRowMapper implements RowMapper<SimplifiedUser> {
 //        获取结果集中的数据
         SimplifiedUser user = new SimplifiedUser();
         user.setId(rs.getInt("user_id"));
-        user.setNickName(rs.getString("Nickname"));
-        user.setHead(UserHead.valueOf(rs.getString("head_portrait")));
+        user.setNickname(rs.getString("Nickname"));
+        user.setImagePath(rs.getString("imagePath"));
         return user;
     }
 }
