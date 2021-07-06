@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor//无参构造
 public class SimplifiedUser {
     private int id;
-    private String nickName;
-    private UserHead head;//用户头像
+    private String nickname;
+    private String image;//用户头像
 }

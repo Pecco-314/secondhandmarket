@@ -32,7 +32,7 @@ public class UserDaoOption {
         param.put("phonenum", user.getPhoneNumber());
         param.put("email", user.getEmailAddress());
         param.put("password", user.getPassword());
-        param.put("head_portrait", user.getHead().toString());
+        param.put("head_portrait", user.getImage());
         jdbcTemplate.update(sql, param);
         return 0;
     }
@@ -53,7 +53,7 @@ public class UserDaoOption {
         param.put("phone_number", user.getPhoneNumber());
         param.put("email", user.getEmailAddress());
         param.put("password", user.getPassword());
-        param.put("head_portrait", user.getHead().toString());
+        param.put("head_portrait", user.getImage());
         jdbcTemplate.update(sql, param);
         return 0;
     }

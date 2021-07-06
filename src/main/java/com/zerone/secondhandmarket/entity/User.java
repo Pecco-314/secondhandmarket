@@ -14,7 +14,7 @@ public class User {
     private String password;
     private String phoneNumber;
     private String emailAddress;
-    private UserHead head;//用户头像
+    private String image;//用户头像
 
 
     @Override
