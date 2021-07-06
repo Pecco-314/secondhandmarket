@@ -1,24 +1,46 @@
 package com.zerone.secondhandmarket.controller.User;
 
+import com.zerone.secondhandmarket.message.SellingItemMessage;
+import com.zerone.secondhandmarket.module.UploadModule;
+import com.zerone.secondhandmarket.service.ImageService;
+import com.zerone.secondhandmarket.tools.JSONMapper;
+import com.zerone.secondhandmarket.tools.PathGenerator;
 import com.zerone.secondhandmarket.viewobject.Result;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+
+import static com.zerone.secondhandmarket.tools.JSONMapper.writeValueAsString;
 
 @Controller("OrdinaryItem")
 public class ItemController {
-    @RequestMapping("/request/post")
-    public String openPostPage(){
+    private ImageService imageService=new ImageService();
+    @RequestMapping("/post")
+    public String openPostPage() {
+
         return "post";
     }
-//    @GetMapping("/product/filter")
+
+    @ResponseBody
+    @PostMapping("/requests/upload/image")
+    public String upload(@RequestParam("multipartfiles") MultipartFile[] multipartfiles) throws IOException {
+        Result result= UploadModule.upload("item",multipartfiles);
+        System.out.println(JSONMapper.writeValueAsString(result));
+        return JSONMapper.writeValueAsString(result);
+    }
+
+    //    @GetMapping("/product/filter")
 //    public ResultVo getItemList(@RequestBody ItemFilter itemFilter){
 //        return null;
 //    }
 //
     @GetMapping("/request/item/{itemId}")
-    public Result getItemInfo(@PathVariable("itemId") int itemId){
+    public Result getItemInfo(@PathVariable("itemId") int itemId) {
         return null;
     }
 //

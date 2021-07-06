@@ -32,7 +32,17 @@ public class OrderModule {
         }
     }
 
-    public Result cancelOrder(OrderFilter filter) {
-        return null;
+    public Result cancelOrder(OrderService service, OrderFilter filter) {
+        try {
+            List<Order> list = service.getOrderByFilter(filter);
+
+            if(list == null || list.size() != 1)
+                return new Result(Status.ERROR, "", null);
+
+            service.deleteOrder(list.get(0).getId());
+            return new Result(Status.OK, "", null);
+        } catch (Exception e) {
+            return new Result(Status.ERROR, "", null);
+        }
     }
 }
