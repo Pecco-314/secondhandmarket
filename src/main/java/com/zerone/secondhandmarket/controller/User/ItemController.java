@@ -15,27 +15,29 @@ import java.io.IOException;
 @Controller("OrdinaryItem")
 public class ItemController {
     @RequestMapping("/post")
-    public String openPostPage(@RequestBody SellingItemMessage sellingItem){
+    public String openPostPage() {
 
         return "post";
     }
+
     @ResponseBody
-    @PostMapping("/requests/upload")
-    public String upload(@RequestParam("multipartfiles") MultipartFile[] multipartfiles)throws IOException{
+    @PostMapping("/requests/upload/image")
+    public String upload(@RequestParam("multipartfiles") MultipartFile[] multipartfiles) throws IOException {
         //获取项目编译之后的文件路径，一般是“项目路径/target/classes”
-        String Path = (String.valueOf(Thread.currentThread().getContextClassLoader().getResource("")+"static/swagger/")).replaceAll("file:/", "").replaceAll("%20", " ").trim();
-        if(Path.indexOf(":") != 1){
+        String Path = (String.valueOf(Thread.currentThread().getContextClassLoader().getResource("") + "static/swagger/")).replaceAll("file:/", "").replaceAll("%20", " ").trim();
+        if (Path.indexOf(":") != 1) {
             Path = File.separator + Path;
         }
         //遍历文件
-        if(multipartfiles != null && multipartfiles.length>0){
-            for(MultipartFile item : multipartfiles){
-                String type = item.getOriginalFilename().split(".")[1];//获取文件类型
-                String fileName= PathGenerator.generateItemImagePath()+"."+type;
+        if (multipartfiles != null && multipartfiles.length > 0) {
+            for (MultipartFile item : multipartfiles) {
+                System.out.println(item.getOriginalFilename());
+                String type = item.getOriginalFilename().split("\\.")[1];//获取文件类型
+                String fileName = PathGenerator.generateItemImagePath() + "." + type;
                 String filePath = Path + "uploadFiles/uploadFiles";//自定义上传路径
-                File file = new File(filePath,fileName);
-                if(!file.exists()){//判断文件夹是否存在，如果不存在则创建
-                    if(!file.getParentFile().exists()){
+                File file = new File(filePath, fileName);
+                if (!file.exists()) {//判断文件夹是否存在，如果不存在则创建
+                    if (!file.getParentFile().exists()) {
                         file.getParentFile().mkdirs();
                     }
                     file.createNewFile();
@@ -45,13 +47,14 @@ public class ItemController {
         }
         return "post";
     }
-//    @GetMapping("/product/filter")
+
+    //    @GetMapping("/product/filter")
 //    public ResultVo getItemList(@RequestBody ItemFilter itemFilter){
 //        return null;
 //    }
 //
     @GetMapping("/request/item/{itemId}")
-    public Result getItemInfo(@PathVariable("itemId") int itemId){
+    public Result getItemInfo(@PathVariable("itemId") int itemId) {
         return null;
     }
 //
