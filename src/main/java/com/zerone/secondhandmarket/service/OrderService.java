@@ -35,7 +35,7 @@ public class OrderService implements OrderDao {
     }
 
     @Override
-    // 通过itemid查询订单信息
+    // 通过itemId查询订单信息
     public Order getOrderByOrderId(int orderId) {
         return daoOption.getOrderByOrderId(orderId);
     }

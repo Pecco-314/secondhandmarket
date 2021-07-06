@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="../css/style.css">
 
 </head>
+
 <body>
+
 <div id="page-header">
     <page-header></page-header>
 </div>
@@ -29,7 +31,6 @@
         </div>
 
     </el-header>
-
     <el-container class="user-container">
         <el-aside id="app-aside" width="205px" style="float: left">
             <el-row class="tac">
@@ -41,10 +42,16 @@
                             @close="handleClose"
                             active-text-color="#ffd04b">
 
-                        <el-menu-item index="1">
-                            <i class="el-icon-user"></i>
-                            <span slot="title">我的资料</span>
-                        </el-menu-item>
+                        <el-submenu index="1">
+                            <template slot="title">
+                                <i class="el-icon-s-order"></i>
+                                <span>我的资料</span>
+                            </template>
+                            <el-menu-item-group>
+                                <el-menu-item index="1-1">基本信息</el-menu-item>
+                                <el-menu-item index="1-2">修改密码</el-menu-item>
+                            </el-menu-item-group>
+                        </el-submenu>
                         <el-menu-item index="2">
                             <i class="el-icon-goods"></i>
                             <span slot="title">我的商品</span>
@@ -56,8 +63,8 @@
                                 <span>订单管理</span>
                             </template>
                             <el-menu-item-group>
-                                <el-menu-item index="1-1">我的已购</el-menu-item>
-                                <el-menu-item index="1-2">我的售出</el-menu-item>
+                                <el-menu-item index="1-1">已购商品</el-menu-item>
+                                <el-menu-item index="1-2">售出商品</el-menu-item>
                             </el-menu-item-group>
                         </el-submenu>
 
@@ -86,17 +93,12 @@
                 <el-form-item label="用户名">
                     <el-input v-model="form.name"></el-input>
                 </el-form-item>
-                <el-form-item label="学校">
-                    <el-input v-model="form.school"></el-input>
-                </el-form-item>
+
                 <el-form-item label="电话">
                     <el-input v-model="form.telephone"></el-input>
                 </el-form-item>
                 <el-form-item label="邮箱">
                     <el-input v-model="form.email"></el-input>
-                </el-form-item>
-                <el-form-item id="app-pwd" label="密码" >
-                    <el-input placeholder="请输入密码" v-model="form.pwd" show-password></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="onSubmit">修改</el-button>

@@ -2,27 +2,22 @@ package com.zerone.secondhandmarket.enums;
 
 public enum ItemType {
     BOOK("书籍"),
-    DAILYUSE("日常用品"),
+    DAILY_USE("日常用品"),
     TICKET("票券"),
     DIGITAL("数码产品"),
     CLOTHES("衣鞋帽伞"),
     TRANSPORT("代步工具"),
-    SPORT("体育健身"),
+    SPORTS("体育健身"),
     ELECTRICAL("家用电器"),
     OTHERS("其他");
 
-    private String stateInfo;
+    private final String description;
 
-    ItemType(String stateInfo) {
-
-        this.stateInfo = stateInfo;
+    ItemType(String description) {
+        this.description = description;
     }
 
-    public String getStateInfo() {
-        return stateInfo;
-    }
-
-    public void setStateInfo(String stateInfo) {
-        this.stateInfo = stateInfo;
+    public String getDescription() {
+        return description;
     }
 }

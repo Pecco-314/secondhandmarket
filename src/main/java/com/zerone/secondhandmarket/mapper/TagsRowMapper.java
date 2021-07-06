@@ -6,13 +6,13 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class KeywordsRowMapper implements RowMapper<String> {
+public class TagsRowMapper implements RowMapper<String> {
 
     @Override
     public String mapRow(ResultSet rs, int i) throws SQLException {
 //        获取结果集中的数据
-        String temp=rs.getString("keyword");;
-        return temp;
+        String tag = rs.getString("keyword");
+        return tag;
     }
 }
 

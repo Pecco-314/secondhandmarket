@@ -21,8 +21,8 @@ public class AdminDaoOption {
         String sql = "insert into administrator(admin_name, password) " +
                 "values(:admin_name,:password)";
         Map<String, Object> param = new HashMap<>();
-        param.put("admin_name", admin.getAdmin_name());
-        param.put("id",admin.getAdmin_id());
+        param.put("admin_name", admin.getNickname());
+        param.put("id",admin.getId());
         param.put("password",admin.getPassword());
         jdbcTemplate.update(sql, param);
         return 0;
@@ -38,8 +38,8 @@ public class AdminDaoOption {
     public int updateAdmin(Administrator admin) {
         String sql = "update administrator set admin_name=:name,password=:password  where id=:id";
         Map<String, Object> param = new HashMap<>();
-        param.put("name", admin.getAdmin_name());
-        param.put("id",admin.getAdmin_id());
+        param.put("name", admin.getNickname());
+        param.put("id",admin.getId());
         param.put("password",admin.getPassword());
         jdbcTemplate.update(sql,param);
         return 0;

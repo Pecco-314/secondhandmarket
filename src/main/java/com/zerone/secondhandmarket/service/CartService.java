@@ -1,8 +1,8 @@
 package com.zerone.secondhandmarket.service;
 
-import com.zerone.secondhandmarket.dao.ShoppingCartDao;
-import com.zerone.secondhandmarket.dao.ShoppingCartDaoOption;
-import com.zerone.secondhandmarket.entity.ShoppingCart;
+import com.zerone.secondhandmarket.dao.CartDao;
+import com.zerone.secondhandmarket.dao.CartDaoOption;
+import com.zerone.secondhandmarket.entity.Cart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,13 +11,13 @@ import java.util.List;
 
 @Service
 @Transactional
-public class ShoppingCartService implements ShoppingCartDao {
+public class CartService implements CartDao {
     @Autowired
-    private ShoppingCartDaoOption daoOption;
+    private CartDaoOption daoOption;
 
     @Override
     // 用于添加购物车信息
-    public int insertCart(ShoppingCart cart) {
+    public int insertCart(Cart cart) {
         return daoOption.insertCart(cart);
     }
 
@@ -35,13 +35,13 @@ public class ShoppingCartService implements ShoppingCartDao {
 
     @Override
     // 用于更新购物车数量信息
-    public int modifyItemQuantity(ShoppingCart cart) {
+    public int modifyItemQuantity(Cart cart) {
         return daoOption.modifyItemQuantity(cart);
     }
 
     @Override
     //查询用户购物车信息
-    public List<ShoppingCart> getCartListByUserId(int userId) {
+    public List<Cart> getCartListByUserId(int userId) {
         return daoOption.getCartListByUserId(userId);
     }
 }

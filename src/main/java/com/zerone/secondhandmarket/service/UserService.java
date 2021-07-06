@@ -6,7 +6,6 @@ import com.zerone.secondhandmarket.entity.SimplifiedUser;
 import com.zerone.secondhandmarket.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,48 +13,48 @@ import java.util.List;
 
 public class UserService implements UserDao {
     @Autowired
-    private UserDaoOption daooption;
+    private UserDaoOption daoOption;
 
     @Override
     public int insertUser(User user) {
-        daooption.insertUser(user);
+        daoOption.insertUser(user);
         return 0;
     }
 
     @Override
     public int deleteUser(int id) {
-        daooption.deleteUser(id);
+        daoOption.deleteUser(id);
         return 0;
     }
 
     @Override
     public int updateUser(User user) {
-        daooption.updateUser(user);
+        daoOption.updateUser(user);
         return 0;
     }
 
     @Override
     public User getUserById(int id) {
-        return daooption.getUserById(id);
+        return daoOption.getUserById(id);
     }
 
     @Override
     public User getUserByEmail(String email) {
-        return daooption.getUserByEmail(email);
+        return daoOption.getUserByEmail(email);
     }
 
     @Override
     public List<User> getUserList() {
-        return daooption.getUserList();
+        return daoOption.getUserList();
     }
 
     @Override
     public int insertOrUpdateUser(User user) {
-        return daooption.insertOrUpdateUser(user);
+        return daoOption.insertOrUpdateUser(user);
     }
 
     @Override
     public SimplifiedUser getSimplifiedUserInfoById(int userId) {
-        return daooption.getSimplifiedUserInfoById(userId);
+        return daoOption.getSimplifiedUserInfoById(userId);
     }
 }

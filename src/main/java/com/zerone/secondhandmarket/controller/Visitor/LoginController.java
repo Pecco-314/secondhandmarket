@@ -1,13 +1,11 @@
 package com.zerone.secondhandmarket.controller.Visitor;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zerone.secondhandmarket.message.AdminLoginMessage;
 import com.zerone.secondhandmarket.message.RegisterMessage;
 import com.zerone.secondhandmarket.message.UserLoginMessage;
 import com.zerone.secondhandmarket.module.LoginModule;
 import com.zerone.secondhandmarket.tools.JSONMapper;
-import com.zerone.secondhandmarket.viewobject.ResultVo;
+import com.zerone.secondhandmarket.viewobject.Result;
 import com.zerone.secondhandmarket.service.AdminService;
 import com.zerone.secondhandmarket.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.Map;
 
 @Controller("VisitorLogin")
 public class LoginController {
@@ -37,7 +33,7 @@ public class LoginController {
         String account = data.getEmailOrID();
         String password = data.getPassword();
 
-        ResultVo result = LoginModule.userLogin(userService, account, password);
+        Result result = LoginModule.userLogin(userService, account, password);
 
         return JSONMapper.writeValueAsString(result);
     }
@@ -48,9 +44,9 @@ public class LoginController {
         String account = data.getId();
         String password = data.getPassword();
 
-        ResultVo resultVo = LoginModule.adminLogin(adminService, account, password);
+        Result result = LoginModule.adminLogin(adminService, account, password);
 
-        return JSONMapper.writeValueAsString(resultVo);
+        return JSONMapper.writeValueAsString(result);
     }
 
     @ResponseBody
@@ -61,8 +57,8 @@ public class LoginController {
         String password = data.getPassword();
 
         System.out.println(nickname);
-        ResultVo resultVo = LoginModule.userRegister(userService, email, nickname, password);
+        Result result = LoginModule.userRegister(userService, email, nickname, password);
 
-        return JSONMapper.writeValueAsString(resultVo);
+        return JSONMapper.writeValueAsString(result);
     }
 }

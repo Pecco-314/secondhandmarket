@@ -6,37 +6,33 @@ import com.zerone.secondhandmarket.exception.InvalidInfoException;
 import com.zerone.secondhandmarket.message.OrderFilter;
 import com.zerone.secondhandmarket.message.OrderMessage;
 import com.zerone.secondhandmarket.service.OrderService;
-import com.zerone.secondhandmarket.tools.Validation;
-import com.zerone.secondhandmarket.viewobject.ResultVo;
+import com.zerone.secondhandmarket.viewobject.Result;
 
+import java.util.Date;
 import java.util.List;
 
 public class OrderModule {
-    public ResultVo getOrderList(OrderService service, OrderFilter filter) {
+    public Result getOrderList(OrderService service, OrderFilter filter) {
         List<Order> list = service.getOrderByFilter(filter);
 
         if(list == null || list.isEmpty())
-            return new ResultVo(Status.NO_QUALIFIED_ORDERS, "", null);
+            return new Result(Status.NO_QUALIFIED_ORDERS, "", null);
 
-        return new ResultVo(Status.OK, "", list);
+        return new Result(Status.OK, "", list);
     }
 
-    public ResultVo generateOrder(OrderService service, OrderMessage message) {
+    public Result generateOrder(OrderService service, OrderMessage message) {
         try {
-            Validation.checkOrderInfo(message);
-
-            Order order = new Order(message);
+            Order order = new Order(0, message.getBuyer(), message.getSeller(), message.getItemID(), message.getQuantity(), new Date().toString());
             service.insertOrder(order);
 
-            return new ResultVo(Status.OK, "", null);
-        } catch (InvalidInfoException e) {
-            return new ResultVo(Status.INVALID_ORDER, e.getMessage(), null);
+            return new Result(Status.OK, "", null);
         } catch (Exception e) {
-            return new ResultVo(Status.GENERATE_ORDER_ERROR, "", null);
+            return new Result(Status.GENERATE_ORDER_ERROR, "", null);
         }
     }
 
-    public ResultVo cancelOrder(OrderFilter filter) {
+    public Result cancelOrder(OrderFilter filter) {
         return null;
     }
 }
