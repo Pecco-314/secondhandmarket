@@ -3,6 +3,7 @@ package com.zerone.secondhandmarket.service;
 import com.zerone.secondhandmarket.dao.ItemDao;
 import com.zerone.secondhandmarket.dao.ItemDaoOption;
 import com.zerone.secondhandmarket.entity.Item;
+import com.zerone.secondhandmarket.entity.SimplifiedItem;
 import com.zerone.secondhandmarket.enums.ItemType;
 import com.zerone.secondhandmarket.enums.Ordering;
 import com.zerone.secondhandmarket.message.ItemFilter;
@@ -66,5 +67,15 @@ public class ItemService implements ItemDao {
     @Override
     public List<Item> getItemByFilter(ItemFilter itemFilter) {
         return daoOption.getItemByFilter(itemFilter);
+    }
+
+    @Override
+    public List<Item> getItemByKeyword(String keyword) {
+        return daoOption.getItemByKeyword(keyword);
+    }
+
+    @Override
+    public List<SimplifiedItem> getSimplifiedItemByFilter(ItemFilter itemFilter) {
+        return daoOption.getSimplifiedItemByFilter(itemFilter);
     }
 }
