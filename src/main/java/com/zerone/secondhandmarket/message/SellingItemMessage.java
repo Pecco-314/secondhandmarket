@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor  //无参构造函数
 public class SellingItemMessage {
     private Integer seller;
+    private String token;
     private String name;
     private ItemType type;
     private Integer quantity;
@@ -17,5 +18,5 @@ public class SellingItemMessage {
     private Double price;
     private String[] tags;
     private String introduction;
-    private byte[] image;
+    private String[] images;
 }
