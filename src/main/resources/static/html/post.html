@@ -72,7 +72,8 @@
                         <!-- TODO 这里的url上线时要改 -->
                         <el-upload
                                 drag
-                                action=https://jsonplaceholder.typicode.com/posts/
+                                name="multipartfiles"
+                                action="http://localhost:8088/requests/upload/image"
                                 :on-success="onPostImageSuccessfully"
                                 :file-list="fileList"
                                 multiple>
