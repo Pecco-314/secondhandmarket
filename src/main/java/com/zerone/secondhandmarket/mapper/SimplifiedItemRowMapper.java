@@ -15,7 +15,7 @@ public class SimplifiedItemRowMapper implements RowMapper<SimplifiedItem> {
         temp.setId(rs.getInt("item_id"));
         temp.setName(rs.getString("item_name"));
         temp.setPrice(rs.getDouble("price_now"));
-        temp.setImagePath(rs.getString("item_pic_path"));
+        temp.setImagePath(rs.getString("coverPath"));
         return temp;
     }
 }

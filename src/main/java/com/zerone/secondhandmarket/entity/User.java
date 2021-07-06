@@ -14,7 +14,7 @@ public class User {
     private String password;
     private String phoneNumber;
     private String emailAddress;
-    private String image;//用户头像
+    private String imagePath;//用户头像图片路径
 
 
     @Override

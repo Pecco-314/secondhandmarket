@@ -25,14 +25,14 @@ public class UserDaoOption {
     }
 
     public int insertUser(User user) {
-        String sql = "insert into user(Nickname,phone_number,email,password,head_portrait) " +
-                "values(:name,:phonenum,:email,:password,:head_portrait)";
+        String sql = "insert into user(Nickname,phone_number,email,password,imagePath) " +
+                "values(:name,:phonenum,:email,:password,:imagePath)";
         Map<String, Object> param = new HashMap<>();
         param.put("name", user.getNickname());
         param.put("phonenum", user.getPhoneNumber());
         param.put("email", user.getEmailAddress());
         param.put("password", user.getPassword());
-        param.put("head_portrait", user.getImage());
+        param.put("imagePath", user.getImagePath());
         jdbcTemplate.update(sql, param);
         return 0;
     }
@@ -46,14 +46,14 @@ public class UserDaoOption {
     }
 
     public int updateUser(User user) {
-        String sql = "update user set Nickname=:name,phone_number=:phone_number,email=:email,password=:password,head_portrait=:head_portrait  where user_id=:id";
+        String sql = "update user set Nickname=:name,phone_number=:phone_number,email=:email,password=:password,imagePath=:imagePath  where user_id=:id";
         Map<String, Object> param = new HashMap<>();
         param.put("name", user.getNickname());
         param.put("id", user.getId());
         param.put("phone_number", user.getPhoneNumber());
         param.put("email", user.getEmailAddress());
         param.put("password", user.getPassword());
-        param.put("head_portrait", user.getImage());
+        param.put("imagePath", user.getImagePath());
         jdbcTemplate.update(sql, param);
         return 0;
     }
@@ -99,7 +99,7 @@ public class UserDaoOption {
    public SimplifiedUser getSimplifiedUserInfoById(int userId)
     {
         SimplifiedUser simple_user;
-        String sql = "select user_id,Nickname,head_portrait from user where user_id=:id";
+        String sql = "select user_id,Nickname,imagePath from user where user_id=:id";
         Map<String, Object> param = new HashMap<>();
         param.put("id", userId);
         try {

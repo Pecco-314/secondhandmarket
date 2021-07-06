@@ -25,7 +25,7 @@ public class ItemRowMapper implements RowMapper<Item>{
         item.setOriginalPrice(rs.getDouble("price_original"));
      //   temp.setKeyword(rs.getString("keyword"));
         item.setIntroduction(rs.getString("introduction"));
-        item.setImagePath(rs.getString("item_pic_path"));
+        item.setCoverPath(rs.getString("coverPath"));
         item.setCheckCondition(ItemCheckCondition.valueOf(rs.getString("checked")));
         return item;
     }

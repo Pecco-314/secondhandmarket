@@ -21,7 +21,7 @@ public class UserRowMapper implements RowMapper<User> {
         user.setPhoneNumber(rs.getString("phone_number"));
         user.setEmailAddress(rs.getString("email"));
         user.setPassword(rs.getString("password"));
-        user.setHead(UserHead.valueOf(rs.getString("head_portrait")));
+        user.setImagePath(rs.getString("imagePath"));
         return user;
     }
 }

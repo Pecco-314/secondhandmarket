@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 public class SimplifiedUser {
     private int id;
     private String nickname;
-    private String image;//用户头像
+    private String imagePath;//用户头像
 }

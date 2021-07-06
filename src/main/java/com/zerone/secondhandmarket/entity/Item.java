@@ -25,6 +25,10 @@ public class Item {
     private double price;//现在的价格
     private double originalPrice;//原来的价格
     private String introduction;//简介
+    private String coverPath;
+    private List<String> itemTags;//返回关键词数组
+    private List<String> itemImages;//返回物品图片路径数组
+
     /**
      * 是否通过审核
      */
