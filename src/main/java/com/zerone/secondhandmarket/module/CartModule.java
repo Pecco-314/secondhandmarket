@@ -8,7 +8,7 @@ import com.zerone.secondhandmarket.viewobject.Result;
 import java.util.List;
 
 public class CartModule {
-    public static Result getShoppingCartItem(CartService service, int userId) {
+    public static Result getItemsInCart(CartService service, int userId) {
         List<Cart> list = service.getCartListByUserId(userId);
 
         if(list == null || list.isEmpty())
@@ -17,7 +17,7 @@ public class CartModule {
         return new Result(Status.OK, "", list);
     }
 
-    public static Result ModifyItemCount(CartService service, Cart cart) {
+    public static Result modifyItemQuantity(CartService service, Cart cart) {
         try {
             if(cart.getQuantity() == 0) {
                 service.deleteCart(cart.getUserId(), cart.getItemId());

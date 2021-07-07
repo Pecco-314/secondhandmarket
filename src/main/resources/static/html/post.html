@@ -75,7 +75,8 @@
                                 name="multipartfiles"
                                 action="http://localhost:8088/requests/upload/image"
                                 :on-success="onPostImageSuccessfully"
-                                :file-list="fileList"
+                                :on-remove="onRemoveImage"
+                                list-type="picture"
                                 multiple>
                             <i class="el-icon-upload"></i>
                             <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>

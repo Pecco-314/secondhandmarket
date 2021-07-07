@@ -15,5 +15,5 @@ public class Order {
     private int seller;
     private int item;//商品id
     private int quantity;//数量
-    private String time;//下单时间 字符串格式必须是"YYYY-MM-DD HH:MM:SS"
+    private String time;//下单时间 字符串格式必须是"yyyy-MM-dd HH:mm:ss"
 }
