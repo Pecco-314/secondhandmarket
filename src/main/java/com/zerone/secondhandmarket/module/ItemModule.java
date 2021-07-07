@@ -1,5 +1,6 @@
 package com.zerone.secondhandmarket.module;
 
+import com.zerone.secondhandmarket.enums.ItemCheckCondition;
 import com.zerone.secondhandmarket.exception.InvalidInfoException;
 import com.zerone.secondhandmarket.message.ItemFilter;
 import com.zerone.secondhandmarket.message.SellingItemMessage;
@@ -59,19 +60,20 @@ public class ItemModule {
                 //System.out.println((String)sellingItemMessage.getImages()[0].getData());
                 item.setCoverPath(sellingItemMessage.getImages()[0]);
             }
-
             //插入物品
-//            int id=itemService.insertItem(item);
+            int id=itemService.insertItem(item);
+            System.out.println(id);
 
             //插入标签信息
-//          for(String tag:sellingItemMessage.getTags()) {
-//                tagsService.insertTag(sellingItemMessage.getSeller(),tag);
-//          }
+          for(String tag:sellingItemMessage.getTags()) {
+                tagsService.insertTag(id,tag);
+          }
 
             //插入图片信息
-//            for(String imagePath:sellingItemMessage.getImages()){
-//             itemImageService.insertItemImage(id,imagePath);
-//          }
+          for(String imagePath:sellingItemMessage.getImages()){
+              System.out.printf("id:%d,imagePath:%s",id,imagePath);
+             itemImageService.insertItemImage(id,imagePath);
+          }
 
             return new Result(Status.RELEASE_ITEM_SUCCESS, "物品发布成功", item);
         } catch (Exception e) {

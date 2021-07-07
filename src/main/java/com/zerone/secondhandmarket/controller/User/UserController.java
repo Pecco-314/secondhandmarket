@@ -5,6 +5,7 @@ import com.zerone.secondhandmarket.message.UserModificationByUserMessage;
 import com.zerone.secondhandmarket.module.UserModule;
 import com.zerone.secondhandmarket.service.UserService;
 import com.zerone.secondhandmarket.viewobject.Result;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller("OrdinaryUser")
 public class UserController {
+    @Autowired
     private UserService userService=new UserService();
+
     @GetMapping("user/{userId}")
     @ResponseBody
     public Result getUserInfo(@PathVariable int userId){

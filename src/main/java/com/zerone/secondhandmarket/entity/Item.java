@@ -32,5 +32,5 @@ public class Item {
     /**
      * 是否通过审核
      */
-    private ItemCheckCondition checkCondition;
+    private ItemCheckCondition checkCondition=ItemCheckCondition.UNCHECKED;
 }

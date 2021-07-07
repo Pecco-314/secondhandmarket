@@ -19,7 +19,7 @@ public class ItemImageDaoOption {
         String sql = "insert into item_image(imagePath, itemId) VALUES " +
                 "(:imagePath,:itemId)";
         Map<String, Object> param = new HashMap<>();
-        param.put("item_id",itemId);
+        param.put("itemId",itemId);
         param.put("imagePath",imagePath);
         return jdbcTemplate.update(sql, param);
 
