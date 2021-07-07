@@ -8,9 +8,18 @@ import com.zerone.secondhandmarket.mapper.ItemRowMapper;
 import com.zerone.secondhandmarket.mapper.SimplifiedItemRowMapper;
 import com.zerone.secondhandmarket.message.ItemFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,20 +32,18 @@ public class ItemDaoOption {
     // 用于添加商品
     public int insertItem(Item item) {
         String sql = "insert into item(seller_id, item_name, item_type, quantity, price_now, price_original,introduction, coverPath, checked)" +
-                "values(:seller_id, :item_name, :item_type, :quantity, :price_now,:price_original, :introduction, :item_pic_path, :checked)";
-        Map<String, Object> param = new HashMap<>();
-        param.put("item_name", item.getName());
-        param.put("item_id", item.getId());
-        param.put("seller_id", item.getSeller());
-        param.put("item_type", item.getType().toString());
-        param.put("quantity", item.getQuantity());
-        param.put("price_now", item.getPrice());
-        param.put("price_original", item.getOriginalPrice());
-        param.put("introduction", item.getIntroduction());
-        param.put("item_pic_path", item.getCoverPath());
-        param.put("checked", item.getCheckCondition().toString());
-        jdbcTemplate.update(sql, param);
-        return 0;
+                "values(:seller_id,:item_name,:item_type,:quantity,:price_now,:price_original,:introduction,:coverPath,:checked)";
+
+        SqlParameterSource parameters = new MapSqlParameterSource().addValue("seller_id", item.getSeller())
+                .addValue("item_name", item.getName()).addValue("item_type", item.getType().toString())
+                .addValue("quantity", item.getQuantity()).addValue("price_now", item.getPrice())
+                .addValue("price_original", item.getOriginalPrice()).addValue("introduction", item.getIntroduction())
+                .addValue("coverPath", item.getCoverPath()).addValue("checked", item.getCheckCondition().toString());
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(sql, parameters, keyHolder, new String[]{"item_id"});
+        return keyHolder.getKey().intValue();
+
+
     }
 
 
@@ -150,9 +157,7 @@ public class ItemDaoOption {
                 sql += " where";
                 has_where = true;
                 sql += " seller_id=:seller_id";
-            }
-            else
-            {
+            } else {
                 sql += " and seller_id=:seller_id";
             }
 
@@ -163,9 +168,7 @@ public class ItemDaoOption {
                 sql += " where";
                 has_where = true;
                 sql += " item_type=:item_type";
-            }
-            else
-            {
+            } else {
                 sql += " and item_type=:item_type";
             }
             param.put("item_type", itemFilter.getType().toString());
@@ -175,12 +178,10 @@ public class ItemDaoOption {
                 sql += " where";
                 has_where = true;
                 sql += " item_name LIKE :item_name";
-            }
-            else
-            {
+            } else {
                 sql += " and item_name LIKE :item_name";
             }
-            String str = "%" +itemFilter.getTags() + "%";
+            String str = "%" + itemFilter.getTags() + "%";
             param.put("item_name", str);
         }
         if (itemFilter.getCheckCondition() != null) {
@@ -188,9 +189,7 @@ public class ItemDaoOption {
                 sql += " where";
                 has_where = true;
                 sql += " checked=:checked";
-            }
-            else
-            {
+            } else {
                 sql += " and checked=:checked";
             }
             param.put("checked", itemFilter.getCheckCondition().toString());
@@ -201,12 +200,13 @@ public class ItemDaoOption {
             sql += " order by price_now DESC";
         List<Item> items;
         try {
-            items = jdbcTemplate.query(sql,param, new ItemRowMapper());
+            items = jdbcTemplate.query(sql, param, new ItemRowMapper());
         } catch (Exception e) {
             return null;
         }
         return items;
     }
+
     //按filter获取商品列表
     public List<SimplifiedItem> getSimplifiedItemByFilter(ItemFilter itemFilter) {
         String sql = "select item_id,item_name,price_now,coverPath from item";
@@ -217,9 +217,7 @@ public class ItemDaoOption {
                 sql += " where";
                 has_where = true;
                 sql += " seller_id=:seller_id";
-            }
-            else
-            {
+            } else {
                 sql += " and seller_id=:seller_id";
             }
 
@@ -230,9 +228,7 @@ public class ItemDaoOption {
                 sql += " where";
                 has_where = true;
                 sql += " item_type=:item_type";
-            }
-            else
-            {
+            } else {
                 sql += " and item_type=:item_type";
             }
             param.put("item_type", itemFilter.getType().toString());
@@ -242,12 +238,10 @@ public class ItemDaoOption {
                 sql += " where";
                 has_where = true;
                 sql += " item_name LIKE :item_name";
-            }
-            else
-            {
+            } else {
                 sql += " and item_name LIKE :item_name";
             }
-            String str = "%" +itemFilter.getTags() + "%";
+            String str = "%" + itemFilter.getTags() + "%";
             param.put("item_name", str);
         }
         if (itemFilter.getCheckCondition() != null) {
@@ -255,9 +249,7 @@ public class ItemDaoOption {
                 sql += " where";
                 has_where = true;
                 sql += " checked=:checked";
-            }
-            else
-            {
+            } else {
                 sql += " and checked=:checked";
             }
             param.put("checked", itemFilter.getCheckCondition().toString());
@@ -268,7 +260,7 @@ public class ItemDaoOption {
             sql += " order by price_now DESC";
         List<SimplifiedItem> items;
         try {
-            items = jdbcTemplate.query(sql,param, new SimplifiedItemRowMapper());
+            items = jdbcTemplate.query(sql, param, new SimplifiedItemRowMapper());
         } catch (Exception e) {
             return null;
         }

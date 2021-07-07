@@ -2,7 +2,7 @@ package com.zerone.secondhandmarket.controller.User;
 
 import com.zerone.secondhandmarket.message.SellingItemMessage;
 import com.zerone.secondhandmarket.module.UploadModule;
-import com.zerone.secondhandmarket.service.ImageService;
+
 import com.zerone.secondhandmarket.tools.JSONMapper;
 import com.zerone.secondhandmarket.tools.PathGenerator;
 import com.zerone.secondhandmarket.viewobject.Result;
@@ -19,7 +19,7 @@ import static com.zerone.secondhandmarket.tools.JSONMapper.writeValueAsString;
 
 @Controller("OrdinaryItem")
 public class ItemController {
-    private ImageService imageService=new ImageService();
+
     @RequestMapping("/post")
     public String openPostPage() {
 
