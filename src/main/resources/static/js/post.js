@@ -93,7 +93,7 @@ let postForm = new Vue({
         images: () => {
             let res = [];
             for (const file of postForm.fileList) {
-                res.push(file.response);
+                res.push(file.response.data[0]);
             }
             return res;
         }
