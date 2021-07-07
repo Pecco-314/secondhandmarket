@@ -22,8 +22,8 @@ public class ItemService implements ItemDao {
     @Override
     // 用于添加商品
     public int insertItem(Item item) {
-        daoOption.insertItem(item);
-        return 0;
+        return daoOption.insertItem(item);
+
     }
 
     @Override

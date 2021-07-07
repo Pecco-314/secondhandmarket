@@ -13,8 +13,8 @@ import java.util.List;
 public class UploadModule {
     public static Result upload(String itemOrHead, MultipartFile[] multipartfiles) throws IOException {
         List<String> fileNames=new ArrayList<>();
-
-        File directory = new File("");// 参数为空
+        // 参数为空
+        File directory = new File("");
         //获取项目根路径
         String Path = directory.getCanonicalPath();
 
@@ -23,20 +23,23 @@ public class UploadModule {
             int i=0;
             for (MultipartFile item : multipartfiles) {
                 int begin = item.getOriginalFilename().lastIndexOf(".");
-                String type = item.getOriginalFilename().substring(begin);//获取文件类型
+                //获取文件类型
+                String type = item.getOriginalFilename().substring(begin);
                 String fileName = PathGenerator.generateItemImagePath()  + type;
-                String filePath = Path + "/uploadFiles/"+itemOrHead;//自定义上传路径
+                //自定义上传路径
+                String filePath = Path + "/uploadFiles/"+itemOrHead;
                 File file = new File(filePath, fileName);
-                if (!file.exists()) {//判断文件夹是否存在，如果不存在则创建
+                //判断文件夹是否存在，如果不存在则创建
+                if (!file.exists()) {
                     if (!file.getParentFile().exists()) {
                         file.getParentFile().mkdirs();
                     }
                     file.createNewFile();
                 }
-                item.transferTo(file);//上传文件
+                //上传文件
+                item.transferTo(file);
 
                 fileNames.add(fileName);
-                //imageService.insertImage(fileName);
             }
         }
         return new Result(Status.UPLOAD_SUCCESSFUL,"图片上传成功",fileNames);

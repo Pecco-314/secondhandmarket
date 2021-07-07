@@ -1,5 +1,17 @@
+const url = "http://localhost:8088";
+
 function isPossiblyPrice(text) {
     return /(^[1-9]\d*(\.\d{1,2})?$)|(^0(\.\d{1,2})?$)/.test(text);
+}
+
+function removeIf(list, predicate) {
+    let res = []
+    for (const e of list) {
+        if (!predicate(e)) {
+            res.push(e);
+        }
+    }
+    return res;
 }
 
 let postForm = new Vue({
@@ -32,7 +44,6 @@ let postForm = new Vue({
                 {name: "价格可谈", type: 'info'},
                 {name: "一口价", type: 'info'},
             ],
-            images: [],
             fileList: [],
             postFormRules: {
                 name: [
@@ -78,6 +89,13 @@ let postForm = new Vue({
             }
             tags = tags.concat(postForm.$refs.tagsAppender.dynamicTags);
             return tags;
+        },
+        images: () => {
+            let res = [];
+            for (const file of postForm.fileList) {
+                res.push(file.response.data[0]);
+            }
+            return res;
         }
     },
     methods: {
@@ -112,14 +130,22 @@ let postForm = new Vue({
                         contentType: "application/json;charset=utf-8",
                         success: (responseStr) => {
                             let response = JSON.parse(responseStr);
-                            // TODO
+                            if (response.status === 30200) {
+                                confirm("发布成功！");
+                                location.reload();
+                            } else {
+                                alert(`未知错误（状态码：${response.status}）`);
+                            }
                         }
                     })
                 }
             })
         },
-        onPostImageSuccessfully() {
-            // TODO
+        onPostImageSuccessfully(response, file) {
+            this.fileList.push(file);
+        },
+        onRemoveImage(file) {
+            this.fileList = removeIf(this.fileList, f => f.uid === file.uid);
         }
     }
 })

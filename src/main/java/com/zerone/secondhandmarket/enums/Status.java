@@ -1,11 +1,14 @@
 package com.zerone.secondhandmarket.enums;
 
-/*
-Item Module:
-Login Module:
-Order Module:
-Cart Module:
-User Module:
+/**
+ * 前缀
+ * Item Module:30
+ * Login Module:10
+ * Order Module:40
+ * Cart Module:60
+ * User Module:50
+ * Upload Module:20
+ * Notification Module:70
 */
 
 public enum Status {
@@ -18,11 +21,12 @@ public enum Status {
 
     UPLOAD_SUCCESSFUL(20200),
 
+    RELEASE_ITEM_SUCCESS(30200),
     ITEM_INFO_GOT(0),
     ITEM_LIST_GOT(0),
-    NO_SUCH_ITEM(0), //
+    NO_SUCH_ITEM(0),
     NO_QUALIFIED_ITEMS(0),
-    RELEASE_ITEM_ERROR(0),
+    RELEASE_ITEM_ERROR(30400),
     INVALID_ITEM(0),
     DELETE_ITEM_ERROR(0),
 
