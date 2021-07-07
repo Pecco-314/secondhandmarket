@@ -16,8 +16,9 @@ public class OrderModule {
     public Result getOrderList(OrderService service, OrderFilter filter) {
         List<Order> list = service.getOrderByFilter(filter);
 
-        if(list == null || list.isEmpty())
+        if(list == null || list.isEmpty()) {
             return new Result(Status.NO_QUALIFIED_ORDERS, "", null);
+        }
 
         return new Result(Status.OK, "", list);
     }
@@ -39,8 +40,9 @@ public class OrderModule {
         try {
             List<Order> list = service.getOrderByFilter(filter);
 
-            if(list == null || list.size() != 1)
+            if(list == null || list.size() != 1) {
                 return new Result(Status.ERROR, "", null);
+            }
 
             service.deleteOrder(list.get(0).getId());
 
