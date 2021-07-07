@@ -12,6 +12,7 @@ import com.zerone.secondhandmarket.tools.CodeProcessor;
 import com.zerone.secondhandmarket.tools.JSONMapper;
 import com.zerone.secondhandmarket.tools.PathGenerator;
 import com.zerone.secondhandmarket.viewobject.Result;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,8 +26,11 @@ import static com.zerone.secondhandmarket.tools.JSONMapper.writeValueAsString;
 
 @Controller("OrdinaryItem")
 public class ItemController {
+    @Autowired
     private ItemService itemService=new ItemService();
+    @Autowired
     private TagsService tagsService=new TagsService();
+    @Autowired
     private ItemImageService itemImageService=new ItemImageService();
 
     @RequestMapping("/post")
