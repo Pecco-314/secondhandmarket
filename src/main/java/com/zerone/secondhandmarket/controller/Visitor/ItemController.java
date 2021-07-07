@@ -25,15 +25,15 @@ public class ItemController {
 //        return null;
 //    }
 
-    public String getItemList(@RequestBody ItemFilter filter) {
-        Result result = ItemModule.getItemList(itemService, filter);
-
-        return JSONMapper.writeValueAsString(result);
-    }
-
-    public String getItemInfo(@RequestBody int itemId) {
-        Result result = ItemModule.getItemInfo(itemService, itemId);
-
-        return JSONMapper.writeValueAsString(result);
-    }
+//    public String getItemList(@RequestBody ItemFilter filter) {
+//        Result result = ItemModule.getItemList(itemService, filter);
+//
+//        return JSONMapper.writeValueAsString(result);
+//    }
+//
+//    public String getItemInfo(@RequestBody int itemId) {
+//        Result result = ItemModule.getItemInfo(itemService, itemId);
+//
+//        return JSONMapper.writeValueAsString(result);
+//    }
 }

@@ -4,7 +4,6 @@ import com.zerone.secondhandmarket.entity.User;
 import com.zerone.secondhandmarket.message.UserModificationByUserMessage;
 import com.zerone.secondhandmarket.module.UserModule;
 import com.zerone.secondhandmarket.service.UserService;
-import com.zerone.secondhandmarket.tools.JSONMapper;
 import com.zerone.secondhandmarket.viewobject.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,15 +19,15 @@ public class UserController {
 
     @GetMapping("user/{userId}")
     @ResponseBody
-    public String getUserInfo(@PathVariable int userId) {
-        Result result = UserModule.getUserInfo(userService,userId);
+    public String getUserInfo(@PathVariable int userId){
+        Result result= UserModule.getUserInfo(userService,userId);
 
-        return JSONMapper.writeValueAsString(result);
+        return result.toString();
     }
     @GetMapping("user/update")
     @ResponseBody
     public String updateUserInfo(@RequestBody UserModificationByUserMessage userModificationByUserMessage){
-        User user = new User();
+        User user=new User();
         //根据更改信息设置用户的信息
         user.setId(userModificationByUserMessage.getUserID());
         user.setPassword(userModificationByUserMessage.getPassword());
@@ -36,7 +35,7 @@ public class UserController {
         user.setNickname(userModificationByUserMessage.getNickName());
         user.setImagePath(userModificationByUserMessage.getLocation());
 
-        Result result = UserModule.updateUserInfo(userService,user);
-        return JSONMapper.writeValueAsString(result);
+        Result result=UserModule.updateUserInfo(userService,user);
+        return result.toString();
     }
 }

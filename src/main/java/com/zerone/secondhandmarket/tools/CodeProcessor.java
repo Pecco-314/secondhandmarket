@@ -77,4 +77,13 @@ public class CodeProcessor {
         }
         return btHexStr;
     }
+
+    public static boolean validatePassword(String password,String encryptedPassword){
+        return password.equals(decode(encryptedPassword));
+    }
+
+    public static boolean validateIdToken(String id,String token){
+        return id.equals(decode(token).split("@")[0]);
+    }
+
 }

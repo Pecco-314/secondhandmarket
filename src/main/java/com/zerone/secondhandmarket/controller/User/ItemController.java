@@ -2,6 +2,7 @@ package com.zerone.secondhandmarket.controller.User;
 
 import com.zerone.secondhandmarket.entity.Item;
 import com.zerone.secondhandmarket.enums.Status;
+import com.zerone.secondhandmarket.message.ItemFilter;
 import com.zerone.secondhandmarket.message.SellingItemMessage;
 import com.zerone.secondhandmarket.module.ItemModule;
 import com.zerone.secondhandmarket.module.UploadModule;
@@ -43,7 +44,7 @@ public class ItemController {
     public String upload(@RequestParam("multipartfiles") MultipartFile[] multipartfiles) throws IOException {
         Result result= UploadModule.upload("item",multipartfiles);
         System.out.println(JSONMapper.writeValueAsString(result));
-        return JSONMapper.writeValueAsString(result);
+        return result.toString();
     }
 
     @ResponseBody
@@ -51,23 +52,37 @@ public class ItemController {
     public String postItem(@RequestBody SellingItemMessage sellingItemMessage){
         Result result;
         //检验id与token是否一致
-        if((sellingItemMessage.getSeller()+"").equals(CodeProcessor.decode(sellingItemMessage.getToken()).split("@")[0])) {
+        if(CodeProcessor.validateIdToken(sellingItemMessage.getSeller()+"",sellingItemMessage.getToken())) {
             result=  ItemModule.releaseUserItem(itemService,tagsService,itemImageService,sellingItemMessage);
         } else{
             result=new Result(Status.RELEASE_ITEM_ERROR,"发布失败，id与token不一致",null);
         }
 
-        return JSONMapper.writeValueAsString(result);
+        return result.toString();
     }
 
-    //    @GetMapping("/product/filter")
-//    public ResultVo getItemList(@RequestBody ItemFilter itemFilter){
-//        return null;
-//    }
-//
-    @GetMapping("/request/item/{itemId}")
-    public Result getItemInfo(@PathVariable("itemId") int itemId) {
-        return null;
+    @ResponseBody
+    @GetMapping("/requests/product/filter")
+    public String getItemListByFilter(@RequestBody ItemFilter itemFilter){
+        Result result=ItemModule.getItemsByFilter(itemService,itemImageService,tagsService,itemFilter);
+
+        return result.toString();
+    }
+
+    @ResponseBody
+    @GetMapping("/requests/item/{itemId}")
+    public String getItemInfoByItemId(@PathVariable("itemId") int itemId) {
+        Result result=ItemModule.getItemInfo(itemService,itemImageService,tagsService,itemId);
+
+        return result.toString();
+    }
+
+    @ResponseBody
+    @GetMapping("/requests/search")
+    public String getItemInfo(@RequestBody String keyword) {
+        Result result=ItemModule.getItemsByKeyWords(itemService,itemImageService,tagsService,keyword);
+
+        return result.toString();
     }
 //
 //    @GetMapping("/user/addItem")
