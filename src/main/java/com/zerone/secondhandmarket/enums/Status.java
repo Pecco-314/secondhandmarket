@@ -16,6 +16,8 @@ public enum Status {
     PASSWORD_WRONG(10401),
     HAS_REGISTERED(10402),
 
+    UPLOAD_SUCCESSFUL(20200),
+
     ITEM_INFO_GOT(0),
     ITEM_LIST_GOT(0),
     NO_SUCH_ITEM(0), //
