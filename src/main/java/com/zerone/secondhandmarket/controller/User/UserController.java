@@ -33,13 +33,21 @@ public class UserController {
     @PostMapping("/requests/user/update")
     @ResponseBody
     public String updateUserInfo(@RequestBody UserModificationByUserMessage userModificationByUserMessage) {
-        User user = userService.getUserById(userModificationByUserMessage.getUserID());
-        //根据更改信息设置用户的信息
-        user.setPhoneNumber(userModificationByUserMessage.getTelephone());
-        user.setEmailAddress(userModificationByUserMessage.getEmailAddress());
-        user.setNickname(userModificationByUserMessage.getNickName());
+        Result result;
+        if(CodeProcessor.validateIdToken(userModificationByUserMessage.getUserID()+"",userModificationByUserMessage.getToken())){
+            User user = userService.getUserById(userModificationByUserMessage.getUserID());
 
-        Result result = UserModule.updateUserInfo(userService, user);
+            //根据更改信息设置用户的信息
+            user.setPhoneNumber(userModificationByUserMessage.getTelephone());
+            user.setEmailAddress(userModificationByUserMessage.getEmailAddress());
+            user.setNickname(userModificationByUserMessage.getNickName());
+
+            result = UserModule.updateUserInfo(userService, user);
+        }
+
+        else
+            result = new Result(Status.USER_ERROR,"id与token不一致",null);
+
         return result.toString();
     }
 
@@ -47,10 +55,23 @@ public class UserController {
     @PostMapping("/requests/user/updatePassword")
     @ResponseBody
     public String updatePassword(@RequestBody PasswordModificationMessage passwordModificationMessage) {
-//        User user=userService.getUserById(passwordModificationMessage.getUserID());
-//        //根据信息修改密码
-//        if(CodeProcessor.)
-        return "";
+        Result result;
+
+        if(CodeProcessor.validateIdToken(passwordModificationMessage.getUserID()+"",passwordModificationMessage.getToken())){
+            User user=userService.getUserById(passwordModificationMessage.getUserID());
+            //根据信息修改密码
+            if(CodeProcessor.validatePassword(passwordModificationMessage.getOldPassword(),user.getPassword()))
+            {
+                user.setPassword(CodeProcessor.encode(passwordModificationMessage.getNewPassword()));
+                result=UserModule.updateUserInfo(userService,user);
+            }else{
+                result=new Result(Status.USER_ERROR,"旧密码输入错误",null);
+            }
+        }
+        else
+            result = new Result(Status.USER_ERROR,"id与token不一致",null);
+
+        return result.toString();
     }
 
 
