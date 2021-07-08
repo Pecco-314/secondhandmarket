@@ -12,40 +12,45 @@ import org.springframework.web.bind.annotation.*;
 @Controller("AdminUser")
 public class UserController {
     @Autowired
-    private UserService userService=new UserService();
+    private UserService userService = new UserService();
 
+    //获取所有用户列表
     @ResponseBody
-    @PostMapping("requests/users")
-    public String getUserList(){
+    @PostMapping("requests/admin/users")
+    public String getUserList() {
         Result result = UserModule.getUserList(userService);
 
         return result.toString();
     }
 
+    //添加用户
     @ResponseBody
-    @PostMapping("requests/addUser")
-    public String addUser(@RequestBody User user){
-        Result result=UserModule.insertNewUser(userService,user);
+    @PostMapping("requests/admin/addUser")
+    public String addUser(@RequestBody User user) {
+        Result result = UserModule.insertNewUser(userService, user);
 
         return result.toString();
     }
 
-    @PostMapping("/requests/delete/{userId}")
+    //删除用户
+    @PostMapping("/requests/admin/deleteUser")
     @ResponseBody
-    public String deleteUser(@PathVariable int userId){
-        Result result= UserModule.deleteUser(userService,userId);
+    public String deleteUser(@RequestBody int userId) {
+        Result result = UserModule.deleteUser(userService, userId);
 
         return result.toString();
     }
 
-    @PostMapping("/requests/modify")
+    //更新的时候只更新昵称
+    @PostMapping("/requests/admin/modifyUser")
     @ResponseBody
-    public String modifyUser(@RequestBody UserModificationByAdministratorMessage userModificationByAdministratorMessage){
+    public String modifyUser(@RequestBody UserModificationByAdministratorMessage userModificationByAdministratorMessage) {
         //获取id对应的当前用户信息
-        User user=userService.getUserById(userModificationByAdministratorMessage.getUserID());
-        //设置更新后的用户信息
+        User user = userService.getUserById(userModificationByAdministratorMessage.getUserID());
+        //设置用户的昵称信息
         user.setNickname(userModificationByAdministratorMessage.getNickName());
-        Result result= UserModule.updateUserInfo(userService,user);
+
+        Result result = UserModule.updateUserInfo(userService, user);
 
         return result.toString();
     }

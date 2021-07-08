@@ -33,7 +33,7 @@ public class SecondHandMarketController {
     ItemImageService itemImageService=new ItemImageService();
     @RequestMapping("/")
     public String run() {
-       tagService.insertTag(42,"全新无损");
+       //tagService.insertTag(42,"全新无损");
       //  User user = new User(6, "huhu", "123456", "1111111", "111@qq.com", UserHead.HEAD1);
 //        Administrator admin = new Administrator(2, "pecco", "123456");
 //       Item item = new Item(0, 4, "测试", ItemType.DIGITAL, 2, 100, 30,"this is a hat",null,null,null, ItemCheckCondition.TRUE);
