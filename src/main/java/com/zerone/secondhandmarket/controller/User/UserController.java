@@ -22,7 +22,7 @@ public class UserController {
     public String getUserInfo() {
         return "my-account";
     }
-
+    //获取用户信息
     @PostMapping("/requests/user/info")
     @ResponseBody
     public String getUserInfo(@RequestBody UserTokenMessage userIdToken) {
@@ -49,7 +49,6 @@ public class UserController {
 
             result = UserModule.updateUserInfo(userService, user);
         }
-
         else
             result = new Result(Status.USER_ERROR,"id与token不一致",null);
 
@@ -78,6 +77,5 @@ public class UserController {
 
         return result.toString();
     }
-
 
 }

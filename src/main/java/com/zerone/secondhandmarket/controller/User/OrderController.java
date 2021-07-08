@@ -18,14 +18,14 @@ public class OrderController {
     @Autowired
     private OrderService orderService = new OrderService();
 
-//    @GetMapping("user/{userid}/history")
+    //    @GetMapping("user/{userid}/history")
 //    @ResponseBody
 //    public ResultVo getHistoryIdent(@PathVariable int userid){
 //        return null;
 //    }
-
+    //获取用户订单列表
     @ResponseBody
-    @PostMapping("/requests/orderList")
+    @PostMapping("/requests/user/orderList")
     public String getOrderList(@RequestBody int userId) {
         OrderFilter filter = new OrderFilter(userId, null, null);
 
@@ -34,8 +34,9 @@ public class OrderController {
         return result.toString();
     }
 
+    //生成订单
     @ResponseBody
-    @PostMapping("/requests/insertOrder")
+    @PostMapping("/requests/user/insertOrder")
     public String generateSingleOrder(@RequestBody OrderMessage order) {
         Result result = OrderModule.generateOrder(orderService, order);
 

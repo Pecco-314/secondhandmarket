@@ -93,6 +93,7 @@ public class ItemController {
     }
 
     //更新物品信息
+    @ResponseBody
     @GetMapping("requests/user/modifyItem")
     public String modifyUserItem(@RequestBody SellingItemModificationMessage sellingItemModificationMessage) {
         Item item = itemService.getItemById(sellingItemModificationMessage.getItemID());
@@ -110,6 +111,7 @@ public class ItemController {
     }
 
     //删除发布物品
+    @ResponseBody
     @GetMapping("requests/user/deleteItem")
     public String deleteUserItem(@RequestBody SellingItemDeleteMessage sellingItemDeleteMessage) {
         Result result = ItemModule.deleteUserItem(itemService, itemImageService, tagsService, sellingItemDeleteMessage.getItemID());
