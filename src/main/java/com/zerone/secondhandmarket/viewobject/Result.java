@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @Data               //生成get()、set()
 @NoArgsConstructor
 public class Result {
+    private static ObjectMapper mapper = new ObjectMapper();
+
     private Integer status;
     private String message;
     private Object data;
@@ -22,10 +24,9 @@ public class Result {
     }
 
     @Override
-    public String toString(){
-        ObjectMapper objectMapper=new ObjectMapper();
+    public String toString() {
         try {
-            return objectMapper.writeValueAsString(this);
+            return mapper.writeValueAsString(this);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

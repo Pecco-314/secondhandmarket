@@ -29,7 +29,7 @@ public class ItemController {
     @ResponseBody
     @PostMapping("/requests/admin/uncheckedItems")
     public String getItemUnchecked() {
-        ItemFilter filter = new ItemFilter(null, null, null, ItemCheckCondition.UNCHECKED);
+        ItemFilter filter = new ItemFilter(null, null, null,null, ItemCheckCondition.UNCHECKED);
 
         Result result = ItemModule.getItemsByFilter(itemService,itemImageService,tagsService, filter);
 
