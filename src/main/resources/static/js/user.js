@@ -100,3 +100,14 @@ let userinfoForm = new Vue({
 })
 
 $(userinfoForm.getUserInfo);
+
+let passwordForm = new Vue({
+    el: "#password-form",
+    data: {
+        form: {
+            oldpassword: "",
+            newpassword: "",
+            confirmpassword: "",
+        }
+    }
+})

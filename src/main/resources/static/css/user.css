@@ -11,3 +11,7 @@
     display: flex!important;
     justify-content: center;
 }
+
+.my-submit-button {
+    height: 100px;
+}

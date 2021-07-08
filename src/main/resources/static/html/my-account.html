@@ -1,333 +1,377 @@
 ﻿<!doctype html>
 <html lang="zxx">
-    <head>
-        <!-- Required Meta Tags -->
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-        <link rel="stylesheet" href="../css/style.css">
-        <link rel="stylesheet" href="../css/user.css">
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-        <!-- Animate Min CSS -->
-        <link rel="stylesheet" href="../assets/css/animate.min.css">
-        <!-- Flaticon CSS -->
-        <link rel="stylesheet" href="../assets/fonts/flaticon.css">
-        <!-- Boxicons CSS -->
-        <link rel="stylesheet" href="../assets/css/boxicons.min.css">
-        <!-- Magnific Popup CSS -->
-        <link rel="stylesheet" href="../assets/css/magnific-popup.css">
-        <!-- Owl Carousel Min CSS --> 
-        <link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
-        <link rel="stylesheet" href="../assets/css/owl.theme.default.min.css">
-        <!-- Nice Select Min CSS --> 
-        <link rel="stylesheet" href="../assets/css/nice-select.min.css">
-        <!-- Meanmenu CSS -->
-        <link rel="stylesheet" href="../assets/css/meanmenu.css">
-        <!-- Style CSS -->
-        <link rel="stylesheet" href="../assets/css/style.css">
-        <!-- Responsive CSS -->
-        <link rel="stylesheet" href="../assets/css/responsive.css">
+<head>
+    <!-- Required Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/user.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <!-- Animate Min CSS -->
+    <link rel="stylesheet" href="../assets/css/animate.min.css">
+    <!-- Flaticon CSS -->
+    <link rel="stylesheet" href="../assets/fonts/flaticon.css">
+    <!-- Boxicons CSS -->
+    <link rel="stylesheet" href="../assets/css/boxicons.min.css">
+    <!-- Magnific Popup CSS -->
+    <link rel="stylesheet" href="../assets/css/magnific-popup.css">
+    <!-- Owl Carousel Min CSS -->
+    <link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../assets/css/owl.theme.default.min.css">
+    <!-- Nice Select Min CSS -->
+    <link rel="stylesheet" href="../assets/css/nice-select.min.css">
+    <!-- Meanmenu CSS -->
+    <link rel="stylesheet" href="../assets/css/meanmenu.css">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="../assets/css/responsive.css">
 
-        <!-- Favicon -->
-        <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png">
 
-        <title>Olex - Multipurpose eCommerce HTML Template</title>
-    </head>
+    <title>个人中心</title>
+</head>
 
-    <body>
-        <div class="preloader">
-            <div class="spinner">
-                <div class="dot1"></div>
-                <div class="dot2"></div>
-            </div>
-        </div>
+<body>
+<div class="preloader">
+    <div class="spinner">
+        <div class="dot1"></div>
+        <div class="dot2"></div>
+    </div>
+</div>
 
-        <div id="page-header">
-            <page-header></page-header>
-        </div>
+<div id="page-header">
+    <page-header></page-header>
+</div>
 
-        <!-- My Account Area -->
-        <div class="my-account-area ptb-100">
-            <div class="container">
-                <div class="tab account-tab">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <ul class="tabs">
-                                <li>
-                                    <a href="#">
-                                        我的账户
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        我的商品
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        我的订单
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        我的售出
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        修改密码
-                                    </a>
-                                </li>
-                            </ul>
+<!-- My Account Area -->
+<div class="my-account-area ptb-100">
+    <div class="container">
+        <div class="tab account-tab">
+            <div class="row">
+                <div class="col-lg-4">
+                    <ul class="tabs">
+                        <li>
+                            <a href="#">
+                                我的账户
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                我的商品
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                我的订单
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                我的售出
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                修改密码
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-8">
+                    <div class="tab_content current active">
+                        <div class="tabs_item current">
+                            <div class="account-tab-item">
+                                <div class="account-details">
+                                    <h2>账户信息</h2>
+                                    <div class="account-profile">
+                                        <div class="account-profile-img">
+                                            <img src="../assets/images/products/product-profile1.jpg" alt="Images">
+                                        </div>
+                                        <ul>
+                                            <li><a href="#">修改</a></li>
+                                            <li><a href="#">删除</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="account-form" id="userinfo-form">
+                                        <el-form :model="form" ref="form" :rules="rules" label-width="50px">
+                                            <div class="row">
+                                                <el-form-item class="col-lg-12" prop="nickname" label="昵称" required>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" v-model="form.nickname"
+                                                               @blur="validateField('nickname')">
+                                                    </div>
+                                                </el-form-item>
+
+                                                <el-form-item class="col-lg-12" prop="emailAddress" label="邮箱" required>
+                                                    <div class="form-group">
+                                                        <input type="email" class="form-control"
+                                                               v-model="form.emailAddress"
+                                                               @blur="validateField('emailAddress')">
+                                                    </div>
+                                                </el-form-item>
+
+                                                <el-form-item class="col-lg-12" prop="phoneNumber" label="电话">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control"
+                                                               v-model="form.phoneNumber"
+                                                               @blur="validateField('phoneNumber')">
+                                                    </div>
+                                                </el-form-item>
+
+                                                <el-form-item class="col-lg-12"
+                                                              style="display: flex; justify-content: flex-end">
+                                                    <div class="my-submit-button">
+                                                        <el-button type="three" @click="postUserInfo"
+                                                                   class="default-btn btn-bg-three">
+                                                            确定
+                                                        </el-button>
+                                                    </div>
+                                                </el-form-item>
+                                            </div>
+                                        </el-form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="col-lg-8">
-                            <div class="tab_content current active">
-                                <div class="tabs_item current">
-                                    <div class="account-tab-item">
-                                        <div class="account-details">
-                                            <h2>账户信息</h2>
-                                            <div class="account-profile">
-                                                <div class="account-profile-img">
-                                                    <img src="../assets/images/products/product-profile1.jpg" alt="Images">
-                                                </div>
-                                                <ul>
-                                                    <li><a href="#">修改</a></li>
-                                                    <li><a href="#">删除</a></li>
-                                                </ul>
-                                            </div>
+                        <div class="tabs_item">
+                            <div class="account-tab-item">
+                                <div class="checkout-order">
+                                    <h2>我发布的商品</h2>
+                                    <h3 class="title-item"><span style="margin-left: 100px">商品名称</span><span
+                                            style="margin-left: 70px">数量</span><span style="margin-left: 75px">金额</span>
+                                        <span style="margin-left: 68px">商品状态</span><span
+                                                style="margin-left: 60px">操作</span></h3>
 
-                                            <div class="account-form" id="userinfo-form">
-                                                <el-form :model="form" ref="form" :rules="rules" label-width="50px">
-                                                    <div class="row">
-                                                        <el-form-item class="col-lg-12" prop="nickname" label="昵称" required>
-                                                            <div class="form-group">
-                                                                <input type="text" class="form-control" v-model="form.nickname" @blur="validateField('nickname')">
-                                                            </div>
-                                                        </el-form-item>
+                                    <ul class="checkout-product">
+                                        <li>
+                                            <img src="../assets/images/products/propular-style8.png" alt="Images">
+                                            <h3>当季洋葱</h3>
+                                            <span>$2.0</span>
+                                            <div class="price-tag" style="left: 240px">6</div>
+                                            <div class="price-tag" style="left: 340px">$18.0</div>
+                                            <div class="price-tag" style="left: 445px">已售出</div>
+                                            <div class="price-tag" style="left: 540px"><a href="#">修改</a></div>
+                                            <div class="price-tag" style="left: 590px"><a href="#">删除</a></div>
+                                        </li>
 
-                                                        <el-form-item class="col-lg-12" prop="emailAddress" label="邮箱" required>
-                                                            <div class="form-group">
-                                                                <input type="email"  class="form-control" v-model="form.emailAddress" @blur="validateField('emailAddress')">
-                                                            </div>
-                                                        </el-form-item>
+                                        <li>
+                                            <img src="../assets/images/products/propular-style4.png" alt="Images">
+                                            <h3>蛋白巧克力</h3>
+                                            <span>$25.0</span>
+                                            <div class="price-tag" style="left: 240px">1</div>
+                                            <div class="price-tag" style="left: 340px">$25.0</div>
+                                            <div class="price-tag" style="left: 445px">待审核</div>
+                                            <div class="price-tag" style="left: 540px"><a href="#">修改</a></div>
+                                            <div class="price-tag" style="left: 590px"><a href="#">删除</a></div>
+                                        </li>
+                                    </ul>
 
-                                                        <el-form-item class="col-lg-12" prop="phoneNumber" label="电话">
-                                                            <div class="form-group">
-                                                                <input type="text" class="form-control" v-model="form.phoneNumber" @blur="validateField('phoneNumber')">
-                                                            </div>
-                                                        </el-form-item>
+                                    <!--                                            <div class="amount-btn">-->
+                                    <!--                                                <a href="#" class="default-btn btn-bg-three">Next</a>-->
+                                    <!--                                            </div>-->
+                                    <div class="col-lg-12 col-md-12 text-center">
+                                        <div class="pagination-area">
+                                            <a href="#" class="prev page-numbers">
+                                                <i class="bx bx-chevron-left"></i>
+                                            </a>
 
-                                                        <el-form-item class="col-lg-12">
-                                                            <div class="my-submit-button">
-                                                                <el-button type="three" @click="postUserInfo" class="default-btn btn-bg-three">
-                                                                    确定
-                                                                </el-button>
-                                                        </div>
-                                                        </el-form-item>
+                                            <span class="page-numbers current" aria-current="page">1</span>
+                                            <a href="#" class="page-numbers">2</a>
+                                            <a href="#" class="page-numbers">3</a>
 
+                                            <a href="#" class="next page-numbers">
+                                                <i class="bx bx-chevron-right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tabs_item">
+                            <div class="account-tab-item">
+                                <div class="checkout-order">
+                                    <h2>我的订单</h2>
+                                    <h3 class="title-item"><span style="margin-left: 100px">商品名称</span><span
+                                            style="margin-left: 70px">数量</span><span style="margin-left: 75px">金额</span>
+                                        <span style="margin-left: 68px">订单状态</span><span
+                                                style="margin-left: 60px">操作</span></h3>
+                                    <ul class="checkout-product">
+                                        <li>
+                                            <img src="../assets/images/products/propular-style8.png" alt="Images">
+                                            <h3>Local Onion</h3>
+                                            <span>$2.0</span>
+                                            <div class="price-tag" style="left: 240px">6</div>
+                                            <div class="price-tag" style="left: 340px">$18.0</div>
+                                            <div class="price-tag" style="left: 445px">已完成</div>
+                                            <div class="price-tag" style="left: 530px"><a href="#">填写评价</a></div>
+                                            <div class="price-tag" style="left: 600px"><a href="#">删除订单</a></div>
+                                        </li>
+
+                                        <li>
+                                            <img src="../assets/images/products/propular-style4.png" alt="Images">
+                                            <h3>Protein Chocolate</h3>
+                                            <span>$25.0</span>
+                                            <div class="price-tag" style="left: 240px">1</div>
+                                            <div class="price-tag" style="left: 340px">$25.0</div>
+                                            <div class="price-tag" style="left: 445px">已完成</div>
+                                            <div class="price-tag" style="left: 530px"><a href="#">填写评价</a></div>
+                                            <div class="price-tag" style="left: 600px"><a href="#">删除订单</a></div>
+                                        </li>
+                                    </ul>
+
+                                    <div class="col-lg-12 col-md-12 text-center">
+                                        <div class="pagination-area">
+                                            <a href="#" class="prev page-numbers">
+                                                <i class="bx bx-chevron-left"></i>
+                                            </a>
+
+                                            <span class="page-numbers current" aria-current="page">1</span>
+                                            <a href="#" class="page-numbers">2</a>
+                                            <a href="#" class="page-numbers">3</a>
+
+                                            <a href="#" class="next page-numbers">
+                                                <i class="bx bx-chevron-right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tabs_item">
+                            <div class="account-tab-item">
+                                <div class="checkout-order">
+                                    <h2>我的售出</h2>
+                                    <h3 class="title-item"><span style="margin-left: 100px">商品名称</span><span
+                                            style="margin-left: 70px">数量</span><span style="margin-left: 75px">金额</span>
+                                        <span style="margin-left: 68px">订单状态</span><span
+                                                style="margin-left: 70px">操作</span></h3>
+                                    <ul class="checkout-product">
+                                        <li>
+                                            <img src="../assets/images/products/propular-style8.png" alt="Images">
+                                            <h3>Local Onion</h3>
+                                            <span>$2.0</span>
+                                            <div class="price-tag" style="left: 36%">×6</div>
+                                            <div class="price-tag" style="left: 50%">$18.0</div>
+                                            <div class="price-tag" style="left: 66%">已完成</div>
+                                            <div class="price-tag" style="left: 82%"><a href="#">提现</a></div>
+                                            <div class="price-tag" style="left: 90%"><a href="#">删除订单</a></div>
+                                        </li>
+
+                                        <li>
+                                            <img src="../assets/images/products/propular-style4.png" alt="Images">
+                                            <h3>Protein Chocolate</h3>
+                                            <span>$25.0</span>
+                                            <div class="price-tag" style="left: 36%">×1</div>
+                                            <div class="price-tag" style="left: 50%">$25.0</div>
+                                            <div class="price-tag" style="left: 66%">已完成</div>
+                                            <div class="price-tag" style="left: 82%"><a href="#">提现</a></div>
+                                            <div class="price-tag" style="left: 90%"><a href="#">删除订单</a></div>
+                                        </li>
+                                    </ul>
+
+                                    <div class="col-lg-12 col-md-12 text-center">
+                                        <div class="pagination-area">
+                                            <a href="#" class="prev page-numbers">
+                                                <i class="bx bx-chevron-left"></i>
+                                            </a>
+
+                                            <span class="page-numbers current" aria-current="page">1</span>
+                                            <a href="#" class="page-numbers">2</a>
+                                            <a href="#" class="page-numbers">3</a>
+
+                                            <a href="#" class="next page-numbers">
+                                                <i class="bx bx-chevron-right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tabs_item">
+                            <div class="account-tab-item">
+                                <div class="account-details">
+                                    <h2>修改密码</h2>
+<!--                                    <div class="user-form">-->
+                                    <div class="account-form" id="password-form">
+                                        <el-form :model="form" ref="form" label-width="80px">
+                                            <div class="row">
+                                                <el-form-item class="col-lg-12" label="旧密码" required>
+                                                    <div class="form-group">
+                                                        <input type="oldpassword" class="form-control">
                                                     </div>
-                                                </el-form>
+
+                                                </el-form-item>
+
+                                                <el-form-item class="col-lg-12" prop="newpassword" label="新密码" required>
+                                                    <div class="form-group">
+                                                        <input type="newpassword" class="form-control">
+                                                    </div>
+                                                </el-form-item>
+
+                                                <el-form-item class="col-lg-12" label="确认密码" required>
+                                                    <div class="form-group">
+                                                        <input type="confirmpassword" class="form-control">
+                                                    </div>
+                                                </el-form-item>
+
+                                                <el-form-item class="col-lg-12"
+                                                              style="display: flex; justify-content: flex-end">
+                                                    <div class="my-submit-button">
+                                                        <el-button type="three" class="default-btn btn-bg-three">
+                                                            确定
+                                                        </el-button>
+                                                    </div>
+                                                </el-form-item>
                                             </div>
-                                        </div>
+                                        </el-form>
                                     </div>
-                                </div>
+                                    <!--                                            <form>-->
+                                    <!--                                                <div class="row">-->
+                                    <!--                                                    <div class="col-lg-12">-->
+                                    <!--                                                        <div class="form-group">-->
+                                    <!--                                                            <input type="password" class="form-control"-->
+                                    <!--                                                                   placeholder="旧密码">-->
+                                    <!--                                                        </div>-->
+                                    <!--                                                    </div>-->
 
-                                <div class="tabs_item">
-                                    <div class="account-tab-item">
-                                        <div class="checkout-order">
-                                            <h2>我发布的商品</h2>
-                                            <h3 class="title-item"><span style="margin-left: 100px">商品名称</span><span style="margin-left: 70px">数量</span><span style="margin-left: 75px">金额</span>
-                                                <span style="margin-left: 68px">商品状态</span><span style="margin-left: 60px">操作</span></h3>
+                                    <!--                                                    <div class="col-lg-12">-->
+                                    <!--                                                        <div class="form-group">-->
+                                    <!--                                                            <input type="password" class="form-control"-->
+                                    <!--                                                                   placeholder="新密码">-->
+                                    <!--                                                        </div>-->
+                                    <!--                                                    </div>-->
 
-                                            <ul class="checkout-product">
-                                                <li>
-                                                    <img src="../assets/images/products/propular-style8.png" alt="Images">
-                                                    <h3>当季洋葱</h3>
-                                                    <span>$2.0</span>
-                                                    <div class="price-tag" style="left: 240px">6</div>
-                                                    <div class="price-tag" style="left: 340px">$18.0</div>
-                                                    <div class="price-tag" style="left: 445px">已售出</div>
-                                                    <div class="price-tag" style="left: 540px"><a href="#">修改</a></div>
-                                                    <div class="price-tag" style="left: 590px"><a href="#">删除</a></div>
-                                                </li>
+                                    <!--                                                    <div class="col-lg-12">-->
+                                    <!--                                                        <div class="form-group">-->
+                                    <!--                                                            <input type="password" class="form-control"-->
+                                    <!--                                                                   placeholder="确认密码">-->
+                                    <!--                                                        </div>-->
+                                    <!--                                                    </div>-->
 
-                                                <li>
-                                                    <img src="../assets/images/products/propular-style4.png" alt="Images">
-                                                    <h3>蛋白巧克力</h3>
-                                                    <span>$25.0</span>
-                                                    <div class="price-tag" style="left: 240px">1</div>
-                                                    <div class="price-tag" style="left: 340px">$25.0</div>
-                                                    <div class="price-tag" style="left: 445px">待审核</div>
-                                                    <div class="price-tag" style="left: 540px"><a href="#">修改</a></div>
-                                                    <div class="price-tag" style="left: 590px"><a href="#">删除</a></div>
-                                                </li>
-                                            </ul>
+                                    <!--                                                    <div class="col-lg-12"-->
+                                    <!--                                                         style="display: flex; justify-content: flex-end">-->
+                                    <!--                                                        <div class="my-submit-button">-->
+                                    <!--                                                            <el-button type="three" class="default-btn btn-bg-three"-->
+                                    <!--                                                                       style="border-radius: 5px">-->
+                                    <!--                                                                确定-->
+                                    <!--                                                            </el-button>-->
+                                    <!--                                                        </div>-->
+                                    <!--                                                    </div>-->
 
-<!--                                            <div class="amount-btn">-->
-<!--                                                <a href="#" class="default-btn btn-bg-three">Next</a>-->
-<!--                                            </div>-->
-                                            <div class="col-lg-12 col-md-12 text-center">
-                                                <div class="pagination-area">
-                                                    <a href="#" class="prev page-numbers">
-                                                        <i class="bx bx-chevron-left"></i>
-                                                    </a>
+                                    <!--                                                </div>-->
+                                    <!--                                            </form>-->
 
-                                                    <span class="page-numbers current" aria-current="page">1</span>
-                                                    <a href="#" class="page-numbers">2</a>
-                                                    <a href="#" class="page-numbers">3</a>
-
-                                                    <a href="#" class="next page-numbers">
-                                                        <i class="bx bx-chevron-right"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="tabs_item">
-                                    <div class="account-tab-item">
-                                        <div class="checkout-order">
-                                            <h2>我的订单</h2>
-                                            <h3 class="title-item"><span style="margin-left: 100px">商品名称</span><span style="margin-left: 70px">数量</span><span style="margin-left: 75px">金额</span>
-                                                <span style="margin-left: 68px">订单状态</span><span style="margin-left: 60px">操作</span></h3>
-                                            <ul class="checkout-product">
-                                                <li>
-                                                    <img src="../assets/images/products/propular-style8.png" alt="Images">
-                                                    <h3>Local Onion</h3>
-                                                    <span>$2.0</span>
-                                                    <div class="price-tag" style="left: 240px">6</div>
-                                                    <div class="price-tag" style="left: 340px">$18.0</div>
-                                                    <div class="price-tag" style="left: 445px">已完成</div>
-                                                    <div class="price-tag" style="left: 530px"><a href="#">填写评价</a></div>
-                                                    <div class="price-tag" style="left: 600px"><a href="#">删除订单</a></div>
-                                                </li>
-
-                                                <li>
-                                                    <img src="../assets/images/products/propular-style4.png" alt="Images">
-                                                    <h3>Protein Chocolate</h3>
-                                                    <span>$25.0</span>
-                                                    <div class="price-tag" style="left: 240px">1</div>
-                                                    <div class="price-tag" style="left: 340px">$25.0</div>
-                                                    <div class="price-tag" style="left: 445px">已完成</div>
-                                                    <div class="price-tag" style="left: 530px"><a href="#">填写评价</a></div>
-                                                    <div class="price-tag" style="left: 600px"><a href="#">删除订单</a></div>
-                                                </li>
-                                            </ul>
-
-                                            <div class="col-lg-12 col-md-12 text-center">
-                                                <div class="pagination-area">
-                                                    <a href="#" class="prev page-numbers">
-                                                        <i class="bx bx-chevron-left"></i>
-                                                    </a>
-
-                                                    <span class="page-numbers current" aria-current="page">1</span>
-                                                    <a href="#" class="page-numbers">2</a>
-                                                    <a href="#" class="page-numbers">3</a>
-
-                                                    <a href="#" class="next page-numbers">
-                                                        <i class="bx bx-chevron-right"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="tabs_item">
-                                    <div class="account-tab-item">
-                                        <div class="checkout-order">
-                                            <h2>我的售出</h2>
-                                            <h3 class="title-item"><span style="margin-left: 100px">商品名称</span><span style="margin-left: 70px">数量</span><span style="margin-left: 75px">金额</span>
-                                                <span style="margin-left: 68px">订单状态</span><span style="margin-left: 70px">操作</span></h3>
-                                            <ul class="checkout-product">
-                                                <li>
-                                                    <img src="../assets/images/products/propular-style8.png" alt="Images">
-                                                    <h3>Local Onion</h3>
-                                                    <span>$2.0</span>
-                                                    <div class="price-tag" style="left: 36%">×6</div>
-                                                    <div class="price-tag" style="left: 50%">$18.0</div>
-                                                    <div class="price-tag" style="left: 66%">已完成</div>
-                                                    <div class="price-tag" style="left: 82%"><a href="#">提现</a></div>
-                                                    <div class="price-tag" style="left: 90%"><a href="#">删除订单</a></div>
-                                                </li>
-
-                                                <li>
-                                                    <img src="../assets/images/products/propular-style4.png" alt="Images">
-                                                    <h3>Protein Chocolate</h3>
-                                                    <span>$25.0</span>
-                                                    <div class="price-tag" style="left: 36%">×1</div>
-                                                    <div class="price-tag" style="left: 50%">$25.0</div>
-                                                    <div class="price-tag" style="left: 66%">已完成</div>
-                                                    <div class="price-tag" style="left: 82%"><a href="#">提现</a></div>
-                                                    <div class="price-tag" style="left: 90%"><a href="#">删除订单</a></div>
-                                                </li>
-                                            </ul>
-
-                                            <div class="col-lg-12 col-md-12 text-center">
-                                                <div class="pagination-area">
-                                                    <a href="#" class="prev page-numbers">
-                                                        <i class="bx bx-chevron-left"></i>
-                                                    </a>
-
-                                                    <span class="page-numbers current" aria-current="page">1</span>
-                                                    <a href="#" class="page-numbers">2</a>
-                                                    <a href="#" class="page-numbers">3</a>
-
-                                                    <a href="#" class="next page-numbers">
-                                                        <i class="bx bx-chevron-right"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="tabs_item">
-                                    <div class="account-tab-item">
-                                        <div class="address-details">
-                                            <div class="user-form">
-                                                <div class="account-form">
-                                                    <h2>修改密码</h2>
-                                                    <form>
-                                                        <div class="row">
-                                                            <div class="col-lg-12">
-                                                                <div class="form-group">
-                                                                    <input type="password"  class="form-control" placeholder="旧密码">
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-lg-12">
-                                                                <div class="form-group">
-                                                                    <input type="password"  class="form-control" placeholder="新密码">
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-lg-12">
-                                                                <div class="form-group">
-                                                                    <input type="password"  class="form-control" placeholder="确认密码">
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-lg-4 col-md-6" style="margin-left: 25%">
-                                                                <button type="submit" class="default-btn btn-bg-three" style="border-radius: 5px">
-                                                                    确定
-                                                                </button>
-                                                            </div>
-
-                                                            <div class="col-lg-4 col-md-6" style="margin-right: 25%">
-                                                                <button type="submit" class="default-btn btn-bg-three" style="border-radius: 5px">
-                                                                    取消
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <!--                                    </div>-->
                                 </div>
                             </div>
                         </div>
@@ -335,41 +379,43 @@
                 </div>
             </div>
         </div>
-        <!-- My Account Area End -->
+    </div>
+</div>
+<!-- My Account Area End -->
 
-    </body>
+</body>
 
-    <!-- Jquery Min JS -->
-    <script src="../assets/js/jquery-3.5.1.slim.min.js"></script>
-    <!-- Popper Min JS -->
-    <script src="../assets/js/popper.min.js"></script>
-    <!-- Bootstrap Min JS -->
-    <script src="../assets/js/bootstrap.min.js"></script>
-    <!-- Magnific Popup Min JS -->
-    <script src="../assets/js/jquery.magnific-popup.min.js"></script>
-    <!-- Owl Carousel Min JS -->
-    <script src="../assets/js/owl.carousel.min.js"></script>
-    <!-- Nice Select Min JS -->
-    <script src="../assets/js/jquery.nice-select.min.js"></script>
-    <!-- Wow Min JS -->
-    <script src="../assets/js/wow.min.js"></script>
-    <!-- Meanmenu JS -->
-    <script src="../assets/js/meanmenu.js"></script>
-    <!-- Ajaxchimp Min JS -->
-    <script src="../assets/js/jquery.ajaxchimp.min.js"></script>
-    <!-- Form Validator Min JS -->
-    <script src="../assets/js/form-validator.min.js"></script>
-    <!-- Contact Form JS -->
-    <script src="../assets/js/contact-form-script.js"></script>
-    <!-- Mixitup Min JS -->
-    <script src="../assets/js/mixitup.min.js"></script>
-    <!-- Custom JS -->
-    <script src="../assets/js/custom.js"></script>
+<!-- Jquery Min JS -->
+<script src="../assets/js/jquery-3.5.1.slim.min.js"></script>
+<!-- Popper Min JS -->
+<script src="../assets/js/popper.min.js"></script>
+<!-- Bootstrap Min JS -->
+<script src="../assets/js/bootstrap.min.js"></script>
+<!-- Magnific Popup Min JS -->
+<script src="../assets/js/jquery.magnific-popup.min.js"></script>
+<!-- Owl Carousel Min JS -->
+<script src="../assets/js/owl.carousel.min.js"></script>
+<!-- Nice Select Min JS -->
+<script src="../assets/js/jquery.nice-select.min.js"></script>
+<!-- Wow Min JS -->
+<script src="../assets/js/wow.min.js"></script>
+<!-- Meanmenu JS -->
+<script src="../assets/js/meanmenu.js"></script>
+<!-- Ajaxchimp Min JS -->
+<script src="../assets/js/jquery.ajaxchimp.min.js"></script>
+<!-- Form Validator Min JS -->
+<script src="../assets/js/form-validator.min.js"></script>
+<!-- Contact Form JS -->
+<script src="../assets/js/contact-form-script.js"></script>
+<!-- Mixitup Min JS -->
+<script src="../assets/js/mixitup.min.js"></script>
+<!-- Custom JS -->
+<script src="../assets/js/custom.js"></script>
 
-    <script src="https://unpkg.com/vue/dist/vue.js"></script>
-    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
-    <script src="https://cdn.staticfile.org/jquery/3.4.0/jquery.min.js"></script>
-    <script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-    <script src="../js/header.js"></script>
-    <script src="../js/user.js"></script>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://cdn.staticfile.org/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="../js/header.js"></script>
+<script src="../js/user.js"></script>
 </html>
