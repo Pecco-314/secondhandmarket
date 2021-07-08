@@ -4,6 +4,7 @@ import com.zerone.secondhandmarket.enums.ItemCheckCondition;
 import com.zerone.secondhandmarket.exception.InvalidInfoException;
 import com.zerone.secondhandmarket.message.ItemFilter;
 import com.zerone.secondhandmarket.message.SellingItemMessage;
+import com.zerone.secondhandmarket.message.SellingItemModificationMessage;
 import com.zerone.secondhandmarket.service.ItemImageService;
 import com.zerone.secondhandmarket.service.ItemService;
 import com.zerone.secondhandmarket.service.TagsService;
@@ -49,7 +50,7 @@ public class ItemModule {
     }
 
     //根据关键词筛选
-    public static Result getItemsByKeyWords(ItemService service,ItemImageService itemImageService,TagsService tagsService,String keyword){
+    public static Result getCheckedItemsByKeyWords(ItemService service,ItemImageService itemImageService,TagsService tagsService,String keyword){
         //按关键词获得符合条件的物品
         List<Item> list=service.getItemByKeyword(keyword);
         //获得审核通过的物品
@@ -104,27 +105,40 @@ public class ItemModule {
                 itemImageService.insertItemImage(id, imagePath);
             }
 
-            return new Result(Status.RELEASE_ITEM_SUCCESS, "物品发布成功", item);
+            return new Result(Status.ITEM_OK, "物品发布成功", item);
         } catch (Exception e) {
-            return new Result(Status.RELEASE_ITEM_ERROR, "物品发布失败", item);
+            return new Result(Status.ITEM_ERROR, "物品发布失败", item);
         }
     }
 
-    public static Result modifyUserItem(ItemService itemService, Item item) {
+    public static Result modifyUserItem(ItemService itemService, ItemImageService itemImageService, TagsService tagsService, Item item) {
+        //设置物品信息
+        //TODO:不知道要更新哪些信息
         try {
             itemService.updateItem(item);
-            return new Result(Status.OK, "", null);
+            return new Result(Status.ITEM_OK, "更新物品成功", null);
         } catch (Exception e) {
-            return new Result(Status.RELEASE_ITEM_ERROR, "", null);
+            return new Result(Status.ITEM_ERROR, "更新物品失败", null);
         }
     }
 
-    public static Result deleteUserItem(ItemService itemService, int itemId) {
+    public static Result deleteUserItem(ItemService itemService,ItemImageService itemImageService,TagsService tagsService, int itemId) {
         try {
             itemService.deleteItem(itemId);
-            return new Result(Status.OK, "删除物品成功", null);
+            //删除对应的images
+            List<String> images= itemImageService.getImagesByItemId(itemId);
+            for(String image:images){
+                itemImageService.deleteItemImage(itemId,image);
+            }
+            //删除对应的tags
+            List<String> tags=tagsService.getTagsByItemId(itemId);
+            for(String tag:tags){
+                tagsService.deleteItem(itemId,tag);
+            }
+
+            return new Result(Status.ITEM_OK, "删除物品成功", null);
         } catch (Exception e) {
-            return new Result(Status.DELETE_ITEM_ERROR, "", null);
+            return new Result(Status.ITEM_ERROR, "", null);
         }
     }
 

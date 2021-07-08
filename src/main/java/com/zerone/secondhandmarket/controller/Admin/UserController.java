@@ -7,17 +7,30 @@ import com.zerone.secondhandmarket.service.UserService;
 import com.zerone.secondhandmarket.viewobject.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller("AdminUser")
 public class UserController {
     @Autowired
     private UserService userService=new UserService();
 
-    @GetMapping("/requests/delete/{userId}")
+    @ResponseBody
+    @PostMapping("requests/users")
+    public String getUserList(){
+        Result result = UserModule.getUserList(userService);
+
+        return result.toString();
+    }
+
+    @ResponseBody
+    @PostMapping("requests/addUser")
+    public String addUser(@RequestBody User user){
+        Result result=UserModule.insertNewUser(userService,user);
+
+        return result.toString();
+    }
+
+    @PostMapping("/requests/delete/{userId}")
     @ResponseBody
     public String deleteUser(@PathVariable int userId){
         Result result= UserModule.deleteUser(userService,userId);
@@ -25,7 +38,7 @@ public class UserController {
         return result.toString();
     }
 
-    @GetMapping("/requests/modify")
+    @PostMapping("/requests/modify")
     @ResponseBody
     public String modifyUser(@RequestBody UserModificationByAdministratorMessage userModificationByAdministratorMessage){
         //获取id对应的当前用户信息

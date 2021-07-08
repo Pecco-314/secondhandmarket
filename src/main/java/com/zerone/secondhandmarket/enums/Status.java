@@ -21,12 +21,12 @@ public enum Status {
 
     UPLOAD_SUCCESSFUL(20200),
 
-    RELEASE_ITEM_SUCCESS(30200),
+    ITEM_OK(30200),
     ITEM_INFO_GOT(0),
     ITEM_LIST_GOT(0),
     NO_SUCH_ITEM(0),
     NO_QUALIFIED_ITEMS(0),
-    RELEASE_ITEM_ERROR(30400),
+    ITEM_ERROR(30400),
     INVALID_ITEM(0),
     DELETE_ITEM_ERROR(0),
 
@@ -34,6 +34,8 @@ public enum Status {
     INVALID_ORDER(0),
     GENERATE_ORDER_ERROR(0),
 
+    USER_OK(50200),
+    USER_ERROR(50400)
     ;
 
     private final Integer code;
