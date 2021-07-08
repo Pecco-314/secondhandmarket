@@ -18,6 +18,6 @@ public class UserModificationByUserMessage {
     //update
     private String telephone;
     private String emailAddress;
-    private String nickName;
+    private String nickname;
 
 }

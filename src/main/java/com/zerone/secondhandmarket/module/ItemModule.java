@@ -16,11 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemModule {
-    //获取所有物品
+    //获取所有物品（对于管理员来说），用于审核用户发布的物品
     public static Result getItemList(ItemService itemService,ItemImageService itemImageService,TagsService tagsService) {
         List<Item> itemList = itemService.getItemList();
         getItemTagsAndImages(itemImageService,tagsService,itemList);
-        return new Result(Status.ITEM_LIST_GOT, "获取全部物品成功", itemList);
+        return new Result(Status.ITEM_OK, "获取全部物品成功", itemList);
     }
 
     //获取所有审核通过的所有物品
@@ -29,7 +29,7 @@ public class ItemModule {
         List<Item> checkedItems=getCheckedItems(itemList);
         getItemTagsAndImages(itemImageService,tagsService,checkedItems);
 
-        return new Result(Status.ITEM_LIST_GOT,"获取全部物品成功",checkedItems);
+        return new Result(Status.ITEM_OK,"获取全部物品成功",checkedItems);
     }
 
     //根据类型筛选
@@ -41,12 +41,12 @@ public class ItemModule {
         //写完了Service的查询方案后改为这句
 
         if (list == null || list.isEmpty()) {
-            return new Result(Status.NO_QUALIFIED_ITEMS, "无符合条件物品", null);
+            return new Result(Status.ITEM_ERROR, "无符合条件物品", null);
         }
         //获取Item的图片和标签
         getItemTagsAndImages(itemImageService,tagsService,list);
 
-        return new Result(Status.ITEM_LIST_GOT, "获得所需物品", list);
+        return new Result(Status.ITEM_OK, "获得所需物品", list);
     }
 
     //根据关键词筛选
@@ -58,7 +58,7 @@ public class ItemModule {
         //获得Item的图片和标签
         getItemTagsAndImages(itemImageService,tagsService,checkedList);
 
-        return new Result(Status.ITEM_LIST_GOT, "", checkedList);
+        return new Result(Status.ITEM_OK, "搜索成功", checkedList);
     }
 
     //获取物品详情
@@ -66,11 +66,11 @@ public class ItemModule {
         Item item = itemService.getItemById(itemId);
 
         if (item == null) {
-            return new Result(Status.NO_SUCH_ITEM, "无此物品", null);
+            return new Result(Status.ITEM_ERROR, "无此物品", null);
         }
-
+        //获取物品的图片和标签
         getItemTagsAndImages(itemImageService,tagsService,item);
-        return new Result(Status.ITEM_INFO_GOT, "获取物品成功", item);
+        return new Result(Status.ITEM_OK, "获取物品成功", item);
     }
 
     public static Result releaseUserItem(ItemService itemService, TagsService tagsService, ItemImageService itemImageService, SellingItemMessage sellingItemMessage) {
@@ -125,16 +125,16 @@ public class ItemModule {
     public static Result deleteUserItem(ItemService itemService,ItemImageService itemImageService,TagsService tagsService, int itemId) {
         try {
             itemService.deleteItem(itemId);
-            //删除对应的images
-            List<String> images= itemImageService.getImagesByItemId(itemId);
-            for(String image:images){
-                itemImageService.deleteItemImage(itemId,image);
-            }
-            //删除对应的tags
-            List<String> tags=tagsService.getTagsByItemId(itemId);
-            for(String tag:tags){
-                tagsService.deleteItem(itemId,tag);
-            }
+//            //删除对应的images
+//            List<String> images= itemImageService.getImagesByItemId(itemId);
+//            for(String image:images){
+//                itemImageService.deleteItemImage(itemId,image);
+//            }
+//            //删除对应的tags
+//            List<String> tags=tagsService.getTagsByItemId(itemId);
+//            for(String tag:tags){
+//                tagsService.deleteItem(itemId,tag);
+//            }
 
             return new Result(Status.ITEM_OK, "删除物品成功", null);
         } catch (Exception e) {

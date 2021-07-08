@@ -92,17 +92,18 @@ public class ItemController {
         return result.toString();
     }
 
-    //更新物品信息
+    //更新物品信息（只修改商品名称、数量、金额）
+    @ResponseBody
     @GetMapping("requests/user/modifyItem")
     public String modifyUserItem(@RequestBody SellingItemModificationMessage sellingItemModificationMessage) {
         Item item = itemService.getItemById(sellingItemModificationMessage.getItemID());
         //设置物品信息
         item.setName(sellingItemModificationMessage.getName());
-        item.setType(sellingItemModificationMessage.getType());
+//        item.setType(sellingItemModificationMessage.getType());
         item.setQuantity(sellingItemModificationMessage.getQuantity());
         item.setPrice(sellingItemModificationMessage.getPrice());
-        item.setOriginalPrice(sellingItemModificationMessage.getOriginalPrice());
-        item.setIntroduction(sellingItemModificationMessage.getIntroduction());
+//        item.setOriginalPrice(sellingItemModificationMessage.getOriginalPrice());
+//        item.setIntroduction(sellingItemModificationMessage.getIntroduction());
 
         Result result = ItemModule.modifyUserItem(itemService, itemImageService, tagsService, item);
 
@@ -110,6 +111,7 @@ public class ItemController {
     }
 
     //删除发布物品
+    @ResponseBody
     @GetMapping("requests/user/deleteItem")
     public String deleteUserItem(@RequestBody SellingItemDeleteMessage sellingItemDeleteMessage) {
         Result result = ItemModule.deleteUserItem(itemService, itemImageService, tagsService, sellingItemDeleteMessage.getItemID());

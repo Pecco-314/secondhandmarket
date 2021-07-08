@@ -1,0 +1,13 @@
+.el-button--three.is-active,
+.el-button--three:active,
+.el-button--three:focus,
+.el-button--three:hover,
+.el-button--three {
+    background: rgb(232,180,63);
+    color: #fff;
+}
+
+.default-btn {
+    display: flex!important;
+    justify-content: center;
+}
