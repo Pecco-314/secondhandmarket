@@ -9,7 +9,9 @@ import com.zerone.secondhandmarket.tools.JSONMapper;
 import com.zerone.secondhandmarket.viewobject.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller("OrdinaryIndent")
 public class OrderController {
@@ -22,17 +24,21 @@ public class OrderController {
 //        return null;
 //    }
 
+    @ResponseBody
+    @PostMapping("/requests/orderList")
     public String getOrderList(@RequestBody int userId) {
         OrderFilter filter = new OrderFilter(userId, null, null);
 
         Result result = OrderModule.getOrderList(orderService, filter);
 
-        return JSONMapper.writeValueAsString(result);
+        return result.toString();
     }
 
+    @ResponseBody
+    @PostMapping("/requests/insertOrder")
     public String generateSingleOrder(@RequestBody OrderMessage order) {
         Result result = OrderModule.generateOrder(orderService, order);
 
-        return JSONMapper.writeValueAsString(order);
+        return result.toString();
     }
 }

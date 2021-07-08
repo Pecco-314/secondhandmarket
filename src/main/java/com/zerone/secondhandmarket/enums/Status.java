@@ -30,12 +30,15 @@ public enum Status {
     INVALID_ITEM(0),
     DELETE_ITEM_ERROR(0),
 
-    NO_QUALIFIED_ORDERS(0),
-    INVALID_ORDER(0),
-    GENERATE_ORDER_ERROR(0),
+    ORDER_OK(40200),
+    NO_QUALIFIED_ORDERS(40400),
+    INVALID_ORDER(40401),
+    GENERATE_ORDER_ERROR(40402),
 
     USER_OK(50200),
-    USER_ERROR(50400)
+    USER_ERROR(50400),
+
+
     ;
 
     private final Integer code;
