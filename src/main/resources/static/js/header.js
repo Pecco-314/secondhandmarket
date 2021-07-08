@@ -1,11 +1,4 @@
 Vue.component('page-header', {
-    methods: {
-        onClickUserCenter() {
-            let id = $.cookie("id");
-            window.open(`../user/${id}`, "_self");
-        }
-    },
-
     props: {
         isMainPage: Boolean,
         pageName: String
@@ -101,7 +94,7 @@ Vue.component('page-header', {
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a @click="onClickUserCenter" class="nav-link">
+                                    <a href="../user" class="nav-link">
                                         个人中心
                                     </a>
                                 </li>
