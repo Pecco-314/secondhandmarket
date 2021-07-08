@@ -27,18 +27,24 @@ public class SecondHandMarketController {
     CartService cartService = new CartService();
     @Autowired
     OrderService orderService = new OrderService();
+    @Autowired
+    TagsService tagService=new TagsService();
+    @Autowired
+    ItemImageService itemImageService=new ItemImageService();
     @RequestMapping("/")
     public String run() {
+       tagService.insertTag(42,"全新无损");
       //  User user = new User(6, "huhu", "123456", "1111111", "111@qq.com", UserHead.HEAD1);
-        Administrator admin = new Administrator(2, "pecco", "123456");
-       Item item = new Item(0, 5, "hat", ItemType.CLOTHES, 2, 100, 30,"this is a hat",null,null,null, ItemCheckCondition.TRUE);
-       itemService.insertItem(item);
+//        Administrator admin = new Administrator(2, "pecco", "123456");
+//       Item item = new Item(0, 4, "测试", ItemType.DIGITAL, 2, 100, 30,"this is a hat",null,null,null, ItemCheckCondition.TRUE);
+//      int id=itemService.insertItem(item);
+
        //Item item2 = new Item(1, 3, "c++++primer", ItemType.CLOTHES, 3, 10, 5, Arrays.asList("cs+"), "this is a book", "1.jpg", ItemCheckCondition.UNCHECKED);
-        ItemFilter filter=new ItemFilter();
-        filter.setCheckCondition(ItemCheckCondition.TRUE);
+//        ItemFilter filter=new ItemFilter();
+//        filter.setCheckCondition(ItemCheckCondition.TRUE);
       //  filter.setType(ItemType.DIGITAL);
         //filter.setKeyWords("a++");
-        filter.setPriceOrdering(Ordering.DESC);
+        //filter.setPriceOrdering(Ordering.DESC);
         //itemService.insertItem(item);
         //itemService.insertItem(item2);
        // userService.deleteUser(3);

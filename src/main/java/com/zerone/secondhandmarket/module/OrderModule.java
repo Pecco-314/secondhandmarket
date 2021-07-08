@@ -13,16 +13,17 @@ import java.util.Date;
 import java.util.List;
 
 public class OrderModule {
-    public Result getOrderList(OrderService service, OrderFilter filter) {
+    public static Result getOrderList(OrderService service, OrderFilter filter) {
         List<Order> list = service.getOrderByFilter(filter);
 
-        if(list == null || list.isEmpty())
+        if(list == null || list.isEmpty()) {
             return new Result(Status.NO_QUALIFIED_ORDERS, "", null);
+        }
 
         return new Result(Status.OK, "", list);
     }
 
-    public Result generateOrder(OrderService service, OrderMessage message) {
+    public static Result generateOrder(OrderService service, OrderMessage message) {
         try {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Order order = new Order(0, message.getBuyer(), message.getSeller(), message.getItemID(), message.getQuantity(), format.format(new Date()));
@@ -35,12 +36,13 @@ public class OrderModule {
         }
     }
 
-    public Result cancelOrder(OrderService service, OrderFilter filter) {
+    public static Result cancelOrder(OrderService service, OrderFilter filter) {
         try {
             List<Order> list = service.getOrderByFilter(filter);
 
-            if(list == null || list.size() != 1)
+            if(list == null || list.size() != 1) {
                 return new Result(Status.ERROR, "", null);
+            }
 
             service.deleteOrder(list.get(0).getId());
 

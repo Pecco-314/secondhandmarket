@@ -34,7 +34,7 @@ public class LoginModule {
                 return new Result(Status.NOT_FOUND, "找不到账号", new UserTokenMessage());
             }
         } else {
-            if (!user.getPassword().equals(CodeProcessor.encode(password))) {
+            if (!CodeProcessor.validatePassword(password,user.getPassword())) {
                 return new Result(Status.PASSWORD_WRONG, "密码错误", new UserTokenMessage());
             } else {
                 //获取登录时间
@@ -51,7 +51,7 @@ public class LoginModule {
         if (administrator == null) {
             result = new Result(Status.NOT_FOUND, "找不到账号", new AdminTokenMessage());
         } else {
-            if (!administrator.getPassword().equals(CodeProcessor.encode(password))) {
+            if (!CodeProcessor.validatePassword(password,administrator.getPassword())) {
                 result = new Result(Status.PASSWORD_WRONG, "密码错误", new AdminTokenMessage());
             } else {
                 Date date = new Date();

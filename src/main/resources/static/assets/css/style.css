@@ -4712,8 +4712,9 @@ Checkout Area
   margin-bottom: 25px;
 }
 
+
 .checkout-order .title-item {
-  padding: 10px 0;
+  padding: 5px 0px 20px;
   font-size: 16px;
   color: #10142D;
   border-top: 1px solid #F6F6F6;
@@ -4721,7 +4722,7 @@ Checkout Area
 }
 
 .checkout-order .title-item span {
-  float: right;
+  float: left;
 }
 
 .checkout-order .checkout-product {

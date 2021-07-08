@@ -16,6 +16,6 @@ public class ItemFilter {
     private Integer seller = null;
     private ItemType type = null;
     private String[] tags = null;
-    private Ordering priceOrdering = Ordering.DEFAULT;
+    //private Ordering priceOrdering = Ordering.DEFAULT;
     private ItemCheckCondition checkCondition = null;
 }

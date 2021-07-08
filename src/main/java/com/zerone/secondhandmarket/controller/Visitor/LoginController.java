@@ -35,7 +35,7 @@ public class LoginController {
 
         Result result = LoginModule.userLogin(userService, account, password);
 
-        return JSONMapper.writeValueAsString(result);
+        return result.toString();
     }
 
     @ResponseBody
@@ -46,7 +46,7 @@ public class LoginController {
 
         Result result = LoginModule.adminLogin(adminService, account, password);
 
-        return JSONMapper.writeValueAsString(result);
+        return result.toString();
     }
 
     @ResponseBody
@@ -59,6 +59,6 @@ public class LoginController {
         System.out.println(nickname);
         Result result = LoginModule.userRegister(userService, email, nickname, password);
 
-        return JSONMapper.writeValueAsString(result);
+        return result.toString();
     }
 }
