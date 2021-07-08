@@ -18,6 +18,11 @@ public class UserController {
     @Autowired
     private UserService userService = new UserService();
 
+    @RequestMapping("/user")
+    public String getUserInfo() {
+        return "my-account";
+    }
+
     @PostMapping("/requests/user/info")
     @ResponseBody
     public String getUserInfo(@RequestBody UserTokenMessage userIdToken) {

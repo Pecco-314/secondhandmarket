@@ -122,7 +122,6 @@ let postForm = new Vue({
                         introduction: form.introduction === "" ? null : form.introduction,
                         images: this.images
                     }
-                    console.log(itemInfo)
                     $.ajax({
                         url: `${url}/requests/post`,
                         method: 'post',
