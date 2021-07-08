@@ -5,9 +5,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-
         <link rel="stylesheet" href="../css/style.css">
-
+        <link rel="stylesheet" href="../css/user.css">
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
         <!-- Animate Min CSS -->
@@ -100,34 +99,36 @@
                                             </div>
 
                                             <div class="account-form" id="userinfo-form">
-                                                <form>
+                                                <el-form :model="form" ref="form" :rules="rules" label-width="50px">
                                                     <div class="row">
-                                                        <div class="col-lg-12">
+                                                        <el-form-item class="col-lg-12" prop="nickname" label="昵称" required>
                                                             <div class="form-group">
-                                                                <input type="text"  class="form-control" placeholder="昵称" :value="nickname">
+                                                                <input type="text" class="form-control" v-model="form.nickname" @blur="validateField('nickname')">
                                                             </div>
-                                                        </div>
+                                                        </el-form-item>
 
-                                                        <div class="col-lg-12">
+                                                        <el-form-item class="col-lg-12" prop="emailAddress" label="邮箱" required>
                                                             <div class="form-group">
-                                                                <input type="email"  class="form-control" placeholder="邮箱" :value="emailAddress">
+                                                                <input type="email"  class="form-control" v-model="form.emailAddress" @blur="validateField('emailAddress')">
                                                             </div>
-                                                        </div>
+                                                        </el-form-item>
 
-                                                        <div class="col-lg-12">
+                                                        <el-form-item class="col-lg-12" prop="phoneNumber" label="电话">
                                                             <div class="form-group">
-                                                                <input type="text" class="form-control" placeholder="电话" :value="phoneNumber">
+                                                                <input type="text" class="form-control" v-model="form.phoneNumber" @blur="validateField('phoneNumber')">
                                                             </div>
-                                                        </div>
+                                                        </el-form-item>
 
-                                                        <div class="my-submit-button">
-                                                            <button type="submit" class="default-btn btn-bg-three" style="border-radius: 5px">
-                                                                确定
-                                                            </button>
+                                                        <el-form-item class="col-lg-12">
+                                                            <div class="my-submit-button">
+                                                                <el-button type="three" @click="postUserInfo" class="default-btn btn-bg-three">
+                                                                    确定
+                                                                </el-button>
                                                         </div>
+                                                        </el-form-item>
 
                                                     </div>
-                                                </form>
+                                                </el-form>
                                             </div>
                                         </div>
                                     </div>

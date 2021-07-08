@@ -35,14 +35,14 @@ public class UserController {
     }
 
     //更新个人信息
-    @PostMapping("/requests/user/update")
+    @PostMapping("/requests/user/info/update")
     @ResponseBody
     public String updateUserInfo(@RequestBody UserModificationByUserMessage userModificationByUserMessage) {
         User user = userService.getUserById(userModificationByUserMessage.getUserID());
         //根据更改信息设置用户的信息
         user.setPhoneNumber(userModificationByUserMessage.getTelephone());
         user.setEmailAddress(userModificationByUserMessage.getEmailAddress());
-        user.setNickname(userModificationByUserMessage.getNickName());
+        user.setNickname(userModificationByUserMessage.getNickname());
 
         Result result = UserModule.updateUserInfo(userService, user);
         return result.toString();
