@@ -29,7 +29,7 @@ public class ItemController {
     @ResponseBody
     @PostMapping("/requests/admin/uncheckedItems")
     public String getItemUnchecked() {
-        ItemFilter filter = new ItemFilter(null, null, null, ItemCheckCondition.UNCHECKED);
+        ItemFilter filter = new ItemFilter(null, null, null,null, ItemCheckCondition.UNCHECKED);
 
         Result result = ItemModule.getItemsByFilter(itemService,itemImageService,tagsService, filter);
 
@@ -42,7 +42,7 @@ public class ItemController {
         Item item = itemService.getItemById(message.getItemID());
         item.setCheckCondition(message.getCheckCondition());
 
-        Result result = ItemModule.modifyUserItem(itemService, item);
+        Result result = ItemModule.modifyUserItem(itemService, itemImageService,tagsService,item);
 
         return result.toString();
     }

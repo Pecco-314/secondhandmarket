@@ -17,10 +17,10 @@ public class OrderModule {
         List<Order> list = service.getOrderByFilter(filter);
 
         if(list == null || list.isEmpty()) {
-            return new Result(Status.NO_QUALIFIED_ORDERS, "", null);
+            return new Result(Status.NO_QUALIFIED_ORDERS, "没有合适的订单", null);
         }
 
-        return new Result(Status.OK, "", list);
+        return new Result(Status.ORDER_OK, "获取订单列表成功", list);
     }
 
     public static Result generateOrder(OrderService service, OrderMessage message) {
@@ -30,7 +30,7 @@ public class OrderModule {
 
             service.insertOrder(order);
 
-            return new Result(Status.OK, "", null);
+            return new Result(Status.ORDER_OK, "", null);
         } catch (Exception e) {
             return new Result(Status.GENERATE_ORDER_ERROR, "", null);
         }

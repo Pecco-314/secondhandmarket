@@ -21,5 +21,5 @@ public class SellingItemModificationMessage {
     private Double price;
     private String[] tags;
     private String introduction;
-    private byte[] image;
+    private String[] images;
 }
