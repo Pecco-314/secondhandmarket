@@ -124,7 +124,7 @@ code {
   background-color: #f9f9f9;
   border-top: 1px solid rgba(0, 0, 0, 0.05);
   bottom: 0;
-  color: #0a1832;
+  color: #60a8af;
   text-align: center;
   padding: 20px 30px;
   position: absolute;
@@ -2779,7 +2779,7 @@ File: Menu
 }
 
 .logo {
-  color: #0a1832 !important;
+  color: #ffffff !important;
   font-size: 20px;
   font-weight: 700;
   letter-spacing: .03em;
@@ -2825,7 +2825,7 @@ File: Menu
   font-size: 24px;
   padding: 0 10px;
   vertical-align: middle;
-  color: #404E67;
+  color: #60a8af;
 }
 
 .notification-list .noti-icon-badge {
@@ -2967,7 +2967,7 @@ File: Menu
   transition: all 0.4s ease-in-out;
 
   position: absolute;
-  background: #404E67;
+  background: #60a8af;
   z-index: 99;
   box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.05);
 }
@@ -3004,7 +3004,7 @@ body.fixed-left .side-menu.left {
 }
 
 .button-menu-mobile {
-  background-color: #424858;
+  background-color: #ffffff;
   font-size: 28px;
   color: #ffffff;
   width: 42px;
@@ -3053,7 +3053,7 @@ body.fixed-left .side-menu.left {
 }
 
 #sidebar-menu {
-  background-color: #404E67;
+  background-color: #60a8af;
   padding-bottom: 50px;
   width: 100%;
 }
@@ -3075,7 +3075,7 @@ body.fixed-left .side-menu.left {
 }
 
 #sidebar-menu ul ul a {
-  color: #DCDCDC;
+  color: #ffffff;
   display: block;
   padding: 12px 25px 12px 60px;
   font-size: 14px;
@@ -3084,7 +3084,7 @@ body.fixed-left .side-menu.left {
 #sidebar-menu ul ul a:hover {
   color: #e6e6e6;
   text-decoration: none;
-  background: #38445A;
+  background: #DCDCDC;
 }
 
 #sidebar-menu ul ul a i {
@@ -3096,16 +3096,16 @@ body.fixed-left .side-menu.left {
 }
 
 #sidebar-menu > ul > li > a {
-  color: #DCDCDC;
+  color: #ffffff;
   display: block;
   padding: 14px 25px;
-  background-color: #404E67;
+  background-color: #60a8af;
 }
 
 #sidebar-menu > ul > li > a:hover {
   color: #e6e6e6;
   text-decoration: none;
-  background: #38445A;
+  background: #60a8af;
 }
 
 #sidebar-menu > ul > li > a span i {
@@ -3115,7 +3115,7 @@ body.fixed-left .side-menu.left {
 
 #sidebar-menu > ul > li.nav-active > a {
   background-color: #eff3f6;
-  color: #404E67 ;
+  color:#60a8af ;
 }
 
 #sidebar-menu > ul > li > a > span {
@@ -3140,7 +3140,7 @@ body.fixed-left .side-menu.left {
 
 #sidebar-menu > ul > li > a.active {
   color: #DCDCDC;
-  background: #38445A;
+  background: #60a8af;
 }
 
 #sidebar-menu > ul > li > a.active i {
@@ -3195,7 +3195,7 @@ body.fixed-left .side-menu.left {
   line-height: 68px;
   padding-left: 15px;
   font-size: 20px;
-  color: #404E67;
+  color: #60a8af;
 }
 
 /*
