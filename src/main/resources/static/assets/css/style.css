@@ -7303,6 +7303,7 @@ Product Area
   background-color: #F6F6F6;
 }
 
+
 .product-desc {
   margin-bottom: 30px;
 }
@@ -7354,7 +7355,15 @@ Product Area
 }
 
 .product-desc p {
+
   margin-bottom: 0;
+  width: 100%;
+  word-wrap:break-word;
+  word-break:break-all;
+  overflow: hidden;
+ height:40vh
+
+
 }
 
 .product-desc .input-count-area h3 {
