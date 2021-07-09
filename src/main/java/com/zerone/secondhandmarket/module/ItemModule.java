@@ -8,11 +8,13 @@ import com.zerone.secondhandmarket.message.SellingItemModificationMessage;
 import com.zerone.secondhandmarket.service.ItemImageService;
 import com.zerone.secondhandmarket.service.ItemService;
 import com.zerone.secondhandmarket.service.TagsService;
+import com.zerone.secondhandmarket.tools.DateFormatter;
 import com.zerone.secondhandmarket.viewobject.Result;
 import com.zerone.secondhandmarket.entity.Item;
 import com.zerone.secondhandmarket.enums.Status;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ItemModule {
@@ -91,6 +93,7 @@ public class ItemModule {
                 //System.out.println((String)sellingItemMessage.getImages()[0].getData());
                 item.setCoverPath(sellingItemMessage.getImages()[0]);
             }
+            item.setReleaseTime(DateFormatter.dateToString(new Date()));
             //插入物品
             int id = itemService.insertItem(item);
 
