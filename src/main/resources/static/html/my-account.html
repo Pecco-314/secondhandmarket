@@ -301,77 +301,47 @@
                             <div class="account-tab-item">
                                 <div class="account-details">
                                     <h2>修改密码</h2>
-<!--                                    <div class="user-form">-->
                                     <div class="account-form" id="password-form">
                                         <el-form :model="form" ref="form" label-width="80px">
                                             <div class="row">
-                                                <el-form-item class="col-lg-12" label="旧密码" required>
+                                                <el-form-item class="col-lg-12" prop="oldPassword" label="旧密码" required>
                                                     <div class="form-group">
-                                                        <input type="oldpassword" class="form-control">
-                                                    </div>
-
-                                                </el-form-item>
-
-                                                <el-form-item class="col-lg-12" prop="newpassword" label="新密码" required>
-                                                    <div class="form-group">
-                                                        <input type="newpassword" class="form-control">
+                                                        <input type="password" class="form-control"
+                                                               placeholder="旧密码" v-model="form.oldPassword"
+                                                               @blur="validateField('oldPassword')">
                                                     </div>
                                                 </el-form-item>
 
-                                                <el-form-item class="col-lg-12" label="确认密码" required>
+                                                <el-form-item class="col-lg-12" prop="newPassword" label="新密码" required>
                                                     <div class="form-group">
-                                                        <input type="confirmpassword" class="form-control">
+                                                        <input type="password" class="form-control"
+                                                               placeholder="新密码" v-model="form.newPassword"
+                                                               @blur="validateField('newPassword')">
+                                                    </div>
+                                                </el-form-item>
+
+                                                <el-form-item class="col-lg-12" prop="newPassword1" label="确认密码" required>
+                                                    <div class="form-group">
+                                                        <input type="password" class="form-control"
+                                                               placeholder="确认密码" v-model="form.newPassword1"
+                                                               @blur="validateField('newPassword1')">
                                                     </div>
                                                 </el-form-item>
 
                                                 <el-form-item class="col-lg-12"
-                                                              style="display: flex; justify-content: flex-end">
+                                                     style="display: flex; justify-content: flex-end">
                                                     <div class="my-submit-button">
-                                                        <el-button type="three" class="default-btn btn-bg-three">
+                                                        <el-button type="three" @click="postPassword"
+                                                                   class="default-btn btn-bg-three"
+                                                                   style="border-radius: 5px">
                                                             确定
                                                         </el-button>
                                                     </div>
                                                 </el-form-item>
+
                                             </div>
                                         </el-form>
                                     </div>
-                                    <!--                                            <form>-->
-                                    <!--                                                <div class="row">-->
-                                    <!--                                                    <div class="col-lg-12">-->
-                                    <!--                                                        <div class="form-group">-->
-                                    <!--                                                            <input type="password" class="form-control"-->
-                                    <!--                                                                   placeholder="旧密码">-->
-                                    <!--                                                        </div>-->
-                                    <!--                                                    </div>-->
-
-                                    <!--                                                    <div class="col-lg-12">-->
-                                    <!--                                                        <div class="form-group">-->
-                                    <!--                                                            <input type="password" class="form-control"-->
-                                    <!--                                                                   placeholder="新密码">-->
-                                    <!--                                                        </div>-->
-                                    <!--                                                    </div>-->
-
-                                    <!--                                                    <div class="col-lg-12">-->
-                                    <!--                                                        <div class="form-group">-->
-                                    <!--                                                            <input type="password" class="form-control"-->
-                                    <!--                                                                   placeholder="确认密码">-->
-                                    <!--                                                        </div>-->
-                                    <!--                                                    </div>-->
-
-                                    <!--                                                    <div class="col-lg-12"-->
-                                    <!--                                                         style="display: flex; justify-content: flex-end">-->
-                                    <!--                                                        <div class="my-submit-button">-->
-                                    <!--                                                            <el-button type="three" class="default-btn btn-bg-three"-->
-                                    <!--                                                                       style="border-radius: 5px">-->
-                                    <!--                                                                确定-->
-                                    <!--                                                            </el-button>-->
-                                    <!--                                                        </div>-->
-                                    <!--                                                    </div>-->
-
-                                    <!--                                                </div>-->
-                                    <!--                                            </form>-->
-
-                                    <!--                                    </div>-->
                                 </div>
                             </div>
                         </div>
@@ -380,6 +350,9 @@
             </div>
         </div>
     </div>
+</div>
+</div>
+</div>
 </div>
 <!-- My Account Area End -->
 
