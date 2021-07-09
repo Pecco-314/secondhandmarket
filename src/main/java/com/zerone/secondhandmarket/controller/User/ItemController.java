@@ -66,11 +66,11 @@ public class ItemController {
 
     //获取图片
     @ResponseBody
-    @PostMapping("/request/get/image")
-    public byte[] getImage(@RequestBody String imagePath) throws IOException {
+    @PostMapping("/requests/image/{imagePath}")
+    public byte[] getImage(@PathVariable("imagePath") String imagePath) throws IOException {
         File directory = new File("");//参数为空
         String courseFile = directory.getCanonicalPath() ;
-        File file=new File((courseFile)+"/uploadFiles/"+imagePath);
+        File file=new File((courseFile)+"/uploadFiles/item/"+imagePath);
 
         FileInputStream inputStream = new FileInputStream(file);
         byte[] bytes = new byte[inputStream.available()];

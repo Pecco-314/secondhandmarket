@@ -61,6 +61,9 @@ public class UserController {
     public String updatePassword(@RequestBody PasswordModificationMessage passwordModificationMessage) {
         Result result;
 
+        System.out.println(passwordModificationMessage.getOldPassword());
+        System.out.println(passwordModificationMessage.getNewPassword());
+
         if (CodeProcessor.validateIdToken(passwordModificationMessage.getUserID() + "", passwordModificationMessage.getToken())) {
             User user = userService.getUserById(passwordModificationMessage.getUserID());
             //根据信息修改密码
