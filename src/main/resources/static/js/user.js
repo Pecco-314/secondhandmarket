@@ -98,5 +98,70 @@ let userinfoForm = new Vue({
         }
     }
 })
+let passwordForm = new Vue({
+    el: "#password-form",
+    data: {
+        form: {
+            userID:"",
+            token:"",
+
+            oldPassword: "",
+            newPassword: "",
+            newPassword1: "",
+        },
+        rules: {
+            oldPassword: [
+                {required: true, message: '请输入旧密码'},
+            ],
+            newPassword: [
+                {required: true, message: '请输入旧密码'},
+            ],
+            newPassword1: [
+                {
+                    validator: (rule, value, callback) => {
+                        if (value !== this.passwordForm.form.newPassword) {
+                            callback(new Error('两次密码请一致'));
+                        } else {
+                            callback();
+                        }
+                    }
+                },
+            ],
+        }
+    },
+    methods: {
+        postPassword() {
+            this.$refs.form.validate(valid => {
+                if (valid) {
+                    let identification = {
+                        userID: $.cookie("id"),
+                        token: $.cookie("token"),
+
+                        oldPassword: this.form.oldPassword,
+                        newPassword: this.form.newPassword,
+                        newPassword1: this.form.newPassword1
+                    };
+                    $.ajax({
+                        url: `${url}/requests/user/password/update`,
+                        method: 'post',
+                        data: JSON.stringify(identification),
+                        contentType: "application/json;charset=utf-8",
+                        success: (responseStr) => {
+                            let response = JSON.parse(responseStr);
+                            if (response.status === 50200) {
+                                confirm("修改成功");
+                            } else {
+                                alert(`修改错误（状态码：${response.status}）`);
+                            }
+                        }
+                    })
+                }
+            });
+        },
+        validateField(field) {
+            userinfoForm.$refs.form.validateField(field);
+        }
+    }
+})
 
 $(userinfoForm.getUserInfo);
