@@ -114,6 +114,7 @@ let passwordForm = new Vue({
                 {required: true, message: '请输入旧密码'},
             ],
             newPassword: [
+                {min: 6, message: '密码应至少有6位', trigger: 'blur'},
                 {required: true, message: '请输入新密码'},
             ],
             newPassword1: [
