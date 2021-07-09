@@ -289,41 +289,41 @@
                                     <div class="account-tab-item">
                                         <div class="address-details">
                                             <div class="user-form">
-                                                <div class="account-form">
+                                                <div class="account-form" id="password-form">
                                                     <h2>修改密码</h2>
-                                                    <form>
+                                                    <el-form :model="form" ref="form" :rules="rules" label-width="80px">
                                                         <div class="row">
-                                                            <div class="col-lg-12">
+                                                            <el-form-item class="col-lg-12" prop="oldPassword" label="旧密码" required>
                                                                 <div class="form-group">
-                                                                    <input type="password"  class="form-control" placeholder="旧密码">
+                                                                    <input type="password"  class="form-control" v-model="form.oldPassword" placeholder="旧密码" @blur="validateField('oldPassword')">
                                                                 </div>
-                                                            </div>
+                                                            </el-form-item>
 
-                                                            <div class="col-lg-12">
+                                                            <el-form-item class="col-lg-12" prop="newPassword" label="新密码" required>
                                                                 <div class="form-group">
-                                                                    <input type="password"  class="form-control" placeholder="新密码">
+                                                                    <input type="password"  class="form-control" v-model="form.newPassword" placeholder="新密码" @blur="validateField('newPassword')">
                                                                 </div>
-                                                            </div>
+                                                            </el-form-item>
 
-                                                            <div class="col-lg-12">
+                                                            <el-form-item class="col-lg-12" prop="newPassword1" label="确认密码" required>
                                                                 <div class="form-group">
-                                                                    <input type="password"  class="form-control" placeholder="确认密码">
+                                                                    <input type="password"  class="form-control" v-model="form.newPassword1" placeholder="确认密码" @blur="validateField('newPassword1')">
                                                                 </div>
-                                                            </div>
+                                                            </el-form-item>
 
-                                                            <div class="col-lg-4 col-md-6" style="margin-left: 25%">
-                                                                <button type="submit" class="default-btn btn-bg-three" style="border-radius: 5px">
+                                                            <el-form-item class="col-lg-4 col-md-6" style="margin-left: 25%">
+                                                                <el-button type="submit" @click="postPassword" class="default-btn btn-bg-three" style="border-radius: 5px">
                                                                     确定
-                                                                </button>
-                                                            </div>
+                                                                </el-button>
+                                                            </el-form-item>
 
-                                                            <div class="col-lg-4 col-md-6" style="margin-right: 25%">
-                                                                <button type="submit" class="default-btn btn-bg-three" style="border-radius: 5px">
+                                                            <el-form-item class="col-lg-4 col-md-6" style="margin-right: 25%">
+                                                                <el-button type="submit" @click="clearAll" class="default-btn btn-bg-three" style="border-radius: 5px">
                                                                     取消
-                                                                </button>
-                                                            </div>
+                                                                </el-button>
+                                                            </el-form-item>
                                                         </div>
-                                                    </form>
+                                                    </el-form>
                                                 </div>
                                             </div>
                                         </div>
