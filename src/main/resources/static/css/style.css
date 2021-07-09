@@ -39,64 +39,7 @@
     margin-bottom: 0;
 }
 
-.page-header-container {
-    display: flex;
-    justify-content: center;
-}
-
-.page-header {
-    width: 75%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center
-}
-
-.page-header .search-button{
-    width: 20%;
-}
-
-.page-header .logo-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 140px;
-    margin-right: auto;
-}
-
-.page-header .logo-container img {
-    height: 40px;
-    padding: 15px
-}
-
-.page-header #search-box {
-    width: 360px;
-    justify-content: flex-start;
-}
-
-.page-header .sale-button-container {
-    width: 200px;
-    display: flex;
-    justify-content: center;
-}
-
-.page-header .sale-button {
-    width: 120px;
-    background-color: rgb(0, 69, 107);
-    color: white
-}
-
-.main-nav {
-    clear: both;
-    *zoom: 1;
-    position: relative;
-    height: 40px;
-    line-height: 40px;
-    background-color: #60A8AF;
-    font-size: 14px;
-    color: #fff;
-}
-
-#app, body, html {
+#item-app, body, html {
     height: 100%;
 }
 
@@ -242,8 +185,6 @@ h2 {
 button {
     display: block;
     margin: 0 auto;
-    width: 100px;
-    height: 36px;
     border-radius: 30px;
     color: #fff;
     font-size: 15px;
@@ -398,4 +339,8 @@ dress-form-item-content {
 
 #userinfo-form .form-group {
     margin-bottom: 0;
+}
+
+.product-desc p {
+    font-size: 18px;
 }

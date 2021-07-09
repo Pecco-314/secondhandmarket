@@ -1,0 +1,13 @@
+#item-app .el-carousel img {
+    object-fit: contain;
+    width: 100%;
+    height: inherit;
+}
+
+.el-carousel {
+    height: 450px;
+}
+
+.el-carousel__container {
+    height: 400px;
+}
