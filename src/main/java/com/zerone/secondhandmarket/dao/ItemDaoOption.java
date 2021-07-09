@@ -26,14 +26,15 @@ public class ItemDaoOption {
 
     // 用于添加商品
     public int insertItem(Item item) {
-        String sql = "insert into item(seller_id, item_name, item_type, quantity, price_now, price_original,introduction, coverPath, checked)" +
-                "values(:seller_id,:item_name,:item_type,:quantity,:price_now,:price_original,:introduction,:coverPath,:checked)";
+        String sql = "insert into item(seller_id, item_name, item_type, quantity, price_now, price_original,introduction, coverPath, checked,release_time)" +
+                "values(:seller_id,:item_name,:item_type,:quantity,:price_now,:price_original,:introduction,:coverPath,:checked,:release_time)";
 
         SqlParameterSource parameters = new MapSqlParameterSource().addValue("seller_id", item.getSeller())
                 .addValue("item_name", item.getName()).addValue("item_type", item.getType().toString())
                 .addValue("quantity", item.getQuantity()).addValue("price_now", item.getPrice())
                 .addValue("price_original", item.getOriginalPrice()).addValue("introduction", item.getIntroduction())
-                .addValue("coverPath", item.getCoverPath()).addValue("checked", item.getCheckCondition().toString());
+                .addValue("coverPath", item.getCoverPath()).addValue("checked", item.getCheckCondition().toString())
+                .addValue("release_time", item.getReleaseTime());
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(sql, parameters, keyHolder, new String[]{"item_id"});
         return keyHolder.getKey().intValue();

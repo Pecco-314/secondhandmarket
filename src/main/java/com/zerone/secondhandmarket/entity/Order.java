@@ -10,10 +10,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor//全参构造
 @NoArgsConstructor//无参构造
 public class Order {
-    private int id;
-    private int buyer;
-    private int seller;
-    private int item;//商品id
-    private int quantity;//数量
+    private Integer id;
+    private Integer buyer;
+    private Integer seller;
+    private Integer item;//商品id
+    private Integer quantity;//数量
     private String time;//下单时间 字符串格式必须是"yyyy-MM-dd HH:mm:ss"
 }

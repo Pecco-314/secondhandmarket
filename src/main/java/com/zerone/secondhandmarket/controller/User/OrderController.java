@@ -42,4 +42,13 @@ public class OrderController {
 
         return result.toString();
     }
+
+    //取消订单
+    @ResponseBody
+    @PostMapping("/requests/user/cancelOrder")
+    public String cancelSingleOrder(@RequestBody OrderFilter filter) {
+        Result result = OrderModule.cancelOrder(orderService, filter);
+
+        return result.toString();
+    }
 }

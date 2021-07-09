@@ -49,6 +49,9 @@ let postForm = new Vue({
                 name: [
                     {required: true, message: '请输入商品名称', trigger: 'blur'},
                 ],
+                introduction: [
+                    {max: 500, message: '简介不能超过500个字符', trigger: 'blur'},
+                ],
                 type: [
                     {required: true, message: '请选择类型', trigger: 'change'},
                 ],
@@ -133,7 +136,7 @@ let postForm = new Vue({
                                 confirm("发布成功！");
                                 location.reload();
                             } else {
-                                alert(`未知错误（状态码：${response.status}）`);
+                                alert(`${response.message}（状态码：${response.status}）`);
                             }
                         }
                     })

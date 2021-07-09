@@ -23,7 +23,7 @@ public class ItemRowMapper implements RowMapper<Item>{
         item.setQuantity(rs.getInt("quantity"));
         item.setPrice(rs.getDouble("price_now"));
         item.setOriginalPrice(rs.getDouble("price_original"));
-     //   temp.setKeyword(rs.getString("keyword"));
+        item.setReleaseTime(rs.getString("release_time"));
         item.setIntroduction(rs.getString("introduction"));
         item.setCoverPath(rs.getString("coverPath"));
         item.setCheckCondition(ItemCheckCondition.valueOf(rs.getString("checked")));

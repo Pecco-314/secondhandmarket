@@ -17,15 +17,16 @@ import java.util.List;
 @AllArgsConstructor //全参构造函数
 @NoArgsConstructor  //无参构造函数
 public class Item {
-    private int id;//物品的id
-    private int seller;//卖家的id
+    private Integer id;//物品的id
+    private Integer seller;//卖家的id
     private String name;//物品名称
     private ItemType type;//物品类型
-    private int quantity;//数量
-    private double price;//现在的价格
-    private double originalPrice;//原来的价格
+    private Integer quantity;//数量
+    private Double price;//现在的价格
+    private Double originalPrice;//原来的价格
     private String introduction;//简介
     private String coverPath;
+    private String releaseTime;//商品发布时间
     private List<String> itemTags;//返回关键词数组
     private List<String> itemImages;//返回物品图片路径数组
 

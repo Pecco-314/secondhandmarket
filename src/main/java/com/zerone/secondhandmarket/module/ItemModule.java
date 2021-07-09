@@ -8,11 +8,13 @@ import com.zerone.secondhandmarket.message.SellingItemModificationMessage;
 import com.zerone.secondhandmarket.service.ItemImageService;
 import com.zerone.secondhandmarket.service.ItemService;
 import com.zerone.secondhandmarket.service.TagsService;
+import com.zerone.secondhandmarket.tools.DateFormatter;
 import com.zerone.secondhandmarket.viewobject.Result;
 import com.zerone.secondhandmarket.entity.Item;
 import com.zerone.secondhandmarket.enums.Status;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ItemModule {
@@ -24,13 +26,13 @@ public class ItemModule {
     }
 
     //获取所有审核通过的所有物品
-    public static Result getCheckedItemList(ItemService itemService,ItemImageService itemImageService,TagsService tagsService){
+    /*public static Result getCheckedItemList(ItemService itemService,ItemImageService itemImageService,TagsService tagsService){
         List<Item> itemList = itemService.getItemList();
         List<Item> checkedItems=getCheckedItems(itemList);
         getItemTagsAndImages(itemImageService,tagsService,checkedItems);
 
         return new Result(Status.ITEM_OK,"获取全部物品成功",checkedItems);
-    }
+    }*/
 
     //根据类型筛选
     public static Result getItemsByFilter(ItemService service,ItemImageService itemImageService,TagsService tagsService, ItemFilter filter) {
@@ -82,6 +84,10 @@ public class ItemModule {
             item.setType(sellingItemMessage.getType());
             item.setQuantity(sellingItemMessage.getQuantity());
             item.setPrice(sellingItemMessage.getPrice());
+            item.setReleaseTime(DateFormatter.dateToString(new Date()));
+            //TODO：暂时使其审核通过，有了审核功能再改
+            item.setCheckCondition(ItemCheckCondition.TRUE);
+
             if (sellingItemMessage.getOriginalPrice() != null)
                 item.setOriginalPrice(sellingItemMessage.getOriginalPrice());
             if (sellingItemMessage.getIntroduction() != null)
@@ -91,6 +97,7 @@ public class ItemModule {
                 //System.out.println((String)sellingItemMessage.getImages()[0].getData());
                 item.setCoverPath(sellingItemMessage.getImages()[0]);
             }
+            item.setReleaseTime(DateFormatter.dateToString(new Date()));
             //插入物品
             int id = itemService.insertItem(item);
 

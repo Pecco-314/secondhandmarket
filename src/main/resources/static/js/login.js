@@ -136,7 +136,7 @@ let loginBox = new Vue({
                             } else if (response.status === 10401) {
                                 showErrorInForm(loginBox, "userLoginForm", "password", "userLoginRules", response.message);
                             } else {
-                                alert(`未知错误（状态码：${response.status}）`);
+                                alert(`${response.message}（状态码：${response.status}）`);
                             }
                         }
                     })
@@ -165,7 +165,7 @@ let loginBox = new Vue({
                             } else if (response.status === 10401) {
                                 showErrorInForm(loginBox, "adminLoginForm", "password", "adminLoginRules", response.message);
                             } else {
-                                alert(`未知错误（状态码：${response.status}）`);
+                                alert(`${response.message}（状态码：${response.status}）`);
                             }
                         }
                     })
@@ -192,7 +192,7 @@ let loginBox = new Vue({
                             } else if (response.status === 10402) {
                                 showErrorInForm(loginBox, "registerForm", "email", "registerRules", response.message);
                             } else {
-                                alert(`未知错误（状态码：${response.status}）`);
+                                alert(`${response.message}（状态码：${response.status}）`);
                             }
                         }
                     })

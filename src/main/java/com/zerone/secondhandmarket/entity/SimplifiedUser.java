@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor//全参构造
 @NoArgsConstructor//无参构造
 public class SimplifiedUser {
-    private int id;
+    private Integer id;
     private String nickname;
     private String imagePath;//用户头像
 }

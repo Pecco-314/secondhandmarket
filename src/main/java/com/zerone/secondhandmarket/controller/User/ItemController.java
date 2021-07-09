@@ -22,8 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 import static com.zerone.secondhandmarket.tools.JSONMapper.writeValueAsString;
 
@@ -40,6 +39,9 @@ public class ItemController {
     public String openPostPage() {
         return "post";
     }
+
+    @RequestMapping("/item")
+    public String openItemPage() { return "goods-details"; }
 
     //上传照片
     @ResponseBody
@@ -65,9 +67,23 @@ public class ItemController {
         return result.toString();
     }
 
+    //获取图片
+    @ResponseBody
+    @GetMapping("/requests/image/{imagePath}")
+    public byte[] getImage(@PathVariable("imagePath") String imagePath) throws IOException {
+        File directory = new File("");//参数为空
+        String courseFile = directory.getCanonicalPath() ;
+        File file=new File((courseFile)+"/uploadFiles/item/"+imagePath);
+
+        FileInputStream inputStream = new FileInputStream(file);
+        byte[] bytes = new byte[inputStream.available()];
+        inputStream.read(bytes, 0, inputStream.available());
+        return bytes;
+    }
+
     //筛选物品
     @ResponseBody
-    @GetMapping("/requests/product/filter")
+    @PostMapping("/requests/product/filter")
     public String getItemListByFilter(@RequestBody ItemFilter itemFilter) {
         Result result = ItemModule.getItemsByFilter(itemService, itemImageService, tagsService, itemFilter);
 
@@ -85,8 +101,8 @@ public class ItemController {
 
     //关键词搜索
     @ResponseBody
-    @GetMapping("/requests/search")
-    public String getItemInfoByKeyword(@RequestBody String keyword) {
+    @GetMapping("/requests/search/{keyword}")
+    public String getItemInfoByKeyword(@PathVariable("keyword") String keyword) {
         Result result = ItemModule.getCheckedItemsByKeyWords(itemService, itemImageService, tagsService, keyword);
 
         return result.toString();
@@ -94,7 +110,7 @@ public class ItemController {
 
     //更新物品信息（只修改商品名称、数量、金额）
     @ResponseBody
-    @GetMapping("requests/user/modifyItem")
+    @PostMapping("requests/user/modifyItem")
     public String modifyUserItem(@RequestBody SellingItemModificationMessage sellingItemModificationMessage) {
         Item item = itemService.getItemById(sellingItemModificationMessage.getItemID());
         //设置物品信息
@@ -112,9 +128,9 @@ public class ItemController {
 
     //删除发布物品
     @ResponseBody
-    @GetMapping("requests/user/deleteItem")
-    public String deleteUserItem(@RequestBody SellingItemDeleteMessage sellingItemDeleteMessage) {
-        Result result = ItemModule.deleteUserItem(itemService, itemImageService, tagsService, sellingItemDeleteMessage.getItemID());
+    @GetMapping("requests/user/deleteItem/{itemId}")
+    public String deleteUserItem(@PathVariable("itemId") int itemId) {
+        Result result = ItemModule.deleteUserItem(itemService, itemImageService, tagsService, itemId);
 
         return result.toString();
     }
