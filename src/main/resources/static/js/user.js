@@ -61,7 +61,7 @@ let userinfoForm = new Vue({
                         this.form.phoneNumber = response.data.phoneNumber;
                         this.form.emailAddress = response.data.emailAddress;
                     } else {
-                        alert(`未知错误（状态码：${response.status}）`);
+                        alert(`${response.message}（状态码：${response.status}）`);
                     }
                 }
             })
@@ -86,7 +86,7 @@ let userinfoForm = new Vue({
                             if (response.status === 50200) {
                                 confirm("修改成功");
                             } else {
-                                alert(`未知错误（状态码：${response.status}）`);
+                                alert(`${response.message}（状态码：${response.status}）`);
                             }
                         }
                     })
