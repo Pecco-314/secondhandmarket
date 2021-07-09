@@ -52,7 +52,7 @@ $(
                     for (let image of itemApp.item.itemImages) {
                         itemApp.imageList.push({
                             name: image,
-                            url: `http://1.15.220.157:8088/requests/image/${image}`
+                            url: `http://localhost:8088/requests/image/${image}`
                         });
                     }
                 } else {

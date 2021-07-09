@@ -116,7 +116,7 @@ Vue.component('page-header', {
                             </div>
 
                             <div class="nav-btn nav-other-btn">
-                                <a v-if="this.isLogin" href="../post" class="default-btn" :class="this.navButtonClass">发布商品</a>
+                                <a v-if="this.isLogin" href="../post" class="default-btn" :class="this.navButtonClass" style="border-radius: 5px">发布商品</a>
                                 <a v-else href="../login" class="default-btn" :class="this.navButtonClass">登录/注册</a>
                             </div>
                         </div>
