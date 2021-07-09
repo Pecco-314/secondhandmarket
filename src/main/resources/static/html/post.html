@@ -53,7 +53,7 @@
                     <el-form-item label="名称" prop="name" required>
                         <el-input v-model="postForm.name"></el-input>
                     </el-form-item>
-                    <el-form-item label="简介">
+                    <el-form-item label="简介" prop="introduction">
                         <el-input
                                 type="textarea"
                                 :rows="2"
@@ -88,11 +88,10 @@
                         <tags-appender ref="tagsAppender"></tags-appender>
                     </el-form-item>
                     <el-form-item label="图片上传">
-                        <!-- TODO 这里的url上线时要改 -->
                         <el-upload
                                 drag
                                 name="multipartfiles"
-                                action="http://localhost:8088/requests/upload/image"
+                                action="http://1.15.220.157:8088/requests/upload/image"
                                 :on-success="onPostImageSuccessfully"
                                 :on-remove="onRemoveImage"
                                 list-type="picture"

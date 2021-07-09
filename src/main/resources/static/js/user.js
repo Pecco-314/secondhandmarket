@@ -114,12 +114,13 @@ let passwordForm = new Vue({
                 {required: true, message: '请输入旧密码'},
             ],
             newPassword: [
-                {required: true, message: '请输入旧密码'},
+                {min: 6, message: '密码应至少有6位', trigger: 'blur'},
+                {required: true, message: '请输入新密码'},
             ],
             newPassword1: [
                 {
                     validator: (rule, value, callback) => {
-                        if (value !== this.passwordForm.form.newPassword) {
+                        if (value !== passwordForm.form.newPassword) {
                             callback(new Error('两次密码请一致'));
                         } else {
                             callback();

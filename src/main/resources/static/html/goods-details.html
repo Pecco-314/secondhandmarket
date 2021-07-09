@@ -1,564 +1,233 @@
 <!doctype html>
 <html lang="zh-ch">
-    <head>
-        <!-- Required Meta Tags -->
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-        <!-- Bootstrap CSS --> 
-        <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-        <!-- Animate Min CSS -->
-        <link rel="stylesheet" href="../assets/css/animate.min.css">
-        <!-- Flaticon CSS -->
-        <link rel="stylesheet" href="../assets/fonts/flaticon.css">
-        <!-- Boxicons CSS -->
-        <link rel="stylesheet" href="../assets/css/boxicons.min.css">
-        <!-- Magnific Popup CSS -->
-        <link rel="stylesheet" href="../assets/css/magnific-popup.css">
-        <!-- Owl Carousel Min CSS --> 
-        <link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
-        <link rel="stylesheet" href="../assets/css/owl.theme.default.min.css">
-        <!-- Nice Select Min CSS --> 
-        <link rel="stylesheet" href="../assets/css/nice-select.min.css">
-        <!-- Meanmenu CSS -->
-        <link rel="stylesheet" href="../assets/css/meanmenu.css">
-        <!-- Style CSS -->
-        <link rel="stylesheet" href="../assets/css/style.css">
-        <!-- Responsive CSS -->
-        <link rel="stylesheet" href="../assets/css/responsive.css">
+<head>
+    <!-- Required Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <!-- Animate Min CSS -->
+    <link rel="stylesheet" href="../assets/css/animate.min.css">
+    <!-- Flaticon CSS -->
+    <link rel="stylesheet" href="../assets/fonts/flaticon.css">
+    <!-- Boxicons CSS -->
+    <link rel="stylesheet" href="../assets/css/boxicons.min.css">
+    <!-- Magnific Popup CSS -->
+    <link rel="stylesheet" href="../assets/css/magnific-popup.css">
+    <!-- Owl Carousel Min CSS -->
+    <link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../assets/css/owl.theme.default.min.css">
+    <!-- Nice Select Min CSS -->
+    <link rel="stylesheet" href="../assets/css/nice-select.min.css">
+    <!-- Meanmenu CSS -->
+    <link rel="stylesheet" href="../assets/css/meanmenu.css">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="../assets/css/responsive.css">
 
-        <!-- Favicon -->
-        <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png">
 
-        <title>Olex - Multipurpose eCommerce HTML Template</title>
-    </head>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/item.css">
 
-    <body>
-        <div class="preloader">
-            <div class="spinner">
-                <div class="dot1"></div>
-                <div class="dot2"></div>
-            </div>
-        </div>
+    <title>Olex - Multipurpose eCommerce HTML Template</title>
+</head>
 
-        <!-- Start Navbar Area -->
-        <div class="navbar-area">
-            <!-- Menu For Mobile Device -->
-            <div class="mobile-nav">
-                <a href="../index.html" class="logo">
-                    <img src="../img/logo.png" alt="Logo">
-                </a>
-            </div>
+<body>
+<div class="preloader">
+    <div class="spinner">
+        <div class="dot1"></div>
+        <div class="dot2"></div>
+    </div>
+</div>
 
-            <!-- Menu For Desktop Device -->
-            <div class="main-nav nav-three">
-                <div class="container">
-                    <nav class="navbar navbar-expand-md navbar-light ">
-                        <a class="navbar-brand" href="../index.html">
-                            <img src="../img/logo.png" alt="Logo">
-                        </a>
+<div id="page-header">
+    <page-header></page-header>
+</div>
 
-                        <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
-                            <ul class="navbar-nav m-auto">
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        首页
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link active">
-                                        Pages 
-                                        <i class='bx bx-chevron-down'></i>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item">
-                                            <a href="../about.html" class="nav-link">
-                                                About
-                                            </a>
-                                        </li>
-
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link active">
-                                                Shop 
-                                                <i class='bx bx-chevron-down'></i>
-                                            </a>
-                                            <ul class="dropdown-menu">
-                                                <li class="nav-item">
-                                                    <a href="goods-details.html" class="nav-link active">
-                                                        Shop Details
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="goods-list.html" class="nav-link">
-                                                        Shop Details Left Sidebar
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="../shop-details-right-sidebar.html" class="nav-link">
-                                                        Shop Details Right Sidebar 
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="../tracking-order.html" class="nav-link">
-                                                        Tracking Order 
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="../size-guides.html" class="nav-link">
-                                                        Size Guides 
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="../customer-services.html" class="nav-link">
-                                                        Customer Services  
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="../compare.html" class="nav-link">
-                                                        Compare  
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="../cart.html" class="nav-link">
-                                                        Cart  
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="../checkout.html" class="nav-link">
-                                                        Checkout  
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="../wishlist.html" class="nav-link">
-                                                        Wishlist  
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="../my-account.html" class="nav-link">
-                                                        My Account  
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        
-                                        <li class="nav-item">
-                                            <a href="../faq.html" class="nav-link">
-                                                FAQ
-                                            </a>
-                                        </li>
-
-                                        <li class="nav-item">
-                                            <a href="../team.html" class="nav-link">
-                                                Team
-                                            </a>
-                                        </li>
-
-                                        <li class="nav-item">
-                                            <a href="../testimonials.html" class="nav-link">
-                                                Testimonials
-                                            </a>
-                                        </li>
-
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                User
-                                                <i class='bx bx-chevron-down'></i>
-                                            </a>
-                                            <ul class="dropdown-menu">
-                                                <li class="nav-item">
-                                                    <a href="../log-in.html" class="nav-link">
-                                                        Log In
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="../register.html" class="nav-link">
-                                                        Registration
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="../forget-password.html" class="nav-link">
-                                                        Forget Password
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-
-                                        <li class="nav-item">
-                                            <a href="../terms-condition.html" class="nav-link">
-                                                Terms & Conditions
-                                            </a>
-                                        </li>
-
-                                        <li class="nav-item">
-                                            <a href="../privacy-policy.html" class="nav-link">
-                                                Privacy Policy
-                                            </a>
-                                        </li>
-
-                                        <li class="nav-item">
-                                            <a href="../404.html" class="nav-link">
-                                                404 page
-                                            </a>
-                                        </li>
-
-                                        <li class="nav-item">
-                                            <a href="../search-page.html" class="nav-link">
-                                                Search Page
-                                            </a>
-                                        </li>
-                                        
-                                        <li class="nav-item">
-                                            <a href="../coming-soon.html" class="nav-link">
-                                                Coming Soon
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        Shop
-                                        <i class='bx bx-chevron-down'></i>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item">
-                                            <a href="../shop-left-sidebar.html" class="nav-link">
-                                                Shop Left Sidebar 
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="../shop-right-sidebar.html" class="nav-link">
-                                                Shop Right Sidebar 
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="../shop-grid.html" class="nav-link">
-                                                Shop Grid 
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="../shop-full-width-sidebar.html" class="nav-link">
-                                                Shop Full Width Sidebar
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        Categories
-                                        <i class='bx bx-chevron-down'></i>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item">
-                                            <a href="../categories-1.html" class="nav-link">
-                                                Categories (2 In Row)
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="../categories-2.html" class="nav-link">
-                                                Categories (3 In Row) 
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="../categories-full-width.html" class="nav-link">
-                                                Categories Full Width 
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        Blog
-                                        <i class='bx bx-chevron-down'></i>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item">
-                                            <a href="../blog-1.html" class="nav-link">
-                                                Blog Style One 
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="../blog-2.html" class="nav-link">
-                                                Blog Style Two 
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="../blog-details.html" class="nav-link">
-                                                Blog Details 
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="../contact.html" class="nav-link">
-                                        Contact
-                                    </a>
-                                </li>
-                            </ul>
-
-                            <div class="nav-other">
-                                <div class="nav-other-item">
-                                    <div class="cart-btn-area">
-                                        <a href="#" class="cart-btn"><i class='bx bx-cart'></i></a>
-                                        <span>1</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="nav-btn nav-other-btn">
-                                <a href="../log-in.html" class="default-btn btn-bg-three">登录/注册</a>
-                            </div>
-                        </div>
-                    </nav>
-                </div>
+<!-- Product Details Area -->
+<div class="product-details-area pt-100 pb-70">
+    <div class="container" id="item-app">
+        <div class="row">
+            <div class="col-lg-6 col-md-12">
+                <el-carousel indicator-position="outside">
+                    <el-carousel-item v-for="image in imageList" :key="image.name">
+                        <img :src=image.url alt="Image">
+                    </el-carousel-item>
+                </el-carousel>
             </div>
 
-            <div class="side-nav-responsive">
-                <div class="container">
-                    <div class="dot-menu">
-                        <div class="circle-inner">
-                            <div class="circle circle-one"></div>
-                            <div class="circle circle-two"></div>
-                            <div class="circle circle-three"></div>
-                        </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="product-desc">
+                    <h3>{{ item.name }}</h3>
+                    <div class="price">
+                        <span class="new-price">￥{{ item.price }}</span>
+                        <span v-if="item.originalPrice !== null" class="old-price">￥{{ item.originalPrice }}</span>
                     </div>
-                    
-                    <div class="container">
-                        <div class="side-nav-inner">
-                            <div class="side-nav justify-content-center align-items-center">
-                                <div class="side-item">
-                                    <div class="nav-other-item">
-                                        <div class="cart-btn-area">
-                                            <a href="#" class="cart-btn"><i class='bx bx-cart'></i></a>
-                                            <span>1</span>
-                                        </div>
-                                    </div>
+                    <div>
+                        <i class="el-icon-date" style="margin-bottom: 10px"><span
+                                style="font-size:15px;font-weight: 500; color: #10142D"> {{ item.releaseDate }}</span></i>
+                    </div>
+                    <p>
+                        {{ item.introduction }}
+                    </p>
 
-                                    <div class="nav-other-item">
-                                        <div class="option-btn">
-                                            <a href="../log-in.html" class="default-btn">登录/注册</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div style="margin-top: 14px">
+                        <el-tag style="margin-right: 15px" v-for="tag in item.itemTags" :key="tag">{{ tag }}</el-tag>
+                    </div>
+
+                    <div class="product-add-btn">
+                        <button type="submit" class="default-btn btn-bg-three">
+                            <i class="fas fa-cart-plus"></i> 加入购物车
+                        </button>
+                        <button type="submit" class="default-btn btn-bg-three">
+                            <i class="fas fa-cart-plus"></i> 立即购买
+                        </button>
+                        <button type="submit" class="default-btn btn-bg-three">
+                            <i class="fas fa-cart-plus"></i> 联系商家
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- End Navbar Area -->
+    </div>
+</div>
+<!-- Product Details Area End -->
 
-        <!-- Product Details Area -->
-        <div class="product-details-area pt-100 pb-70">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 col-md-12">
-                        <div class="product-detls-image">
-                            <img src="../assets/images/products/shop-details-img1.png" alt="Image">
-                        </div>
+<!-- QuickView Modal Area -->
+<div class="modal fade productsQuickView" id="productsQuickView" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"><i class='bx bx-x'></i></span>
+            </button>
+
+            <div class="row">
+                <div class="col-lg-5 col-md-4">
+                    <div class="products-image"><img src="../assets/images/products/shop-details-img1.png" alt="Images">
                     </div>
+                </div>
 
-                    <div class="col-lg-6 col-md-12">
-                        <div class="product-desc">
-                            <h3>Giant Teddy Bear</h3>
+                <div class="col-lg-7 col-md-8">
+                    <div class="product-content">
+                        <h3>Giant Teddy Bear</h3>
+                        <div class="product-text">
+                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean com ligula eget dolor.
+                                Aenean massa. </p>
+                        </div>
+                        <div class="price-status">
                             <div class="price">
-                                <span class="new-price">$20.00</span>
-                                <span class="old-price">$30.00</span>
-                            </div>
-                            <div>
-                                <i class="el-icon-date" style="margin-bottom: 10px"><span style="font-size:15px;font-weight: 500; color: #10142D"> 2021-7-6</span></i>
-                            </div>
-
-                            <p>
-                             hhhhhhhhhhhhhnihaoquyes
-                            </p>
-
-
-                            <div id="app" style="margin-top: 5%">
-                                <el-tag style="margin-right: 15px">标签一</el-tag>
-                                <el-tag type="success" style="margin-right: 15px">标签二</el-tag>
-                                <el-tag type="info" style="margin-right: 15px">标签三</el-tag>
-                                <el-tag type="warning" style="margin-right: 15px">标签四</el-tag>
-                                <el-tag type="danger" style="margin-right: 15px">标签五</el-tag>
-                            </div>
-
-                            <div class="product-add-btn">
-                                <button type="submit" class="default-btn btn-bg-three">
-                                    <i class="fas fa-cart-plus"></i> 加入购物车
-                                </button>
-                                <button type="submit" class="default-btn btn-bg-three">
-                                    <i class="fas fa-cart-plus"></i> 立即购买
-                                </button>
-                                <button type="submit" class="default-btn btn-bg-three">
-                                    <i class="fas fa-cart-plus"></i> 联系商家
-                                </button>
-                            </div>
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Product Details Area End -->
-
-        <!-- QuickView Modal Area -->
-        <div class="modal fade productsQuickView" id="productsQuickView" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><i class='bx bx-x'></i></span>
-                    </button>
-
-                    <div class="row">
-                        <div class="col-lg-5 col-md-4">
-                            <div class="products-image"><img src="../assets/images/products/shop-details-img1.png" alt="Images"></div>
-                        </div>
-
-                        <div class="col-lg-7 col-md-8">
-                            <div class="product-content">
-                                <h3>Giant Teddy Bear</h3>
-                                <div class="product-text">
-                                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean  com ligula eget dolor. Aenean massa. </p>
+                                <span class="new-price">$541.00</span>
+                                <div class="rating">
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
                                 </div>
-                                <div class="price-status">
-                                    <div class="price">
-                                        <span class="new-price">$541.00</span>
-                                        <div class="rating">
-                                            <i class='bx bxs-star'></i>
-                                            <i class='bx bxs-star'></i>
-                                            <i class='bx bxs-star'></i>
-                                            <i class='bx bxs-star'></i>
-                                            <i class='bx bxs-star'></i>
-                                        </div>
-                                    </div>
+                            </div>
 
-                                    <div class="availability-status">
-                                        <ul>
-                                            <li>Availability: <span>In Stock</span></li>
-                                            <li>Expire date: <span>12 Dec, 2021</span></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="product-add-to-cart">
-                                    <div class="input-counter">
+                            <div class="availability-status">
+                                <ul>
+                                    <li>Availability: <span>In Stock</span></li>
+                                    <li>Expire date: <span>12 Dec, 2021</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="product-add-to-cart">
+                            <div class="input-counter">
                                         <span class="minus-btn">
                                             <i class='bx bx-minus'></i>
                                         </span>
-                                        <input type="text" value="1">
-                                        <span class="plus-btn">
+                                <input type="text" value="1">
+                                <span class="plus-btn">
                                             <i class='bx bx-plus'></i>
                                         </span>
-                                    </div>
-                                    <button type="submit" class="default-btn btn-bg-three">
-                                        Add to cart
-                                    </button>
-
-                                    <button type="submit" class="default-btn btn-bg-three">
-                                        Buy it now!
-                                    </button>
-                                </div>
-    
-                                <div class="advantage-list">
-                                    <h3>Specialty of This Product:</h3>
-                                    <ul>
-                                        <li>Very Fresh and Quality Full</li>
-                                        <li>Collect This From Natural Source</li>
-                                        <li>Have a Good Range of Validity Date</li>
-                                        <li>Free Home Delivery</li>
-                                    </ul>
-                                </div>
-    
-                                <div class="products-share">
-                                    <ul class="social">
-                                        <li><span>Share:</span></li>
-                                        <li>
-                                            <a href="#" class="facebook" target="_blank"><i class='bx bxl-facebook'></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="twitter" target="_blank"><i class='bx bxl-twitter'></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="linkedin" target="_blank"><i class='bx bxl-linkedin'></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="instagram" target="_blank"><i class='bx bxl-instagram'></i></a>
-                                        </li>
-                                    </ul>
-                                </div>
                             </div>
+                            <button type="submit" class="default-btn btn-bg-three">
+                                Add to cart
+                            </button>
+
+                            <button type="submit" class="default-btn btn-bg-three">
+                                Buy it now!
+                            </button>
+                        </div>
+
+                        <div class="advantage-list">
+                            <h3>Specialty of This Product:</h3>
+                            <ul>
+                                <li>Very Fresh and Quality Full</li>
+                                <li>Collect This From Natural Source</li>
+                                <li>Have a Good Range of Validity Date</li>
+                                <li>Free Home Delivery</li>
+                            </ul>
+                        </div>
+
+                        <div class="products-share">
+                            <ul class="social">
+                                <li><span>Share:</span></li>
+                                <li>
+                                    <a href="#" class="facebook" target="_blank"><i class='bx bxl-facebook'></i></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="twitter" target="_blank"><i class='bx bxl-twitter'></i></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="linkedin" target="_blank"><i class='bx bxl-linkedin'></i></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="instagram" target="_blank"><i class='bx bxl-instagram'></i></a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- QuickView Modal Area End -->
+    </div>
+</div>
+<!-- QuickView Modal Area End -->
 
 
-        <!-- Jquery Min JS -->
-        <script src="../assets/js/jquery-3.5.1.slim.min.js"></script>
-        <!-- Popper Min JS -->
-        <script src="../assets/js/popper.min.js"></script>
-        <!-- Bootstrap Min JS -->
-        <script src="../assets/js/bootstrap.min.js"></script>
-        <!-- Magnific Popup Min JS -->
-        <script src="../assets/js/jquery.magnific-popup.min.js"></script>
-        <!-- Owl Carousel Min JS -->
-        <script src="../assets/js/owl.carousel.min.js"></script>
-        <!-- Nice Select Min JS -->
-        <script src="../assets/js/jquery.nice-select.min.js"></script>
-        <!-- Wow Min JS -->
-        <script src="../assets/js/wow.min.js"></script>
-        <!-- Meanmenu JS -->
-        <script src="../assets/js/meanmenu.js"></script>
-        <!-- Ajaxchimp Min JS -->
-        <script src="../assets/js/jquery.ajaxchimp.min.js"></script>
-        <!-- Form Validator Min JS -->
-        <script src="../assets/js/form-validator.min.js"></script>
-        <!-- Contact Form JS -->
-        <script src="../assets/js/contact-form-script.js"></script>
-        <!-- Mixitup Min JS -->
-        <script src="../assets/js/mixitup.min.js"></script>
-        <!-- Custom JS -->
-        <script src="../assets/js/custom.js"></script>
+<!-- Jquery Min JS -->
+<script src="../assets/js/jquery-3.5.1.slim.min.js"></script>
+<!-- Popper Min JS -->
+<script src="../assets/js/popper.min.js"></script>
+<!-- Bootstrap Min JS -->
+<script src="../assets/js/bootstrap.min.js"></script>
+<!-- Magnific Popup Min JS -->
+<script src="../assets/js/jquery.magnific-popup.min.js"></script>
+<!-- Owl Carousel Min JS -->
+<script src="../assets/js/owl.carousel.min.js"></script>
+<!-- Nice Select Min JS -->
+<script src="../assets/js/jquery.nice-select.min.js"></script>
+<!-- Wow Min JS -->
+<script src="../assets/js/wow.min.js"></script>
+<!-- Meanmenu JS -->
+<script src="../assets/js/meanmenu.js"></script>
+<!-- Ajaxchimp Min JS -->
+<script src="../assets/js/jquery.ajaxchimp.min.js"></script>
+<!-- Form Validator Min JS -->
+<script src="../assets/js/form-validator.min.js"></script>
+<!-- Contact Form JS -->
+<script src="../assets/js/contact-form-script.js"></script>
+<!-- Mixitup Min JS -->
+<script src="../assets/js/mixitup.min.js"></script>
+<!-- Custom JS -->
+<script src="../assets/js/custom.js"></script>
 
-        <script src="https://unpkg.com/vue/dist/vue.js"></script>
-        <script src="https://unpkg.com/element-ui/lib/index.js"></script>
-        <script src="https://cdn.staticfile.org/jquery/3.4.0/jquery.min.js"></script>
-        <script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-        <script>
-            new Vue().$mount('#app')
-        </script>
-        <script>
-            new Vue ({
-                el: "#detail-img",
-                data() {
-                    return {
-                        url: 'https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg',
-                        srcList: [
-                            'https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg'
-                        ]
-                    }
-                }
-            })
-        </script>
-        <script>
-            new Vue ({
-                el: "#detail-img2",
-                data() {
-                    return {
-                        url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-                        srcList: [
-                            'https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg'
-                        ]
-                    }
-                }
-            })
-        </script>
-    </body>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://cdn.staticfile.org/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="../js/header.js"></script>
+<script src="../js/item.js"></script>
+
+
+</body>
 <style>
     .img-row {
         display: flex;
