@@ -59,7 +59,7 @@
                                 :rows="2"
                                 class="textarea"
                                 placeholder="请输入内容"
-                                v-model="postForm.textarea">
+                                v-model="postForm.introduction">
                         </el-input>
                     </el-form-item>
                     <el-form-item label="类型" prop="type" required>
@@ -103,7 +103,7 @@
                         </el-upload>
                     </el-form-item>
                     <el-form-item>
-                        <el-button type="primary" style="width:500px" @click="onPost">提交</el-button>
+                        <el-button type="primary" style="width:100%" @click="onPost">提交</el-button>
                     </el-form-item>
                 </el-form>
             </div>
