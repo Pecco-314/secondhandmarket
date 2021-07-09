@@ -24,13 +24,13 @@ public class ItemModule {
     }
 
     //获取所有审核通过的所有物品
-    public static Result getCheckedItemList(ItemService itemService,ItemImageService itemImageService,TagsService tagsService){
+    /*public static Result getCheckedItemList(ItemService itemService,ItemImageService itemImageService,TagsService tagsService){
         List<Item> itemList = itemService.getItemList();
         List<Item> checkedItems=getCheckedItems(itemList);
         getItemTagsAndImages(itemImageService,tagsService,checkedItems);
 
         return new Result(Status.ITEM_OK,"获取全部物品成功",checkedItems);
-    }
+    }*/
 
     //根据类型筛选
     public static Result getItemsByFilter(ItemService service,ItemImageService itemImageService,TagsService tagsService, ItemFilter filter) {

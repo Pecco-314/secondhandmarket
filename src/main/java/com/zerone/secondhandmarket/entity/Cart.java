@@ -10,13 +10,13 @@ public class Cart {
     /**
      * 用户ID
      */
-    private int userId;
+    private Integer userId;
     /**
      * 物品ID
      */
-    private int itemId;
+    private Integer itemId;
     /**
      * 数量
      */
-    private int quantity;
+    private Integer quantity;
 }
