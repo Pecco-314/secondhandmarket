@@ -40,6 +40,9 @@ public class ItemController {
         return "post";
     }
 
+    @RequestMapping("/item")
+    public String openItemPage() { return "goods-details"; }
+
     //上传照片
     @ResponseBody
     @PostMapping("/requests/upload/image")
@@ -66,7 +69,7 @@ public class ItemController {
 
     //获取图片
     @ResponseBody
-    @PostMapping("/requests/image/{imagePath}")
+    @GetMapping("/requests/image/{imagePath}")
     public byte[] getImage(@PathVariable("imagePath") String imagePath) throws IOException {
         File directory = new File("");//参数为空
         String courseFile = directory.getCanonicalPath() ;

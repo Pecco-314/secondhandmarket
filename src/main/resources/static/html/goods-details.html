@@ -54,9 +54,9 @@
         <div class="row">
             <div class="col-lg-6 col-md-12">
                 <el-carousel indicator-position="outside">
-                    <el-carousel-item->
-                        <img src="../assets/images/products/shop-details-img1.png" alt="Image" style="object-fit: contain;width:100%;height:inherit;">
-                    </el-carousel-item->
+                    <el-carousel-item v-for="image in imageList" :key="image.name">
+                        <img :src=image.url alt="Image">
+                    </el-carousel-item>
                 </el-carousel>
             </div>
 
