@@ -101,6 +101,11 @@ img {
   max-width: 100%;
 }
 
+.ptb-10 {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
 .ptb-100 {
   padding-top: 100px;
   padding-bottom: 100px;
@@ -4712,18 +4717,18 @@ Checkout Area
   margin-bottom: 25px;
 }
 
-
 .checkout-order .title-item {
-  padding: 2px 0px 25px;
+  padding: 10px 0;
   font-size: 16px;
   color: #10142D;
   border-top: 1px solid #F6F6F6;
   border-bottom: 1px solid #F6F6F6;
 }
 
-.checkout-order .title-item span {
-  float: left;
-}
+/*.checkout-order .title-item span {*/
+/*  float: right;*/
+/*  margin-left: 140px;*/
+/*}*/
 
 .checkout-order .checkout-product {
   list-style: none;
@@ -4749,7 +4754,7 @@ Checkout Area
 }
 
 .checkout-order .checkout-product li h3 {
-  font-size: 20px;
+  font-size: 15px;
   margin-bottom: 0;
 }
 
@@ -4764,6 +4769,7 @@ Checkout Area
   position: absolute;
   right: 0;
   top: 50px;
+  /*left: 340px;*/
 }
 
 .checkout-order .total-amount {
@@ -4870,6 +4876,11 @@ Account Area
 
 .account-tab-item {
   background-color: #F6F6F6;
+  padding: 30px;
+}
+
+.account-address-item {
+  background-color: #3F3F3F;
   padding: 30px;
 }
 

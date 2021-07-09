@@ -1190,6 +1190,11 @@ code {
   font-size: 15px;
 }
 
+.btn-small {
+  border-radius: 3px;
+  font-size: 12px;
+}
+
 .btn-primary, .btn-success, .btn-info, .btn-warning,
 .btn-danger, .btn-dark {
   color: #ffffff;
