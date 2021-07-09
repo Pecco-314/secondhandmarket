@@ -66,7 +66,7 @@ public class ItemController {
 
     //获取图片
     @ResponseBody
-    @PostMapping("/requests/image/{imagePath}")
+    @GetMapping("/requests/image/{imagePath}")
     public byte[] getImage(@PathVariable("imagePath") String imagePath) throws IOException {
         File directory = new File("");//参数为空
         String courseFile = directory.getCanonicalPath() ;
@@ -80,7 +80,7 @@ public class ItemController {
 
     //筛选物品
     @ResponseBody
-    @GetMapping("/requests/product/filter")
+    @PostMapping("/requests/product/filter")
     public String getItemListByFilter(@RequestBody ItemFilter itemFilter) {
         Result result = ItemModule.getItemsByFilter(itemService, itemImageService, tagsService, itemFilter);
 
@@ -98,8 +98,8 @@ public class ItemController {
 
     //关键词搜索
     @ResponseBody
-    @GetMapping("/requests/search")
-    public String getItemInfoByKeyword(@RequestBody String keyword) {
+    @GetMapping("/requests/search/{keyword}")
+    public String getItemInfoByKeyword(@PathVariable("keyword") String keyword) {
         Result result = ItemModule.getCheckedItemsByKeyWords(itemService, itemImageService, tagsService, keyword);
 
         return result.toString();
@@ -107,7 +107,7 @@ public class ItemController {
 
     //更新物品信息（只修改商品名称、数量、金额）
     @ResponseBody
-    @GetMapping("requests/user/modifyItem")
+    @PostMapping("requests/user/modifyItem")
     public String modifyUserItem(@RequestBody SellingItemModificationMessage sellingItemModificationMessage) {
         Item item = itemService.getItemById(sellingItemModificationMessage.getItemID());
         //设置物品信息
@@ -125,9 +125,9 @@ public class ItemController {
 
     //删除发布物品
     @ResponseBody
-    @GetMapping("requests/user/deleteItem")
-    public String deleteUserItem(@RequestBody SellingItemDeleteMessage sellingItemDeleteMessage) {
-        Result result = ItemModule.deleteUserItem(itemService, itemImageService, tagsService, sellingItemDeleteMessage.getItemID());
+    @GetMapping("requests/user/deleteItem/{itemId}")
+    public String deleteUserItem(@PathVariable("itemId") int itemId) {
+        Result result = ItemModule.deleteUserItem(itemService, itemImageService, tagsService, itemId);
 
         return result.toString();
     }

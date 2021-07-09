@@ -85,6 +85,9 @@ public class ItemModule {
             item.setQuantity(sellingItemMessage.getQuantity());
             item.setPrice(sellingItemMessage.getPrice());
             item.setReleaseTime(DateFormatter.dateToString(new Date()));
+            //TODO：暂时使其审核通过，有了审核功能再改
+            item.setCheckCondition(ItemCheckCondition.TRUE);
+
             if (sellingItemMessage.getOriginalPrice() != null)
                 item.setOriginalPrice(sellingItemMessage.getOriginalPrice());
             if (sellingItemMessage.getIntroduction() != null)
