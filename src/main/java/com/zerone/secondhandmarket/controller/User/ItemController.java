@@ -22,8 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 import static com.zerone.secondhandmarket.tools.JSONMapper.writeValueAsString;
 
@@ -63,6 +62,20 @@ public class ItemController {
         }
 
         return result.toString();
+    }
+
+    //获取图片
+    @ResponseBody
+    @PostMapping("/request/get/image")
+    public byte[] getImage(@RequestBody String imagePath) throws IOException {
+        File directory = new File("");//参数为空
+        String courseFile = directory.getCanonicalPath() ;
+        File file=new File((courseFile)+"/uploadFiles/"+imagePath);
+
+        FileInputStream inputStream = new FileInputStream(file);
+        byte[] bytes = new byte[inputStream.available()];
+        inputStream.read(bytes, 0, inputStream.available());
+        return bytes;
     }
 
     //筛选物品

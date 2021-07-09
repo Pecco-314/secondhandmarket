@@ -84,6 +84,7 @@ public class ItemModule {
             item.setType(sellingItemMessage.getType());
             item.setQuantity(sellingItemMessage.getQuantity());
             item.setPrice(sellingItemMessage.getPrice());
+            item.setReleaseTime(DateFormatter.dateToString(new Date()));
             if (sellingItemMessage.getOriginalPrice() != null)
                 item.setOriginalPrice(sellingItemMessage.getOriginalPrice());
             if (sellingItemMessage.getIntroduction() != null)
