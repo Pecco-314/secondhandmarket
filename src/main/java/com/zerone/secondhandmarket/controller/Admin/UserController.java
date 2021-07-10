@@ -14,9 +14,12 @@ public class UserController {
     @Autowired
     private UserService userService = new UserService();
 
+    @RequestMapping("/admin-user")
+    public String openItemPage() { return "tables-user"; }
+
     //获取所有用户列表
     @ResponseBody
-    @PostMapping("requests/admin/users")
+    @GetMapping("requests/admin/users")
     public String getUserList() {
         Result result = UserModule.getUserList(userService);
 
