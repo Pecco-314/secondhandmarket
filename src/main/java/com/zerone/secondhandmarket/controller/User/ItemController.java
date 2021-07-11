@@ -3,7 +3,6 @@ package com.zerone.secondhandmarket.controller.User;
 import com.zerone.secondhandmarket.entity.Item;
 import com.zerone.secondhandmarket.enums.Status;
 import com.zerone.secondhandmarket.message.ItemFilter;
-import com.zerone.secondhandmarket.message.SellingItemDeleteMessage;
 import com.zerone.secondhandmarket.message.SellingItemMessage;
 import com.zerone.secondhandmarket.message.SellingItemModificationMessage;
 import com.zerone.secondhandmarket.module.ItemModule;
@@ -13,18 +12,15 @@ import com.zerone.secondhandmarket.service.ItemService;
 import com.zerone.secondhandmarket.service.TagsService;
 import com.zerone.secondhandmarket.tools.CodeProcessor;
 import com.zerone.secondhandmarket.tools.JSONMapper;
-import com.zerone.secondhandmarket.tools.PathGenerator;
 import com.zerone.secondhandmarket.viewobject.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-
-import static com.zerone.secondhandmarket.tools.JSONMapper.writeValueAsString;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 @Controller("OrdinaryItem")
 public class ItemController {
@@ -41,7 +37,9 @@ public class ItemController {
     }
 
     @RequestMapping("/item")
-    public String openItemPage() { return "goods-details"; }
+    public String openItemPage() {
+        return "goods-details";
+    }
 
     //上传照片
     @ResponseBody
@@ -72,8 +70,8 @@ public class ItemController {
     @GetMapping("/requests/image/{imagePath}")
     public byte[] getImage(@PathVariable("imagePath") String imagePath) throws IOException {
         File directory = new File("");//参数为空
-        String courseFile = directory.getCanonicalPath() ;
-        File file=new File((courseFile)+"/uploadFiles/item/"+imagePath);
+        String courseFile = directory.getCanonicalPath();
+        File file = new File((courseFile) + "/uploadFiles/item/" + imagePath);
 
         FileInputStream inputStream = new FileInputStream(file);
         byte[] bytes = new byte[inputStream.available()];
@@ -108,7 +106,7 @@ public class ItemController {
         return result.toString();
     }
 
-    //更新物品信息（只修改商品名称、数量、金额）
+    //更新物品信息（只修改商品名称、数量、金额、简介）
     @ResponseBody
     @PostMapping("requests/user/modifyItem")
     public String modifyUserItem(@RequestBody SellingItemModificationMessage sellingItemModificationMessage) {
@@ -119,7 +117,7 @@ public class ItemController {
         item.setQuantity(sellingItemModificationMessage.getQuantity());
         item.setPrice(sellingItemModificationMessage.getPrice());
 //        item.setOriginalPrice(sellingItemModificationMessage.getOriginalPrice());
-//        item.setIntroduction(sellingItemModificationMessage.getIntroduction());
+        item.setIntroduction(sellingItemModificationMessage.getIntroduction());
 
         Result result = ItemModule.modifyUserItem(itemService, itemImageService, tagsService, item);
 
@@ -131,6 +129,17 @@ public class ItemController {
     @GetMapping("requests/user/deleteItem/{itemId}")
     public String deleteUserItem(@PathVariable("itemId") int itemId) {
         Result result = ItemModule.deleteUserItem(itemService, itemImageService, tagsService, itemId);
+
+        return result.toString();
+    }
+
+    //获取某个用户发布的商品
+    @ResponseBody
+    @GetMapping("requests/user/items/{userId}")
+    public String getUserItems(@PathVariable("userId") int userId) {
+        ItemFilter itemFilter = new ItemFilter(userId, null, null, null, null);
+
+        Result result = ItemModule.getItemsByFilter(itemService, itemImageService, tagsService, itemFilter);
 
         return result.toString();
     }

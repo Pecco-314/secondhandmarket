@@ -1,20 +1,12 @@
 package com.zerone.secondhandmarket;
 
-import com.zerone.secondhandmarket.entity.*;
-import com.zerone.secondhandmarket.enums.ItemCheckCondition;
-import com.zerone.secondhandmarket.enums.ItemType;
-import com.zerone.secondhandmarket.enums.Ordering;
-import com.zerone.secondhandmarket.enums.UserHead;
-import com.zerone.secondhandmarket.message.ItemFilter;
+import com.zerone.secondhandmarket.entity.Order;
 import com.zerone.secondhandmarket.service.*;
+import com.zerone.secondhandmarket.tools.CodeProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -30,35 +22,36 @@ public class SecondHandMarketController {
     @Autowired
     OrderService orderService = new OrderService();
     @Autowired
-    TagsService tagService=new TagsService();
+    TagsService tagService = new TagsService();
     @Autowired
-    ItemImageService itemImageService=new ItemImageService();
+    ItemImageService itemImageService = new ItemImageService();
+
     @RequestMapping("/")
     public String run() {
 
         //tagService.insertTag(42,"全新无损");
-      //  User user = new User(6, "huhu", "123456", "1111111", "111@qq.com", UserHead.HEAD1);
+        //  User user = new User(6, "huhu", "123456", "1111111", "111@qq.com", UserHead.HEAD1);
 //        Administrator admin = new Administrator(2, "pecco", "123456");
 //       Item item = new Item(0, 4, "测试", ItemType.DIGITAL, 2, 100, 30,"this is a hat",null,null,null, ItemCheckCondition.TRUE);
 //      int id=itemService.insertItem(item);
 
-       //Item item2 = new Item(1, 3, "c++++primer", ItemType.CLOTHES, 3, 10, 5, Arrays.asList("cs+"), "this is a book", "1.jpg", ItemCheckCondition.UNCHECKED);
+        //Item item2 = new Item(1, 3, "c++++primer", ItemType.CLOTHES, 3, 10, 5, Arrays.asList("cs+"), "this is a book", "1.jpg", ItemCheckCondition.UNCHECKED);
 //        ItemFilter filter=new ItemFilter();
 //        filter.setCheckCondition(ItemCheckCondition.TRUE);
-      //  filter.setType(ItemType.DIGITAL);
+        //  filter.setType(ItemType.DIGITAL);
         //filter.setKeyWords("a++");
         //filter.setPriceOrdering(Ordering.DESC);
         //itemService.insertItem(item);
         //itemService.insertItem(item2);
-       // userService.deleteUser(3);
+        // userService.deleteUser(3);
         //itemService.updateItem(item);
-      //  List<Item> items = itemService.getItemByFilter(filter);
+        //  List<Item> items = itemService.getItemByFilter(filter);
         //   List<Item> items=itemService.getItemList();
         //for (Item item1 : items)
-          //  System.out.println(item1);
-    //    List<Item> item1s = itemService.getItemListOrderByPrice(Ordering.DESC);
+        //  System.out.println(item1);
+        //    List<Item> item1s = itemService.getItemListOrderByPrice(Ordering.DESC);
         //   List<Item> items=itemService.getItemList();
-      //  for (Item item1 : item1s)
+        //  for (Item item1 : item1s)
         //    System.out.println(item1);
         // adminService.insertAdmin(admin);
         // userService.insertUser(user);
@@ -79,28 +72,28 @@ public class SecondHandMarketController {
 //        ShoppingCart cart2=new ShoppingCart(1,1,1);
 //        ShoppingCart cart3=new ShoppingCart(1,3,2);
 //        ShoppingCart cart4=new ShoppingCart(2,3,2);
-      //  cartService.insertCart(cart1);
-       // cartService.insertCart(cart2);
+        //  cartService.insertCart(cart1);
+        // cartService.insertCart(cart2);
         //cartService.insertCart(cart3);
         //cartService.insertCart(cart4);
-      //  cartService.deleteCart(1,2);
-     //   cart4.setQuantity(5);
-       //cartService.modifyItemQuantity(cart4);
+        //  cartService.deleteCart(1,2);
+        //   cart4.setQuantity(5);
+        //cartService.modifyItemQuantity(cart4);
 //        List<ShoppingCart> carts = cartService.getCartListByUserId(1);
 //
 //        for (ShoppingCart cart0 : carts)
 //          System.out.println(cart1);
-Order order1=new Order(0,1,2,2,1,"2021-07-03 20:48:00");
-        Order order2=new Order(0,1,2,3,1,"2021-07-13 20:48:00");
-        Order order3=new Order(0,1,5,4,1,"2021-06-03 20:48:00");
+        Order order1 = new Order(0, 1, 2, 2, 1, "2021-07-03 20:48:00");
+        Order order2 = new Order(0, 1, 2, 3, 1, "2021-07-13 20:48:00");
+        Order order3 = new Order(0, 1, 5, 4, 1, "2021-06-03 20:48:00");
 //        orderService.insertOrder(order1);
 //        orderService.insertOrder(order2);
 //        orderService.insertOrder(order3);
-      //  orderService.deleteOrder(3);
-     List<Order> orders=orderService.getOrderByUserId(1);
+        //  orderService.deleteOrder(3);
+        List<Order> orders = orderService.getOrderByUserId(1);
         for (Order cart0 : orders)
-          System.out.println(cart0);
-
+            System.out.println(cart0);
+        System.out.println(CodeProcessor.decode("4e5c4f484d55"));
         return "index";
     }
 

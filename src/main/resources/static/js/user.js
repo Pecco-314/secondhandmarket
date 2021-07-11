@@ -1,7 +1,9 @@
 const url = "http://localhost:8088/"
+
 function isPossiblyEmail(text) {
     return /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(text);
 }
+
 function isPossiblyPhoneNumber(text) {
     return /^1\d{10}$/.test(text);
 }
@@ -102,8 +104,8 @@ let passwordForm = new Vue({
     el: "#password-form",
     data: {
         form: {
-            userID:"",
-            token:"",
+            userID: "",
+            token: "",
 
             oldPassword: "",
             newPassword: "",
@@ -164,5 +166,110 @@ let passwordForm = new Vue({
         }
     }
 })
+let itemsForm = new Vue({
+    el: '#myItems',
+    data: {
+        items: [],
+        dialogVisibleForUpdate: false,
+        dialogVisibleForDelete: false,
+        form: {
+            name: '',
+            quantity: 0,
+            price: 0.0,
+            introduction: '',
+        },
+        currentId: '',
+    },
+    methods: {
+        getItemList() {
+            let userId = $.cookie("id");
+            $.ajax({
+                url: `${url}requests/user/items/${userId}`,
+                method: 'get',
+                contentType: "application/json;charset=utf-8",
+                success: (responseStr) => {
+                    let response = JSON.parse(responseStr);
+                    if (response.status === 30200) {
+                        this.items = response.data;
+                        for (let i = 0; i < this.items.length; i++) {
+                            if (this.items[i].checkCondition === 'TRUE')
+                                this.items[i].checkCondition = '审核通过';
+                            else if (this.items[i].checkCondition === 'FALSE')
+                                this.items[i].checkCondition = '审核未通过';
+                            else
+                                this.items[i].checkCondition = '审核中';
+
+                            this.items[i].url = `http://localhost:8088/requests/image/${this.items[i].coverPath}`;
+                        }
+                    }
+                }
+            })
+        },
+        openUpdateDialog(item) {
+
+            this.dialogVisibleForUpdate = true;
+            this.currentId = item.id;
+            this.form.name = item.name;
+            this.form.quantity = item.quantity;
+            this.form.price = item.price;
+            this.form.introduction = item.introduction;
+            console.log(this.currentId);
+        },
+        openDeleteDialog(id) {
+            console.log(id);
+            this.currentId = id;
+            this.dialogVisibleForDelete = true;
+        },
+        updateItem() {
+            let identification = {
+                itemID: this.currentId,
+                name: this.form.name,
+                quantity: this.form.quantity,
+                price: this.form.price,
+                introduction: this.form.introduction
+            }
+            $.ajax({
+                url: `${url}requests/user/modifyItem`,
+                method: 'post',
+                data: JSON.stringify(identification),
+                contentType: "application/json;charset=utf-8",
+                success: (responseStr) => {
+                    let response = JSON.parse(responseStr);
+                    if (response.status === 30200) {
+                        this.clear();
+                        confirm("更新成功");
+                        itemsForm.getItemList();
+                    } else {
+                        alert(`${response.message}（状态码：${response.status}）`);
+                    }
+                }
+            })
+        },
+        deleteItem() {
+            let itemId = this.currentId;
+            $.ajax({
+                url: `${url}/requests/user/deleteItem/${itemId}`,
+                method: 'get',
+                contentType: "application/json;charset=utf-8",
+                success: (responseStr) => {
+                    let response = JSON.parse(responseStr);
+                    if (response.status === 30200) {
+                        this.dialogVisibleForDelete = false;
+                        confirm("删除成功");
+                        itemsForm.getItemList();
+                    } else {
+                        alert(`${response.message}（状态码：${response.status}）`);
+                    }
+                }
+            })
+        },
+        clear() {
+            this.$refs.form.resetFields();
+            this.dialogVisibleForUpdate = false;
+            this.dialogVisibleForDelete = false;
+        }
+    }
+})
 
 $(userinfoForm.getUserInfo);
+$(itemsForm.getItemList);
