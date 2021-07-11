@@ -15,7 +15,9 @@ public class UserController {
     private UserService userService = new UserService();
 
     @RequestMapping("/admin-user")
-    public String openItemPage() { return "tables-user"; }
+    public String openAdminUserPage() {
+        return "tables-user";
+    }
 
     //获取所有用户列表
     @ResponseBody
@@ -26,19 +28,19 @@ public class UserController {
         return result.toString();
     }
 
-    //添加用户
-    @ResponseBody
-    @PostMapping("requests/admin/addUser")
-    public String addUser(@RequestBody User user) {
-        Result result = UserModule.insertNewUser(userService, user);
-
-        return result.toString();
-    }
+//    //添加用户
+//    @ResponseBody
+//    @PostMapping("requests/admin/addUser")
+//    public String addUser(@RequestBody User user) {
+//        Result result = UserModule.insertNewUser(userService, user);
+//
+//        return result.toString();
+//    }
 
     //删除用户
-    @PostMapping("/requests/admin/deleteUser")
+    @PostMapping("/requests/admin/deleteUser/{userId}")
     @ResponseBody
-    public String deleteUser(@RequestBody int userId) {
+    public String deleteUser(@PathVariable int userId) {
         Result result = UserModule.deleteUser(userService, userId);
 
         return result.toString();

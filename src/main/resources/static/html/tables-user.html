@@ -8,9 +8,9 @@
     <meta content="Admin Dashboard" name="description"/>
     <meta content="ThemeDesign" name="author"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-    <link rel="shortcut icon" href="assets/images/faviicon.png">
 
+    <link rel="shortcut icon" href="assets/images/faviicon.png">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <!-- DataTables -->
     <link href="../admin/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css"/>
     <link href="../admin/plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css"/>
@@ -262,46 +262,93 @@
                         <div class="col-12">
                             <div class="card m-b-30">
                                 <div class="card-body">
+
                                     <h4 class="mt-0 header-title">用户信息</h4>
-                                    <div id="addUser">
-                                        <el-button type="button" @click="dialogVisible = true" class="btn-small btn-primary waves-effect waves-light btn-sm">添加用户</el-button>
-                                        <el-dialog title="添加用户" :visible.sync="dialogVisible" width="30%">
+                                    <div id="addUser" align="right">
+                                        <el-button type="button" @click="dialogVisibleForAdd = true"
+                                                   class="btn-small btn-primary waves-effect waves-light btn-sm">添加用户
+                                        </el-button>
+                                        <el-dialog title="添加用户" :visible.sync="dialogVisibleForAdd" width="30%"
+                                                   @close="clear"
+                                                   center>
+                                            <el-form ref="form" :model="form" :rules="rules">
+                                                <el-form-item prop="email">
+                                                    <el-input class="transparency-input" v-model="form.email"
+                                                              placeholder="电子邮箱地址"
+                                                              prefix-icon="el-icon-message"></el-input>
+                                                </el-form-item>
+                                                <el-form-item prop="nickname">
+                                                    <el-input class="transparency-input" v-model="form.nickname"
+                                                              placeholder="昵称"
+                                                              prefix-icon="el-icon-user"></el-input>
+                                                </el-form-item>
+                                                <el-form-item prop="password">
+                                                    <el-input class="transparency-input" type="password"
+                                                              v-model="form.password"
+                                                              placeholder="密码"
+                                                              prefix-icon="el-icon-lock"></el-input>
+                                                </el-form-item>
+                                                <el-form-item prop="confirmedPassword">
+                                                    <el-input class="transparency-input" type="password"
+                                                              v-model="form.confirmedPassword"
+                                                              placeholder="确认密码"
+                                                              prefix-icon="el-icon-s-check"></el-input>
+                                                </el-form-item>
+                                                <el-form-item align="center">
+                                                    <el-button @click="onRegister" class="submit-button">注册</el-button>
+                                                </el-form-item>
+                                            </el-form>
+                                        </el-dialog>
+                                    </div>
+                                    <br>
+                                    <div id="userTable">
+                                        <el-table :data="tableData" style="width: 100%" class="table table-bordered">
+                                            <el-table-column prop="id" label="用户编号"></el-table-column>
+                                            <el-table-column prop="nickname" label="昵称"></el-table-column>
+                                            <el-table-column prop="emailAddress" label="邮箱"></el-table-column>
+                                            <el-table-column prop="phoneNumber" label="电话"></el-table-column>
+                                            <el-table-column label="操作">
+                                                <template slot-scope="scope">
+                                                    <div align="left" style="float:left">
+                                                        <el-button type="button" @click="openUpdateDialog(scope.row)"
+                                                                   class="btn-small btn-primary waves-effect waves-light btn-sm">
+                                                            修改
+                                                        </el-button>
+                                                    </div>
+                                                    <div align="center">
+                                                        <el-button type="button" @click="openDeleteDialog(scope.row.id)"
+                                                                   class="btn-small btn-danger waves-effect waves-light btn-sm">
+                                                            删除
+                                                        </el-button>
+                                                    </div>
+                                                </template>
+                                            </el-table-column>
+                                        </el-table>
+                                        <el-dialog title="修改昵称" :visible.sync="dialogVisibleForUpdate" width="30%">
                                             <el-form ref="form" :model="form" label-width="80px">
                                                 <el-form-item label="昵称">
                                                     <el-input v-model="form.nickname"></el-input>
                                                 </el-form-item>
                                             </el-form>
                                             <span slot="footer" class="dialog-footer">
-                                                        <el-button @click="dialogVisible = false">取 消</el-button>
-                                                        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+                                                        <el-button
+                                                                @click="clear">取 消</el-button>
+                                                        <el-button type="primary"
+                                                                   @click="updateUser">确 定</el-button>
+                                                    </span>
+                                        </el-dialog>
+                                        <el-dialog title="删除用户" :visible.sync="dialogVisibleForDelete" width="30%">
+                                            是否确定要删除该用户？
+                                            <span slot="footer" class="dialog-footer">
+                                                        <el-button
+                                                                @click="dialogVisibleForUpdate = false">取 消</el-button>
+                                                        <el-button type="primary"
+                                                                   @click="deleteUser">确 定</el-button>
                                                     </span>
                                         </el-dialog>
                                     </div>
-                                    <div id="userList">
-                                        <el-table :data="tableData" style="width: 100%">
-                                            <el-table-column prop="id" label="用户编号"></el-table-column>
-                                            <el-table-column prop="nickname" label="昵称"></el-table-column>
-                                            <el-table-column prop="emailAddress" label="邮箱"></el-table-column>
-                                            <el-table-column prop="phoneNumber" label="电话"></el-table-column>
-                                            <el-table-column label="操作">
-                                                <div id="updateUser">
-                                                <el-button type="button" @click="dialogVisible = true" class="btn-small btn-primary waves-effect waves-light btn-sm">修改</el-button>
-                                                <el-dialog title="修改昵称" :visible.sync="dialogVisible" width="30%">
-                                                    <el-form ref="form" :model="form" label-width="80px">
-                                                        <el-form-item label="昵称">
-                                                            <el-input v-model="form.name"></el-input>
-                                                        </el-form-item>
-                                                    </el-form>
-                                                    <span slot="footer" class="dialog-footer">
-                                                        <el-button @click="dialogVisible = false">取 消</el-button>
-                                                        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-                                                    </span>
-                                                </el-dialog>
-                                    </div>
-                                    <button type="button" class="btn-small btn-danger waves-effect waves-light btn-sm">删除</button>
 
-                                    </el-table-column>
-                                        </el-table>
+
                                 </div>
                             </div>
                         </div> <!-- end col -->
@@ -325,11 +372,11 @@
 </div>
 <!-- END wrapper -->
 
+
 <!-- import Vue before Element -->
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 <!-- import JavaScript -->
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
-
 <!-- jQuery  -->
 <script src="../admin/js/jquery.min.js"></script>
 <script src="../admin/js/popper.min.js"></script>
@@ -365,11 +412,13 @@
 <script src="../admin/plugins/tiny-editable/mindmup-editabletable.js"></script>
 <script src="../admin/plugins/tiny-editable/numeric-input-example.js"></script>
 
+<script src="../admin/plugins/tiny-editable/mindmup-editabletable.js"></script>
+<script src="../admin/plugins/tiny-editable/numeric-input-example.js"></script>
+
 <!-- App js -->
 <script src="../admin/js/app.js"></script>
 
 <script src="../js/admin-user.js"></script>
-
 
 <!--        <script>-->
 <!--            $('#datatable').editableTableWidget().numericInputExample().find('td:first').focus();-->
