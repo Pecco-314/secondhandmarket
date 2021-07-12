@@ -1,11 +1,3 @@
-function isPossiblyEmail(text) {
-    return /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(text);
-}
-
-function isPossiblyID(text) {
-    return /^\d+$/.test(text);
-}
-
 function handleSuccessfulResponse(response, userType) {
     let data = response.data;
     if (userType === 'user')
@@ -16,15 +8,6 @@ function handleSuccessfulResponse(response, userType) {
     $.cookie("userType", userType, {expires: 7, path: '/'});
     window.open("../");
 }
-
-function showErrorInForm(app, formName, propName, rulesName, message) {
-    let currentRules = app[rulesName][propName];
-    app[rulesName][propName] = [{validator: (rule, value, callback) => callback(new Error(message))}]
-    app.$refs[formName].validateField(propName);
-    app[rulesName][propName] = currentRules
-}
-
-const url = 'http://localhost:8088'
 
 let loginBox = new Vue({
     el: "#login-box",

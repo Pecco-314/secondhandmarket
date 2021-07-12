@@ -19,8 +19,13 @@ public class UserController {
     private UserService userService = new UserService();
 
     @RequestMapping("/user")
-    public String getUserInfo() {
+    public String openUserPage() {
         return "my-account";
+    }
+
+    @RequestMapping("/checkout")
+    public String openCheckoutPage() {
+        return "checkout";
     }
 
     //获取用户信息
