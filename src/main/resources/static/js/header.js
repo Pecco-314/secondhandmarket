@@ -77,7 +77,7 @@ Vue.component('page-header', {
             <div class="main-nav" :class="this.isMainPage ? '' : 'nav-three'">
                 <div class="container" href="../">
                     <nav class="navbar navbar-expand-md navbar-light ">
-                        <a class="navbar-brand" href="../">
+                        <a class="navbar-brand" href="../html/index.html">
                             <img src="../img/logo.png" alt="Logo">
                         </a>
 
