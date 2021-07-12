@@ -1,12 +1,15 @@
 function handleSuccessfulResponse(response, userType) {
     let data = response.data;
-    if (userType === 'user')
-        $.cookie("id", data.userID, {expires: 7, path: '/'});
-    else if (userType === 'admin')
-        $.cookie("id", data.adminID, {expires: 7, path: '/'});
     $.cookie("token", data.token, {expires: 7, path: '/'});
     $.cookie("userType", userType, {expires: 7, path: '/'});
-    window.open("../");
+    if (userType === 'user') {
+        $.cookie("id", data.userID, {expires: 7, path: '/'});
+        window.open("../", "_self");
+    } else if (userType === 'admin') {
+        $.cookie("id", data.adminID, {expires: 7, path: '/'});
+        window.open("../admin-user", "_self");
+    }
+
 }
 
 let loginBox = new Vue({

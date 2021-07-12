@@ -59,8 +59,8 @@
                 <div class="text-center">
                     <img src="../img/admin_profile.png" alt="" class="rounded-circle">
                 </div>
-                <div class="user-info">
-                    <h4 class="font-16 text-white">Elena Retson</h4>
+                <div class="user-info" id="admin-info">
+                    <h4 class="font-16 text-white">{{nickname}}</h4>
                     <span class="text-white"><i class="fa fa-dot-circle-o text-success"></i> Online</span>
                 </div>
             </div>
@@ -307,15 +307,15 @@
                                             <el-table-column prop="nickname" label="昵称"></el-table-column>
                                             <el-table-column prop="emailAddress" label="邮箱"></el-table-column>
                                             <el-table-column prop="phoneNumber" label="电话"></el-table-column>
-                                            <el-table-column label="操作">
+                                            <el-table-column label="操作" min-width="50%">
                                                 <template slot-scope="scope">
-                                                    <div align="left" style="float:left">
+                                                    <div style="float:left">
                                                         <el-button type="button" @click="openUpdateDialog(scope.row)"
                                                                    class="btn-small btn-primary waves-effect waves-light btn-sm">
                                                             修改
                                                         </el-button>
                                                     </div>
-                                                    <div align="center">
+                                                    <div style="display: flex; justify-content: center">
                                                         <el-button type="button" @click="openDeleteDialog(scope.row.id)"
                                                                    class="btn-small btn-danger waves-effect waves-light btn-sm">
                                                             删除
@@ -377,6 +377,7 @@
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 <!-- import JavaScript -->
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
 <!-- jQuery  -->
 <script src="../admin/js/jquery.min.js"></script>
 <script src="../admin/js/popper.min.js"></script>
@@ -389,6 +390,7 @@
 <script src="../admin/js/waves.js"></script>
 <script src="../admin/js/jquery.nicescroll.js"></script>
 <script src="../admin/js/jquery.scrollTo.min.js"></script>
+
 
 <!-- Required datatable js -->
 <script src="../admin/plugins/datatables/jquery.dataTables.min.js"></script>
@@ -414,6 +416,9 @@
 
 <script src="../admin/plugins/tiny-editable/mindmup-editabletable.js"></script>
 <script src="../admin/plugins/tiny-editable/numeric-input-example.js"></script>
+
+<script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
 
 <!-- App js -->
 <script src="../admin/js/app.js"></script>

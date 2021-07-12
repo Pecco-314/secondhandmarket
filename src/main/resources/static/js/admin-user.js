@@ -171,5 +171,31 @@ let userTableForm = new Vue({
     }
 )
 
+let adminInfoForm = new Vue({
+    el: '#admin-info',
+    data: {
+        id: '',
+        nickname: ''
+    },
+    methods: {
+        getAdminInfo() {
+            let adminId = $.cookie("id");
+            $.ajax({
+                url: `${url}/requests/admin/info/${adminId}`,
+                method: 'get',
+                contentType: "application/json;charset=utf-8",
+                success: (responseStr) => {
+                    let response = JSON.parse(responseStr);
+                    if (response.status === 10200) {
+                        console.log(response);
+                        this.nickname = response.data.nickname;
+                    }
+                }
+            })
+        }
+    }
+})
+
 
 $(userTableForm.getUserList);
+$(adminInfoForm.getAdminInfo);

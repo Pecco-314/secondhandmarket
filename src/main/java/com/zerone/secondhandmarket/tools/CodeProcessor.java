@@ -82,8 +82,10 @@ public class CodeProcessor {
         return password.equals(decode(encryptedPassword));
     }
 
-    public static boolean validateIdToken(String id,String token){
+    public static boolean validateIdToken(String id,String token) {
         return id.equals(decode(token).split("@")[0]);
     }
-
+    public static boolean validateIdToken(Integer id, String token) {
+        return String.valueOf(id).equals(decode(token).split("@")[0]);
+    }
 }
