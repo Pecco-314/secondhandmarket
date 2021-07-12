@@ -6,6 +6,7 @@ import com.zerone.secondhandmarket.exception.InvalidInfoException;
 import com.zerone.secondhandmarket.message.OrderFilter;
 import com.zerone.secondhandmarket.message.OrderMessage;
 import com.zerone.secondhandmarket.service.OrderService;
+import com.zerone.secondhandmarket.tools.DateFormatter;
 import com.zerone.secondhandmarket.viewobject.Result;
 
 import java.text.SimpleDateFormat;
@@ -23,10 +24,9 @@ public class OrderModule {
         return new Result(Status.ORDER_OK, "获取订单列表成功", list);
     }
 
-    public static Result generateOrder(OrderService service, OrderMessage message) {
+    public static Result generateOrder(OrderService service, Integer buyer, Integer seller, Integer itemId, Integer quantity) {
         try {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Order order = new Order(0, message.getBuyer(), message.getSeller(), message.getItemID(), message.getQuantity(), format.format(new Date()));
+            Order order = new Order(0, buyer, seller, itemId, quantity, DateFormatter.dateToString(new Date()));
 
             service.insertOrder(order);
 
