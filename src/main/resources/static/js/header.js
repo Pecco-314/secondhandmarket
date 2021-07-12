@@ -89,7 +89,7 @@ Vue.component('page-header', {
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="../shop" class="nav-link">
+                                    <a href="../html/shop.html" class="nav-link">
                                         商场
                                     </a>
                                 </li>
@@ -109,7 +109,7 @@ Vue.component('page-header', {
                             <div v-if="!this.isMainPage" class="nav-other">
                                 <div class="nav-other-item">
                                     <div class="cart-btn-area">
-                                        <a href="#" class="cart-btn"><i class='bx bx-cart'></i></a>
+                                        <a href="../html/cart.html" class="cart-btn"><i class='bx bx-cart'></i></a>
                                         <span>1</span>
                                     </div>
                                 </div>
