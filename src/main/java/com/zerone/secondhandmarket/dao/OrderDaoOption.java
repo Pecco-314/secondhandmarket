@@ -19,8 +19,8 @@ public class OrderDaoOption {
 
     // 用于添加订单信息
     public int insertOrder(Order order) {
-        String sql = "insert into orders(buyer_id, seller_id, item_id, quantity, ordering_time, receiverName, phoneNumber, campus, dorm, detailed_address)" +
-                "values(:buyer_id, :seller_id, :item_id, :quantity, :ordering_time, :receiverName, :phoneNumber, :campus, :dorm, :detailed_address)";
+        String sql = "insert into orders(buyer_id, seller_id, item_id, quantity, ordering_time, receiverName, phoneNumber, campus, dorm, detailed_address,state)" +
+                "values(:buyer_id, :seller_id, :item_id, :quantity, :ordering_time, :receiverName, :phoneNumber, :campus, :dorm, :detailed_address,:state)";
         Map<String, Object> param = new HashMap<>();
         param.put("item_id", order.getItem());
         param.put("seller_id", order.getSeller());
@@ -32,6 +32,7 @@ public class OrderDaoOption {
         param.put("campus", order.getCampus());
         param.put("dorm", order.getDorm());
         param.put("detailed_address", order.getDetailedAddress());
+        param.put("state", order.getState());
         return jdbcTemplate.update(sql, param);
     }
 
@@ -47,7 +48,7 @@ public class OrderDaoOption {
 
     // 用于更新订单
     public int updateOrder(Order order) {
-        String sql = "update orders set buyer_id=:buyer_id,seller_id=:seller_id,item_id=:item_id,quantity=:quantity,ordering_time=:ordering_time,receiverName=:receiverName,phoneNumber=:phoneNumber,campus=:campus,dorm=:dorm,detailed_address=:detailed_address where order_id=:order_id";
+        String sql = "update orders set buyer_id=:buyer_id,seller_id=:seller_id,item_id=:item_id,quantity=:quantity,ordering_time=:ordering_time,receiverName=:receiverName,phoneNumber=:phoneNumber,campus=:campus,dorm=:dorm,detailed_address=:detailed_address,state=:state where order_id=:order_id";
         Map<String, Object> param = new HashMap<>();
 
         param.put("item_id", order.getItem());
@@ -59,6 +60,7 @@ public class OrderDaoOption {
         param.put("phoneNumber", order.getPhoneNumber());
         param.put("campus", order.getCampus());
         param.put("dorm", order.getDorm());
+        param.put("state", order.getState());
         param.put("detailed_address", order.getDetailedAddress());
         return jdbcTemplate.update(sql, param);
     }

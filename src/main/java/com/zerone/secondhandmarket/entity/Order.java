@@ -19,4 +19,5 @@ public class Order {
     private String campus;
     private String dorm;
     private String detailedAddress;
+    private String state;//订单状态 包括已完成和待收货
 }

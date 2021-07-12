@@ -223,7 +223,6 @@
                                 <a :href=item.url>
                                     <img :src=item.imageurl alt="Product Images">
                                 </a>
-
                                 <!--                                    <img src="../assets/images/products/propular-style1.png" alt="Product Images">-->
                                 <ul class="product-card-action">
                                     <li>
@@ -242,12 +241,7 @@
 
                             <div class="content">
                                 <h3><a :href=item.url>{{item.name}}</a></h3>
-                                <span>Product Id # {{item.id}}</span>
-                                <div class="price-tag">
-                                    <h4>￥{{item.price}}
-                                        <del>￥{{item.originalPrice}}</del>
-                                    </h4>
-                                </div>
+                                <span>￥{{item.price}}</span>
                             </div>
                         </div>
                     </div>
@@ -837,62 +831,4 @@
 <script src="../js/header.js"></script>
 <script src="../js/shop.js"></script>
 </body>
-<style>
-    .el-carousel__item h3 {
-        color: #475669;
-        font-size: 14px;
-        opacity: 0.75;
-        line-height: 200px;
-        margin: 0;
-    }
-
-    .el-carousel__item:nth-child(2n) {
-        background-color: rgb(231, 216, 214);
-    }
-
-    .el-carousel__item:nth-child(2n+1) {
-        background-color: rgb(251, 236, 234);
-    }
-
-    .el-carousel__img {
-        /*设置图片宽度和浏览器宽度一致*/
-        width: 100%;
-        height: inherit;
-    }
-</style>
-
-<script>
-    new Vue({
-        el: "#main-carousel",
-        data() {
-            return {
-                carouselList: [
-                    {key: '1', src: '../assets/images/home-one/home-one1.png', desc: 'xxxx'},
-                    {key: '2', src: '../assets/images/home-two/home-two1.png', desc: 'xxxx'},
-                    {key: '3', src: '../assets/images/home-two/home-two2.png', desc: 'xxxx'},
-                    {key: '4', src: '../assets/images/home-two/home-two3.png', desc: 'xxxx'},
-                    {key: '5', src: '../assets/images/inner-banner/inner-banner1.png', desc: 'xxxx'},
-                    {key: '6', src: '../assets/images/inner-banner/inner-banner2.png', desc: 'xxxx'},
-                ],
-                screenWidth: 0
-            }
-        },
-        methods: {
-            setSize: function () {
-                // 通过浏览器宽度(图片宽度)计算高度
-                this.bannerHeight = 400 / 1920 * this.screenWidth;
-            },
-        },
-        mounted() {
-            // 首次加载时,需要调用一次
-            this.screenWidth = window.innerWidth;
-            this.setSize();
-            // 窗口大小发生改变时,调用一次
-            window.onresize = () => {
-                this.screenWidth = window.innerWidth;
-                this.setSize();
-            }
-        }
-    })
-</script>
 </html>

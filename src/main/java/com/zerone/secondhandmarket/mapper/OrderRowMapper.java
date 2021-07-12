@@ -22,6 +22,7 @@ public class OrderRowMapper implements RowMapper<Order> {
         order.setCampus(rs.getString("campus"));
         order.setDorm(rs.getString("dorm"));
         order.setDetailedAddress(rs.getString("detailed_address"));
+        order.setState(rs.getString("state"));
         return order;
     }
 }
