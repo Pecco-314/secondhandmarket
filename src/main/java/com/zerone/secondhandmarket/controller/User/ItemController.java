@@ -56,7 +56,7 @@ public class ItemController {
     public String postItem(@RequestBody SellingItemMessage sellingItemMessage) {
         Result result;
         //检验id与token是否一致
-        if (CodeProcessor.validateIdToken(sellingItemMessage.getSeller() + "", sellingItemMessage.getToken())) {
+        if (CodeProcessor.validateIdToken(sellingItemMessage.getSeller(), sellingItemMessage.getToken())) {
             result = ItemModule.releaseUserItem(itemService, tagsService, itemImageService, sellingItemMessage);
         } else {
             result = new Result(Status.ITEM_ERROR, "发布失败，id与token不一致", null);

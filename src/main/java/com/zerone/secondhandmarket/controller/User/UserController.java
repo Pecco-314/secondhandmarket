@@ -28,7 +28,7 @@ public class UserController {
     @ResponseBody
     public String getUserInfo(@RequestBody UserTokenMessage userIdToken) {
         Result result;
-        if (CodeProcessor.validateIdToken(userIdToken.getUserID() + "", userIdToken.getToken()))
+        if (CodeProcessor.validateIdToken(userIdToken.getUserID(), userIdToken.getToken()))
             result = UserModule.getUserInfo(userService, userIdToken.getUserID());
         else
             result = new Result(Status.USER_ERROR, "id与token不一致", null);
@@ -40,7 +40,7 @@ public class UserController {
     @ResponseBody
     public String updateUserInfo(@RequestBody UserModificationByUserMessage userModificationByUserMessage) {
         Result result;
-        if (CodeProcessor.validateIdToken(userModificationByUserMessage.getUserID() + "", userModificationByUserMessage.getToken())) {
+        if (CodeProcessor.validateIdToken(userModificationByUserMessage.getUserID(), userModificationByUserMessage.getToken())) {
             User user = userService.getUserById(userModificationByUserMessage.getUserID());
 
             //根据更改信息设置用户的信息
@@ -64,7 +64,7 @@ public class UserController {
         System.out.println(passwordModificationMessage.getOldPassword());
         System.out.println(passwordModificationMessage.getNewPassword());
 
-        if (CodeProcessor.validateIdToken(passwordModificationMessage.getUserID() + "", passwordModificationMessage.getToken())) {
+        if (CodeProcessor.validateIdToken(passwordModificationMessage.getUserID(), passwordModificationMessage.getToken())) {
             User user = userService.getUserById(passwordModificationMessage.getUserID());
             //根据信息修改密码
             if (CodeProcessor.validatePassword(passwordModificationMessage.getOldPassword(), user.getPassword())) {
