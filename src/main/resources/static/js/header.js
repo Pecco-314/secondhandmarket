@@ -84,7 +84,7 @@ Vue.component('page-header', {
                         <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
                             <ul class="navbar-nav m-auto">
                                 <li class="nav-item">
-                                    <a href="../" class="nav-link">
+                                    <a href="../html/index.html" class="nav-link">
                                         首页
                                     </a>
                                 </li>
@@ -94,7 +94,7 @@ Vue.component('page-header', {
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="../user" class="nav-link">
+                                    <a href="../html/my-account.html" class="nav-link">
                                         个人中心
                                     </a>
                                 </li>
