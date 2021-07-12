@@ -44,10 +44,14 @@ public class ItemController {
     //上传照片
     @ResponseBody
     @PostMapping("/requests/upload/image")
-    public String upload(@RequestParam("multipartfiles") MultipartFile[] multipartfiles) throws IOException {
-        Result result = UploadModule.upload("item", multipartfiles);
-        System.out.println(JSONMapper.writeValueAsString(result));
-        return result.toString();
+    public String upload(@RequestParam("multipartfiles") MultipartFile[] multipartFiles) {
+        try {
+            Result result = UploadModule.upload("item", multipartFiles);
+            System.out.println(JSONMapper.writeValueAsString(result));
+            return result.toString();
+        } catch (Exception e) {
+            return new Result(Status.ERROR, "文件传输失败", null).toString();
+        }
     }
 
     //上传商品
@@ -68,15 +72,23 @@ public class ItemController {
     //获取图片
     @ResponseBody
     @GetMapping("/requests/image/{imagePath}")
-    public byte[] getImage(@PathVariable("imagePath") String imagePath) throws IOException {
-        File directory = new File("");//参数为空
-        String courseFile = directory.getCanonicalPath();
+    public byte[] getImage(@PathVariable("imagePath") String imagePath) {
+        String courseFile = null;
+        try {
+            courseFile = new File("").getCanonicalPath();
+        } catch (Exception e) {
+            return null;
+        }
+
         File file = new File((courseFile) + "/uploadFiles/item/" + imagePath);
 
-        FileInputStream inputStream = new FileInputStream(file);
-        byte[] bytes = new byte[inputStream.available()];
-        inputStream.read(bytes, 0, inputStream.available());
-        return bytes;
+        try(FileInputStream inputStream = new FileInputStream(file)) {
+            byte[] bytes = new byte[inputStream.available()];
+            inputStream.read(bytes, 0, inputStream.available());
+            return bytes;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     //筛选物品

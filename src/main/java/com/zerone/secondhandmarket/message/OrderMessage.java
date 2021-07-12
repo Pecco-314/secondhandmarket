@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor  //无参构造函数
 //update or insert
 public class OrderMessage {
-    private int buyer;
-    private int seller;
+    private Integer buyer;
+    private Integer seller;
 
     //locate
     private String receiverName;

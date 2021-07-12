@@ -28,7 +28,7 @@ public class SSHConnection {
     // 服务端的本地mysql服务
     private final static String MYSQL_REMOTE_SERVER = "127.0.0.1";
 
-    private Session sesion; //represents each ssh session
+    private Session session; //represents each ssh session
 
     // 测试连接
     public static void main(String[] args) throws Throwable {
@@ -42,21 +42,21 @@ public class SSHConnection {
         // jsch.setKnownHosts(S_PATH_FILE_KNOWN_HOSTS);
         //jsch.addIdentity(S_PATH_FILE_PRIVATE_KEY);
 
-        sesion = jsch.getSession(SSH_USER, SSH_REMOTE_SERVER, SSH_REMOTE_PORT);
-        sesion.setPassword(SSH_PASSWORD);
+        session = jsch.getSession(SSH_USER, SSH_REMOTE_SERVER, SSH_REMOTE_PORT);
+        session.setPassword(SSH_PASSWORD);
 
         Properties config = new Properties();
         config.put("StrictHostKeyChecking", "no");
-        sesion.setConfig(config);
+        session.setConfig(config);
         // 去连接
-        sesion.connect(); //ssh connection established!
-        //  设置转发
-        sesion.setPortForwardingL(LOCAl_PORT, MYSQL_REMOTE_SERVER, REMOTE_PORT);
+        session.connect(); //ssh connection established!
+        // 设置转发
+        session.setPortForwardingL(LOCAl_PORT, MYSQL_REMOTE_SERVER, REMOTE_PORT);
 
         System.out.println("SSHConnection--运行OK");
     }
 
     public void closeSSH() {
-        sesion.disconnect();
+        session.disconnect();
     }
 }
