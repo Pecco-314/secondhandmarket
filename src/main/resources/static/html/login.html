@@ -121,8 +121,8 @@
                 </el-form-item>
                 <el-form-item class="form-bottom">
                     <div class="link-container">
-                        <el-link class="link" v-on:click="formType = 'userLogin'">用户登录</el-link>
-                        <el-link class="link" v-on:click="formType = 'adminLogin'">管理员登录</el-link>
+                        <el-link class="link" @click="formType = 'userLogin'">用户登录</el-link>
+                        <el-link class="link" @click="formType = 'adminLogin'">管理员登录</el-link>
                     </div>
                 </el-form-item>
             </el-form>

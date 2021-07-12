@@ -4,16 +4,12 @@ import com.zerone.secondhandmarket.message.AdminLoginMessage;
 import com.zerone.secondhandmarket.message.RegisterMessage;
 import com.zerone.secondhandmarket.message.UserLoginMessage;
 import com.zerone.secondhandmarket.module.LoginModule;
-import com.zerone.secondhandmarket.tools.JSONMapper;
-import com.zerone.secondhandmarket.viewobject.Result;
 import com.zerone.secondhandmarket.service.AdminService;
 import com.zerone.secondhandmarket.service.UserService;
+import com.zerone.secondhandmarket.viewobject.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller("VisitorLogin")
 public class LoginController {
@@ -45,6 +41,14 @@ public class LoginController {
         String password = data.getPassword();
 
         Result result = LoginModule.adminLogin(adminService, account, password);
+
+        return result.toString();
+    }
+
+    @ResponseBody
+    @GetMapping("/requests/admin/info/{id}")
+    public String getAdminInfo(@PathVariable int id) {
+        Result result = LoginModule.getAdminInfoFromId(adminService, id);
 
         return result.toString();
     }

@@ -1,14 +1,14 @@
 package com.zerone.secondhandmarket.module;
 
-import com.zerone.secondhandmarket.message.AdminTokenMessage;
-import com.zerone.secondhandmarket.message.UserTokenMessage;
-import com.zerone.secondhandmarket.tools.CodeProcessor;
-import com.zerone.secondhandmarket.viewobject.Result;
-import com.zerone.secondhandmarket.enums.Status;
 import com.zerone.secondhandmarket.entity.Administrator;
 import com.zerone.secondhandmarket.entity.User;
+import com.zerone.secondhandmarket.enums.Status;
+import com.zerone.secondhandmarket.message.AdminTokenMessage;
+import com.zerone.secondhandmarket.message.UserTokenMessage;
 import com.zerone.secondhandmarket.service.AdminService;
 import com.zerone.secondhandmarket.service.UserService;
+import com.zerone.secondhandmarket.tools.CodeProcessor;
+import com.zerone.secondhandmarket.viewobject.Result;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
@@ -34,7 +34,7 @@ public class LoginModule {
                 return new Result(Status.NOT_FOUND, "找不到账号", new UserTokenMessage());
             }
         } else {
-            if (!CodeProcessor.validatePassword(password,user.getPassword())) {
+            if (!CodeProcessor.validatePassword(password, user.getPassword())) {
                 return new Result(Status.PASSWORD_WRONG, "密码错误", new UserTokenMessage());
             } else {
                 //获取登录时间
@@ -51,7 +51,7 @@ public class LoginModule {
         if (administrator == null) {
             result = new Result(Status.NOT_FOUND, "找不到账号", new AdminTokenMessage());
         } else {
-            if (!CodeProcessor.validatePassword(password,administrator.getPassword())) {
+            if (!CodeProcessor.validatePassword(password, administrator.getPassword())) {
                 result = new Result(Status.PASSWORD_WRONG, "密码错误", new AdminTokenMessage());
             } else {
                 Date date = new Date();
@@ -74,6 +74,14 @@ public class LoginModule {
             userService.insertUser(user);
             result = new Result(Status.OK, "注册成功", user);
         }
+        return result;
+    }
+
+    //获取管理员信息
+    public static Result getAdminInfoFromId(AdminService adminService, int id) {
+        Administrator admin = adminService.getAdminById(id);
+
+        Result result = new Result(Status.OK, "获取成功", admin);
         return result;
     }
 }
