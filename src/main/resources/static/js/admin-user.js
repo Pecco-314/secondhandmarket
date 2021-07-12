@@ -1,21 +1,3 @@
-const url = "http://localhost:8088/"
-
-function isPossiblyEmail(text) {
-    return /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(text);
-}
-
-function isPossiblyID(text) {
-    return /^\d+$/.test(text);
-}
-
-function showErrorInForm(app, formName, propName, rulesName, message) {
-    let currentRules = app[rulesName][propName];
-    app[rulesName][propName] = [{validator: (rule, value, callback) => callback(new Error(message))}]
-    app.$refs[formName].validateField(propName);
-    app[rulesName][propName] = currentRules
-}
-
-
 let addUserForm = new Vue({
     el: '#addUser',
     data: {

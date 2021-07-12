@@ -1,19 +1,3 @@
-const url = "http://localhost:8088";
-
-function isPossiblyPrice(text) {
-    return /(^[1-9]\d*(\.\d{1,2})?$)|(^0(\.\d{1,2})?$)/.test(text);
-}
-
-function removeIf(list, predicate) {
-    let res = []
-    for (const e of list) {
-        if (!predicate(e)) {
-            res.push(e);
-        }
-    }
-    return res;
-}
-
 let postForm = new Vue({
     el: "#post-form",
     data() {
