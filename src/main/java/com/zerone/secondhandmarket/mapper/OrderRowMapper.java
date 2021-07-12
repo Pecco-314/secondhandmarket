@@ -17,6 +17,11 @@ public class OrderRowMapper implements RowMapper<Order> {
         order.setBuyer(rs.getInt("buyer_id"));
         order.setQuantity(rs.getInt("quantity"));
         order.setTime(rs.getString("ordering_time"));
+        order.setReceiverName(rs.getString("receiverName"));
+        order.setPhoneNumber(rs.getString("phoneNumber"));
+        order.setCampus(rs.getString("campus"));
+        order.setDorm(rs.getString("dorm"));
+        order.setDetailedAddress(rs.getString("detailed_address"));
         return order;
     }
 }
