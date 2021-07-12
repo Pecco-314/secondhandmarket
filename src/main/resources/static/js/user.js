@@ -21,13 +21,15 @@ let userinfoForm = new Vue({
                     }
                 },
             ],
-            phoneNumber: [{validator: (rule, value, callback) => {
+            phoneNumber: [{
+                validator: (rule, value, callback) => {
                     if (value === "" || isPossiblyPhoneNumber(value)) {
                         callback();
                     } else {
                         callback(new Error('请输入正确的电话号码，或留空'));
                     }
-                }},],
+                }
+            },],
         }
     },
     methods: {
@@ -68,6 +70,7 @@ let userinfoForm = new Vue({
         validateField(field) {
             userinfoForm.$refs.form.validateField(field);
         }
+
     }
 })
 let passwordForm = new Vue({
@@ -88,6 +91,15 @@ let passwordForm = new Vue({
             newPassword: [
                 {min: 6, message: '密码应至少有6位', trigger: 'blur'},
                 {required: true, message: '请输入新密码'},
+                {
+                    validator: (rule, value, callback) => {
+                        if (value === passwordForm.form.oldPassword) {
+                            callback(new Error('新密码与旧密码相同'));
+                        } else {
+                            callback();
+                        }
+                    }
+                },
             ],
             newPassword1: [
                 {
@@ -122,9 +134,11 @@ let passwordForm = new Vue({
                         success: (responseStr) => {
                             let response = JSON.parse(responseStr);
                             if (response.status === 50200) {
+                                this.clear();
+                                console.log(this.form);
                                 confirm("修改成功");
                             } else {
-                                alert(`修改错误（状态码：${response.status}）`);
+                                alert(`${response.message}（状态码：${response.status}）`);
                             }
                         }
                     })
@@ -133,6 +147,9 @@ let passwordForm = new Vue({
         },
         validateField(field) {
             userinfoForm.$refs.form.validateField(field);
+        },
+        clear() {
+            this.$refs.form.resetFields();
         }
     }
 })
@@ -169,7 +186,7 @@ let itemsForm = new Vue({
                             else
                                 this.items[i].checkCondition = '审核中';
 
-                            this.items[i].url = `http://localhost:8088/requests/image/${this.items[i].coverPath}`;
+                            this.items[i].url = `${url}requests/image/${this.items[i].coverPath}`;
                         }
                     }
                 }

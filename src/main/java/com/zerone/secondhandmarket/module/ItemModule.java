@@ -16,6 +16,19 @@ import java.util.Date;
 import java.util.List;
 
 public class ItemModule {
+    //获取主页物品
+    public static Result getIndexItemList(ItemService itemService, ItemImageService itemImageService, TagsService tagsService) {
+        List<Item> itemList = itemService.getItemList();
+        //只获取最新的至多8个
+        List<Item> itemList1 = new ArrayList<Item>();
+        for (int i = itemList.size() - 1; i >= 0 && i >= itemList.size() - 8; i--) {
+            itemList1.add(itemList.get(i));
+        }
+
+        getItemTagsAndImages(itemImageService, tagsService, itemList1);
+        return new Result(Status.ITEM_OK, "获取全部物品成功", itemList1);
+    }
+
     //获取所有物品（对于管理员来说），用于审核用户发布的物品
     public static Result getItemList(ItemService itemService, ItemImageService itemImageService, TagsService tagsService) {
         List<Item> itemList = itemService.getItemList();

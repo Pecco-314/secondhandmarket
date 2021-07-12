@@ -2,23 +2,39 @@ package com.zerone.secondhandmarket.controller.Visitor;
 
 import com.zerone.secondhandmarket.message.ItemFilter;
 import com.zerone.secondhandmarket.module.ItemModule;
+import com.zerone.secondhandmarket.service.ItemImageService;
 import com.zerone.secondhandmarket.service.ItemService;
-import com.zerone.secondhandmarket.tools.JSONMapper;
+import com.zerone.secondhandmarket.service.TagsService;
 import com.zerone.secondhandmarket.viewobject.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller("VisitorItem")
 public class ItemController {
     @Autowired
     private ItemService itemService = new ItemService();
+    @Autowired
+    private ItemImageService itemImageService = new ItemImageService();
+    @Autowired
+    private TagsService tagsService = new TagsService();
 
-//    @ResponseBody
-//    @GetMapping("/product/filter")
-//    public ResultVo getItemList(@RequestBody ItemFilter itemFilter){
-//        return null;
-//    }
+
+    @ResponseBody
+    @GetMapping("/index/items")
+    public String getIndexItems() {
+        Result result = ItemModule.getIndexItemList(itemService, itemImageService, tagsService);
+        System.out.println(result);
+        return result.toString();
+    }
+
+    @ResponseBody
+    @GetMapping("/product/filter")
+    public Result getItemList(@RequestBody ItemFilter itemFilter) {
+        return null;
+    }
 //    @ResponseBody
 //    @GetMapping("/product/id")
 //    public ResultVo getItemInfo(@RequestBody int productId){
