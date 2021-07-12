@@ -18,11 +18,6 @@ public class OrderController {
     @Autowired
     private OrderService orderService = new OrderService();
 
-    //    @GetMapping("user/{userid}/history")
-//    @ResponseBody
-//    public ResultVo getHistoryIdent(@PathVariable int userid){
-//        return null;
-//    }
     //获取用户订单列表
     @ResponseBody
     @PostMapping("/requests/user/orderList")
@@ -38,7 +33,7 @@ public class OrderController {
     @ResponseBody
     @PostMapping("/requests/user/insertOrder")
     public String generateSingleOrder(@RequestBody OrderMessage order) {
-        Result result = OrderModule.generateOrder(orderService, order);
+        Result result = OrderModule.generateOrder(orderService, order.getBuyer(), order.getSeller(), order.getItemID(), order.getQuantity());
 
         return result.toString();
     }
