@@ -77,24 +77,24 @@ Vue.component('page-header', {
             <div class="main-nav" :class="this.isMainPage ? '' : 'nav-three'">
                 <div class="container" href="../">
                     <nav class="navbar navbar-expand-md navbar-light ">
-                        <a class="navbar-brand" href="../html/index.html">
+                        <a class="navbar-brand" href="../">
                             <img src="../img/logo.png" alt="Logo">
                         </a>
 
                         <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
                             <ul class="navbar-nav m-auto">
                                 <li class="nav-item">
-                                    <a href="../html/index.html" class="nav-link">
+                                    <a href="../" class="nav-link">
                                         首页
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="../html/shop.html" class="nav-link">
+                                    <a href="../shop" class="nav-link">
                                         商场
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="../html/my-account.html" class="nav-link">
+                                    <a href="../user" class="nav-link">
                                         个人中心
                                     </a>
                                 </li>
@@ -109,7 +109,7 @@ Vue.component('page-header', {
                             <div v-if="!this.isMainPage" class="nav-other">
                                 <div class="nav-other-item">
                                     <div class="cart-btn-area">
-                                        <a href="../html/cart.html" class="cart-btn"><i class='bx bx-cart'></i></a>
+                                        <a href="../cart" class="cart-btn"><i class='bx bx-cart'></i></a>
                                         <span>1</span>
                                     </div>
                                 </div>

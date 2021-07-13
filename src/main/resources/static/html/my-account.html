@@ -4,34 +4,20 @@
     <!-- Required Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/external/element-ui/index.css">
+    <link rel="stylesheet" href="../external/element-ui/css/index.css">
+    <link rel="stylesheet" href="../external/olex/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../external/olex/css/animate.min.css">
+    <link rel="stylesheet" href="../external/olex/fonts/flaticon.css">
+    <link rel="stylesheet" href="../external/olex/css/boxicons.min.css">
+    <link rel="stylesheet" href="../external/olex/css/magnific-popup.css">
+    <link rel="stylesheet" href="../external/olex/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../external/olex/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="../external/olex/css/nice-select.min.css">
+    <link rel="stylesheet" href="../external/olex/css/meanmenu.css">
+    <link rel="stylesheet" href="../external/olex/css/style.css">
+    <link rel="stylesheet" href="../external/olex/css/responsive.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/user.css">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <!-- Animate Min CSS -->
-    <link rel="stylesheet" href="../assets/css/animate.min.css">
-    <!-- Flaticon CSS -->
-    <link rel="stylesheet" href="../assets/fonts/flaticon.css">
-    <!-- Boxicons CSS -->
-    <link rel="stylesheet" href="../assets/css/boxicons.min.css">
-    <!-- Magnific Popup CSS -->
-    <link rel="stylesheet" href="../assets/css/magnific-popup.css">
-    <!-- Owl Carousel Min CSS -->
-    <link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="../assets/css/owl.theme.default.min.css">
-    <!-- Nice Select Min CSS -->
-    <link rel="stylesheet" href="../assets/css/nice-select.min.css">
-    <!-- Meanmenu CSS -->
-    <link rel="stylesheet" href="../assets/css/meanmenu.css">
-    <!-- Style CSS -->
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <!-- Responsive CSS -->
-    <link rel="stylesheet" href="../assets/css/responsive.css">
-
-    <!-- Favicon -->
-<!--    <link rel="icon" type="image/png" href="../assets/images/favicon.png">-->
-
     <title>个人中心</title>
 </head>
 
@@ -90,7 +76,7 @@
                                     <h2>账户信息</h2>
                                     <div class="account-profile">
                                         <div class="account-profile-img">
-                                            <img src="../assets/images/products/product-profile1.jpg" alt="Images">
+                                            <img src="../external/olex/images/products/product-profile1.jpg" alt="Images">
                                         </div>
                                         <ul>
                                             <li><a href="#">修改</a></li>
@@ -155,7 +141,8 @@
 
                                             <img :src=item.imageurl alt="Images">
                                             <div class="price-tag" style="left: 12%">
-                                                <h3><a :href=item.url class="ellipsis-type" style="text-overflow: ellipsis">{{item.name}}</a></h3>
+                                                <h3><a :href=item.url class="ellipsis-type"
+                                                       style="text-overflow: ellipsis">{{item.name}}</a></h3>
                                             </div>
                                             <br>
                                             <div class="price-tag" style="left: 33%;top:40%">{{item.quantity}}</div>
@@ -222,14 +209,16 @@
                                 <div class="checkout-order">
                                     <h2>我的订单</h2>
                                     <h3 class="title-item"><span style="margin-left: 100px">商品名称</span>
-                                        <span style="margin-left: 70px">数量</span><span style="margin-left: 75px">金额</span>
+                                        <span style="margin-left: 70px">数量</span><span
+                                                style="margin-left: 75px">金额</span>
                                         <span style="margin-left: 68px">订单状态</span>
                                         <span style="margin-left: 90px">操作</span></h3>
                                     <ul class="checkout-product" id="myOrders">
                                         <li v-for="order in orders" :key="order.orderInfo.id">
                                             <img :src=order.imageurl alt="Images">
                                             <div class="price-tag" style="left: 12%">
-                                                <h3><a :href=order.url class="ellipsis-type" style="text-overflow: ellipsis">{{order.itemInfo.name}}</a></h3>
+                                                <h3><a :href=order.url class="ellipsis-type"
+                                                       style="text-overflow: ellipsis">{{order.itemInfo.name}}</a></h3>
                                             </div>
                                             <br>
                                             <div class="price-tag" style="left: 31.5%;top:40%">
@@ -287,7 +276,7 @@
                                                 style="margin-left: 90px">操作</span></h3>
                                     <ul class="checkout-product">
                                         <li>
-                                            <img src="../assets/images/products/propular-style8.png" alt="Images">
+                                            <img src="../external/olex/images/products/propular-style8.png" alt="Images">
                                             <h3>Local Onion</h3>
                                             <span>$2.0</span>
                                             <div class="price-tag" style="left: 32%">6</div>
@@ -298,7 +287,7 @@
                                         </li>
 
                                         <li>
-                                            <img src="../assets/images/products/propular-style4.png" alt="Images">
+                                            <img src="../external/olex/images/products/propular-style4.png" alt="Images">
                                             <h3>Protein Chocolate</h3>
                                             <span>$25.0</span>
                                             <div class="price-tag" style="left: 32%">1</div>
@@ -389,37 +378,22 @@
 
 </body>
 
-<!-- Jquery Min JS -->
-<script src="../assets/js/jquery-3.5.1.slim.min.js"></script>
-<!-- Popper Min JS -->
-<script src="../assets/js/popper.min.js"></script>
-<!-- Bootstrap Min JS -->
-<script src="../assets/js/bootstrap.min.js"></script>
-<!-- Magnific Popup Min JS -->
-<script src="../assets/js/jquery.magnific-popup.min.js"></script>
-<!-- Owl Carousel Min JS -->
-<script src="../assets/js/owl.carousel.min.js"></script>
-<!-- Nice Select Min JS -->
-<script src="../assets/js/jquery.nice-select.min.js"></script>
-<!-- Wow Min JS -->
-<script src="../assets/js/wow.min.js"></script>
-<!-- Meanmenu JS -->
-<script src="../assets/js/meanmenu.js"></script>
-<!-- Ajaxchimp Min JS -->
-<script src="../assets/js/jquery.ajaxchimp.min.js"></script>
-<!-- Form Validator Min JS -->
-<script src="../assets/js/form-validator.min.js"></script>
-<!-- Contact Form JS -->
-<script src="../assets/js/contact-form-script.js"></script>
-<!-- Mixitup Min JS -->
-<script src="../assets/js/mixitup.min.js"></script>
-<!-- Custom JS -->
-<script src="../assets/js/custom.js"></script>
-
-<script src="../js/external/vue/vue.js"></script>
-<script src="../js/external/element-ui/index.js"></script>
-<script src="../js/external/jquery/jquery.min.js"></script>
-<script src="../js/external/jquery/jquery.cookie.min.js"></script>
+<script src="../external/vue/js/vue.js"></script>
+<script src="../external/element-ui/js/index.js"></script>
+<script src="../external/jquery/js/jquery.min.js"></script>
+<script src="../external/jquery/js/jquery.cookie.min.js"></script>
+<script src="../external/olex/js/popper.min.js"></script>
+<script src="../external/olex/js/bootstrap.min.js"></script>
+<script src="../external/olex/js/jquery.magnific-popup.min.js"></script>
+<script src="../external/olex/js/owl.carousel.min.js"></script>
+<script src="../external/olex/js/jquery.nice-select.min.js"></script>
+<script src="../external/olex/js/wow.min.js"></script>
+<script src="../external/olex/js/meanmenu.js"></script>
+<script src="../external/olex/js/jquery.ajaxchimp.min.js"></script>
+<script src="../external/olex/js/form-validator.min.js"></script>
+<script src="../external/olex/js/contact-form-script.js"></script>
+<script src="../external/olex/js/mixitup.min.js"></script>
+<script src="../external/olex/js/custom.js"></script>
 <script src="../js/core.js"></script>
 <script src="../js/header.js"></script>
 <script src="../js/user.js"></script>
