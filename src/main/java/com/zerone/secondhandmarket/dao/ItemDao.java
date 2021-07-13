@@ -34,6 +34,6 @@ public interface ItemDao {
 
     List<Item> getItemByFilter(ItemFilter itemFilter);
 
-    List<SimplifiedItem> getSimplifiedItemByFilter(ItemFilter itemFilter);
+    /*List<SimplifiedItem> getSimplifiedItemByFilter(ItemFilter itemFilter);*/
 
 }

@@ -69,13 +69,11 @@ public class OrderDaoOption {
         String sql = "select * from orders where order_id=:order_id";
         Map<String, Object> param = new HashMap<>();
         param.put("order_id", orderId);
-        Order order;
         try {
-            order = jdbcTemplate.queryForObject(sql, param, new OrderRowMapper());
+            return jdbcTemplate.queryForObject(sql, param, new OrderRowMapper());
         } catch (Exception e) {
             return null;
         }
-        return order;
     }
 
     // 通过关键字查询订单信息
@@ -84,13 +82,11 @@ public class OrderDaoOption {
         Map<String, Object> param = new HashMap<>();
         String str = "%" + keyword + "%";
         param.put("item_name", str);
-        List<Order> orders;
         try {
-            orders = jdbcTemplate.query(sql, param, new OrderRowMapper());
+            return jdbcTemplate.query(sql, param, new OrderRowMapper());
         } catch (Exception e) {
             return null;
         }
-        return orders;
     }
 
     // 通过userid查询订单信息
@@ -98,13 +94,11 @@ public class OrderDaoOption {
         String sql = "select * from orders where buyer_id=:buyer_id";
         Map<String, Object> param = new HashMap<>();
         param.put("buyer_id", userId);
-        List<Order> orders;
         try {
-            orders = jdbcTemplate.query(sql, param, new OrderRowMapper());
+            return jdbcTemplate.query(sql, param, new OrderRowMapper());
         } catch (Exception e) {
             return null;
         }
-        return orders;
     }
 
 }

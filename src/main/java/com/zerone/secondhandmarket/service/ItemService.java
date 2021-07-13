@@ -74,8 +74,8 @@ public class ItemService implements ItemDao {
         return daoOption.getItemByKeyword(keyword);
     }
 
-    @Override
+    /*@Override
     public List<SimplifiedItem> getSimplifiedItemByFilter(ItemFilter itemFilter) {
         return daoOption.getSimplifiedItemByFilter(itemFilter);
-    }
+    }*/
 }

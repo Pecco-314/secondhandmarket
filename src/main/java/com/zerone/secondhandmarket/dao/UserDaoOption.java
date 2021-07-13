@@ -19,9 +19,9 @@ public class UserDaoOption {
 
     public int insertOrUpdateUser(User user) {
         if (getUserById(user.getId()) != null)
-            updateUser(user);
-        else insertUser(user);
-        return 0;
+            return updateUser(user);
+        else
+            return insertUser(user);
     }
 
     public int insertUser(User user) {
@@ -33,16 +33,14 @@ public class UserDaoOption {
         param.put("email", user.getEmailAddress());
         param.put("password", user.getPassword());
         param.put("imagePath", user.getImagePath());
-        jdbcTemplate.update(sql, param);
-        return 0;
+        return jdbcTemplate.update(sql, param);
     }
 
     public int deleteUser(int id) {
         String sql = "delete from user where user_id=:id";
         Map<String, Object> param = new HashMap<>();
         param.put("id", id);
-        jdbcTemplate.update(sql, param);
-        return 0;
+        return jdbcTemplate.update(sql, param);
     }
 
     public int updateUser(User user) {
@@ -54,60 +52,51 @@ public class UserDaoOption {
         param.put("email", user.getEmailAddress());
         param.put("password", user.getPassword());
         param.put("imagePath", user.getImagePath());
-        jdbcTemplate.update(sql, param);
-        return 0;
+        return jdbcTemplate.update(sql, param);
     }
 
 
     public User getUserById(int id) {
-        User user = new User();
         String sql = "select * from user where user_id=:id";
         Map<String, Object> param = new HashMap<>();
         param.put("id", id);
         try {
-            user = jdbcTemplate.queryForObject(sql.toString(), param, new UserRowMapper());
+            return jdbcTemplate.queryForObject(sql.toString(), param, new UserRowMapper());
         } catch (Exception e) {
             return null;
         }
-        return user;
     }
 
     public User getUserByEmail(String emailAddress) {
-        User user = new User();
         String sql = "select * from user where email=:email";
         Map<String, Object> param = new HashMap<>();
         param.put("email", emailAddress);
         try {
-            user = jdbcTemplate.queryForObject(sql.toString(), param, new UserRowMapper());
+            return jdbcTemplate.queryForObject(sql.toString(), param, new UserRowMapper());
         } catch (Exception e) {
             return null;
         }
-        return user;
     }
 
     public List<User> getUserList() {
         String sql = "select * from user";
-        List<User> users;
         try {
-            users = jdbcTemplate.query(sql, new UserRowMapper());
+            return jdbcTemplate.query(sql, new UserRowMapper());
         } catch (Exception e) {
             return null;
         }
-        return users;
     }
     //查询用户简略信息
    public SimplifiedUser getSimplifiedUserInfoById(int userId)
     {
-        SimplifiedUser simple_user;
         String sql = "select user_id,Nickname,imagePath from user where user_id=:id";
         Map<String, Object> param = new HashMap<>();
         param.put("id", userId);
         try {
-            simple_user = jdbcTemplate.queryForObject(sql.toString(), param, new SimplifiedUserRowMapper());
+            return jdbcTemplate.queryForObject(sql, param, new SimplifiedUserRowMapper());
         } catch (Exception e) {
             return null;
         }
-        return simple_user;
     }
 
 }

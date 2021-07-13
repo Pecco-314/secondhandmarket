@@ -17,13 +17,12 @@ public class CartDaoOption {
 
     // 用于添加购物车信息
     public int insertCart(Cart cart) {
-        String sql = "insert into shoppingcart(user_id, item_id, quantity) " +
-                "values(:user_id,:item_id,:quantity)";
+        String sql = "insert into shoppingcart(user_id, item_id, quantity) values(:user_id,:item_id,:quantity)";
         Map<String, Object> param = new HashMap<>();
         param.put("user_id", cart.getUserId());
         param.put("item_id", cart.getItemId());
         param.put("quantity", cart.getQuantity());
-        return  jdbcTemplate.update(sql, param);
+        return jdbcTemplate.update(sql, param);
     }
 
     // 用于删除购物车信息
@@ -32,8 +31,7 @@ public class CartDaoOption {
         Map<String, Object> param = new HashMap<>();
         param.put("user_id", userId);
         param.put("item_id", itemId);
-        jdbcTemplate.update(sql, param);
-        return 0;
+        return jdbcTemplate.update(sql, param);
     }
 
     //用于某个用户的清空购物车
@@ -41,8 +39,7 @@ public class CartDaoOption {
         String sql = "delete from shoppingcart where user_id=:user_id";
         Map<String, Object> param = new HashMap<>();
         param.put("user_id", userId);
-        jdbcTemplate.update(sql, param);
-        return 0;
+        return jdbcTemplate.update(sql, param);
     }
 
     // 用于更新购物车物品数量信息
@@ -52,43 +49,38 @@ public class CartDaoOption {
         param.put("user_id", cart.getUserId());
         param.put("item_id", cart.getItemId());
         param.put("quantity", cart.getQuantity());
-        jdbcTemplate.update(sql, param);
-        return 0;
+        return jdbcTemplate.update(sql, param);
     }
     //插入或更新购物车
     public int insertOrUpdateCart(Cart cart)
     {
         if (getCartByKey(cart.getUserId(),cart.getItemId()) != null)
-            modifyItemQuantity(cart);
-        else insertCart(cart);
-        return 0;
+            return modifyItemQuantity(cart);
+        else
+            return insertCart(cart);
     }
     public Cart getCartByKey(int userId,int itemId)
     {
         String sql = "select * from shoppingcart where user_id=:user_id and item_id=:item_id";
-        Cart cart;
         Map<String, Object> param = new HashMap<>();
         param.put("user_id", userId);
         param.put("item_id", itemId);
         try {
-            cart = jdbcTemplate.queryForObject(sql, param, new ShoppingCartRowMapper());
+            return jdbcTemplate.queryForObject(sql, param, new ShoppingCartRowMapper());
         } catch (Exception e) {
             return null;
         }
-        return cart;
     }
 
     //查询用户购物车信息
     public List<Cart> getCartListByUserId(int userId) {
         String sql = "select * from shoppingcart where user_id=:user_id";
-        List<Cart> carts;
         Map<String, Object> param = new HashMap<>();
         param.put("user_id", userId);
         try {
-            carts = jdbcTemplate.query(sql, param, new ShoppingCartRowMapper());
+            return jdbcTemplate.query(sql, param, new ShoppingCartRowMapper());
         } catch (Exception e) {
             return null;
         }
-        return carts;
     }
 }

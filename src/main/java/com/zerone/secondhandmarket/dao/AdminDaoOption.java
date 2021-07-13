@@ -22,68 +22,56 @@ public class AdminDaoOption {
 
 
     public int insertAdmin(Administrator admin) {
-        String sql = "insert into administrator(admin_name, password) " +
-                "values(:admin_name,:password)";
+        String sql = "insert into administrator(admin_name, password) values(:admin_name,:password)";
         Map<String, Object> param = new HashMap<>();
         param.put("admin_name", admin.getNickname());
         param.put("id",admin.getId());
         param.put("password",admin.getPassword());
-        jdbcTemplate.update(sql, param);
-        return 0;
+        return jdbcTemplate.update(sql, param);
     }
 
     public int deleteAdmin(int id) {
         String sql = "delete from administrator where id=:id";
         Map<String, Object> param = new HashMap<>();
         param.put("id",id);
-        jdbcTemplate.update(sql,param);
-        return 0;
+        return jdbcTemplate.update(sql,param);
     }
     public int updateAdmin(Administrator admin) {
-        String sql = "update administrator set admin_name=:name,password=:password  where id=:id";
+        String sql = "update administrator set admin_name=:name,password=:password where id=:id";
         Map<String, Object> param = new HashMap<>();
         param.put("name", admin.getNickname());
         param.put("id",admin.getId());
         param.put("password",admin.getPassword());
-        jdbcTemplate.update(sql,param);
-        return 0;
+        return jdbcTemplate.update(sql,param);
     }
 
 
     public Administrator getAdminById(int id) {
-        Administrator admin=new Administrator();
         String sql = "select * from administrator where id=:id";
         Map<String, Object> param = new HashMap<>();
         param.put("id", id);
         try {
-            admin = jdbcTemplate.queryForObject(sql.toString(), param, new AdminRowMapper());
+            return jdbcTemplate.queryForObject(sql, param, new AdminRowMapper());
         } catch (Exception e) {
             return null;
         }
-        return admin;
     }
     public Administrator getAdminByName(String name) {
-        Administrator admin=new Administrator();
         String sql = "select * from administrator where name=:name";
         Map<String, Object> param = new HashMap<>();
         param.put("name", name);
         try {
-            admin = jdbcTemplate.queryForObject(sql.toString(), param, new AdminRowMapper());
+            return jdbcTemplate.queryForObject(sql, param, new AdminRowMapper());
         } catch (Exception e) {
             return null;
         }
-        return admin;
     }
     public List<Administrator> getAdminList() {
         String sql = "select * from administrator";
-        List<Administrator> admins;
         try {
-            admins = jdbcTemplate.query(sql, new AdminRowMapper());
+            return jdbcTemplate.query(sql, new AdminRowMapper());
         } catch (Exception e) {
             return null;
         }
-        return admins;
     }
-
-
 }
