@@ -60,16 +60,6 @@
                     <h2>最新商品</h2>
                 </div>
             </div>
-
-            <!--            <div class="col-lg-9 col-md-9">-->
-            <!--                <ul class="filter-menu">-->
-            <!--                    <li class="filter active" data-filter="all">All Product</li>-->
-            <!--                    <li class="filter" data-filter=".television">Television</li>-->
-            <!--                    <li class="filter" data-filter=".lamp">Lamp</li>-->
-            <!--                    <li class="filter" data-filter=".smartphone">Smartphone</li>-->
-            <!--                    <li class="filter" data-filter=".camera">Camera</li>-->
-            <!--                </ul>-->
-            <!--            </div>-->
         </div>
         <hr class="line-bottom">
 
@@ -84,7 +74,7 @@
                     </div>
 
                     <div class="content">
-                        <h3><a :href=item.url class="ellipsis-type">{{item.name}}</a></h3>
+                        <h3><a :href=item.url class="ellipsis-type" style="text-overflow: ellipsis">{{item.name}}</a></h3>
                         <div style="margin-top: 8%">
                             <el-tag style="margin-right: 15px" v-for="tag in item.itemTags" :key="tag">{{ tag }}
                             </el-tag>
@@ -181,10 +171,13 @@
     .ellipsis-type {
         max-width: 200px;
         white-space: nowrap;
-        text-overflow: ellipsis;
         overflow: hidden;
         cursor: pointer;
+    }
 
+    .ellipsis-type:hover {
+        text-overflow: inherit;
+        overflow: visible;
     }
 
     .product__img {

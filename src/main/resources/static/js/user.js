@@ -171,10 +171,11 @@ let itemsForm = new Vue({
         getItemList() {
             let userId = $.cookie("id");
             $.ajax({
-                url: `${url}requests/user/items/${userId}`,
+                url: `${url}/requests/user/items/${userId}`,
                 method: 'get',
                 contentType: "application/json;charset=utf-8",
                 success: (responseStr) => {
+
                     let response = JSON.parse(responseStr);
                     if (response.status === 30200) {
                         this.items = response.data;
@@ -216,7 +217,7 @@ let itemsForm = new Vue({
                 introduction: this.form.introduction
             }
             $.ajax({
-                url: `${url}requests/user/modifyItem`,
+                url: `${url}/requests/user/modifyItem`,
                 method: 'post',
                 data: JSON.stringify(identification),
                 contentType: "application/json;charset=utf-8",
@@ -261,34 +262,7 @@ let itemsForm = new Vue({
 let ordersForm = new Vue({
     el: '#myOrders',
     data: {
-        orders: [
-            {
-                itemInfo: {
-                    item: 75,
-                    price: 13,
-                    name: '测试',
-                    coverPath: '20210709090836807szc.png'
-                },
-                orderInfo: {
-                    id: 6,
-                    state: '已完成',
-                    quantity: 13,
-                }
-            },
-            {
-                itemInfo: {
-                    item: 75,
-                    price: 13,
-                    name: '测试',
-                    coverPath: '20210709090836807szc.png'
-                },
-                orderInfo: {
-                    id: 7,
-                    state: '待收货',
-                    quantity: 13,
-                }
-            },
-        ],
+        orders: [],
         orderId: '',
         dialogVisibleForConfirm: false,
     },
@@ -297,7 +271,7 @@ let ordersForm = new Vue({
             let userId = $.cookie("id");
             console.log(userId);
             $.ajax({
-                url: `${url}requests/user/orderList/${userId}`,
+                url: `${url}/requests/user/orderList/${userId}`,
                 method: 'get',
                 contentType: "application/json;charset=utf-8",
                 success: (responseStr) => {
@@ -322,7 +296,7 @@ let ordersForm = new Vue({
         },
         confirm() {
             $.ajax({
-                url: `${url}requests/user/orderChecked/${this.orderId}`,
+                url: `${url}/requests/user/orderChecked/${this.orderId}`,
                 method: 'get',
                 contentType: "application/json;charset=utf-8",
                 success: (responseStr) => {
@@ -335,7 +309,6 @@ let ordersForm = new Vue({
                     }
                 }
             })
-            // this.orders[1].orderInfo.state = '已完成';
             this.dialogVisibleForConfirm = false;
         },
         test() {
@@ -346,5 +319,4 @@ let ordersForm = new Vue({
 
 $(userinfoForm.getUserInfo);
 $(itemsForm.getItemList);
-// $(ordersForm.test);
 $(ordersForm.getOrderList);
