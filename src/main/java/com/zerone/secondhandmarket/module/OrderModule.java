@@ -23,7 +23,7 @@ public class OrderModule {
 
     public static Result generateOrder(OrderService service, Integer buyer, Integer seller, Integer itemId, Integer quantity, String receiverName, String phoneNumber, String campus, String dorm, String detailedAddress) {
         try {
-            Order order = new Order(0, buyer, seller, itemId, quantity, DateFormatter.dateToString(new Date()), receiverName, phoneNumber, campus, dorm, detailedAddress);
+            Order order = new Order(0, buyer, seller, itemId, quantity, DateFormatter.dateToString(new Date()), receiverName, phoneNumber, campus, dorm, detailedAddress,"待收货");
 
             service.insertOrder(order);
 

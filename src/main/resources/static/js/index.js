@@ -6,7 +6,7 @@ let indexForm = new Vue({
     methods: {
         getIndexItems() {
             $.ajax({
-                url: `${url}/index/items`,
+                url: `${url}/index/items`, 
                 method: 'get',
                 contentType: "application/json;charset=utf-8",
                 success: (responseStr) => {
