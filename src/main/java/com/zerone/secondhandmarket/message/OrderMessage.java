@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class OrderMessage {
     private Integer buyer;
     private Integer seller;
+    private String token;
 
     //locate
     private String receiverName;
