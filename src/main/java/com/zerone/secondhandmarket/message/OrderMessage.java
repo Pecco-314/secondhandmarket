@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 //update or insert
 public class OrderMessage {
     private Integer buyer;
-    private Integer seller;
     private String token;
 
     //locate

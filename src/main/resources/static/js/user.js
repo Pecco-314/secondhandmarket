@@ -277,7 +277,7 @@ let ordersForm = new Vue({
         ],
         orderId: '',
         dialogVisibleForConfirm: false,
-        sendDisabled: true,
+        sendDisabled: false,
     },
     methods: {
         getOrderList() {

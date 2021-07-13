@@ -3,6 +3,7 @@ package com.zerone.secondhandmarket.controller.User;
 import com.zerone.secondhandmarket.entity.Item;
 import com.zerone.secondhandmarket.enums.Status;
 import com.zerone.secondhandmarket.message.ItemFilter;
+import com.zerone.secondhandmarket.message.SearchMessage;
 import com.zerone.secondhandmarket.message.SellingItemMessage;
 import com.zerone.secondhandmarket.message.SellingItemModificationMessage;
 import com.zerone.secondhandmarket.module.ItemModule;
@@ -20,7 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 
 @Controller("OrdinaryItem")
 public class ItemController {
@@ -82,13 +82,22 @@ public class ItemController {
 
         File file = new File((courseFile) + "/uploadFiles/item/" + imagePath);
 
-        try(FileInputStream inputStream = new FileInputStream(file)) {
+        try (FileInputStream inputStream = new FileInputStream(file)) {
             byte[] bytes = new byte[inputStream.available()];
             inputStream.read(bytes, 0, inputStream.available());
             return bytes;
         } catch (Exception e) {
             return null;
         }
+    }
+
+    //搜索物品
+    @ResponseBody
+    @PostMapping("/requests/product/search")
+    public String searchItems(@RequestBody SearchMessage searchMessage) {
+        Result result = ItemModule.searchItems(itemService, itemImageService, tagsService, searchMessage.getItemFilter(), searchMessage.getKeyword());
+
+        return result.toString();
     }
 
     //筛选物品

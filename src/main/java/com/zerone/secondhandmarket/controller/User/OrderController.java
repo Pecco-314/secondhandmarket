@@ -37,13 +37,14 @@ public class OrderController {
     public String generateSingleOrder(@RequestBody OrderMessage order) {
 //        Result result=new Result();
         if (CodeProcessor.validateIdToken(order.getBuyer(), order.getToken())) {
+            int seller = itemService.getItemById(order.getItemID()).getSeller();
+            Result result = OrderModule.generateOrder(orderService, itemService, order.getBuyer(), seller, order.getItemID(), order.getQuantity(), order.getReceiverName(), order.getPhoneNumber(), order.getCampus(), order.getDorm(), order.getDetailedAddress());
 
-            Result result = OrderModule.generateOrder(orderService, order.getBuyer(), order.getSeller(), order.getItemID(), order.getQuantity(), order.getReceiverName(), order.getPhoneNumber(), order.getCampus(), order.getDorm(), order.getDetailedAddress());
             return result.toString();
         } else {
             return new Result(Status.USER_ERROR, "id与token不一致", null).toString();
         }
-        
+
     }
 
     //更新订单状态
