@@ -15,9 +15,11 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Repository
 public class ItemDaoOption {
@@ -145,62 +147,62 @@ public class ItemDaoOption {
 
     //按filter获取商品列表
     public List<Item> getItemByFilter(ItemFilter itemFilter) {
-        String sql = "select * from item";
+        StringBuilder sql = new StringBuilder(500);
+        sql.append("select * from item natural join keywords");
         Map<String, Object> param = new HashMap<>();
         boolean has_where = false;
         if (itemFilter.getSeller() != null) {
-            if (!has_where) {
-                sql += " where";
-                has_where = true;
-                sql += " seller_id=:seller_id";
-            } else {
-                sql += " and seller_id=:seller_id";
-            }
+            sql.append(" where seller_id=:seller_id");
+            has_where = true;
 
             param.put("seller_id", itemFilter.getSeller());
         }
         if (itemFilter.getType() != null) {
             if (!has_where) {
-                sql += " where";
+                sql.append(" where item_type=:item_type");
                 has_where = true;
-                sql += " item_type=:item_type";
             } else {
-                sql += " and item_type=:item_type";
+                sql.append(" and item_type=:item_type");
             }
             param.put("item_type", itemFilter.getType().toString());
         }
         if (itemFilter.getTags() != null) {
-            if (!has_where) {
-                sql += " where";
+            if(!has_where) {
+                sql.append(" where (");
                 has_where = true;
-                sql += " item_name LIKE :item_name";
             } else {
-                sql += " and item_name LIKE :item_name";
+                sql.append(" and (");
             }
-            String str = "%" + itemFilter.getTags() + "%";
-            param.put("item_name", str);
+
+            for(int i = 0; i < itemFilter.getTags().length; ++i) {
+                if(i > 0) {
+                    sql.append(" or");
+                }
+                sql.append(" keyword=:keyword" + i);
+                param.put("keyword" + i, itemFilter.getTags()[i]);
+            }
+            sql.append(")");
         }
         if (itemFilter.getCheckCondition() != null) {
             if (!has_where) {
-                sql += " where";
+                sql.append(" where checked=:checked");
                 has_where = true;
-                sql += " checked=:checked";
             } else {
-                sql += " and checked=:checked";
+                sql.append(" and checked=:checked");
             }
             param.put("checked", itemFilter.getCheckCondition().toString());
         }
-        if (itemFilter.getPriceOrdering() == Ordering.ASC)
-            sql += " order by price_now ASC";
-        if (itemFilter.getPriceOrdering() == Ordering.DESC)
-            sql += " order by price_now DESC";
+
         List<Item> items;
         try {
-            items = jdbcTemplate.query(sql, param, new ItemRowMapper());
+            items = jdbcTemplate.query(sql.toString(), param, new ItemRowMapper())
+                    .stream()
+                    .distinct()
+                    .collect(Collectors.toList());
+            return items;
         } catch (Exception e) {
             return null;
         }
-        return items;
     }
 
     //按filter获取商品列表
