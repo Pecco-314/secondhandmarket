@@ -270,14 +270,27 @@ let ordersForm = new Vue({
                     coverPath: '20210709090836807szc.png'
                 },
                 orderInfo: {
-                    state: '未收货',
+                    id: 6,
+                    state: '已完成',
+                    quantity: 13,
+                }
+            },
+            {
+                itemInfo: {
+                    item: 75,
+                    price: 13,
+                    name: '测试',
+                    coverPath: '20210709090836807szc.png'
+                },
+                orderInfo: {
+                    id: 7,
+                    state: '待收货',
                     quantity: 13,
                 }
             },
         ],
         orderId: '',
         dialogVisibleForConfirm: false,
-        sendDisabled: false,
     },
     methods: {
         getOrderList() {
@@ -299,26 +312,27 @@ let ordersForm = new Vue({
                 }
             })
         },
-        confirmPreesed(id) {
+        confirmPressed(id) {
             this.dialogVisibleForConfirm = true;
             this.orderId = id;
+            console.log(this.orderId);
         },
         confirm() {
-            $.ajax({
-                url: `${url}requests/user/orderChecked/${this.orderId}`,
-                method: 'get',
-                contentType: "application/json;charset=utf-8",
-                success: (responseStr) => {
-                    let response = JSON.parse(responseStr);
-                    if (response.status === 40200) {
-                        confirm("更新成功");
-                        this.sendDisabled = true;
-                        this.getOrderList();
-                    } else {
-                        alert(`${response.message}（状态码：${response.status}）`);
-                    }
-                }
-            })
+            // $.ajax({
+            //     url: `${url}requests/user/orderChecked/${this.orderId}`,
+            //     method: 'get',
+            //     contentType: "application/json;charset=utf-8",
+            //     success: (responseStr) => {
+            //         let response = JSON.parse(responseStr);
+            //         if (response.status === 40200) {
+            //             confirm("更新成功");
+            //             this.getOrderList();
+            //         } else {
+            //             alert(`${response.message}（状态码：${response.status}）`);
+            //         }
+            //     }
+            // })
+            this.orders[1].orderInfo.state = '已完成';
             this.dialogVisibleForConfirm = false;
         },
         test() {

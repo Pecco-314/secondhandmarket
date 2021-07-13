@@ -35,7 +35,6 @@ public class OrderController {
     @ResponseBody
     @PostMapping("/requests/user/insertOrder")
     public String generateSingleOrder(@RequestBody OrderMessage order) {
-//        Result result=new Result();
         if (CodeProcessor.validateIdToken(order.getBuyer(), order.getToken())) {
             int seller = itemService.getItemById(order.getItemID()).getSeller();
             Result result = OrderModule.generateOrder(orderService, itemService, order.getBuyer(), seller, order.getItemID(), order.getQuantity(), order.getReceiverName(), order.getPhoneNumber(), order.getCampus(), order.getDorm(), order.getDetailedAddress());

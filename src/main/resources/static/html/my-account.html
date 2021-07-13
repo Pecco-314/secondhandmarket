@@ -243,19 +243,22 @@
                                             </div>
                                             <div class="price-tag" style="left: 59%;top:55%">{{order.orderInfo.state}}
                                             </div>
-                                            <!--                                            <div class="price-tag" style="left: 75%;top:48%">-->
-                                            <!--                                                <el-button type="text">-->
-                                            <!--                                                    填写评价-->
-                                            <!--                                                </el-button>-->
-                                            <!--                                            </div>-->
-                                            <!--                                            <div class="price-tag" style="left: 82%;top:48%">-->
-                                            <!--                                                <el-button type="text">-->
-                                            <!--                                                    删除订单-->
-                                            <!--                                                </el-button>-->
-                                            <!--                                            </div>-->
-                                            <div class="price-tag" style="left: 75%;top:48%">
-                                                <el-button :disabled="sendDisabled"
-                                                           @click="confirmPreesed(order.orderInfo.id)" type="text">
+                                            <div v-if="order.orderInfo.state==='已完成'" class="price-tag"
+                                                 style="left: 75%;top:48%">
+                                                <el-button type="text">
+                                                    填写评价
+                                                </el-button>
+                                            </div>
+                                            <div v-if="order.orderInfo.state==='已完成'" class="price-tag"
+                                                 style="left: 85%;top:48%">
+                                                <el-button type="text">
+                                                    删除订单
+                                                </el-button>
+                                            </div>
+                                            <div v-if="order.orderInfo.state==='待收货'" class="price-tag"
+                                                 style="left: 75%;top:48%">
+                                                <el-button
+                                                        @click="confirmPressed(order.orderInfo.id)" type="text">
                                                     确认收货
                                                 </el-button>
                                             </div>
