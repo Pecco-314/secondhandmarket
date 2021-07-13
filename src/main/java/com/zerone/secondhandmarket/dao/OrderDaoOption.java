@@ -1,8 +1,6 @@
 package com.zerone.secondhandmarket.dao;
 
-import com.zerone.secondhandmarket.entity.Item;
 import com.zerone.secondhandmarket.entity.Order;
-import com.zerone.secondhandmarket.mapper.ItemRowMapper;
 import com.zerone.secondhandmarket.mapper.OrderRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -51,6 +49,7 @@ public class OrderDaoOption {
         String sql = "update orders set buyer_id=:buyer_id,seller_id=:seller_id,item_id=:item_id,quantity=:quantity,ordering_time=:ordering_time,receiverName=:receiverName,phoneNumber=:phoneNumber,campus=:campus,dorm=:dorm,detailed_address=:detailed_address,state=:state where order_id=:order_id";
         Map<String, Object> param = new HashMap<>();
 
+        param.put("order_id", order.getId());
         param.put("item_id", order.getItem());
         param.put("seller_id", order.getSeller());
         param.put("buyer_id", order.getBuyer());

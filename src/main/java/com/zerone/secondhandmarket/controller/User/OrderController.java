@@ -24,9 +24,7 @@ public class OrderController {
     @ResponseBody
     @GetMapping("/requests/user/orderList/{userId}")
     public String getOrderList(@PathVariable int userId) {
-        OrderFilter filter = new OrderFilter(userId, null, null);
-
-        Result result = OrderModule.getOrderList(orderService, itemService, filter);
+        Result result = OrderModule.getOrderList(orderService, itemService, userId);
 
         return result.toString();
     }
