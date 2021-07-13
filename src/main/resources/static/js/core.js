@@ -1,4 +1,4 @@
-const url = "http://localhost:8088/";
+const url = "http://localhost:8088";
 
 function isPossiblyEmail(text) {
     return /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(text);
@@ -72,4 +72,20 @@ function getUserInfo(callback) {
             }
         }
     })
+}
+
+function getItemInfo(id, callback) {
+    $.ajax({
+        url: `${url}/requests/item/${id}`,
+        method: 'get',
+        contentType: "application/json;charset=utf-8",
+        success: (responseStr) => {
+            let response = JSON.parse(responseStr);
+            if (response.status === 30200) {
+                callback(response);
+            } else {
+                alert(`${response.message}（状态码：${response.status}）`);
+            }
+        }
+    });
 }

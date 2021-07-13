@@ -14,8 +14,8 @@ import java.util.Date;
 import java.util.List;
 
 public class OrderModule {
-    public static Result getOrderList(OrderService service, ItemService itemService, OrderFilter filter) {
-        List<Order> list = service.getOrderByFilter(filter);
+    public static Result getOrderList(OrderService service, ItemService itemService, int userId) {
+        List<Order> list = service.getOrderByUserId(userId);
 
         if (list == null || list.isEmpty()) {
             return new Result(Status.NO_QUALIFIED_ORDERS, "没有合适的订单", null);
@@ -53,7 +53,6 @@ public class OrderModule {
         } catch (Exception e) {
             return new Result(Status.NO_QUALIFIED_ORDERS, "订单更新失败", null);
         }
-
     }
 
     public static Result cancelOrder(OrderService service, OrderFilter filter) {

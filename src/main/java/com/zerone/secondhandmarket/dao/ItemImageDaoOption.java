@@ -22,7 +22,6 @@ public class ItemImageDaoOption {
         param.put("itemId",itemId);
         param.put("imagePath",imagePath);
         return jdbcTemplate.update(sql, param);
-
     }
 
 
@@ -32,20 +31,17 @@ public class ItemImageDaoOption {
         Map<String, Object> param = new HashMap<>();
         param.put("item_id", itemId);
         param.put("imagePath",imagePath);
-        jdbcTemplate.update(sql, param);
-        return 0;
+        return jdbcTemplate.update(sql, param);
     }
     // 通过id查询图片
     public List<String> getImagesByItemId(int itemId) {
         String sql = "select * from item_image where itemId=:item_id";
         Map<String, Object> param = new HashMap<>();
         param.put("item_id", itemId);
-        List<String> images;
         try {
-            images = jdbcTemplate.query(sql, param, new ItemImageRowMapper());
+            return jdbcTemplate.query(sql, param, new ItemImageRowMapper());
         } catch (Exception e) {
             return null;
         }
-        return images;
     }
 }

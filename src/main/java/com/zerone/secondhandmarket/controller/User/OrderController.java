@@ -24,9 +24,7 @@ public class OrderController {
     @ResponseBody
     @GetMapping("/requests/user/orderList/{userId}")
     public String getOrderList(@PathVariable int userId) {
-        OrderFilter filter = new OrderFilter(userId, null, null);
-
-        Result result = OrderModule.getOrderList(orderService, itemService, filter);
+        Result result = OrderModule.getOrderList(orderService, itemService, userId);
 
         return result.toString();
     }
@@ -35,7 +33,6 @@ public class OrderController {
     @ResponseBody
     @PostMapping("/requests/user/insertOrder")
     public String generateSingleOrder(@RequestBody OrderMessage order) {
-//        Result result=new Result();
         if (CodeProcessor.validateIdToken(order.getBuyer(), order.getToken())) {
             int seller = itemService.getItemById(order.getItemID()).getSeller();
             Result result = OrderModule.generateOrder(orderService, itemService, order.getBuyer(), seller, order.getItemID(), order.getQuantity(), order.getReceiverName(), order.getPhoneNumber(), order.getCampus(), order.getDorm(), order.getDetailedAddress());

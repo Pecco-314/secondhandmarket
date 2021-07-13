@@ -21,7 +21,6 @@ public class ItemTagsDaoOption {
         param.put("item_id",itemId);
         param.put("keyword",tag);
         return jdbcTemplate.update(sql, param);
-
     }
 
 
@@ -31,20 +30,17 @@ public class ItemTagsDaoOption {
         Map<String, Object> param = new HashMap<>();
         param.put("item_id", itemId);
         param.put("keyword",keyword);
-        jdbcTemplate.update(sql, param);
-        return 0;
+        return jdbcTemplate.update(sql, param);
     }
     // 通过id查询关键词
     public List<String> getTagsByItemId(int itemId) {
         String sql = "select * from keywords where item_id=:item_id";
         Map<String, Object> param = new HashMap<>();
         param.put("item_id", itemId);
-        List<String> keywords;
         try {
-            keywords = jdbcTemplate.query(sql, param, new TagsRowMapper());
+            return jdbcTemplate.query(sql, param, new TagsRowMapper());
         } catch (Exception e) {
             return null;
         }
-        return keywords;
     }
 }

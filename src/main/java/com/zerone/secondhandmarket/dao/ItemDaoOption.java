@@ -15,9 +15,11 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Repository
 public class ItemDaoOption {
@@ -38,8 +40,6 @@ public class ItemDaoOption {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(sql, parameters, keyHolder, new String[]{"item_id"});
         return keyHolder.getKey().intValue();
-
-
     }
 
 
@@ -48,8 +48,7 @@ public class ItemDaoOption {
         String sql = "delete from item where item_id=:id";
         Map<String, Object> param = new HashMap<>();
         param.put("id", itemId);
-        jdbcTemplate.update(sql, param);
-        return 0;
+        return jdbcTemplate.update(sql, param);
     }
 
     // 用于更新商品
@@ -66,8 +65,7 @@ public class ItemDaoOption {
         param.put("introduction", item.getIntroduction());
         param.put("item_pic_path", item.getCoverPath());
         param.put("checked", item.getCheckCondition().toString());
-        jdbcTemplate.update(sql, param);
-        return 0;
+        return jdbcTemplate.update(sql, param);
     }
 
 
@@ -76,27 +74,23 @@ public class ItemDaoOption {
         String sql = "select * from item where item_type=:item_type";
         Map<String, Object> param = new HashMap<>();
         param.put("item_type", itemtype.toString());
-        List<Item> items;
         try {
-            items = jdbcTemplate.query(sql, param, new ItemRowMapper());
+            return jdbcTemplate.query(sql, param, new ItemRowMapper());
         } catch (Exception e) {
             return null;
         }
-        return items;
     }
 
     // 通过id查询商品
     public Item getItemById(int itemId) {
-        Item item = new Item();
         String sql = "select * from item where item_id=:id";
         Map<String, Object> param = new HashMap<>();
         param.put("id", itemId);
         try {
-            item = jdbcTemplate.queryForObject(sql.toString(), param, new ItemRowMapper());
+            return jdbcTemplate.queryForObject(sql, param, new ItemRowMapper());
         } catch (Exception e) {
             return null;
         }
-        return item;
     }
 
     // 通过类似商品名（关键字）查询商品
@@ -105,106 +99,105 @@ public class ItemDaoOption {
         Map<String, Object> param = new HashMap<>();
         String str = "%" + keyword + "%";
         param.put("item_name", str);
-        List<Item> items;
         try {
-            items = jdbcTemplate.query(sql, param, new ItemRowMapper());
+            return jdbcTemplate.query(sql, param, new ItemRowMapper());
         } catch (Exception e) {
             return null;
         }
-        return items;
     }
 
     // 用于查询所有商品列表
     public List<Item> getItemList() {
         String sql = "select * from item";
 
-        List<Item> items;
         try {
-            items = jdbcTemplate.query(sql, new ItemRowMapper());
+            return jdbcTemplate.query(sql, new ItemRowMapper());
         } catch (Exception e) {
             return null;
         }
-        return items;
     }
 
     //按价格排序获取商品列表
     public List<Item> getItemListOrderByPrice(Ordering ordering) {
-        String sql = "";
-        if (ordering == Ordering.ASC)
-            sql = "select * from item order by price_now ASC";
-        else if (ordering == Ordering.DESC)
-            sql = "select * from item order by price_now DESC";
-        List<Item> items;
+        String sql;
+        switch(ordering) {
+            case ASC:
+                sql = "select * from item order by price_now ASC";
+                break;
+            case DESC:
+                sql = "select * from item order by price_now DESC";
+                break;
+            default:
+                sql = "select * from item";
+                break;
+        }
         try {
-            items = jdbcTemplate.query(sql, new ItemRowMapper());
+            return jdbcTemplate.query(sql, new ItemRowMapper());
         } catch (Exception e) {
             return null;
         }
-        return items;
     }
 
     //按filter获取商品列表
     public List<Item> getItemByFilter(ItemFilter itemFilter) {
-        String sql = "select * from item";
+        StringBuilder sql = new StringBuilder(500);
+        sql.append("select * from item natural join keywords");
         Map<String, Object> param = new HashMap<>();
         boolean has_where = false;
         if (itemFilter.getSeller() != null) {
-            if (!has_where) {
-                sql += " where";
-                has_where = true;
-                sql += " seller_id=:seller_id";
-            } else {
-                sql += " and seller_id=:seller_id";
-            }
+            sql.append(" where seller_id=:seller_id");
+            has_where = true;
 
             param.put("seller_id", itemFilter.getSeller());
         }
         if (itemFilter.getType() != null) {
             if (!has_where) {
-                sql += " where";
+                sql.append(" where item_type=:item_type");
                 has_where = true;
-                sql += " item_type=:item_type";
             } else {
-                sql += " and item_type=:item_type";
+                sql.append(" and item_type=:item_type");
             }
             param.put("item_type", itemFilter.getType().toString());
         }
         if (itemFilter.getTags() != null) {
-            if (!has_where) {
-                sql += " where";
+            if(!has_where) {
+                sql.append(" where (");
                 has_where = true;
-                sql += " item_name LIKE :item_name";
             } else {
-                sql += " and item_name LIKE :item_name";
+                sql.append(" and (");
             }
-            String str = "%" + itemFilter.getTags() + "%";
-            param.put("item_name", str);
+
+            for(int i = 0; i < itemFilter.getTags().length; ++i) {
+                if(i > 0) {
+                    sql.append(" or");
+                }
+                sql.append(" keyword=:keyword" + i);
+                param.put("keyword" + i, itemFilter.getTags()[i]);
+            }
+            sql.append(")");
         }
         if (itemFilter.getCheckCondition() != null) {
             if (!has_where) {
-                sql += " where";
-                has_where = true;
-                sql += " checked=:checked";
+                sql.append(" where checked=:checked");
+                //has_where = true;
             } else {
-                sql += " and checked=:checked";
+                sql.append(" and checked=:checked");
             }
             param.put("checked", itemFilter.getCheckCondition().toString());
         }
-        if (itemFilter.getPriceOrdering() == Ordering.ASC)
-            sql += " order by price_now ASC";
-        if (itemFilter.getPriceOrdering() == Ordering.DESC)
-            sql += " order by price_now DESC";
-        List<Item> items;
+
         try {
-            items = jdbcTemplate.query(sql, param, new ItemRowMapper());
+            return jdbcTemplate.query(sql.toString(), param, new ItemRowMapper())
+                    .stream()
+                    .distinct()
+                    .collect(Collectors.toList());
         } catch (Exception e) {
             return null;
         }
-        return items;
     }
 
     //按filter获取商品列表
-    public List<SimplifiedItem> getSimplifiedItemByFilter(ItemFilter itemFilter) {
+    /*public List<SimplifiedItem> getSimplifiedItemByFilter(ItemFilter itemFilter) {
         String sql = "select item_id,item_name,price_now,coverPath from item";
         Map<String, Object> param = new HashMap<>();
         boolean has_where = false;
@@ -256,10 +249,9 @@ public class ItemDaoOption {
             sql += " order by price_now DESC";
         List<SimplifiedItem> items;
         try {
-            items = jdbcTemplate.query(sql, param, new SimplifiedItemRowMapper());
+            return jdbcTemplate.query(sql, param, new SimplifiedItemRowMapper());
         } catch (Exception e) {
             return null;
         }
-        return items;
-    }
+    }*/
 }
