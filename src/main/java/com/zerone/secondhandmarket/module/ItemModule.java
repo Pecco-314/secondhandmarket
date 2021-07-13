@@ -62,6 +62,24 @@ public class ItemModule {
         return new Result(Status.ITEM_OK, "获得所需物品", list);
     }
 
+    //搜索物品
+    public static Result searchItems(ItemService itemService, ItemImageService itemImageService, TagsService tagsService, ItemFilter itemFilter, String keyword) {
+        //根据类型筛选物品
+        List<Item> list = itemService.getItemByFilter(itemFilter);
+        //根据关键词筛选物品
+        List<Item> list1 = itemService.getItemByKeyword(keyword);
+        //求交集
+        list.retainAll(list1);
+
+        if (list == null || list.isEmpty()) {
+            return new Result(Status.ITEM_ERROR, "无符合条件物品", null);
+        }
+        //获取Item的图片和标签
+        getItemTagsAndImages(itemImageService, tagsService, list);
+
+        return new Result(Status.ITEM_OK, "获得所需物品", list);
+    }
+
     //根据关键词筛选
     public static Result getCheckedItemsByKeyWords(ItemService service, ItemImageService itemImageService, TagsService tagsService, String keyword) {
         //按关键词获得符合条件的物品

@@ -29,8 +29,11 @@ public class OrderModule {
         return new Result(Status.ORDER_OK, "获取订单列表成功", simplifiedOrderList);
     }
 
-    public static Result generateOrder(OrderService service, Integer buyer, Integer seller, Integer itemId, Integer quantity, String receiverName, String phoneNumber, String campus, String dorm, String detailedAddress) {
+    public static Result generateOrder(OrderService service, ItemService itemService, Integer buyer, Integer seller, Integer itemId, Integer quantity, String receiverName, String phoneNumber, String campus, String dorm, String detailedAddress) {
         try {
+//            if (quantity > itemService.getItemById(itemId).getQuantity())
+//                throw new Exception("数量大于库存");
+
             Order order = new Order(0, buyer, seller, itemId, quantity, DateFormatter.dateToString(new Date()), receiverName, phoneNumber, campus, dorm, detailedAddress, "待收货");
 
             service.insertOrder(order);
@@ -46,9 +49,9 @@ public class OrderModule {
     public static Result updateOrder(OrderService orderService, Order order) {
         try {
             orderService.updateOrder(order);
-            return new Result(Status.ORDER_OK, "状态更新成功", null);
+            return new Result(Status.ORDER_OK, "订单更新成功", null);
         } catch (Exception e) {
-            return new Result(Status.NO_QUALIFIED_ORDERS, "状态更新失败", null);
+            return new Result(Status.NO_QUALIFIED_ORDERS, "订单更新失败", null);
         }
 
     }

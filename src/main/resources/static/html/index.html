@@ -85,7 +85,10 @@
 
                     <div class="content">
                         <h3><a :href=item.url>{{item.name}}</a></h3>
-                        <span>Product Id # {{item.id}}</span>
+                        <div style="margin-top: 8%">
+                            <el-tag style="margin-right: 15px" v-for="tag in item.itemTags" :key="tag">{{ tag }}
+                            </el-tag>
+                        </div>
                         <div class="price-tag">
                             <h4>￥{{item.price}}
                                 <del>￥{{item.originalPrice}}</del>
