@@ -11,7 +11,10 @@ import com.zerone.secondhandmarket.tools.CodeProcessor;
 import com.zerone.secondhandmarket.viewobject.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller("OrdinaryUser")
 public class UserController {
@@ -19,8 +22,13 @@ public class UserController {
     private UserService userService = new UserService();
 
     @RequestMapping("/user")
-    public String getUserInfo() {
+    public String openUserPage() {
         return "my-account";
+    }
+
+    @RequestMapping("/checkout")
+    public String openCheckoutPage() {
+        return "checkout";
     }
 
     //获取用户信息
@@ -60,9 +68,6 @@ public class UserController {
     @ResponseBody
     public String updatePassword(@RequestBody PasswordModificationMessage passwordModificationMessage) {
         Result result;
-
-        System.out.println(passwordModificationMessage.getOldPassword());
-        System.out.println(passwordModificationMessage.getNewPassword());
 
         if (CodeProcessor.validateIdToken(passwordModificationMessage.getUserID(), passwordModificationMessage.getToken())) {
             User user = userService.getUserById(passwordModificationMessage.getUserID());

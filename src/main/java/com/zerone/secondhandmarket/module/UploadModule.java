@@ -11,17 +11,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UploadModule {
-    public static Result upload(String itemOrHead, MultipartFile[] multipartfiles) throws IOException {
-        List<String> fileNames=new ArrayList<>();
+    public static Result upload(String itemOrHead, MultipartFile[] multipartFiles) throws IOException {
+        List<String> fileNames = new ArrayList<>();
         // 参数为空
         File directory = new File("");
         //获取项目根路径
         String Path = directory.getCanonicalPath();
 
         //遍历文件
-        if (multipartfiles != null && multipartfiles.length > 0) {
+        if (multipartFiles != null && multipartFiles.length > 0) {
             int i=0;
-            for (MultipartFile item : multipartfiles) {
+            for (MultipartFile item : multipartFiles) {
                 int begin = item.getOriginalFilename().lastIndexOf(".");
                 //获取文件类型
                 String type = item.getOriginalFilename().substring(begin);

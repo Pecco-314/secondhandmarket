@@ -1,7 +1,5 @@
 package com.zerone.secondhandmarket.entity;
-import java.util.Date;
 
-import com.zerone.secondhandmarket.message.OrderMessage;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,5 +13,11 @@ public class Order {
     private Integer seller;
     private Integer item;//商品id
     private Integer quantity;//数量
-    private String time;//下单时间 字符串格式必须是"yyyy-MM-dd HH:mm:ss"
+    private String time;//下单时间 字符串格式必须是"yyyy-MM-dd HH:mm:ss
+    private String receiverName;
+    private String phoneNumber;
+    private String campus;
+    private String dorm;
+    private String detailedAddress;
+    private String state;//订单状态 包括已完成和待收货
 }

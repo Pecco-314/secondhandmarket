@@ -307,15 +307,15 @@
                                             <el-table-column prop="nickname" label="昵称"></el-table-column>
                                             <el-table-column prop="emailAddress" label="邮箱"></el-table-column>
                                             <el-table-column prop="phoneNumber" label="电话"></el-table-column>
-                                            <el-table-column label="操作">
+                                            <el-table-column label="操作" min-width="50%">
                                                 <template slot-scope="scope">
-                                                    <div align="left" style="float:left">
+                                                    <div style="float:left">
                                                         <el-button type="button" @click="openUpdateDialog(scope.row)"
                                                                    class="btn-small btn-primary waves-effect waves-light btn-sm">
                                                             修改
                                                         </el-button>
                                                     </div>
-                                                    <div align="center">
+                                                    <div style="display: flex; justify-content: center">
                                                         <el-button type="button" @click="openDeleteDialog(scope.row.id)"
                                                                    class="btn-small btn-danger waves-effect waves-light btn-sm">
                                                             删除

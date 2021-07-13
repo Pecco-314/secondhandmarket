@@ -83,9 +83,9 @@ public class SecondHandMarketController {
 //
 //        for (ShoppingCart cart0 : carts)
 //          System.out.println(cart1);
-        Order order1 = new Order(0, 1, 2, 2, 1, "2021-07-03 20:48:00");
-        Order order2 = new Order(0, 1, 2, 3, 1, "2021-07-13 20:48:00");
-        Order order3 = new Order(0, 1, 5, 4, 1, "2021-06-03 20:48:00");
+//        Order order1 = new Order(0, 1, 2, 2, 1, "2021-07-03 20:48:00");
+//        Order order2 = new Order(0, 1, 2, 3, 1, "2021-07-13 20:48:00");
+//        Order order3 = new Order(0, 1, 5, 4, 1, "2021-06-03 20:48:00");
 //        orderService.insertOrder(order1);
 //        orderService.insertOrder(order2);
 //        orderService.insertOrder(order3);
