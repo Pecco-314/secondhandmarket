@@ -29,16 +29,15 @@ public class ItemController {
     @GetMapping("/index/items")
     public String getIndexItems() {
         Result result = ItemModule.getIndexItemList(itemService, itemImageService, tagsService);
-        System.out.println(result);
+        //System.out.println(result);
         return result.toString();
     }
-    
 
     @ResponseBody
     @GetMapping("/shop/items")
     public String getAllItems() {
         Result result = ItemModule.getItemList(itemService, itemImageService, tagsService);
-        System.out.println(result);
+        //System.out.println(result);
         return result.toString();
     }
 
