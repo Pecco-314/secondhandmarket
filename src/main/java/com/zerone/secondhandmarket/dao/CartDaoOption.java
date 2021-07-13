@@ -55,6 +55,28 @@ public class CartDaoOption {
         jdbcTemplate.update(sql, param);
         return 0;
     }
+    //插入或更新购物车
+    public int insertOrUpdateCart(Cart cart)
+    {
+        if (getCartByKey(cart.getUserId(),cart.getItemId()) != null)
+            modifyItemQuantity(cart);
+        else insertCart(cart);
+        return 0;
+    }
+    public Cart getCartByKey(int userId,int itemId)
+    {
+        String sql = "select * from shoppingcart where user_id=:user_id and item_id=:item_id";
+        Cart cart;
+        Map<String, Object> param = new HashMap<>();
+        param.put("user_id", userId);
+        param.put("item_id", itemId);
+        try {
+            cart = jdbcTemplate.queryForObject(sql, param, new ShoppingCartRowMapper());
+        } catch (Exception e) {
+            return null;
+        }
+        return cart;
+    }
 
     //查询用户购物车信息
     public List<Cart> getCartListByUserId(int userId) {

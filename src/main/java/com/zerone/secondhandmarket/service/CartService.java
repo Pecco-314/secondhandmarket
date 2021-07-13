@@ -40,6 +40,11 @@ public class CartService implements CartDao {
     }
 
     @Override
+    public int insertOrUpdateCart(Cart cart) {
+        return daoOption.insertOrUpdateCart(cart);
+    }
+
+    @Override
     //查询用户购物车信息
     public List<Cart> getCartListByUserId(int userId) {
         return daoOption.getCartListByUserId(userId);
