@@ -12,6 +12,8 @@ import java.util.Date;
 @NoArgsConstructor//无参构造
 public class Notification {
     private Integer releaser;
-    private NotificationType type;
-    private Date time;
+    private Integer target; //target == null => 广播(admin only); target != releaser => 单播(admin only); target == release => 个人信息
+    //private NotificationType type;
+    private String message;
+    private String time;
 }
