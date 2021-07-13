@@ -1,5 +1,3 @@
-const url = "http://localhost:8088/"
-
 function showErrorInForm(app, formName, propName, rulesName, message) {
     let currentRules = app[rulesName][propName];
     app[rulesName][propName] = [{validator: (rule, value, callback) => callback(new Error(message))}]
