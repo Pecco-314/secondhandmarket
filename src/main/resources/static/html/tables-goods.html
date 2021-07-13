@@ -10,6 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 
     <link rel="shortcut icon" href="../admin/images/faviicon.png">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 
     <!-- DataTables -->
     <link href="../admin/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css"/>
@@ -51,7 +52,7 @@
                 <!--<a href="index.html" class="logo">Admiry</a>-->
                 <a href="index.html" class="logo">
                     后台管理
-<!--                    <img src="assets/images/logo.png" height="24" alt="logo">-->
+                    <!--                    <img src="assets/images/logo.png" height="24" alt="logo">-->
                 </a>
             </div>
         </div>
@@ -253,973 +254,93 @@
                                 <div class="card-body">
 
                                     <h4 class="mt-0 header-title">商品信息</h4>
+                                    <!--                                    <div class="row align-items-center" style="padding-left: 15px">-->
+                                    <!--                                        <div class="col-lg-7 col-md-7">-->
+                                    <!--                                            <div class="top-header-form">-->
+                                    <!--                                                <form>-->
+                                    <!--                                                    <div class="row">-->
+                                    <!--                                                            <span class="col-lg-2"-->
+                                    <!--                                                                  style="font-size: 15px; padding-top: 5px">选择状态</span>-->
+                                    <!--                                                        <div class="col-lg-4">-->
+                                    <!--                                                            <div class="form-group">-->
+                                    <!--                                                                <select class="form-control">-->
+                                    <!--                                                                    <option>全部商品</option>-->
+                                    <!--                                                                    <option>待审核</option>-->
+                                    <!--                                                                    <option>正常</option>-->
+                                    <!--                                                                    <option>已售出</option>-->
+                                    <!--                                                                </select>-->
+                                    <!--                                                            </div>-->
+                                    <!--                                                        </div>-->
+                                    <!--                                                    </div>-->
+                                    <!--                                                </form>-->
+                                    <!--                                            </div>-->
+                                    <!--                                        </div>-->
+                                    <!--                                    </div>-->
+                                    <div id="goodsTable">
 
-                                    <table id="datatable" class="table table-bordered">
-                                        <div class="row align-items-center" style="padding-left: 15px">
-                                            <div class="col-lg-7 col-md-7">
-                                                <div class="top-header-form">
-                                                    <form>
-                                                        <div class="row">
-                                                            <span class="col-lg-2"
-                                                                  style="font-size: 15px; padding-top: 5px">选择状态</span>
-                                                            <div class="col-lg-4">
-                                                                <div class="form-group">
-                                                                    <select class="form-control">
-                                                                        <option>全部商品</option>
-                                                                        <option>待审核</option>
-                                                                        <option>正常</option>
-                                                                        <option>已售出</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <el-table :data="tableData" style="width: 100%" class="table table-bordered">
+                                            <el-table-column type="expand">
+                                                <template slot-scope="props">
+                                                    <el-form label-position="left" inline class="demo-table-expand">
+                                                        <el-form-item label="商品ID">
+                                                            <span>{{props.row.id}}</span>
+                                                        </el-form-item>
+                                                        <el-form-item label="商品名称">
+                                                            <span>{{props.row.name}}</span>
+                                                        </el-form-item>
+                                                        <el-form-item label="类别">
+                                                            <span>{{props.row.category}}</span>
+                                                        </el-form-item>
+                                                        <el-form-item label="描述">
+                                                            <span>{{props.row.desc}}</span>
+                                                        </el-form-item>
+                                                        <el-form-item label="时间">
+                                                            <span>{{props.row.updatetime}}</span>
+                                                        </el-form-item>
+                                                        <el-form-item label="状态">
+                                                            <span>{{props.row.status}}</span>
+                                                        </el-form-item>
+                                                    </el-form>
+                                                </template>
+                                            </el-table-column>
+                                            <el-table-column prop="id" label="ID"></el-table-column>
+                                            <el-table-column prop="name" label="商品名称"></el-table-column>
+                                            <el-table-column prop="status" label="状态" column-key="status"
+                                                             :filters="[{text: '待审核', value: '待审核'},{text: '正常', value: '正常'}, {text: '已售出', value: '已售出'}]"
+                                                             :filter-method="filterHandler"></el-table-column>
+                                            <el-table-column label="操作" min-width="50%">
+                                                <template slot-scope="scope">
+                                                    <div style="float:left">
+                                                        <el-button type="button" @click="openIllegalDialog(scope.row)"
+                                                                   class="btn-sm btn-danger waves-effect waves-light">
+                                                            违规
+                                                        </el-button>
+                                                    </div>
+                                                    <div style="display: flex; justify-content: center">
+                                                        <el-button type="button" @click="openPassDialog(scope.row)"
+                                                                   class="btn-sm btn-success waves-effect waves-light">
+                                                            通过审核
+                                                        </el-button>
+                                                    </div>
+                                                </template>
+                                            </el-table-column>
+                                        </el-table>
 
-                                        <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>商品名称</th>
-                                            <th>类别</th>
-                                            <th>描述</th>
-                                            <th>时间</th>
-                                            <th style="width: 120px">操作</th>
-                                        </tr>
-                                        </thead>
-
-
-                                        <tbody>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td><a>
-                                                <button type="button"
-                                                        class="btn-small btn-primary waves-effect waves-light btn-sm">详情
-                                                </button>
-                                            </a>
-                                                <button type="button"
-                                                        class="btn-small btn-danger waves-effect waves-light btn-sm">违规
-                                                </button>
-                                                <button type="button"
-                                                        class="btn-small btn-success waves-effect waves-light btn-sm">
-                                                    通过审核
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Garrett Winters</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                            <td>63</td>
-                                            <td>2011/07/25</td>
-                                            <td><a>
-                                                <button type="button"
-                                                        class="btn-small btn-primary waves-effect waves-light btn-sm">详情
-                                                </button>
-                                            </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-danger waves-effect waves-light btn-sm">
-                                                        违规
-                                                    </button>
-                                                </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-success waves-effect waves-light btn-sm">
-                                                        通过审核
-                                                    </button>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ashton Cox</td>
-                                            <td>Junior Technical Author</td>
-                                            <td>San Francisco</td>
-                                            <td>66</td>
-                                            <td>2009/01/12</td>
-                                            <td><a>
-                                                <button type="button"
-                                                        class="btn-small btn-primary waves-effect waves-light btn-sm">详情
-                                                </button>
-                                            </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-danger waves-effect waves-light btn-sm">
-                                                        违规
-                                                    </button>
-                                                </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-success waves-effect waves-light btn-sm">
-                                                        通过审核
-                                                    </button>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cedric Kelly</td>
-                                            <td>Senior Javascript Developer</td>
-                                            <td>Edinburgh</td>
-                                            <td>22</td>
-                                            <td>2012/03/29</td>
-                                            <td><a>
-                                                <button type="button"
-                                                        class="btn-small btn-primary waves-effect waves-light btn-sm">详情
-                                                </button>
-                                            </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-danger waves-effect waves-light btn-sm">
-                                                        违规
-                                                    </button>
-                                                </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-success waves-effect waves-light btn-sm">
-                                                        通过审核
-                                                    </button>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Airi Satou</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                            <td>33</td>
-                                            <td>2008/11/28</td>
-                                            <td><a>
-                                                <button type="button"
-                                                        class="btn-small btn-primary waves-effect waves-light btn-sm">详情
-                                                </button>
-                                            </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-danger waves-effect waves-light btn-sm">
-                                                        违规
-                                                    </button>
-                                                </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-success waves-effect waves-light btn-sm">
-                                                        通过审核
-                                                    </button>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Brielle Williamson</td>
-                                            <td>Integration Specialist</td>
-                                            <td>New York</td>
-                                            <td>61</td>
-                                            <td>2012/12/02</td>
-                                            <td><a>
-                                                <button type="button"
-                                                        class="btn-small btn-primary waves-effect waves-light btn-sm">详情
-                                                </button>
-                                            </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-danger waves-effect waves-light btn-sm">
-                                                        违规
-                                                    </button>
-                                                </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-success waves-effect waves-light btn-sm">
-                                                        通过审核
-                                                    </button>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Herrod Chandler</td>
-                                            <td>Sales Assistant</td>
-                                            <td>San Francisco</td>
-                                            <td>59</td>
-                                            <td>2012/08/06</td>
-                                            <td><a>
-                                                <button type="button"
-                                                        class="btn-small btn-primary waves-effect waves-light btn-sm">详情
-                                                </button>
-                                            </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-danger waves-effect waves-light btn-sm">
-                                                        违规
-                                                    </button>
-                                                </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-success waves-effect waves-light btn-sm">
-                                                        通过审核
-                                                    </button>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Rhona Davidson</td>
-                                            <td>Integration Specialist</td>
-                                            <td>Tokyo</td>
-                                            <td>55</td>
-                                            <td>2010/10/14</td>
-                                            <td>
-                                                <a><button type="button" class="btn-small btn-primary waves-effect waves-light btn-sm">详情</button></a>
-                                                <a><button type="button" class="btn-small btn-danger waves-effect waves-light btn-sm">违规</button></a>
-                                                <a><button type="button" class="btn-small btn-success waves-effect waves-light btn-sm">通过审核</button></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Colleen Hurst</td>
-                                            <td>Javascript Developer</td>
-                                            <td>San Francisco</td>
-                                            <td>39</td>
-                                            <td>2009/09/15</td>
-                                            <td><a>
-                                                <button type="button"
-                                                        class="btn-small btn-primary waves-effect waves-light btn-sm">详情
-                                                </button>
-                                            </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-danger waves-effect waves-light btn-sm">
-                                                        违规
-                                                    </button>
-                                                </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-success waves-effect waves-light btn-sm">
-                                                        通过审核
-                                                    </button>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sonya Frost</td>
-                                            <td>Software Engineer</td>
-                                            <td>Edinburgh</td>
-                                            <td>23</td>
-                                            <td>2008/12/13</td>
-                                            <td><a>
-                                                <button type="button"
-                                                        class="btn-small btn-primary waves-effect waves-light btn-sm">详情
-                                                </button>
-                                            </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-danger waves-effect waves-light btn-sm">
-                                                        违规
-                                                    </button>
-                                                </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-success waves-effect waves-light btn-sm">
-                                                        通过审核
-                                                    </button>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jena Gaines</td>
-                                            <td>Office Manager</td>
-                                            <td>London</td>
-                                            <td>30</td>
-                                            <td>2008/12/19</td>
-                                            <td><a>
-                                                <button type="button"
-                                                        class="btn-small btn-primary waves-effect waves-light btn-sm">详情
-                                                </button>
-                                            </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-danger waves-effect waves-light btn-sm">
-                                                        违规
-                                                    </button>
-                                                </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-success waves-effect waves-light btn-sm">
-                                                        通过审核
-                                                    </button>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Quinn Flynn</td>
-                                            <td>Support Lead</td>
-                                            <td>Edinburgh</td>
-                                            <td>22</td>
-                                            <td>2013/03/03</td>
-                                            <td><a>
-                                                <button type="button"
-                                                        class="btn-small btn-primary waves-effect waves-light btn-sm">详情
-                                                </button>
-                                            </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-danger waves-effect waves-light btn-sm">
-                                                        违规
-                                                    </button>
-                                                </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-success waves-effect waves-light btn-sm">
-                                                        通过审核
-                                                    </button>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Charde Marshall</td>
-                                            <td>Regional Director</td>
-                                            <td>San Francisco</td>
-                                            <td>36</td>
-                                            <td>2008/10/16</td>
-                                            <td><a>
-                                                <button type="button"
-                                                        class="btn-small btn-primary waves-effect waves-light btn-sm">详情
-                                                </button>
-                                            </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-danger waves-effect waves-light btn-sm">
-                                                        违规
-                                                    </button>
-                                                </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-success waves-effect waves-light btn-sm">
-                                                        通过审核
-                                                    </button>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Haley Kennedy</td>
-                                            <td>Senior Marketing Designer</td>
-                                            <td>London</td>
-                                            <td>43</td>
-                                            <td>2012/12/18</td>
-                                            <td><a>
-                                                <button type="button"
-                                                        class="btn-small btn-primary waves-effect waves-light btn-sm">详情
-                                                </button>
-                                            </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-danger waves-effect waves-light btn-sm">
-                                                        违规
-                                                    </button>
-                                                </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-success waves-effect waves-light btn-sm">
-                                                        通过审核
-                                                    </button>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tatyana Fitzpatrick</td>
-                                            <td>Regional Director</td>
-                                            <td>London</td>
-                                            <td>19</td>
-                                            <td>2010/03/17</td>
-                                            <td><a>
-                                                <button type="button"
-                                                        class="btn-small btn-primary waves-effect waves-light btn-sm">详情
-                                                </button>
-                                            </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-danger waves-effect waves-light btn-sm">
-                                                        违规
-                                                    </button>
-                                                </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-success waves-effect waves-light btn-sm">
-                                                        通过审核
-                                                    </button>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Michael Silva</td>
-                                            <td>Marketing Designer</td>
-                                            <td>London</td>
-                                            <td>66</td>
-                                            <td>2012/11/27</td>
-                                            <td><a>
-                                                <button type="button"
-                                                        class="btn-small btn-primary waves-effect waves-light btn-sm">详情
-                                                </button>
-                                            </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-danger waves-effect waves-light btn-sm">
-                                                        违规
-                                                    </button>
-                                                </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-success waves-effect waves-light btn-sm">
-                                                        通过审核
-                                                    </button>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Paul Byrd</td>
-                                            <td>Chief Financial Officer (CFO)</td>
-                                            <td>New York</td>
-                                            <td>64</td>
-                                            <td>2010/06/09</td>
-                                            <td><a>
-                                                <button type="button"
-                                                        class="btn-small btn-primary waves-effect waves-light btn-sm">详情
-                                                </button>
-                                            </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-danger waves-effect waves-light btn-sm">
-                                                        违规
-                                                    </button>
-                                                </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-success waves-effect waves-light btn-sm">
-                                                        通过审核
-                                                    </button>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Gloria Little</td>
-                                            <td>Systems Administrator</td>
-                                            <td>New York</td>
-                                            <td>59</td>
-                                            <td>2009/04/10</td>
-                                            <td><a>
-                                                <button type="button"
-                                                        class="btn-small btn-primary waves-effect waves-light btn-sm">详情
-                                                </button>
-                                            </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-danger waves-effect waves-light btn-sm">
-                                                        违规
-                                                    </button>
-                                                </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-success waves-effect waves-light btn-sm">
-                                                        通过审核
-                                                    </button>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Bradley Greer</td>
-                                            <td>Software Engineer</td>
-                                            <td>London</td>
-                                            <td>41</td>
-                                            <td>2012/10/13</td>
-                                            <td><a>
-                                                <button type="button"
-                                                        class="btn-small btn-primary waves-effect waves-light btn-sm">详情
-                                                </button>
-                                            </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-danger waves-effect waves-light btn-sm">
-                                                        违规
-                                                    </button>
-                                                </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-success waves-effect waves-light btn-sm">
-                                                        通过审核
-                                                    </button>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Dai Rios</td>
-                                            <td>Personnel Lead</td>
-                                            <td>Edinburgh</td>
-                                            <td>35</td>
-                                            <td>2012/09/26</td>
-                                            <td><a>
-                                                <button type="button"
-                                                        class="btn-small btn-primary waves-effect waves-light btn-sm">详情
-                                                </button>
-                                            </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-danger waves-effect waves-light btn-sm">
-                                                        违规
-                                                    </button>
-                                                </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-success waves-effect waves-light btn-sm">
-                                                        通过审核
-                                                    </button>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jenette Caldwell</td>
-                                            <td>Development Lead</td>
-                                            <td>New York</td>
-                                            <td>30</td>
-                                            <td>2011/09/03</td>
-                                            <td><a>
-                                                <button type="button"
-                                                        class="btn-small btn-primary waves-effect waves-light btn-sm">详情
-                                                </button>
-                                            </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-danger waves-effect waves-light btn-sm">
-                                                        违规
-                                                    </button>
-                                                </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-success waves-effect waves-light btn-sm">
-                                                        通过审核
-                                                    </button>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Yuri Berry</td>
-                                            <td>Chief Marketing Officer (CMO)</td>
-                                            <td>New York</td>
-                                            <td>40</td>
-                                            <td>2009/06/25</td>
-                                            <td><a>
-                                                <button type="button"
-                                                        class="btn-small btn-primary waves-effect waves-light btn-sm">详情
-                                                </button>
-                                            </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-danger waves-effect waves-light btn-sm">
-                                                        违规
-                                                    </button>
-                                                </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-success waves-effect waves-light btn-sm">
-                                                        通过审核
-                                                    </button>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Caesar Vance</td>
-                                            <td>Pre-Sales Support</td>
-                                            <td>New York</td>
-                                            <td>21</td>
-                                            <td>2011/12/12</td>
-                                            <td><a>
-                                                <button type="button"
-                                                        class="btn-small btn-primary waves-effect waves-light btn-sm">详情
-                                                </button>
-                                            </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-danger waves-effect waves-light btn-sm">
-                                                        违规
-                                                    </button>
-                                                </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-success waves-effect waves-light btn-sm">
-                                                        通过审核
-                                                    </button>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Doris Wilder</td>
-                                            <td>Sales Assistant</td>
-                                            <td>Sidney</td>
-                                            <td>23</td>
-                                            <td>2010/09/20</td>
-                                            <td><a>
-                                                <button type="button"
-                                                        class="btn-small btn-primary waves-effect waves-light btn-sm">详情
-                                                </button>
-                                            </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-danger waves-effect waves-light btn-sm">
-                                                        违规
-                                                    </button>
-                                                </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-success waves-effect waves-light btn-sm">
-                                                        通过审核
-                                                    </button>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Angelica Ramos</td>
-                                            <td>Chief Executive Officer (CEO)</td>
-                                            <td>London</td>
-                                            <td>47</td>
-                                            <td>2009/10/09</td>
-                                            <td><a>
-                                                <button type="button"
-                                                        class="btn-small btn-primary waves-effect waves-light btn-sm">详情
-                                                </button>
-                                            </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-danger waves-effect waves-light btn-sm">
-                                                        违规
-                                                    </button>
-                                                </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-success waves-effect waves-light btn-sm">
-                                                        通过审核
-                                                    </button>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Gavin Joyce</td>
-                                            <td>Developer</td>
-                                            <td>Edinburgh</td>
-                                            <td>42</td>
-                                            <td>2010/12/22</td>
-                                            <td><a>
-                                                <button type="button"
-                                                        class="btn-small btn-primary waves-effect waves-light btn-sm">详情
-                                                </button>
-                                            </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-danger waves-effect waves-light btn-sm">
-                                                        违规
-                                                    </button>
-                                                </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-success waves-effect waves-light btn-sm">
-                                                        通过审核
-                                                    </button>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jennifer Chang</td>
-                                            <td>Regional Director</td>
-                                            <td>Singapore</td>
-                                            <td>28</td>
-                                            <td>2010/11/14</td>
-                                            <td><a>
-                                                <button type="button"
-                                                        class="btn-small btn-primary waves-effect waves-light btn-sm">详情
-                                                </button>
-                                            </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-danger waves-effect waves-light btn-sm">
-                                                        违规
-                                                    </button>
-                                                </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-success waves-effect waves-light btn-sm">
-                                                        通过审核
-                                                    </button>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Brenden Wagner</td>
-                                            <td>Software Engineer</td>
-                                            <td>San Francisco</td>
-                                            <td>28</td>
-                                            <td>2011/06/07</td>
-                                            <td><a>
-                                                <button type="button"
-                                                        class="btn-small btn-primary waves-effect waves-light btn-sm">详情
-                                                </button>
-                                            </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-danger waves-effect waves-light btn-sm">
-                                                        违规
-                                                    </button>
-                                                </a>
-                                                <a>
-                                                    <button type="button"
-                                                            class="btn-small btn-success waves-effect waves-light btn-sm">
-                                                        通过审核
-                                                    </button>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Fiona Green</td>
-                                            <td>Chief Operating Officer (COO)</td>
-                                            <td>San Francisco</td>
-                                            <td>48</td>
-                                            <td>2010/03/11</td>
-                                            <td><a>
-                                                <button type="button"
-                                                        class="btn-small btn-primary waves-effect waves-light btn-sm">详情
-                                                </button>
-                                            </a>
-                                                <button type="button" id="sa-warning"
-                                                        class="btn-small btn-danger waves-effect waves-light btn-sm">违规
-                                                </button>
-                                                <button type="button" id="sa-success"
-                                                        class="btn-small btn-success waves-effect waves-light btn-sm">
-                                                    通过审核
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <!--                                                <tr>-->
-                                        <!--                                                    <td>Shou Itou</td>-->
-                                        <!--                                                    <td>Regional Marketing</td>-->
-                                        <!--                                                    <td>Tokyo</td>-->
-                                        <!--                                                    <td>20</td>-->
-                                        <!--                                                    <td>2011/08/14</td>-->
-                                        <!--                                                    <td>$163,000</td>-->
-                                        <!--                                                </tr>-->
-                                        <!--                                                <tr>-->
-                                        <!--                                                    <td>Michelle House</td>-->
-                                        <!--                                                    <td>Integration Specialist</td>-->
-                                        <!--                                                    <td>Sidney</td>-->
-                                        <!--                                                    <td>37</td>-->
-                                        <!--                                                    <td>2011/06/02</td>-->
-                                        <!--                                                    <td>$95,400</td>-->
-                                        <!--                                                </tr>-->
-                                        <!--                                                <tr>-->
-                                        <!--                                                    <td>Suki Burks</td>-->
-                                        <!--                                                    <td>Developer</td>-->
-                                        <!--                                                    <td>London</td>-->
-                                        <!--                                                    <td>53</td>-->
-                                        <!--                                                    <td>2009/10/22</td>-->
-                                        <!--                                                    <td>$114,500</td>-->
-                                        <!--                                                </tr>-->
-                                        <!--                                                <tr>-->
-                                        <!--                                                    <td>Prescott Bartlett</td>-->
-                                        <!--                                                    <td>Technical Author</td>-->
-                                        <!--                                                    <td>London</td>-->
-                                        <!--                                                    <td>27</td>-->
-                                        <!--                                                    <td>2011/05/07</td>-->
-                                        <!--                                                    <td>$145,000</td>-->
-                                        <!--                                                </tr>-->
-                                        <!--                                                <tr>-->
-                                        <!--                                                    <td>Gavin Cortez</td>-->
-                                        <!--                                                    <td>Team Leader</td>-->
-                                        <!--                                                    <td>San Francisco</td>-->
-                                        <!--                                                    <td>22</td>-->
-                                        <!--                                                    <td>2008/10/26</td>-->
-                                        <!--                                                    <td>$235,500</td>-->
-                                        <!--                                                </tr>-->
-                                        <!--                                                <tr>-->
-                                        <!--                                                    <td>Martena Mccray</td>-->
-                                        <!--                                                    <td>Post-Sales support</td>-->
-                                        <!--                                                    <td>Edinburgh</td>-->
-                                        <!--                                                    <td>46</td>-->
-                                        <!--                                                    <td>2011/03/09</td>-->
-                                        <!--                                                    <td>$324,050</td>-->
-                                        <!--                                                </tr>-->
-                                        <!--                                                <tr>-->
-                                        <!--                                                    <td>Unity Butler</td>-->
-                                        <!--                                                    <td>Marketing Designer</td>-->
-                                        <!--                                                    <td>San Francisco</td>-->
-                                        <!--                                                    <td>47</td>-->
-                                        <!--                                                    <td>2009/12/09</td>-->
-                                        <!--                                                    <td>$85,675</td>-->
-                                        <!--                                                </tr>-->
-                                        <!--                                                <tr>-->
-                                        <!--                                                    <td>Howard Hatfield</td>-->
-                                        <!--                                                    <td>Office Manager</td>-->
-                                        <!--                                                    <td>San Francisco</td>-->
-                                        <!--                                                    <td>51</td>-->
-                                        <!--                                                    <td>2008/12/16</td>-->
-                                        <!--                                                    <td>$164,500</td>-->
-                                        <!--                                                </tr>-->
-                                        <!--                                                <tr>-->
-                                        <!--                                                    <td>Hope Fuentes</td>-->
-                                        <!--                                                    <td>Secretary</td>-->
-                                        <!--                                                    <td>San Francisco</td>-->
-                                        <!--                                                    <td>41</td>-->
-                                        <!--                                                    <td>2010/02/12</td>-->
-                                        <!--                                                    <td>$109,850</td>-->
-                                        <!--                                                </tr>-->
-                                        <!--                                                <tr>-->
-                                        <!--                                                    <td>Vivian Harrell</td>-->
-                                        <!--                                                    <td>Financial Controller</td>-->
-                                        <!--                                                    <td>San Francisco</td>-->
-                                        <!--                                                    <td>62</td>-->
-                                        <!--                                                    <td>2009/02/14</td>-->
-                                        <!--                                                    <td>$452,500</td>-->
-                                        <!--                                                </tr>-->
-                                        <!--                                                <tr>-->
-                                        <!--                                                    <td>Timothy Mooney</td>-->
-                                        <!--                                                    <td>Office Manager</td>-->
-                                        <!--                                                    <td>London</td>-->
-                                        <!--                                                    <td>37</td>-->
-                                        <!--                                                    <td>2008/12/11</td>-->
-                                        <!--                                                    <td>$136,200</td>-->
-                                        <!--                                                </tr>-->
-                                        <!--                                                <tr>-->
-                                        <!--                                                    <td>Jackson Bradshaw</td>-->
-                                        <!--                                                    <td>Director</td>-->
-                                        <!--                                                    <td>New York</td>-->
-                                        <!--                                                    <td>65</td>-->
-                                        <!--                                                    <td>2008/09/26</td>-->
-                                        <!--                                                    <td>$645,750</td>-->
-                                        <!--                                                </tr>-->
-                                        <!--                                                <tr>-->
-                                        <!--                                                    <td>Olivia Liang</td>-->
-                                        <!--                                                    <td>Support Engineer</td>-->
-                                        <!--                                                    <td>Singapore</td>-->
-                                        <!--                                                    <td>64</td>-->
-                                        <!--                                                    <td>2011/02/03</td>-->
-                                        <!--                                                    <td>$234,500</td>-->
-                                        <!--                                                </tr>-->
-                                        <!--                                                <tr>-->
-                                        <!--                                                    <td>Bruno Nash</td>-->
-                                        <!--                                                    <td>Software Engineer</td>-->
-                                        <!--                                                    <td>London</td>-->
-                                        <!--                                                    <td>38</td>-->
-                                        <!--                                                    <td>2011/05/03</td>-->
-                                        <!--                                                    <td>$163,500</td>-->
-                                        <!--                                                </tr>-->
-                                        <!--                                                <tr>-->
-                                        <!--                                                    <td>Sakura Yamamoto</td>-->
-                                        <!--                                                    <td>Support Engineer</td>-->
-                                        <!--                                                    <td>Tokyo</td>-->
-                                        <!--                                                    <td>37</td>-->
-                                        <!--                                                    <td>2009/08/19</td>-->
-                                        <!--                                                    <td>$139,575</td>-->
-                                        <!--                                                </tr>-->
-                                        <!--                                                <tr>-->
-                                        <!--                                                    <td>Thor Walton</td>-->
-                                        <!--                                                    <td>Developer</td>-->
-                                        <!--                                                    <td>New York</td>-->
-                                        <!--                                                    <td>61</td>-->
-                                        <!--                                                    <td>2013/08/11</td>-->
-                                        <!--                                                    <td>$98,540</td>-->
-                                        <!--                                                </tr>-->
-                                        <!--                                                <tr>-->
-                                        <!--                                                    <td>Finn Camacho</td>-->
-                                        <!--                                                    <td>Support Engineer</td>-->
-                                        <!--                                                    <td>San Francisco</td>-->
-                                        <!--                                                    <td>47</td>-->
-                                        <!--                                                    <td>2009/07/07</td>-->
-                                        <!--                                                    <td>$87,500</td>-->
-                                        <!--                                                </tr>-->
-                                        <!--                                                <tr>-->
-                                        <!--                                                    <td>Serge Baldwin</td>-->
-                                        <!--                                                    <td>Data Coordinator</td>-->
-                                        <!--                                                    <td>Singapore</td>-->
-                                        <!--                                                    <td>64</td>-->
-                                        <!--                                                    <td>2012/04/09</td>-->
-                                        <!--                                                    <td>$138,575</td>-->
-                                        <!--                                                </tr>-->
-                                        <!--                                                <tr>-->
-                                        <!--                                                    <td>Zenaida Frank</td>-->
-                                        <!--                                                    <td>Software Engineer</td>-->
-                                        <!--                                                    <td>New York</td>-->
-                                        <!--                                                    <td>63</td>-->
-                                        <!--                                                    <td>2010/01/04</td>-->
-                                        <!--                                                    <td>$125,250</td>-->
-                                        <!--                                                </tr>-->
-                                        <!--                                                <tr>-->
-                                        <!--                                                    <td>Zorita Serrano</td>-->
-                                        <!--                                                    <td>Software Engineer</td>-->
-                                        <!--                                                    <td>San Francisco</td>-->
-                                        <!--                                                    <td>56</td>-->
-                                        <!--                                                    <td>2012/06/01</td>-->
-                                        <!--                                                    <td>$115,000</td>-->
-                                        <!--                                                </tr>-->
-                                        <!--                                                <tr>-->
-                                        <!--                                                    <td>Jennifer Acosta</td>-->
-                                        <!--                                                    <td>Junior Javascript Developer</td>-->
-                                        <!--                                                    <td>Edinburgh</td>-->
-                                        <!--                                                    <td>43</td>-->
-                                        <!--                                                    <td>2013/02/01</td>-->
-                                        <!--                                                    <td>$75,650</td>-->
-                                        <!--                                                </tr>-->
-                                        <!--                                                <tr>-->
-                                        <!--                                                    <td>Cara Stevens</td>-->
-                                        <!--                                                    <td>Sales Assistant</td>-->
-                                        <!--                                                    <td>New York</td>-->
-                                        <!--                                                    <td>46</td>-->
-                                        <!--                                                    <td>2011/12/06</td>-->
-                                        <!--                                                    <td>$145,600</td>-->
-                                        <!--                                                </tr>-->
-                                        <!--                                                <tr>-->
-                                        <!--                                                    <td>Hermione Butler</td>-->
-                                        <!--                                                    <td>Regional Director</td>-->
-                                        <!--                                                    <td>London</td>-->
-                                        <!--                                                    <td>47</td>-->
-                                        <!--                                                    <td>2011/03/21</td>-->
-                                        <!--                                                    <td>$356,250</td>-->
-                                        <!--                                                </tr>-->
-                                        <!--                                                <tr>-->
-                                        <!--                                                    <td>Lael Greer</td>-->
-                                        <!--                                                    <td>Systems Administrator</td>-->
-                                        <!--                                                    <td>London</td>-->
-                                        <!--                                                    <td>21</td>-->
-                                        <!--                                                    <td>2009/02/27</td>-->
-                                        <!--                                                    <td>$103,500</td>-->
-                                        <!--                                                </tr>-->
-                                        <!--                                                <tr>-->
-                                        <!--                                                    <td>Jonas Alexander</td>-->
-                                        <!--                                                    <td>Developer</td>-->
-                                        <!--                                                    <td>San Francisco</td>-->
-                                        <!--                                                    <td>30</td>-->
-                                        <!--                                                    <td>2010/07/14</td>-->
-                                        <!--                                                    <td>$86,500</td>-->
-                                        <!--                                                </tr>-->
-                                        <!--                                                <tr>-->
-                                        <!--                                                    <td>Shad Decker</td>-->
-                                        <!--                                                    <td>Regional Director</td>-->
-                                        <!--                                                    <td>Edinburgh</td>-->
-                                        <!--                                                    <td>51</td>-->
-                                        <!--                                                    <td>2008/11/13</td>-->
-                                        <!--                                                    <td>$183,000</td>-->
-                                        <!--                                                </tr>-->
-                                        <!--                                                <tr>-->
-                                        <!--                                                    <td>Michael Bruce</td>-->
-                                        <!--                                                    <td>Javascript Developer</td>-->
-                                        <!--                                                    <td>Singapore</td>-->
-                                        <!--                                                    <td>29</td>-->
-                                        <!--                                                    <td>2011/06/27</td>-->
-                                        <!--                                                    <td>$183,000</td>-->
-                                        <!--                                                </tr>-->
-                                        <!--                                                <tr>-->
-                                        <!--                                                    <td>Donna Snider</td>-->
-                                        <!--                                                    <td>Customer Support</td>-->
-                                        <!--                                                    <td>New York</td>-->
-                                        <!--                                                    <td>27</td>-->
-                                        <!--                                                    <td>2011/01/25</td>-->
-                                        <!--                                                    <td>$112,000</td>-->
-                                        <!--                                                </tr>-->
-                                        </tbody>
-                                    </table>
-
+                                        <el-dialog title="违规" :visible.sync="dialogVisibleForIllegal" width="30%">
+                                            是否将该商品列入违规商品？
+                                            <span slot="footer" class="dialog-footer">
+                                                <el-button @click="dialogVisibleForIllegal = false">取 消</el-button>
+                                                <el-button type="primary" @click="illegalGoods">确 定</el-button>
+                                            </span>
+                                        </el-dialog>
+                                        <el-dialog title="审核" :visible.sync="dialogVisibleForPass" width="30%">
+                                            是否通过审核该商品？
+                                            <span slot="footer" class="dialog-footer">
+                                                <el-button @click="dialogVisibleForPass = false">取 消</el-button>
+                                                <el-button type="primary" @click="passedGoods">确 定</el-button>
+                                            </span>
+                                        </el-dialog>
+                                    </div>
                                 </div>
                             </div>
                         </div> <!-- end col -->
@@ -1241,6 +362,10 @@
 </div>
 <!-- END wrapper -->
 
+<!-- import Vue before Element -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
 
 <!-- jQuery  -->
 <script src="../admin/js/jquery.min.js"></script>
@@ -1281,5 +406,23 @@
 <!-- App js -->
 <script src="../admin/js/app.js"></script>
 
+<script src="../js/admin-goods.js"></script>
+
 </body>
+<style>
+    .demo-table-expand {
+        font-size: 0;
+    }
+
+    .demo-table-expand label {
+        width: 90px;
+        color: #99a9bf;
+    }
+
+    .demo-table-expand .el-form-item {
+        margin-right: 0;
+        margin-bottom: 0;
+        width: 50%;
+    }
+</style>
 </html>
