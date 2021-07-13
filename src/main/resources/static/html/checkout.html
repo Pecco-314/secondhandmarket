@@ -139,7 +139,7 @@
                                                 </div>
 
                                                 <div class="col-lg-12 col-md-12">
-                                                    <el-button class="default-btn btn-bg-three"
+                                                    <el-button class="default-btn btn-bg-three" type="three"
                                                                @click="onCompleteOrderInfo">
                                                         确认
                                                     </el-button>
@@ -153,7 +153,7 @@
                     </div>
                 </div>
 
-                <div class="tabs_item">
+                <div class="tabs_item" id="checkout-confirm">
                     <div class="checkout-tab-item">
                         <div class="row align-items-center">
                             <div class="col-lg-6">
@@ -166,30 +166,18 @@
                                 <div class="checkout-order">
                                     <h2>我的订单</h2>
                                     <ul class="checkout-product">
-                                        <li>
-                                            <img src="../assets/images/products/propular-style8.png" alt="Images">
-                                            <h3>Local Onion</h3>
-                                            <span>$2.0</span>
-                                            <span class="quantity-tag">x9</span>
-                                            <div class="price-tag">$18.0</div>
-                                        </li>
-
-                                        <li>
-                                            <img src="../assets/images/products/propular-style4.png" alt="Images">
-                                            <h3>Protein Chocolate</h3>
-                                            <span>$25.0</span>
-                                            <span class="quantity-tag">x9</span>
-                                            <div class="price-tag">$225.0</div>
-                                        </li>
+                                        <checkout-item v-for="item in ids" :key="item.index" :item-id="item.id"
+                                                       :ref="item.index">
+                                        </checkout-item>
                                     </ul>
 
                                     <div class="total-amount">
 
-                                        <h3 class="total-title">合计<span>$255.0</span></h3>
+                                        <h3 class="total-title">合计<span>￥{{totalPrice}}</span></h3>
                                     </div>
 
                                     <div class="amount-btn">
-                                        <a href="#" class="default-btn btn-bg-three">下一步</a>
+                                        <a href="#" class="default-btn btn-bg-three" @click="switchToTab(2)">下一步</a>
                                     </div>
                                 </div>
                             </div>
@@ -216,8 +204,8 @@
                                                      width="300">
                                             </div>
                                         </div>
-                                        <div class="amount-btn">
-                                            <a href="#" class="default-btn btn-bg-three">我已付款</a>
+                                        <div class="amount-btn" id="paid-button">
+                                            <a href="#" class="default-btn btn-bg-three" @click="onPay">我已付款</a>
                                         </div>
                                     </div>
                                 </div>

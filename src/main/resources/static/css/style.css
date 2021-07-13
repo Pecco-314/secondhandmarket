@@ -344,3 +344,12 @@ dress-form-item-content {
 .product-desc p {
     font-size: 18px;
 }
+
+.el-button--three.is-active,
+.el-button--three:active,
+.el-button--three:focus,
+.el-button--three:hover,
+.el-button--three {
+    background: rgb(232,180,63);
+    color: #fff;
+}
