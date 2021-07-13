@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 public class CartModificationMessage {
     //locate
     private Integer userID;
+    private String token;
     private Integer itemID;
 
     //modify

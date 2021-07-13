@@ -1,17 +1,49 @@
 package com.zerone.secondhandmarket.controller.User;
 
+import com.zerone.secondhandmarket.entity.Cart;
+import com.zerone.secondhandmarket.enums.Status;
+import com.zerone.secondhandmarket.message.CartModificationMessage;
+import com.zerone.secondhandmarket.message.UserTokenMessage;
+import com.zerone.secondhandmarket.module.CartModule;
+import com.zerone.secondhandmarket.service.CartService;
+import com.zerone.secondhandmarket.tools.CodeProcessor;
+import com.zerone.secondhandmarket.viewobject.Result;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller("OrdinaryShoppingCart")
 public class CartController {
-//    @ResponseBody
-//    @GetMapping("/user/{userId}")
-//    public ResultVo getShoppingCartItem(@PathVariable("userId") int userId){
-//        return null;
-//    }
-//    @ResponseBody
-//    @GetMapping("/user/modify")
-//    public ResultVo ModifyItemCount(@RequestBody ShoppingCartInfo sh){
-//        return null;
-//    }
+    @Autowired
+    private CartService cartService = new CartService();
+
+    @ResponseBody
+    @PostMapping("/request/cart/info")
+    public String getCarts(@RequestBody UserTokenMessage token) {
+        if(CodeProcessor.validateIdToken(token.getUserID(), token.getToken())) {
+            Result result = CartModule.getItemsInCart(cartService, token.getUserID());
+
+            return result.toString();
+        } else {
+            return new Result(Status.ERROR, "ID与Token不符", null).toString();
+        }
+    }
+
+    //添加、更改和删除都通过该方法
+    @ResponseBody
+    @PostMapping("/request/cart/modifyCart")
+    public String modifyCart(@RequestBody CartModificationMessage modification) {
+        if(CodeProcessor.validateIdToken(modification.getUserID(), modification.getToken())) {
+            Cart cart = new Cart(modification.getUserID(), modification.getItemID(), modification.getQuantity());
+
+            Result result = CartModule.modifyItemQuantity(cartService, cart);
+
+            return result.toString();
+
+        } else {
+            return new Result(Status.ERROR, "ID与Token不符", null).toString();
+        }
+    }
 }

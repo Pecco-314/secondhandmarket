@@ -152,21 +152,22 @@
 
                                     <ul class="checkout-product" id="myItems">
                                         <li v-for="item in items" :key="item.itemId">
+
                                             <img :src=item.imageurl alt="Images">
                                             <div class="price-tag" style="left: 12%">
                                                 <h3><a :href=item.url>{{item.name}}</a></h3>
                                             </div>
                                             <br>
-                                            <div class="price-tag" style="left: 33%;top:55%">{{item.quantity}}</div>
-                                            <div class="price-tag" style="left: 44%;top:55%">￥{{item.price}}</div>
-                                            <div class="price-tag" style="left: 59%;top:55%">{{item.checkCondition}}
+                                            <div class="price-tag" style="left: 33%;top:60%">{{item.quantity}}</div>
+                                            <div class="price-tag" style="left: 44%;top:60%">￥{{item.price}}</div>
+                                            <div class="price-tag" style="left: 59%;top:60%">{{item.checkCondition}}
                                             </div>
-                                            <div class="price-tag" style="left: 75%;top:48%">
+                                            <div class="price-tag" style="left: 75%;top:53%">
                                                 <el-button type="text" @click="openUpdateDialog(item)">
                                                     修改
                                                 </el-button>
                                             </div>
-                                            <div class="price-tag" style="left: 82%;top:48%">
+                                            <div class="price-tag" style="left: 82%;top:53%">
                                                 <el-button type="text" @click="openDeleteDialog(item.id)">
                                                     删除
                                                 </el-button>

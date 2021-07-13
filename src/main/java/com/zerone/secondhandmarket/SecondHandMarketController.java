@@ -1,5 +1,6 @@
 package com.zerone.secondhandmarket;
 
+import com.zerone.secondhandmarket.entity.Cart;
 import com.zerone.secondhandmarket.entity.Order;
 import com.zerone.secondhandmarket.service.*;
 import com.zerone.secondhandmarket.tools.CodeProcessor;
@@ -90,6 +91,8 @@ public class SecondHandMarketController {
 //        orderService.insertOrder(order2);
 //        orderService.insertOrder(order3);
         //  orderService.deleteOrder(3);
+        Cart cart=new Cart(1,73,2);
+        cartService.insertOrUpdateCart(cart);
         List<Order> orders = orderService.getOrderByUserId(1);
         for (Order cart0 : orders)
             System.out.println(cart0);
