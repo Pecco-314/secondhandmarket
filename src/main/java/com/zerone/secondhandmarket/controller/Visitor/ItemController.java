@@ -40,6 +40,15 @@ public class ItemController {
     public Result getItemList(@RequestBody ItemFilter itemFilter) {
         return null;
     }
+
+    @ResponseBody
+    @GetMapping("/shop/items")
+    public String getAllItems() {
+        Result result = ItemModule.getItemList(itemService, itemImageService, tagsService);
+        System.out.println(result);
+        return result.toString();
+    }
+
 //    @ResponseBody
 //    @GetMapping("/product/id")
 //    public ResultVo getItemInfo(@RequestBody int productId){

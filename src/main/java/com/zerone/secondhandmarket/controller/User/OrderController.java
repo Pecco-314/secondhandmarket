@@ -1,5 +1,6 @@
 package com.zerone.secondhandmarket.controller.User;
 
+import com.zerone.secondhandmarket.entity.Order;
 import com.zerone.secondhandmarket.message.OrderFilter;
 import com.zerone.secondhandmarket.message.OrderMessage;
 import com.zerone.secondhandmarket.module.OrderModule;
@@ -8,10 +9,7 @@ import com.zerone.secondhandmarket.service.OrderService;
 import com.zerone.secondhandmarket.viewobject.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller("OrdinaryIndent")
 public class OrderController {
@@ -22,11 +20,11 @@ public class OrderController {
 
     //获取用户订单列表
     @ResponseBody
-    @PostMapping("/requests/user/orderList/{userId}")
+    @GetMapping("/requests/user/orderList/{userId}")
     public String getOrderList(@PathVariable int userId) {
         OrderFilter filter = new OrderFilter(userId, null, null);
 
-        Result result = OrderModule.getOrderList(orderService, filter);
+        Result result = OrderModule.getOrderList(orderService, itemService, filter);
 
         return result.toString();
     }
@@ -39,6 +37,18 @@ public class OrderController {
         Integer sellerId = itemService.getItemById(order.getItemID()).getSeller();
 
         Result result = OrderModule.generateOrder(orderService, order.getBuyer(), sellerId, order.getItemID(), order.getQuantity(), order.getReceiverName(), order.getPhoneNumber(), order.getCampus(), order.getDorm(), order.getDetailedAddress());
+
+        return result.toString();
+    }
+
+    //更新订单状态
+    @ResponseBody
+    @GetMapping("requests/user/orderChecked/{orderId}")
+    public String updateOrderState(@PathVariable int orderId) {
+        Order newOrder = orderService.getOrderByOrderId(orderId);
+        newOrder.setState("已完成");
+        
+        Result result = OrderModule.updateOrder(orderService, newOrder);
 
         return result.toString();
     }

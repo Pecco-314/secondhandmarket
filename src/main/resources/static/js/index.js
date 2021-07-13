@@ -15,7 +15,7 @@ let indexForm = new Vue({
                     if (response.status === 30200) {
                         this.items = response.data;
                         for (let i = 0; i < this.items.length; i++) {
-                            this.items[i].imageurl = `${url}/requests/image/${this.items[i].coverPath}`;
+                            this.items[i].imageurl = `http://1.15.220.157:8088/requests/image/${this.items[i].coverPath}`;
                             this.items[i].url = `${url}/item?id=${this.items[i].id}`;
                         }
                         console.log(this.items);

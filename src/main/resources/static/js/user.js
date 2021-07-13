@@ -185,8 +185,8 @@ let itemsForm = new Vue({
                                 this.items[i].checkCondition = '审核未通过';
                             else
                                 this.items[i].checkCondition = '审核中';
-
-                            this.items[i].url = `${url}requests/image/${this.items[i].coverPath}`;
+                            this.items[i].url = `${url}/item?id=${this.items[i].id}`
+                            this.items[i].imageurl = `http://1.15.220.157:8088/requests/image/${this.items[i].coverPath}`;
                         }
                     }
                 }
@@ -258,5 +258,76 @@ let itemsForm = new Vue({
     }
 })
 
+let ordersForm = new Vue({
+    el: '#myOrders',
+    data: {
+        orders: [
+            {
+                itemInfo: {
+                    item: 75,
+                    price: 13,
+                    name: '测试',
+                    coverPath: '20210709090836807szc.png'
+                },
+                orderInfo: {
+                    state: '未收货',
+                    quantity: 13,
+                }
+            },
+        ],
+        orderId: '',
+        dialogVisibleForConfirm: false,
+        sendDisabled: true,
+    },
+    methods: {
+        getOrderList() {
+            let userId = $.cookie("id");
+            $.ajax({
+                url: `${url}requests/user/orderList/${userId}`,
+                method: 'get',
+                contentType: "application/json;charset=utf-8",
+                success: (responseStr) => {
+                    let response = JSON.parse(responseStr);
+                    if (response.status === 40200) {
+                        this.orders = response.data;
+                        for (let i = 0; i < this.items.length; i++) {
+                            this.orders[i].url = `${url}/item?id=${this.orders[i].orderInfo.item}`
+                            this.orders[i].imageurl = `http://1.15.220.157:8088/requests/image/${this.orders[i].itemInfo.coverPath}`;
+                        }
+                        console.log(this.orders);
+                    }
+                }
+            })
+        },
+        confirmPreesed(id) {
+            this.dialogVisibleForConfirm = true;
+            this.orderId = id;
+        },
+        confirm() {
+            $.ajax({
+                url: `${url}requests/user/orderChecked/${this.orderId}`,
+                method: 'get',
+                contentType: "application/json;charset=utf-8",
+                success: (responseStr) => {
+                    let response = JSON.parse(responseStr);
+                    if (response.status === 40200) {
+                        confirm("更新成功");
+                        this.sendDisabled = true;
+                        this.getOrderList();
+                    } else {
+                        alert(`${response.message}（状态码：${response.status}）`);
+                    }
+                }
+            })
+            this.dialogVisibleForConfirm = false;
+        },
+        test() {
+            console.log(this.orders);
+        }
+    }
+})
+
 $(userinfoForm.getUserInfo);
 $(itemsForm.getItemList);
+// $(ordersForm.test);
+$(ordersForm.getOrderList);
