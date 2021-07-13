@@ -120,40 +120,4 @@
 <script src="../js/index.js"></script>
 </body>
 
-
-<script>
-    new Vue({
-        el: "#main-carousel",
-        data() {
-            return {
-                carouselList: [
-                    {key: '1', src: '../external/olex/images/home-one/home-one1.png', desc: 'xxxx'},
-                    {key: '2', src: '../external/olex/images/home-two/home-two1.png', desc: 'xxxx'},
-                    {key: '3', src: '../external/olex/images/home-two/home-two2.png', desc: 'xxxx'},
-                    {key: '4', src: '../external/olex/images/home-two/home-two3.png', desc: 'xxxx'},
-                    {key: '5', src: '../external/olex/images/inner-banner/inner-banner1.png', desc: 'xxxx'},
-                    {key: '6', src: '../external/olex/images/inner-banner/inner-banner2.png', desc: 'xxxx'},
-                ],
-                screenWidth: 0
-            }
-        },
-        methods: {
-            setSize: function () {
-                // 通过浏览器宽度(图片宽度)计算高度
-                this.bannerHeight = 400 / 1920 * this.screenWidth;
-            },
-        },
-        mounted() {
-            // 首次加载时,需要调用一次
-            this.screenWidth = window.innerWidth;
-            this.setSize();
-            // 窗口大小发生改变时,调用一次
-            window.onresize = () => {
-                this.screenWidth = window.innerWidth;
-                this.setSize();
-            }
-        }
-    })
-</script>
-
 </html>
