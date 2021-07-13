@@ -97,7 +97,7 @@ let userTableForm = new Vue({
         methods: {
             getUserList() {
                 $.ajax({
-                    url: `${url}requests/admin/users`,
+                    url: `${url}/requests/admin/users`,
                     method: 'get',
                     contentType: "application/json;charset=utf-8",
                     success: (responseStr) => {
@@ -179,16 +179,20 @@ let adminInfoForm = new Vue({
     },
     methods: {
         getAdminInfo() {
+
             let adminId = $.cookie("id");
+            console.log(adminId);
             $.ajax({
                 url: `${url}/requests/admin/info/${adminId}`,
                 method: 'get',
                 contentType: "application/json;charset=utf-8",
                 success: (responseStr) => {
+                    console.log(responseStr);
                     let response = JSON.parse(responseStr);
                     if (response.status === 10200) {
                         console.log(response);
                         this.nickname = response.data.nickname;
+
                     }
                 }
             })
