@@ -92,20 +92,20 @@ Vue.component('page-header', {
                                         <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <img src="../img/admin_profile.png">
                                                 <i class='bx bx-chevron-down'></i>
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item" href="../user">
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                              <a class="dropdown-item" href="../user">
                                                     <i class='bx bx-user'> 个人中心</i>
-                                                </a>
+                                              </a>
                                                
-                                                <a class="dropdown-item" href="#">
-                                                    <i class='bx bx-exit'
-                                                    @click="exit"> 退出登录</i>
-                                                </a>
-                                            </div>
+                                              <a class="dropdown-item" href="#">
+                                                   <i class='bx bx-exit'
+                                                   @click="exit"> 退出登录</i>
+                                              </a>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                             <div class="option-item">
                                 <div class="cart-btn-area">
                                     <a href="#" class="cart-btn"><i class='bx bx-cart'></i></a>
@@ -157,6 +157,27 @@ Vue.component('page-header', {
                             </ul>
 
                             <div v-if="!this.isMainPage" class="nav-other">
+                            
+                                <div v-if="this.isLogin" class="nav-other-item">
+                                    <div class="language-list">
+                                        <div class="dropdown language-list-dropdown">
+                                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <img src="../img/admin_profile.png">
+                                                <i class='bx bx-chevron-down'></i>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                              <a class="dropdown-item" href="../user">
+                                                    <i class='bx bx-user'> 个人中心</i>
+                                              </a>
+                                               
+                                              <a class="dropdown-item" href="#">
+                                                   <i class='bx bx-exit'
+                                                   @click="exit"> 退出登录</i>
+                                              </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="nav-other-item">
                                     <div class="cart-btn-area">
                                         <a href="../cart" class="cart-btn"><i class='bx bx-cart'></i></a>
