@@ -82,17 +82,17 @@
 
 
 <!-- Product Area -->
-<div class="product-area pt-100 pb-70">
+<div class="product-area pt-100 pb-70" id="search-app">
     <div class="container">
         <div class="row">
             <div class="col-lg-3">
                 <div class="product-side-bar">
                     <div class="search-widget">
                         <form class="search-form">
-                            <input type="search" class="form-control" placeholder="搜索...">
-                            <button type="submit">
+                            <input class="form-control" placeholder="搜索..." v-model="keyword">
+                            <el-button @click="onSearch" class="search-button">
                                 <i class="bx bx-search"></i>
-                            </button>
+                            </el-button>
                         </form>
                     </div>
 
@@ -149,7 +149,7 @@
                 <div class="product-topper">
                     <div class="row">
                         <div class="col-lg-8">
-                            <div class="product-topper-title" id="shop-title">
+                            <div class="product-topper-title">
                                 <h3>{{title}}</h3>
                             </div>
                         </div>
@@ -167,9 +167,9 @@
                         </div>
                     </div>
                 </div>
-                <div id="NewProducts" class="row" v-loading="loading">
+                <div class="row" v-loading="loading">
                     <div v-if="notFound">未找到相关物品</div>
-                    <div class="col-lg-4 col-sm-6" v-for="item in items" :key="item.id">
+                    <div v-else class="col-lg-4 col-sm-6" v-for="item in items" :key="item.id">
                         <div class="product-card">
                             <div class="product-card-img">
                                 <a :href=item.url>

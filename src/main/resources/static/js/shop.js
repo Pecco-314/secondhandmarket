@@ -1,5 +1,5 @@
-let shopForm = new Vue({
-    el: '#NewProducts',
+let shopApp = new Vue({
+    el: '#search-app',
     data: {
         items: [],
         loading: true,
@@ -26,16 +26,17 @@ let shopForm = new Vue({
                 data: JSON.stringify(searchData),
                 contentType: "application/json;charset=utf-8",
                 success: (responseStr) => {
-                    console.log(responseStr);
+                    // console.log(responseStr);
                     let response = JSON.parse(responseStr);
                     if (response.status === 30200) {
-                        this.items = response.data;
-                        for (let i = 0; i < this.items.length; i++) {
-                            this.items[i].imageurl = `http://1.15.220.157:8088/requests/image/${this.items[i].coverPath}`;
-                            this.items[i].url = `${url}/item?id=${this.items[i].id}`;
+                        if (this.loading) {
+                            this.items = response.data;
+                            for (let i = 0; i < this.items.length; i++) {
+                                this.items[i].imageurl = `http://1.15.220.157:8088/requests/image/${this.items[i].coverPath}`;
+                                this.items[i].url = `${url}/item?id=${this.items[i].id}`;
+                            }
+                            this.loading = false;
                         }
-                        this.loading = false;
-                        console.log(this.items);
                     } else if (response.status === 30400) {
                         this.loading = false;
                         this.notFound = true;
@@ -45,15 +46,16 @@ let shopForm = new Vue({
 
                 }
             })
+        },
+        onSearch() {
+            window.history.pushState(null, null, `/shop?filter`);
+            this.loading = true;
+            this.getSearchResult();
         }
+    },
+    computed: {
+        title: () => this.isSearch ? '搜索结果' : '全部商品'
     }
 })
 
-let shopTitle = new Vue({
-    el: "#shop-title",
-    computed: {
-        title: () => shopForm.isSearch ? '搜索结果' : '全部商品'
-    }
-});
-
-$(shopForm.getSearchResult());
+$(shopApp.getSearchResult());
