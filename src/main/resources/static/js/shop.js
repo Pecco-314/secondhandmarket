@@ -13,7 +13,7 @@ let shopApp = new Vue({
         },
         keyword: toEmptyString(getURLVariable('keyword')),
         options: [
-            {text: "所有商品", value: null, selectState: 'active'},
+            {text: "所有商品", value: null, selectState: ''},
             {text: "数码产品", value: 'DIGITAL', selectState: ''},
             {text: "书籍教材", value: 'BOOK', selectState: ''},
             {text: "衣鞋帽伞", value: 'CLOTHES', selectState: ''},
@@ -29,6 +29,8 @@ let shopApp = new Vue({
         select(selection) {
             this.options.forEach(e => e.selectState = (e.value === selection ? 'active' : ''))
             this.itemFilter.type = selection;
+            this.loading = true;
+            this.getSearchResult();
         },
         getSearchResult() {
             let searchData = {
@@ -42,7 +44,7 @@ let shopApp = new Vue({
                 data: JSON.stringify(searchData),
                 contentType: "application/json;charset=utf-8",
                 success: (responseStr) => {
-                    // console.log(responseStr);
+                    console.log(responseStr);
                     let response = JSON.parse(responseStr);
                     if (response.status === 30200) {
                         if (this.loading) {
@@ -69,6 +71,9 @@ let shopApp = new Vue({
             this.loading = true;
             this.getSearchResult();
         }
+    },
+    mounted() {
+        this.select(this.itemFilter.type);
     },
     computed: {
         title: () => hasURLVariables() ? '搜索结果' : '全部商品',

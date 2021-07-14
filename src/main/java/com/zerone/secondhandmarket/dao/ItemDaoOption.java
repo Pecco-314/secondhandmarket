@@ -191,6 +191,17 @@ public class ItemDaoOption {
             param.put("checked", itemFilter.getCheckCondition().toString());
         }
 
+        switch (itemFilter.getPriceOrdering()) {
+            case ASC:
+                sql.append(" order by price_now ASC");
+                break;
+            case DESC:
+                sql.append(" order by price_now DESC");
+                break;
+            default:
+                break;
+        }
+
         try {
             return jdbcTemplate.query(sql.toString(), param, new ItemRowMapper())
                     .stream()
@@ -258,6 +269,17 @@ public class ItemDaoOption {
                 sql.append(" and item_name LIKE :item_name");
             }
             param.put("item_name", String.format("%%%s%%", keyword));
+        }
+
+        switch (filter.getPriceOrdering()) {
+            case ASC:
+                sql.append(" order by price_now ASC");
+                break;
+            case DESC:
+                sql.append(" order by price_now DESC");
+                break;
+            default:
+                break;
         }
 
         try {
