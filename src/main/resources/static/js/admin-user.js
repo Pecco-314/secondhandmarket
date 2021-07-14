@@ -92,6 +92,8 @@ let userTableForm = new Vue({
                 nickname: '',
             },
             currentId: '',
+            currentPage: 1,
+            pageSize: 20,
         },
 
         methods: {
@@ -162,6 +164,14 @@ let userTableForm = new Vue({
                         }
                     }
                 })
+            },
+            handleSizeChange(val) {
+                this.pageSize = val;
+                console.log('每页 ${val} 条');
+            },
+            handleCurrentChange(val) {
+                this.currentPage = val;
+                console.log(`当前页: ${val}`);
             },
             clear() {
                 this.$refs.form.resetFields();

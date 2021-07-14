@@ -353,3 +353,8 @@ dress-form-item-content {
     background: rgb(232,180,63);
     color: #fff;
 }
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+}

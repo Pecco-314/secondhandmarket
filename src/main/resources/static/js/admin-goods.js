@@ -30,7 +30,10 @@ let goodsTable = new Vue({
                 desc: '荷兰优质淡奶，奶香浓而不腻',
                 updatetime: '2021-4-8',
                 status: '待审核'
-            }]
+            }],
+            dialogVisibleForIllegal: false,
+            dialogVisibleForPass: false,
+            currentId: 0,
         }
     },
     methods: {
@@ -69,6 +72,7 @@ let goodsTable = new Vue({
         openIllegalDialog(row) {
             this.dialogVisibleForIllegal = true;
             this.currentId = row.id;
+            console.log(this.currentId);
         },
 
         openPassDialog(row) {
@@ -228,30 +232,30 @@ let goodsTable = new Vue({
 //     }
 // )
 
-let adminInfoForm = new Vue({
-    el: '#admin-info',
-    data: {
-        id: '',
-        nickname: ''
-    },
-    methods: {
-        getAdminInfo() {
-            let adminId = $.cookie("id");
-            $.ajax({
-                url: `${url}/requests/admin/info/${adminId}`,
-                method: 'get',
-                contentType: "application/json;charset=utf-8",
-                success: (responseStr) => {
-                    let response = JSON.parse(responseStr);
-                    if (response.status === 10200) {
-                        console.log(response);
-                        this.nickname = response.data.nickname;
-                    }
-                }
-            })
-        }
-    }
-})
+// let adminInfoForm = new Vue({
+//     el: '#admin-info',
+//     data: {
+//         id: '',
+//         nickname: ''
+//     },
+//     methods: {
+//         getAdminInfo() {
+//             let adminId = $.cookie("id");
+//             $.ajax({
+//                 url: `${url}/requests/admin/info/${adminId}`,
+//                 method: 'get',
+//                 contentType: "application/json;charset=utf-8",
+//                 success: (responseStr) => {
+//                     let response = JSON.parse(responseStr);
+//                     if (response.status === 10200) {
+//                         console.log(response);
+//                         this.nickname = response.data.nickname;
+//                     }
+//                 }
+//             })
+//         }
+//     }
+// })
 
 
 $(userTableForm.getGoodsList);

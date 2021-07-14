@@ -12,3 +12,15 @@
 .el-carousel__container {
     height: 400px;
 }
+
+.adder {
+    margin-top: 15px;
+}
+
+.quantity-label {
+    padding-right: 10px;
+}
+
+.stock-label {
+    padding-left: 10px;
+}

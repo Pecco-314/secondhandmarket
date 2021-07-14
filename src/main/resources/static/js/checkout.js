@@ -66,7 +66,8 @@ let checkoutForm = new Vue({
             }],
             dorm: [{required: true, message: "请输入公寓园区"}],
         },
-        id: getURLVariable('id')
+        id: getURLVariable('id'),
+
     },
     mounted() {
         $('select').niceSelect();
@@ -93,7 +94,7 @@ Vue.component('checkout-item', {
             imagePath: '',
             name: '',
             price: 0,
-            quantity: 1,
+            quantity: getURLVariable('cnt'),
         }
     },
     computed: {
