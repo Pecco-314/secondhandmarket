@@ -38,7 +38,7 @@ function showErrorInForm(app, formName, propName, rulesName, message) {
 }
 
 function getURLVariable(variable) {
-    const query = window.location.search.substring(1);
+    const query = decodeURI(window.location.search.substring(1));
     const vars = query.split("&");
     for (let i = 0; i < vars.length; i++) {
         const pair = vars[i].split("=");

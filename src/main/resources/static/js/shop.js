@@ -12,14 +12,30 @@ let shopApp = new Vue({
             checkCondition: null, // TODO
         },
         keyword: toEmptyString(getURLVariable('keyword')),
-        isSearch: hasURLVariables()
+        options: [
+            {text: "所有商品", value: null, selectState: 'active'},
+            {text: "数码产品", value: 'DIGITAL', selectState: ''},
+            {text: "书籍教材", value: 'BOOK', selectState: ''},
+            {text: "衣鞋帽伞", value: 'CLOTHES', selectState: ''},
+            {text: "代步工具", value: 'TRANSPORT', selectState: ''},
+            {text: "体育健身", value: 'SPORTS', selectState: ''},
+            {text: "家用电器", value: 'ELECTRIC', selectState: ''},
+            {text: "日常用品", value: 'DAILY_USE', selectState: ''},
+            {text: "票券产品", value: 'TICKET', selectState: ''},
+            {text: "其他", value: 'OTHERS', selectState: ''},
+        ],
     },
     methods: {
+        select(selection) {
+            this.options.forEach(e => e.selectState = (e.value === selection ? 'active' : ''))
+            this.itemFilter.type = selection;
+        },
         getSearchResult() {
             let searchData = {
                 itemFilter: this.itemFilter,
                 keyword: this.keyword,
             }
+            console.log(searchData);
             $.ajax({
                 url: `${url}/requests/product/search`,
                 method: 'post',
@@ -36,6 +52,7 @@ let shopApp = new Vue({
                                 this.items[i].url = `${url}/item?id=${this.items[i].id}`;
                             }
                             this.loading = false;
+                            this.notFound = false;
                         }
                     } else if (response.status === 30400) {
                         this.loading = false;
@@ -54,7 +71,7 @@ let shopApp = new Vue({
         }
     },
     computed: {
-        title: () => this.isSearch ? '搜索结果' : '全部商品'
+        title: () => hasURLVariables() ? '搜索结果' : '全部商品',
     }
 })
 

@@ -9,7 +9,7 @@ Vue.component('page-header', {
             options: [
                 {text: "商品分类", value: null},
                 {text: "数码产品", value: 'DIGITAL'},
-                {text: "书籍教材", value: 'BOOKS'},
+                {text: "书籍教材", value: 'BOOK'},
                 {text: "衣鞋帽伞", value: 'CLOTHES'},
                 {text: "代步工具", value: 'TRANSPORT'},
                 {text: "体育健身", value: 'SPORTS'},

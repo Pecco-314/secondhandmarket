@@ -100,39 +100,13 @@
                         <h3 class="title">全部分类</h3>
                         <div class="product-side-categories">
                             <ul>
-                                <li class="active">
-                                    <a href="#">所有商品</a>
-                                </li>
-                                <li>
-                                    <a href="#">数码产品</a>
-                                </li>
-                                <li>
-                                    <a href="#">书籍教材</a>
-                                </li>
-                                <li>
-                                    <a href="#">衣鞋帽伞</a>
-                                </li>
-                                <li>
-                                    <a href="#">代步工具</a>
-                                </li>
-                                <li>
-                                    <a href="#">体育健身</a>
-                                </li>
-                                <li>
-                                    <a href="#">家用电器</a>
-                                </li>
-                                <li>
-                                    <a href="#">日常用品</a>
-                                </li>
-                                <li>
-                                    <a href="#">票券产品</a>
-                                </li>
-                                <li>
-                                    <a href="#">其他</a>
+                                <li v-for="option in options" :key="option.value" :value="option.value" :class="option.selectState">
+                                    <a href="#" @click="select(option.value)">{{option.text}}</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
+
 
                     <div class="product-side-bar-widget">
                         <h3 class="title">标签</h3>
