@@ -52,7 +52,7 @@
         </div>
         <hr class="line-bottom">
 
-        <div id="NewProducts" class="row">
+        <div id="NewProducts" class="row" v-loading="loading">
             <div class="col-lg-3 col-sm-6 mix smartphone television camera" v-for="item in items" :key="item.id"
                  style="display: inline-block;" data-bound="">
                 <div class="arrival-product">
@@ -75,7 +75,7 @@
                         </div>
 
                         <div class="add-btn">
-                            <a href="#" class="add-cart-btn">Add To Cart</a>
+                            <a href="#" class="add-cart-btn">加入购物车</a>
                         </div>
 
                         <ul class="products-action">
