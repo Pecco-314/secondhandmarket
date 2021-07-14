@@ -35,7 +35,7 @@ public class ItemImageDaoOption {
     }
     // 通过id查询图片
     public List<String> getImagesByItemId(int itemId) {
-        String sql = "select * from item_image where itemId=:item_id";
+        String sql = "select imagePath from item_image where itemId=:item_id";
         Map<String, Object> param = new HashMap<>();
         param.put("item_id", itemId);
         try {

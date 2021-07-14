@@ -93,19 +93,6 @@ public class ItemDaoOption {
         }
     }
 
-    // 通过类似商品名（关键字）查询商品
-    public List<Item> getItemByKeyword(String keyword) {
-        String sql = "select * from item where item_name LIKE :item_name";
-        Map<String, Object> param = new HashMap<>();
-        String str = "%" + keyword + "%";
-        param.put("item_name", str);
-        try {
-            return jdbcTemplate.query(sql, param, new ItemRowMapper());
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
     // 用于查询所有商品列表
     public List<Item> getItemList() {
         String sql = "select * from item";
@@ -138,12 +125,30 @@ public class ItemDaoOption {
         }
     }
 
+    // 通过类似商品名（关键字）查询商品
+    public List<Item> getItemByKeyword(String keyword) {
+        String sql = "select * from item where item_name LIKE :item_name";
+        Map<String, Object> param = new HashMap<>();
+        String str = "%" + keyword + "%";
+        param.put("item_name", str);
+        try {
+            return jdbcTemplate.query(sql, param, new ItemRowMapper());
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     //按filter获取商品列表
     public List<Item> getItemByFilter(ItemFilter itemFilter) {
         StringBuilder sql = new StringBuilder(500);
-        sql.append("select * from item natural join keywords");
+        if(itemFilter.getTags() == null)
+            sql.append("select * from item");
+        else
+            sql.append("select * from item natural join keywords");
+
         Map<String, Object> param = new HashMap<>();
         boolean has_where = false;
+
         if (itemFilter.getSeller() != null) {
             sql.append(" where seller_id=:seller_id");
             has_where = true;
@@ -184,6 +189,75 @@ public class ItemDaoOption {
                 sql.append(" and checked=:checked");
             }
             param.put("checked", itemFilter.getCheckCondition().toString());
+        }
+
+        try {
+            return jdbcTemplate.query(sql.toString(), param, new ItemRowMapper())
+                    .stream()
+                    .distinct()
+                    .collect(Collectors.toList());
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public List<Item> getItemListByFilterAndKeyword(ItemFilter filter, String keyword) {
+        StringBuilder sql = new StringBuilder(500);
+        if(filter.getTags() == null)
+            sql.append("select * from item ");
+        else
+            sql.append("select * from item natural join keywords");
+
+        Map<String, Object> param = new HashMap<>();
+        boolean has_where = false;
+        if (filter.getSeller() != null) {
+            sql.append(" where seller_id=:seller_id");
+            has_where = true;
+
+            param.put("seller_id", filter.getSeller());
+        }
+        if (filter.getType() != null) {
+            if (!has_where) {
+                sql.append(" where item_type=:item_type");
+                has_where = true;
+            } else {
+                sql.append(" and item_type=:item_type");
+            }
+            param.put("item_type", filter.getType().toString());
+        }
+        if (filter.getTags() != null) {
+            if(!has_where) {
+                sql.append(" where (");
+                has_where = true;
+            } else {
+                sql.append(" and (");
+            }
+
+            for(int i = 0; i < filter.getTags().length; ++i) {
+                if(i > 0) {
+                    sql.append(" or");
+                }
+                sql.append(" keyword=:keyword" + i);
+                param.put("keyword" + i, filter.getTags()[i]);
+            }
+            sql.append(")");
+        }
+        if (filter.getCheckCondition() != null) {
+            if (!has_where) {
+                sql.append(" where checked=:checked");
+                has_where = true;
+            } else {
+                sql.append(" and checked=:checked");
+            }
+            param.put("checked", filter.getCheckCondition().toString());
+        }
+        if(keyword != null && !keyword.isEmpty()) {
+            if(!has_where) {
+                sql.append(" where item_name LIKE :item_name");
+            } else {
+                sql.append(" and item_name LIKE :item_name");
+            }
+            param.put("item_name", String.format("%%%s%%", keyword));
         }
 
         try {

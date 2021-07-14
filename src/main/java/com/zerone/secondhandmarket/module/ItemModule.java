@@ -14,19 +14,26 @@ import com.zerone.secondhandmarket.viewobject.Result;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ItemModule {
+    private static final int itemsInHomepage = 8;
+
     //获取主页物品
-    public static Result getIndexItemList(ItemService itemService, ItemImageService itemImageService, TagsService tagsService) {
+    public static Result getItemListForHomepage(ItemService itemService, ItemImageService itemImageService, TagsService tagsService) {
         List<Item> itemList = itemService.getItemList();
+
+        int size = itemList.size();
+        itemList = itemList.subList(Math.max(size - itemsInHomepage, 0), size);
         //只获取最新的至多8个
-        List<Item> itemList1 = new ArrayList<Item>();
+
+        /*List<Item> itemList1 = new ArrayList<Item>();
         for (int i = itemList.size() - 1; i >= 0 && i >= itemList.size() - 8; i--) {
             itemList1.add(itemList.get(i));
-        }
+        }*/
 
-        getItemTagsAndImages(itemImageService, tagsService, itemList1);
-        return new Result(Status.ITEM_OK, "获取全部物品成功", itemList1);
+        getItemTagsAndImages(itemImageService, tagsService, itemList);
+        return new Result(Status.ITEM_OK, "获取全部物品成功", itemList);
     }
 
     //获取所有物品（对于管理员来说），用于审核用户发布的物品
@@ -64,12 +71,14 @@ public class ItemModule {
 
     //搜索物品
     public static Result searchItems(ItemService itemService, ItemImageService itemImageService, TagsService tagsService, ItemFilter itemFilter, String keyword) {
-        //根据类型筛选物品
+        /*//根据类型筛选物品
         List<Item> list = itemService.getItemByFilter(itemFilter);
         //根据关键词筛选物品
         List<Item> list1 = itemService.getItemByKeyword(keyword);
         //求交集
-        list.retainAll(list1);
+        list.retainAll(list1);*/
+
+        List<Item> list = itemService.getItemListByFilterAndKeyword(itemFilter, keyword);
 
         if (list == null || list.isEmpty()) {
             return new Result(Status.ITEM_ERROR, "无符合条件物品", null);
@@ -83,13 +92,14 @@ public class ItemModule {
     //根据关键词筛选
     public static Result getCheckedItemsByKeyWords(ItemService service, ItemImageService itemImageService, TagsService tagsService, String keyword) {
         //按关键词获得符合条件的物品
-        List<Item> list = service.getItemByKeyword(keyword);
-        //获得审核通过的物品
-        List<Item> checkedList = getCheckedItems(list);
+        List<Item> list = service.getItemByKeyword(keyword)
+                .stream()
+                .filter(item -> item.getCheckCondition() == ItemCheckCondition.TRUE)
+                .collect(Collectors.toList());
         //获得Item的图片和标签
-        getItemTagsAndImages(itemImageService, tagsService, checkedList);
+        getItemTagsAndImages(itemImageService, tagsService, list);
 
-        return new Result(Status.ITEM_OK, "搜索成功", checkedList);
+        return new Result(Status.ITEM_OK, "搜索成功", list);
     }
 
     //获取物品详情
@@ -175,17 +185,6 @@ public class ItemModule {
         } catch (Exception e) {
             return new Result(Status.ITEM_ERROR, "", null);
         }
-    }
-
-    private static List<Item> getCheckedItems(List<Item> items) {
-        List<Item> checkedItems = new ArrayList<Item>();
-
-        for (Item item : items) {
-            if (item.getCheckCondition() == ItemCheckCondition.TRUE)
-                checkedItems.add(item);
-        }
-
-        return checkedItems;
     }
 
     private static void getItemTagsAndImages(ItemImageService itemImageService, TagsService tagsService, Item item) {
