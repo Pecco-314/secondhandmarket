@@ -96,8 +96,9 @@ public class ItemController {
     @ResponseBody
     @PostMapping("/requests/product/search")
     public String searchItems(@RequestBody SearchMessage searchMessage) {
-        System.out.println(searchMessage);
-        Result result = ItemModule.searchItems(itemService, itemImageService, tagsService, searchMessage.getItemFilter(), URLDecoder.decode(searchMessage.getKeyword()));
+        searchMessage.setKeyword(URLDecoder.decode(searchMessage.getKeyword()));
+        Result result = ItemModule.searchItems(itemService, itemImageService, tagsService, searchMessage.getItemFilter(), searchMessage.getKeyword());
+
         return result.toString();
     }
 
