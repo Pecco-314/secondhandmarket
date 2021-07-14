@@ -94,7 +94,7 @@ public class ItemController {
 
     //搜索物品
     @ResponseBody
-    @PostMapping(value = "/requests/product/search", produces = {"application/json;charset=utf-8"})
+    @PostMapping("/requests/product/search")
     public String searchItems(@RequestBody SearchMessage searchMessage) {
         searchMessage.setKeyword(URLDecoder.decode(searchMessage.getKeyword()));
         Result result = ItemModule.searchItems(itemService, itemImageService, tagsService, searchMessage.getItemFilter(), searchMessage.getKeyword());
