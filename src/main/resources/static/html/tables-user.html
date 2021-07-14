@@ -127,7 +127,8 @@
 
                                 <!-- item-->
                                 <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <div class="notify-icon"><img src="../external/admin/images/users/avatar-2.jpg" alt="user-img"
+                                    <div class="notify-icon"><img src="../external/admin/images/users/avatar-2.jpg"
+                                                                  alt="user-img"
                                                                   class="img-fluid rounded-circle"/></div>
                                     <p class="notify-details"><b>Charles M. Jones</b><small class="text-muted">Dummy
                                         text of the printing and typesetting industry.</small></p>
@@ -135,7 +136,8 @@
 
                                 <!-- item-->
                                 <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <div class="notify-icon"><img src="../external/admin/images/users/avatar-3.jpg" alt="user-img"
+                                    <div class="notify-icon"><img src="../external/admin/images/users/avatar-3.jpg"
+                                                                  alt="user-img"
                                                                   class="img-fluid rounded-circle"/></div>
                                     <p class="notify-details"><b>Thomas J. Mimms</b><small class="text-muted">You have
                                         87 unread messages</small></p>
@@ -143,7 +145,8 @@
 
                                 <!-- item-->
                                 <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <div class="notify-icon"><img src="../external/admin/images/users/avatar-4.jpg" alt="user-img"
+                                    <div class="notify-icon"><img src="../external/admin/images/users/avatar-4.jpg"
+                                                                  alt="user-img"
                                                                   class="img-fluid rounded-circle"/></div>
                                     <p class="notify-details"><b>Luis M. Konrad</b><small class="text-muted">It is a
                                         long established fact that a reader will</small></p>
@@ -285,7 +288,14 @@
                                     </div>
                                     <br>
                                     <div id="userTable">
-                                        <el-table :data="tableData" style="width: 100%" class="table table-bordered">
+                                        <el-table
+                                                :data="tableData.slice((currentPage - 1) * pageSize, currentPage * pageSize)"
+                                                style="width: 100%" class="table table-bordered">
+                                            <el-table-column label="序号" width="80px">
+                                                <template slot-scope="scope">
+                                                    {{ scope.$index + (currentPage - 1) * pageSize + 1 }}
+                                                </template>
+                                            </el-table-column>
                                             <el-table-column prop="id" label="用户编号"></el-table-column>
                                             <el-table-column prop="nickname" label="昵称"></el-table-column>
                                             <el-table-column prop="emailAddress" label="邮箱"></el-table-column>
@@ -293,13 +303,15 @@
                                             <el-table-column label="操作" min-width="50%">
                                                 <template slot-scope="scope">
                                                     <div style="float:left">
-                                                        <el-button type="button" @click="openUpdateDialog(scope.row)"
+                                                        <el-button type="button"
+                                                                   @click="openUpdateDialog(scope.row)"
                                                                    class="btn-sm btn-primary waves-effect waves-light">
                                                             修改
                                                         </el-button>
                                                     </div>
                                                     <div style="display: flex; justify-content: center">
-                                                        <el-button type="button" @click="openDeleteDialog(scope.row.id)"
+                                                        <el-button type="button"
+                                                                   @click="openDeleteDialog(scope.row.id)"
                                                                    class="btn-sm btn-danger waves-effect waves-light">
                                                             删除
                                                         </el-button>
@@ -307,6 +319,15 @@
                                                 </template>
                                             </el-table-column>
                                         </el-table>
+                                        <el-pagination
+                                                @size-change="handleSizeChange"
+                                                @current-change="handleCurrentChange"
+                                                :current-page="currentPage"
+                                                :page-sizes="[10, 20, 30]"
+                                                :page-size="pageSize"
+                                                layout="total, sizes, prev, pager, next, jumper"
+                                                :total="tableData.length">
+                                        </el-pagination>
                                         <el-dialog title="修改昵称" :visible.sync="dialogVisibleForUpdate" width="30%">
                                             <el-form ref="form" :model="form" label-width="80px">
                                                 <el-form-item label="昵称">
