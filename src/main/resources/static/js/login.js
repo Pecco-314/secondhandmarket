@@ -4,12 +4,16 @@ function handleSuccessfulResponse(response, userType) {
     $.cookie("userType", userType, {expires: 7, path: '/'});
     if (userType === 'user') {
         $.cookie("id", data.userID, {expires: 7, path: '/'});
-        window.open("../", "_self");
     } else if (userType === 'admin') {
         $.cookie("id", data.adminID, {expires: 7, path: '/'});
-        window.open("../admin-user", "_self");
     }
-
+    elAlert(loginBox, '登录成功！', '', () => {
+        if (userType === 'user') {
+            window.open("../", "_self");
+        } else if (userType === 'admin') {
+            window.open("../admin-user", "_self");
+        }
+    });
 }
 
 let loginBox = new Vue({

@@ -107,3 +107,10 @@ function getItemInfo(id, callback) {
         }
     });
 }
+
+function elAlert(component, content, title, callback){
+    component.$alert(content, title, {
+        confirmButtonText: '确定',
+        callback: callback
+    });
+}

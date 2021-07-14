@@ -117,8 +117,7 @@ let postForm = new Vue({
                         success: (responseStr) => {
                             let response = JSON.parse(responseStr);
                             if (response.status === 30200) {
-                                confirm("发布成功！");
-                                location.reload();
+                                elAlert(this, "发布成功！", '', location.reload);
                             } else {
                                 alert(`${response.message}（状态码：${response.status}）`);
                             }
