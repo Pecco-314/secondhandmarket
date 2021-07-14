@@ -1,7 +1,9 @@
 package com.zerone.secondhandmarket;
 
 import com.zerone.secondhandmarket.entity.Cart;
+import com.zerone.secondhandmarket.entity.Item;
 import com.zerone.secondhandmarket.entity.Order;
+import com.zerone.secondhandmarket.message.ItemFilter;
 import com.zerone.secondhandmarket.service.*;
 import com.zerone.secondhandmarket.tools.CodeProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,16 @@ public class SecondHandMarketController {
 
     @RequestMapping("/")
     public String run() {
-
+        ItemFilter itemFilter = new ItemFilter();
+        List<Item> items = itemService.getItemByFilter(itemFilter);
+        for (Item item : items) {
+            System.out.println(item);
+        }
+        String keyword = "";
+        List<Item> items1 = itemService.getItemByKeyword(keyword);
+        for (Item item : items1) {
+            System.out.println(item);
+        }
         //tagService.insertTag(42,"全新无损");
         //  User user = new User(6, "huhu", "123456", "1111111", "111@qq.com", UserHead.HEAD1);
 //        Administrator admin = new Administrator(2, "pecco", "123456");
@@ -91,7 +102,7 @@ public class SecondHandMarketController {
 //        orderService.insertOrder(order2);
 //        orderService.insertOrder(order3);
         //  orderService.deleteOrder(3);
-        Cart cart=new Cart(1,73,2);
+        Cart cart = new Cart(1, 73, 2);
         cartService.insertOrUpdateCart(cart);
         List<Order> orders = orderService.getOrderByUserId(1);
         for (Order cart0 : orders)
