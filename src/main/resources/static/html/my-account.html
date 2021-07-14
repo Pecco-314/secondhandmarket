@@ -76,14 +76,25 @@
                                     <h2>账户信息</h2>
                                     <div class="account-profile">
                                         <div class="account-profile-img">
-                                            <img src="../external/olex/images/products/product-profile1.jpg"
-                                                 alt="Images">
+                                            <div>
+                                                    <el-upload
+                                                            class="avatar-uploader"
+                                                            action="http://1.15.220.157:8088/requests/upload/image"
+                                                            :show-file-list="false"
+                                                            :on-success="handleAvatarSuccess"
+                                                            :on-remove="handleRemove"
+                                                            :before-upload="beforeAvatarUpload">
+                                                        <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                                                        <span v-if="imageUrl" class="el-upload-action"
+                                                              @click.stop="handleRemove()">
+                                                        <i class="el-icon-delete"></i>
+                                                        </span>
+                                                        <i v-else class="el-icon-upload2 avatar-uploader-icon" stop></i>
+                                                    </el-upload>
+                                            </div>
+
                                         </div>
-                                        <ul>
-                                            <li><a href="#">修改</a></li>
-                                            <li><a href="#">删除</a></li>
-                                            <li><a @click="exit">退出登录</a></li>
-                                        </ul>
+
                                     </div>
 
                                     <div class="account-form">
@@ -402,7 +413,86 @@
 <script src="../js/core.js"></script>
 <script src="../js/header.js"></script>
 <script src="../js/user.js"></script>
+<script>
+    export default {
+        data() {
+            return {
+                imageUrl: ''
+            }
+        },
+        methods: {
+            // 移除图片
+            handleRemove() {
+                this.imageUrl = ''
+            },
+            // 上传成功回调
+            handleAvatarSuccess(res, file) {
+                this.imageUrl = res.data.url
+            },
+            // 上传前格式和图片大小限制
+            beforeAvatarUpload(file) {
+                const type = file.type === 'image/jpeg' || 'image/jpg' || 'image/webp' || 'image/png'
+                const isLt2M = file.size / 1024 / 1024 < 2
+                if (!type) {
+                    this.$message.error('图片格式不正确!(只能包含jpg，png，webp，JPEG)')
+                }
+                if (!isLt2M) {
+                    this.$message.error('上传图片大小不能超过 2MB!')
+                }
+                return type && isLt2M
+            }
+        }
+    }
+</script>
+<style scoped lang='less'>
+    .avatar-uploader{
+        margin-left: 10px;
+        width: 70PX;
+        height: 70px;
+        border-radius: 50%;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        background: url('../img/defaulthead.png') no-repeat;
+        background-size: 100% 100%;
+    }
+    .avatar-uploader-icon{
+        font-size: 0;
+        color: #fff;
+        width: 70px;
+        height: 70px;
+        line-height: 70px;
+        text-align: center;
+    }
+    .avatar-uploader-icon:hover{
+        font-size: 28px;
+        background-color: rgba(0, 0, 0, .3);
+    }
+    .avatar {
+        position: relative;
+        width: 120px;
+        height: 120px;
+        display: block;
+    }
+    .el-upload-action {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+        font-size: 0;
+        color: #fff;
+        text-align: center;
+        line-height: 120px;
 
+    }
+    .el-upload-action:hover {
+        font-size: 20px;
+        background-color: #000;
+        background-color: rgba(0, 0, 0, .3)
+    }
+</style>
 <style>
     .ellipsis-type {
         max-width: 100px;
