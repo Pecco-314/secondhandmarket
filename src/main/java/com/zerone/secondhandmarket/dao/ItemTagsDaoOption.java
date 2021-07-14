@@ -25,7 +25,7 @@ public class ItemTagsDaoOption {
 
 
     // 用于删除商品关键词
-    public  int deleteItem(int itemId,String keyword) {
+    public int deleteItem(int itemId,String keyword) {
         String sql = "delete from keywords where item_id=:item_id and keyword=:keyword";
         Map<String, Object> param = new HashMap<>();
         param.put("item_id", itemId);
@@ -34,7 +34,7 @@ public class ItemTagsDaoOption {
     }
     // 通过id查询关键词
     public List<String> getTagsByItemId(int itemId) {
-        String sql = "select * from keywords where item_id=:item_id";
+        String sql = "select keyword from keywords where item_id=:item_id";
         Map<String, Object> param = new HashMap<>();
         param.put("item_id", itemId);
         try {

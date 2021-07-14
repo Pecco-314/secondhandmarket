@@ -28,7 +28,7 @@ public class ItemController {
     @ResponseBody
     @GetMapping("/index/items")
     public String getIndexItems() {
-        Result result = ItemModule.getIndexItemList(itemService, itemImageService, tagsService);
+        Result result = ItemModule.getItemListForHomepage(itemService, itemImageService, tagsService);
         //System.out.println(result);
         return result.toString();
     }

@@ -74,6 +74,11 @@ public class ItemService implements ItemDao {
         return daoOption.getItemByKeyword(keyword);
     }
 
+    @Override
+    public List<Item> getItemListByFilterAndKeyword(ItemFilter filter, String keyword) {
+        return daoOption.getItemListByFilterAndKeyword(filter, keyword);
+    }
+
     /*@Override
     public List<SimplifiedItem> getSimplifiedItemByFilter(ItemFilter itemFilter) {
         return daoOption.getSimplifiedItemByFilter(itemFilter);

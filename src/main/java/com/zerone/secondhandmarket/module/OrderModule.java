@@ -12,6 +12,7 @@ import com.zerone.secondhandmarket.viewobject.Result;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class OrderModule {
     public static Result getOrderList(OrderService service, ItemService itemService, int userId) {
@@ -21,10 +22,15 @@ public class OrderModule {
             return new Result(Status.NO_QUALIFIED_ORDERS, "没有合适的订单", null);
         }
 
-        List<SimplifiedOrder> simplifiedOrderList = new ArrayList<>();
+        List<SimplifiedOrder> simplifiedOrderList = list
+                .stream()
+                .map(order -> new SimplifiedOrder(order, itemService.getItemById(order.getItem())))
+                .collect(Collectors.toList());
+
+        /*List<SimplifiedOrder> simplifiedOrderList = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
             simplifiedOrderList.add(new SimplifiedOrder(list.get(i), itemService.getItemById(list.get(i).getItem())));
-        }
+        }*/
 
         return new Result(Status.ORDER_OK, "获取订单列表成功", simplifiedOrderList);
     }

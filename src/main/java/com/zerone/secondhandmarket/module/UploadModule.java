@@ -20,7 +20,7 @@ public class UploadModule {
 
         //遍历文件
         if (multipartFiles != null && multipartFiles.length > 0) {
-            int i=0;
+            //int i=0;
             for (MultipartFile item : multipartFiles) {
                 int begin = item.getOriginalFilename().lastIndexOf(".");
                 //获取文件类型

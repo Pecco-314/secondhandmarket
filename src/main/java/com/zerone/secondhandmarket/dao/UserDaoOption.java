@@ -61,7 +61,7 @@ public class UserDaoOption {
         Map<String, Object> param = new HashMap<>();
         param.put("id", id);
         try {
-            return jdbcTemplate.queryForObject(sql.toString(), param, new UserRowMapper());
+            return jdbcTemplate.queryForObject(sql, param, new UserRowMapper());
         } catch (Exception e) {
             return null;
         }
@@ -72,7 +72,7 @@ public class UserDaoOption {
         Map<String, Object> param = new HashMap<>();
         param.put("email", emailAddress);
         try {
-            return jdbcTemplate.queryForObject(sql.toString(), param, new UserRowMapper());
+            return jdbcTemplate.queryForObject(sql, param, new UserRowMapper());
         } catch (Exception e) {
             return null;
         }
