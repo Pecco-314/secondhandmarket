@@ -52,7 +52,7 @@
         </div>
         <hr class="line-bottom">
 
-        <div id="NewProducts" class="row">
+        <div id="NewProducts" class="row" v-loading="loading">
             <div class="col-lg-3 col-sm-6 mix smartphone television camera" v-for="item in items" :key="item.id"
                  style="display: inline-block;" data-bound="">
                 <div class="arrival-product">
