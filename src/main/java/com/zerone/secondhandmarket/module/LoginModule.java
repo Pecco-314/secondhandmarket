@@ -54,7 +54,10 @@ public class LoginModule {
             user.setPassword(CodeProcessor.encode(password));
 
             userService.insertUser(user);
-            return new Result(Status.OK, "注册成功", user);
+            int userId = userService.getUserByEmail(email).getId();
+
+            Date date = new Date();
+            return new Result(Status.OK, "注册成功", new UserTokenMessage(userId, CodeProcessor.encode(userId + "@" + date)));
         }
     }
 
