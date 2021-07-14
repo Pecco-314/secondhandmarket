@@ -58,7 +58,7 @@ let userinfoForm = new Vue({
                         success: (responseStr) => {
                             let response = JSON.parse(responseStr);
                             if (response.status === 50200) {
-                                confirm("修改成功");
+                                elAlert(this, "修改成功", '', () => {});
                             } else {
                                 alert(`${response.message}（状态码：${response.status}）`);
                             }
@@ -136,7 +136,7 @@ let passwordForm = new Vue({
                             if (response.status === 50200) {
                                 this.clear();
                                 console.log(this.form);
-                                confirm("修改成功");
+                                elAlert(this, "修改成功", '', () => {});
                             } else {
                                 alert(`${response.message}（状态码：${response.status}）`);
                             }
@@ -225,7 +225,7 @@ let itemsForm = new Vue({
                     let response = JSON.parse(responseStr);
                     if (response.status === 30200) {
                         this.clear();
-                        confirm("更新成功");
+                        elAlert(this, "更新成功", '', () => {});
                         itemsForm.getItemList();
                     } else {
                         alert(`${response.message}（状态码：${response.status}）`);
@@ -243,7 +243,7 @@ let itemsForm = new Vue({
                     let response = JSON.parse(responseStr);
                     if (response.status === 30200) {
                         this.dialogVisibleForDelete = false;
-                        confirm("删除成功");
+                        elAlert(this, "删除成功", '', () => {});
                         itemsForm.getItemList();
                     } else {
                         alert(`${response.message}（状态码：${response.status}）`);
