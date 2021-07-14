@@ -191,15 +191,17 @@ public class ItemDaoOption {
             param.put("checked", itemFilter.getCheckCondition().toString());
         }
 
-        switch (itemFilter.getPriceOrdering()) {
-            case ASC:
-                sql.append(" order by price_now ASC");
-                break;
-            case DESC:
-                sql.append(" order by price_now DESC");
-                break;
-            default:
-                break;
+        if(itemFilter.getPriceOrdering() != null) {
+            switch (itemFilter.getPriceOrdering()) {
+                case ASC:
+                    sql.append(" order by price_now ASC");
+                    break;
+                case DESC:
+                    sql.append(" order by price_now DESC");
+                    break;
+                default:
+                    break;
+            }
         }
 
         try {
@@ -271,15 +273,17 @@ public class ItemDaoOption {
             param.put("item_name", String.format("%%%s%%", keyword));
         }
 
-        switch (filter.getPriceOrdering()) {
-            case ASC:
-                sql.append(" order by price_now ASC");
-                break;
-            case DESC:
-                sql.append(" order by price_now DESC");
-                break;
-            default:
-                break;
+        if(filter.getPriceOrdering() != null) {
+            switch (filter.getPriceOrdering()) {
+                case ASC:
+                    sql.append(" order by price_now ASC");
+                    break;
+                case DESC:
+                    sql.append(" order by price_now DESC");
+                    break;
+                default:
+                    break;
+            }
         }
 
         try {
