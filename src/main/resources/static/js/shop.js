@@ -95,10 +95,13 @@ let shopApp = new Vue({
     },
     mounted() {
         this.select(this.itemFilter.type);
+        $('select').niceSelect();
     },
     computed: {
         title: () => hasURLVariables() ? '搜索结果' : '全部商品',
     }
 })
 
-$(shopApp.getSearchResult());
+$(function() {
+    shopApp.getSearchResult();
+});

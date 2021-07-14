@@ -19,3 +19,8 @@
 .search-button {
     padding: 0 0 0 0;
 }
+
+.product-topper .product-category .form-group .nice-select .list .option:hover {
+    background-color: #E8B43F !important;
+    color: #ffffff;
+}

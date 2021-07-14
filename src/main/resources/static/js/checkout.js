@@ -68,6 +68,9 @@ let checkoutForm = new Vue({
         },
         id: getURLVariable('id')
     },
+    mounted() {
+        $('select').niceSelect();
+    }
 });
 
 Vue.component('checkout-item', {
