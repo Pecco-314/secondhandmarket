@@ -16,6 +16,20 @@ function isPossiblyID(text) {
     return /^\d+$/.test(text);
 }
 
+function toNull(data) {
+    if (data === undefined || data === 'null' || data === '')
+        return null;
+    else
+        return data;
+}
+
+function toEmptyString(data) {
+    if (data === undefined || data === 'null' || data === null)
+        return '';
+    else
+        return data;
+}
+
 function showErrorInForm(app, formName, propName, rulesName, message) {
     let currentRules = app[rulesName][propName];
     app[rulesName][propName] = [{validator: (rule, value, callback) => callback(new Error(message))}]
@@ -33,6 +47,10 @@ function getURLVariable(variable) {
         }
     }
     return undefined;
+}
+
+function hasURLVariables() {
+    return window.location.search !== '';
 }
 
 function removeIf(list, predicate) {

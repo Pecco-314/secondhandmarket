@@ -4,6 +4,25 @@ Vue.component('page-header', {
         pageName: String
     },
 
+    data() {
+        return {
+            options: [
+                {text: "商品分类", value: null},
+                {text: "数码产品", value: 'DIGITAL'},
+                {text: "书籍教材", value: 'BOOKS'},
+                {text: "衣鞋帽伞", value: 'CLOTHES'},
+                {text: "代步工具", value: 'TRANSPORT'},
+                {text: "体育健身", value: 'SPORTS'},
+                {text: "家用电器", value: 'ELECTRIC'},
+                {text: "日常用品", value: 'DAILY_USE'},
+                {text: "票券产品", value: 'TICKET'},
+                {text: "其他", value: 'OTHERS'},
+            ],
+            selectedType: null,
+            searchContent: "",
+        }
+    },
+
     computed: {
         isLogin() {
             return $.cookie("id") !== undefined;
@@ -13,9 +32,14 @@ Vue.component('page-header', {
         }
     },
 
+    methods: {
+        onSearch() {
+            window.open(`../shop?type=${this.selectedType}&keyword=${this.searchContent}`)
+        }
+    },
+
     template: `
 <div>
-    <!-- Top Header Start -->
     <header v-if="isMainPage" class="top-header top-header-bg">
         <div class="container">
             <div class="row align-items-center">
@@ -25,25 +49,16 @@ Vue.component('page-header', {
                             <div class="row">
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <select class="form-control">
-                                            <option>商品分类</option>
-                                            <option>数码产品</option>
-                                            <option>书籍教材</option>
-                                            <option>衣鞋帽伞</option>
-                                            <option>代步工具</option>
-                                            <option>体育健身</option>
-                                            <option>家用电器</option>
-                                            <option>日常用品</option>
-                                            <option>票券产品</option>
-                                            <option>其他</option>
+                                        <select class="form-control" v-model="selectedType">
+                                            <option v-for="option in options" :value="option.value" :key="option.key">{{ option.text }}</option>
                                         </select>
                                     </div>
                                 </div>
     
                                 <div class="col-lg-8 pl-0">
                                     <div class="form-group search-form">
-                                        <input type="search" class="form-control" placeholder="搜索商品">
-                                        <button type="submit">
+                                        <input type="search" class="form-control" placeholder="搜索商品" v-model="searchContent">
+                                        <button @click="onSearch">
                                             <i class="bx bx-search"></i>
                                         </button>
                                     </div>
@@ -127,6 +142,6 @@ Vue.component('page-header', {
     </div>`
 })
 
-new Vue({
+let pageHeader = new Vue({
     el: "#page-header"
-});
+}).$children[0];

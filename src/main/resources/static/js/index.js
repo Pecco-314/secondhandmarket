@@ -2,6 +2,7 @@ let indexForm = new Vue({
     el: '#NewProducts',
     data: {
         items: [],
+        loading: true,
     },
     methods: {
         getIndexItems() {
@@ -18,7 +19,7 @@ let indexForm = new Vue({
                             this.items[i].imageurl = `http://1.15.220.157:8088/requests/image/${this.items[i].coverPath}`;
                             this.items[i].url = `${url}/item?id=${this.items[i].id}`;
                         }
-                        console.log(this.items);
+                        this.loading = false;
                     } else {
                         alert(`${response.message}（状态码：${response.status}）`);
                     }
