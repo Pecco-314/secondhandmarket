@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.net.URLDecoder;
 
 @Controller("OrdinaryItem")
 public class ItemController {
@@ -95,8 +96,8 @@ public class ItemController {
     @ResponseBody
     @PostMapping("/requests/product/search")
     public String searchItems(@RequestBody SearchMessage searchMessage) {
-        Result result = ItemModule.searchItems(itemService, itemImageService, tagsService, searchMessage.getItemFilter(), searchMessage.getKeyword());
-
+        System.out.println(searchMessage);
+        Result result = ItemModule.searchItems(itemService, itemImageService, tagsService, searchMessage.getItemFilter(), URLDecoder.decode(searchMessage.getKeyword()));
         return result.toString();
     }
 

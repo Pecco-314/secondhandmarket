@@ -149,8 +149,8 @@
                 <div class="product-topper">
                     <div class="row">
                         <div class="col-lg-8">
-                            <div class="product-topper-title">
-                                <h3>全部商品</h3>
+                            <div class="product-topper-title" id="shop-title">
+                                <h3>{{title}}</h3>
                             </div>
                         </div>
 
@@ -168,6 +168,7 @@
                     </div>
                 </div>
                 <div id="NewProducts" class="row" v-loading="loading">
+                    <div v-if="notFound">未找到相关物品</div>
                     <div class="col-lg-4 col-sm-6" v-for="item in items" :key="item.id">
                         <div class="product-card">
                             <div class="product-card-img">
@@ -191,34 +192,34 @@
                             </div>
 
                             <div class="content">
-                                <h3><a :href=item.url class="item__name" style="text-overflow: ellipsis">{{item.name}}</a></h3>
+                                <h3><a :href=item.url class="item__name"
+                                       style="text-overflow: ellipsis">{{item.name}}</a></h3>
                                 <span>￥{{item.price}}</span>
                             </div>
                         </div>
                     </div>
 
-<!--                    <div class="col-lg-12 col-md-12 text-center">-->
-<!--                        <div class="pagination-area">-->
-<!--                            <a href="#" class="prev page-numbers">-->
-<!--                                <i class="bx bx-chevron-left"></i>-->
-<!--                            </a>-->
+                    <!--                    <div class="col-lg-12 col-md-12 text-center">-->
+                    <!--                        <div class="pagination-area">-->
+                    <!--                            <a href="#" class="prev page-numbers">-->
+                    <!--                                <i class="bx bx-chevron-left"></i>-->
+                    <!--                            </a>-->
 
-<!--                            <span class="page-numbers current" aria-current="page">1</span>-->
-<!--                            <a href="#" class="page-numbers">2</a>-->
-<!--                            <a href="#" class="page-numbers">3</a>-->
+                    <!--                            <span class="page-numbers current" aria-current="page">1</span>-->
+                    <!--                            <a href="#" class="page-numbers">2</a>-->
+                    <!--                            <a href="#" class="page-numbers">3</a>-->
 
-<!--                            <a href="#" class="next page-numbers">-->
-<!--                                <i class="bx bx-chevron-right"></i>-->
-<!--                            </a>-->
-<!--                        </div>-->
-<!--                    </div>-->
+                    <!--                            <a href="#" class="next page-numbers">-->
+                    <!--                                <i class="bx bx-chevron-right"></i>-->
+                    <!--                            </a>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
                 </div>
             </div>
         </div>
     </div>
 </div>
 <!-- Product Area End -->
-
 
 
 <!-- QuickView Modal Area -->
@@ -231,7 +232,8 @@
 
             <div class="row">
                 <div class="col-lg-5 col-md-4">
-                    <div class="products-image"><img src="../external/olex/images/products/shop-details-img1.png" alt="Images">
+                    <div class="products-image"><img src="../external/olex/images/products/shop-details-img1.png"
+                                                     alt="Images">
                     </div>
                 </div>
 
