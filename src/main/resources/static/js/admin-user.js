@@ -97,7 +97,7 @@ let userTableForm = new Vue({
         methods: {
             getUserList() {
                 $.ajax({
-                    url: `${url}requests/admin/users`,
+                    url: `${url}/requests/admin/users`,
                     method: 'get',
                     contentType: "application/json;charset=utf-8",
                     success: (responseStr) => {
