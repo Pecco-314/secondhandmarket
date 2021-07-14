@@ -72,20 +72,21 @@
                     <div class="tab_content current active">
                         <div class="tabs_item current">
                             <div class="account-tab-item">
-                                <div class="account-details">
+                                <div class="account-details" id="userinfo-form">
                                     <h2>账户信息</h2>
                                     <div class="account-profile">
                                         <div class="account-profile-img">
-                                            <img src="../external/olex/images/products/product-profile1.jpg" alt="Images">
+                                            <img src="../external/olex/images/products/product-profile1.jpg"
+                                                 alt="Images">
                                         </div>
                                         <ul>
                                             <li><a href="#">修改</a></li>
                                             <li><a href="#">删除</a></li>
-                                            <li><a href="#">退出登录</a></li>
+                                            <li><a @click="exit">退出登录</a></li>
                                         </ul>
                                     </div>
 
-                                    <div class="account-form" id="userinfo-form">
+                                    <div class="account-form">
                                         <el-form :model="form" ref="form" :rules="rules" label-width="60px">
                                             <div class="row" style="inset-inline: inherit">
                                                 <el-form-item class="col-lg-12" prop="nickname" label="昵称" required>
@@ -278,7 +279,8 @@
                                                 style="margin-left: 90px">操作</span></h3>
                                     <ul class="checkout-product">
                                         <li>
-                                            <img src="../external/olex/images/products/propular-style8.png" alt="Images">
+                                            <img src="../external/olex/images/products/propular-style8.png"
+                                                 alt="Images">
                                             <h3>Local Onion</h3>
                                             <span>$2.0</span>
                                             <div class="price-tag" style="left: 32%">6</div>
@@ -289,7 +291,8 @@
                                         </li>
 
                                         <li>
-                                            <img src="../external/olex/images/products/propular-style4.png" alt="Images">
+                                            <img src="../external/olex/images/products/propular-style4.png"
+                                                 alt="Images">
                                             <h3>Protein Chocolate</h3>
                                             <span>$25.0</span>
                                             <div class="price-tag" style="left: 32%">1</div>
