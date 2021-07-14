@@ -2,10 +2,13 @@ let itemApp = new Vue({
     el: "#item-app",
     methods: {
         buy() {
-            window.open(`../checkout?id=${this.item.id}&type=single`)
+            window.open(`../checkout?id=${this.item.id}&cnt=${this.cnt}&type=single`)
         }
     },
     data: {
+        cnt: 1,
+        min: 1,
+        max: 1,
         item: {
             id: null,
             seller: null,
@@ -27,6 +30,7 @@ let itemApp = new Vue({
 $(function () {
         getItemInfo(getURLVariable("id"), response => {
             itemApp.item = response.data;
+            itemApp.max = response.data.quantity;
             let date = new Date(itemApp.item.releaseTime);
             itemApp.item.releaseDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
             if (itemApp.item.introduction === null) {
