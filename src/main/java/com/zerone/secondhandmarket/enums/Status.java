@@ -36,7 +36,10 @@ public enum Status {
     GENERATE_ORDER_ERROR(40402),
 
     USER_OK(50200),
-    USER_ERROR(50400),
+    TOKEN_MISMATCH(50400),
+    PASSWORD_ERROR(50401),
+    USER_ERROR(50402),
+
 
 
     ;

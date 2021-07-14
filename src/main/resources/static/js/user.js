@@ -58,7 +58,8 @@ let userinfoForm = new Vue({
                         success: (responseStr) => {
                             let response = JSON.parse(responseStr);
                             if (response.status === 50200) {
-                                elAlert(this, "修改成功", '', () => {});
+                                elAlert(this, "修改成功", '', () => {
+                                });
                             } else {
                                 alert(`${response.message}（状态码：${response.status}）`);
                             }
@@ -135,8 +136,10 @@ let passwordForm = new Vue({
                             let response = JSON.parse(responseStr);
                             if (response.status === 50200) {
                                 this.clear();
-                                console.log(this.form);
-                                elAlert(this, "修改成功", '', () => {});
+                                elAlert(this, "修改成功", '', () => {
+                                });
+                            } else if (response.status === 50401) {
+                                showErrorInForm(passwordForm, 'form', 'oldPassword', 'rules', response.message)
                             } else {
                                 alert(`${response.message}（状态码：${response.status}）`);
                             }
@@ -225,7 +228,8 @@ let itemsForm = new Vue({
                     let response = JSON.parse(responseStr);
                     if (response.status === 30200) {
                         this.clear();
-                        elAlert(this, "更新成功", '', () => {});
+                        elAlert(this, "更新成功", '', () => {
+                        });
                         itemsForm.getItemList();
                     } else {
                         alert(`${response.message}（状态码：${response.status}）`);
@@ -243,7 +247,8 @@ let itemsForm = new Vue({
                     let response = JSON.parse(responseStr);
                     if (response.status === 30200) {
                         this.dialogVisibleForDelete = false;
-                        elAlert(this, "删除成功", '', () => {});
+                        elAlert(this, "删除成功", '', () => {
+                        });
                         itemsForm.getItemList();
                     } else {
                         alert(`${response.message}（状态码：${response.status}）`);

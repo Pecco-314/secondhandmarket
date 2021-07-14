@@ -39,7 +39,7 @@ public class UserController {
         if (CodeProcessor.validateIdToken(userIdToken.getUserID(), userIdToken.getToken()))
             result = UserModule.getUserInfo(userService, userIdToken.getUserID());
         else
-            result = new Result(Status.USER_ERROR, "id与token不一致", null);
+            result = new Result(Status.TOKEN_MISMATCH, "id与token不一致", null);
         return result.toString();
     }
 
@@ -58,7 +58,7 @@ public class UserController {
 
             result = UserModule.updateUserInfo(userService, user);
         } else
-            result = new Result(Status.USER_ERROR, "id与token不一致", null);
+            result = new Result(Status.TOKEN_MISMATCH, "id与token不一致", null);
 
         return result.toString();
     }
@@ -76,10 +76,10 @@ public class UserController {
                 user.setPassword(CodeProcessor.encode(passwordModificationMessage.getNewPassword()));
                 result = UserModule.updateUserInfo(userService, user);
             } else {
-                result = new Result(Status.USER_ERROR, "旧密码输入错误", null);
+                result = new Result(Status.PASSWORD_ERROR, "旧密码输入错误", null);
             }
         } else
-            result = new Result(Status.USER_ERROR, "id与token不一致", null);
+            result = new Result(Status.TOKEN_MISMATCH, "id与token不一致", null);
 
         return result.toString();
     }
