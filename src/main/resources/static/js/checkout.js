@@ -6,30 +6,6 @@ function switchToTab(index) {
     tab.find('.tab_content').find('div.tabs_item:eq(' + index + ')').slideDown();
 }
 
-Vue.component('campus-select', {
-    methods: {
-        onSelectionChange() {
-            checkoutForm.form.campus = this.campus;
-        }
-    },
-    template: `
-        <select v-model="campus" class="form-control" @change="onSelectionChange">
-            <option
-                    v-for="option in options" :key="option"
-                    :value="option" v-text="option">
-            </option>
-        </select>
-`,
-    data() {
-        return {
-            options: [
-                "翔安校区", "思明校区"
-            ],
-            campus: "翔安校区"
-        }
-    },
-})
-
 
 let checkoutForm = new Vue({
     el: "#checkout-form",
@@ -66,6 +42,10 @@ let checkoutForm = new Vue({
             }],
             dorm: [{required: true, message: "请输入公寓园区"}],
         },
+        options: [
+            '翔安校区',
+            '思明校区',
+        ],
         id: getURLVariable('id'),
 
     },

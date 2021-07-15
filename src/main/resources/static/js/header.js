@@ -12,7 +12,7 @@ function delCookie() {
 Vue.component('page-header', {
     props: {
         isMainPage: Boolean,
-        pageName: String
+        pageName: String,
     },
 
     data() {
@@ -31,6 +31,7 @@ Vue.component('page-header', {
             ],
             selectedType: null,
             searchContent: "",
+            dialogVisibleForExit: false
         }
     },
 
@@ -45,7 +46,10 @@ Vue.component('page-header', {
 
     methods: {
         onSearch() {
-            window.open(`../shop?type=${this.selectedType}&keyword=${this.searchContent}`)
+            window.open(`../shop?type=${this.selectedType}&keyword=${this.searchContent}`, "_self")
+        },
+        openExitDialog() {
+            this.dialogVisibleForExit = true;
         },
         exit() {
             delCookie();
@@ -98,9 +102,8 @@ Vue.component('page-header', {
                                                     <i class='bx bx-user'> 个人中心</i>
                                               </a>
                                                
-                                              <a class="dropdown-item" href="#">
-                                                   <i class='bx bx-exit'
-                                                   @click="exit"> 退出登录</i>
+                                              <a class="dropdown-item selectable" @click="openExitDialog">
+                                                   <i class='bx bx-exit'> 退出登录</i>
                                               </a>
                                         </div>
                                     </div>
@@ -118,6 +121,15 @@ Vue.component('page-header', {
             </div>
         </div>
     </header>
+    
+          <el-dialog title="退出登录" :visible.sync="dialogVisibleForExit" width="30%" :append-to-body='true'>
+        是否确定退出登录？
+              <span slot="footer" class="dialog-footer">
+                     <el-button
+                            @click="dialogVisibleForExit = false">取 消</el-button>
+                     <el-button type="primary" @click="exit">确 定</el-button>
+              </span>
+        </el-dialog>
     <!-- Top Header End -->
 
         <!-- Start Navbar Area -->
@@ -170,11 +182,10 @@ Vue.component('page-header', {
                                                     <i class='bx bx-user'> 个人中心</i>
                                               </a>
                                                
-                                              <a class="dropdown-item" href="#">
-                                                   <i class='bx bx-exit'
-                                                   @click="exit"> 退出登录</i>
+                                              <a class="dropdown-item selectable" @click="openExitDialog">
+                                                   <i class='bx bx-exit'> 退出登录</i>
                                               </a>
-                                            </div>
+                                        </div>
                                         </div>
                                     </div>
                                 </div>
@@ -184,6 +195,7 @@ Vue.component('page-header', {
                                         <span>1</span>
                                     </div>
                                 </div>
+                                
                             </div>
 
                             <div class="nav-btn nav-other-btn">

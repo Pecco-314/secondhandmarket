@@ -24,3 +24,9 @@
 .stock-label {
     padding-left: 10px;
 }
+
+.img-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: 15px;
+}
