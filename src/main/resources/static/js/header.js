@@ -1,3 +1,14 @@
+function delCookie() {
+    var keys = document.cookie.match(/[^ =;]+(?==)/g)
+    if (keys) {
+        for (var i = keys.length; i--;) {
+            document.cookie = keys[i] + '=0;path=/;expires=' + new Date(0).toUTCString() // 清除当前域名下的,例如：m.ratingdog.cn
+            document.cookie = keys[i] + '=0;path=/;domain=' + document.domain + ';expires=' + new Date(0).toUTCString() // 清除当前域名下的，例如 .m.ratingdog.cn
+            document.cookie = keys[i] + '=0;path=/;domain=ratingdog.cn;expires=' + new Date(0).toUTCString() // 清除一级域名下的或指定的，例如 .ratingdog.cn
+        }
+    }
+}
+
 Vue.component('page-header', {
     props: {
         isMainPage: Boolean,
@@ -35,6 +46,10 @@ Vue.component('page-header', {
     methods: {
         onSearch() {
             window.open(`../shop?type=${this.selectedType}&keyword=${this.searchContent}`)
+        },
+        exit() {
+            delCookie();
+            window.open("../", "_self");
         }
     },
 
@@ -71,6 +86,26 @@ Vue.component('page-header', {
                 <div class="col-lg-5 col-md-5">
                     <div class="top-header-right">
                         <div class="other-option">
+                            <div v-if="this.isLogin" class="option-item">
+                                <div class="language-list">
+                                    <div class="dropdown language-list-dropdown">
+                                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <img src="../img/admin_profile.png">
+                                                <i class='bx bx-chevron-down'></i>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                              <a class="dropdown-item" href="../user">
+                                                    <i class='bx bx-user'> 个人中心</i>
+                                              </a>
+                                               
+                                              <a class="dropdown-item" href="#">
+                                                   <i class='bx bx-exit'
+                                                   @click="exit"> 退出登录</i>
+                                              </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="option-item">
                                 <div class="cart-btn-area">
                                     <a href="#" class="cart-btn"><i class='bx bx-cart'></i></a>
@@ -122,6 +157,27 @@ Vue.component('page-header', {
                             </ul>
 
                             <div v-if="!this.isMainPage" class="nav-other">
+                            
+                                <div v-if="this.isLogin" class="nav-other-item">
+                                    <div class="language-list">
+                                        <div class="dropdown language-list-dropdown">
+                                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <img src="../img/admin_profile.png">
+                                                <i class='bx bx-chevron-down'></i>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                              <a class="dropdown-item" href="../user">
+                                                    <i class='bx bx-user'> 个人中心</i>
+                                              </a>
+                                               
+                                              <a class="dropdown-item" href="#">
+                                                   <i class='bx bx-exit'
+                                                   @click="exit"> 退出登录</i>
+                                              </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="nav-other-item">
                                     <div class="cart-btn-area">
                                         <a href="../cart" class="cart-btn"><i class='bx bx-cart'></i></a>
