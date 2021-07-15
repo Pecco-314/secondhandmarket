@@ -97,7 +97,9 @@
                                                     <div class="form-group">
                                                         <label>校区</label>
                                                         <el-form-item prop="campus">
-                                                            <campus-select></campus-select>
+                                                            <el-select v-model="form.campus">
+                                                                <el-option v-for="option in options" :key="option" :value="option" :label="option"></el-option>
+                                                            </el-select>
                                                         </el-form-item>
                                                     </div>
                                                 </div>
