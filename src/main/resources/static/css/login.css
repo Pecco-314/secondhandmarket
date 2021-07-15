@@ -20,27 +20,32 @@
 }
 
 #login-box {
-    position: absolute;
-    transform: scale(1.1);
-    top: 18%;
+    margin-bottom: 20px;
+    position: relative;
 }
 
 #login-box .box-card {
+
     width: 300px;
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: #ffffff;
     border-width: 0;
 }
 
 #login-box .submit-button {
-    font-weight: bold;
-    width: 100%;
-    background-color: rgb(220, 220, 220);
+    display: inline-block;
+    padding: 12px 42px;
+    color: #ffffff;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    background-color: #E8B43F;
 }
 
 #login-box .form-header {
-    display: flex;
-    justify-content: center;
-    font-size: 16px;
+    font-size: 26px;
+    margin-bottom: 30px;
+    line-height: 1.2;
 }
 
 #login-box .h-rule {
@@ -49,7 +54,14 @@
 }
 
 .transparency-input input {
-    background-color: rgba(255, 255, 255, 0);
-    color: rgb(220, 220, 220)
+    height: 50px;
+    color: #10142D;
+    border: 1px solid #E8B43F;
+    background-color: #F1F1F1;
+    font-size: 14px;
+    padding: 10px 40px;
+    width: 100%;
+    font-weight: 500;
+    border-radius: 0;
 }
 
