@@ -48,8 +48,8 @@ public class OrderService implements OrderDao {
 
     @Override
     // 通过userid查询订单信息
-    public List<Order> getOrderByUserId(int userId) {
-        return daoOption.getOrderByUserId(userId);
+    public List<Order> getOrderByUserId(int userId, boolean isBuyer) {
+        return daoOption.getOrderByUserId(userId, isBuyer);
     }
 
     public List<Order> getOrderByFilter(OrderFilter filter) {
