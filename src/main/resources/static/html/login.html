@@ -1,8 +1,11 @@
-<!DOCTYPE html>
-<html lang="zh-ch">
+<!doctype html>
+<html lang="zxx" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
+    <!-- Required Meta Tags -->
     <meta charset="UTF-8">
-    <title>登录 - 二手交易市场</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
     <link rel="stylesheet" href="../external/element-ui/css/index.css">
     <link rel="stylesheet" href="../external/olex/css/bootstrap.min.css">
     <link rel="stylesheet" href="../external/olex/css/animate.min.css">
@@ -17,105 +20,144 @@
     <link rel="stylesheet" href="../external/olex/css/responsive.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/login.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../external/olex/images/favicon.png">
+
+    <title>二手交易市场</title>
 </head>
-<div id="page-header">
-    <page-header></page-header>
-</div>
-<body class="full-screen-body">
+
+
+<body>
 <div class="preloader">
     <div class="spinner">
         <div class="dot1"></div>
         <div class="dot2"></div>
     </div>
 </div>
-<div id="login-box-container">
-    <img src="../img/login-page.png">
-    <div id="login-box">
-        <el-card class="box-card">
-            <div class="form-header">
-                <label style="color:white" v-show="formType === 'userLogin'">用户登录</label>
-                <label style="color:white" v-show="formType === 'adminLogin'">管理员登录</label>
-                <label style="color:white" v-show="formType === 'register'">注册</label>
+<div id="page-header">
+    <page-header></page-header>
+</div>
+
+<!-- User Area -->
+
+<div class="user-area pt-100 pb-70">
+    <div class="container">
+        <div class="user-width">
+            <div class="row align-items-center" id="login-box">
+                <div class="col-lg-6">
+                    <div class="user-content">
+                        <h2>Hi Visitors!</h2>
+                        <p>You can easily be able to sign up to your account in any time.</p>
+                        <a v-on:click="formType = 'register'" class="user-btn">Register Now</a>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="user-form">
+                        <div>
+                            <div class="form-header">
+                                <label style="color:black" v-show="formType === 'userLogin'">用户登录</label>
+                                <label style="color:black" v-show="formType === 'adminLogin'">管理员登录</label>
+                                <label style="color:black" v-show="formType === 'register'">注册</label>
+                            </div>
+                            <el-divider class="h-rule"></el-divider>
+
+                            <el-form v-show="formType === 'userLogin'" :model="userLoginForm" :rules="userLoginRules"
+                                     ref="userLoginForm">
+                                <el-form-item prop="emailOrID">
+                                    <el-input class="transparency-input" v-model="userLoginForm.emailOrID"
+                                              placeholder="用户账号/电子邮箱地址"
+                                              prefix-icon="el-icon-user"></el-input>
+                                </el-form-item>
+                                <el-form-item prop="password">
+                                    <el-input class="transparency-input" type="password"
+                                              v-model="userLoginForm.password"
+                                              placeholder="密码"
+                                              prefix-icon="el-icon-lock"></el-input>
+                                </el-form-item>
+                                <el-form-item>
+                                    <el-button @click="onUserLogin" class="submit-button">登录</el-button>
+                                </el-form-item>
+                                <el-form-item class="form-bottom">
+                                    <div class="link-container">
+                                        <el-link class="link" :underline="false" v-on:click="formType = 'adminLogin'">
+                                            管理员登录
+                                        </el-link>
+                                    </div>
+                                </el-form-item>
+                            </el-form>
+
+                            <el-form v-show="formType === 'adminLogin'" :model="adminLoginForm" :rules="adminLoginRules"
+                                     ref="adminLoginForm">
+                                <el-form-item prop="id">
+                                    <el-input class="transparency-input" v-model="adminLoginForm.id"
+                                              placeholder="管理员账号"
+                                              prefix-icon="el-icon-user"></el-input>
+                                </el-form-item>
+                                <el-form-item prop="password">
+                                    <el-input class="transparency-input" type="password"
+                                              v-model="adminLoginForm.password"
+                                              placeholder="密码"
+                                              prefix-icon="el-icon-lock"></el-input>
+                                </el-form-item>
+                                <el-form-item>
+                                    <el-button @click="onAdminLogin" class="submit-button">登录</el-button>
+                                </el-form-item>
+                                <el-form-item class="form-bottom">
+                                    <div class="link-container">
+                                        <el-link class="link" :underline="false" v-on:click="formType = 'userLogin'">
+                                            用户登录
+                                        </el-link>
+                                    </div>
+                                </el-form-item>
+                            </el-form>
+                            <el-form v-show="formType === 'register'" status-icon :rules="registerRules"
+                                     :model="registerForm"
+                                     ref="registerForm">
+                                <el-form-item prop="email">
+                                    <el-input class="transparency-input" v-model="registerForm.email"
+                                              placeholder="电子邮箱地址"
+                                              prefix-icon="el-icon-message"></el-input>
+                                </el-form-item>
+                                <el-form-item prop="nickname">
+                                    <el-input class="transparency-input" v-model="registerForm.nickname"
+                                              placeholder="昵称"
+                                              prefix-icon="el-icon-user"></el-input>
+                                </el-form-item>
+                                <el-form-item prop="password">
+                                    <el-input class="transparency-input" type="password" v-model="registerForm.password"
+                                              placeholder="密码"
+                                              prefix-icon="el-icon-lock"></el-input>
+                                </el-form-item>
+                                <el-form-item prop="confirmedPassword">
+                                    <el-input class="transparency-input" type="password"
+                                              v-model="registerForm.confirmedPassword"
+                                              placeholder="确认密码"
+                                              prefix-icon="el-icon-s-check"></el-input>
+                                </el-form-item>
+                                <el-form-item>
+                                    <el-button @click="onRegister" class="submit-button">注册</el-button>
+                                </el-form-item>
+                                <el-form-item class="form-bottom">
+                                    <div class="link-container">
+                                        <el-link class="link" :underline="false" @click="formType = 'userLogin'">用户登录
+                                        </el-link>
+                                        <el-link class="link" :underline="false" @click="formType = 'adminLogin'">
+                                            管理员登录
+                                        </el-link>
+                                    </div>
+                                </el-form-item>
+                            </el-form>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <el-divider class="h-rule"></el-divider>
-            <el-form v-show="formType === 'userLogin'" :model="userLoginForm" :rules="userLoginRules"
-                     ref="userLoginForm">
-                <el-form-item prop="emailOrID">
-                    <el-input class="transparency-input" v-model="userLoginForm.emailOrID"
-                              placeholder="用户账号/电子邮箱地址"
-                              prefix-icon="el-icon-user"></el-input>
-                </el-form-item>
-                <el-form-item prop="password">
-                    <el-input class="transparency-input" type="password" v-model="userLoginForm.password"
-                              placeholder="密码"
-                              prefix-icon="el-icon-lock"></el-input>
-                </el-form-item>
-                <el-form-item>
-                    <el-button @click="onUserLogin" class="submit-button">登录</el-button>
-                </el-form-item>
-                <el-form-item class="form-bottom">
-                    <div class="link-container">
-                        <el-link class="link" v-on:click="formType = 'adminLogin'">管理员登录</el-link>
-                        <el-link class="link" v-on:click="formType = 'register'">注册账号</el-link>
-                    </div>
-                </el-form-item>
-            </el-form>
-            <el-form v-show="formType === 'adminLogin'" :model="adminLoginForm" :rules="adminLoginRules"
-                     ref="adminLoginForm">
-                <el-form-item prop="id">
-                    <el-input class="transparency-input" v-model="adminLoginForm.id"
-                              placeholder="管理员账号"
-                              prefix-icon="el-icon-user"></el-input>
-                </el-form-item>
-                <el-form-item prop="password">
-                    <el-input class="transparency-input" type="password" v-model="adminLoginForm.password"
-                              placeholder="密码"
-                              prefix-icon="el-icon-lock"></el-input>
-                </el-form-item>
-                <el-form-item>
-                    <el-button @click="onAdminLogin" class="submit-button">登录</el-button>
-                </el-form-item>
-                <el-form-item class="form-bottom">
-                    <div class="link-container">
-                        <el-link class="link" v-on:click="formType = 'userLogin'">用户登录</el-link>
-                    </div>
-                </el-form-item>
-            </el-form>
-            <el-form v-show="formType === 'register'" status-icon :rules="registerRules" :model="registerForm"
-                     ref="registerForm">
-                <el-form-item prop="email">
-                    <el-input class="transparency-input" v-model="registerForm.email"
-                              placeholder="电子邮箱地址"
-                              prefix-icon="el-icon-message"></el-input>
-                </el-form-item>
-                <el-form-item prop="nickname">
-                    <el-input class="transparency-input" v-model="registerForm.nickname" placeholder="昵称"
-                              prefix-icon="el-icon-user"></el-input>
-                </el-form-item>
-                <el-form-item prop="password">
-                    <el-input class="transparency-input" type="password" v-model="registerForm.password"
-                              placeholder="密码"
-                              prefix-icon="el-icon-lock"></el-input>
-                </el-form-item>
-                <el-form-item prop="confirmedPassword">
-                    <el-input class="transparency-input" type="password" v-model="registerForm.confirmedPassword"
-                              placeholder="确认密码"
-                              prefix-icon="el-icon-s-check"></el-input>
-                </el-form-item>
-                <el-form-item>
-                    <el-button @click="onRegister" class="submit-button">注册</el-button>
-                </el-form-item>
-                <el-form-item class="form-bottom">
-                    <div class="link-container">
-                        <el-link class="link" @click="formType = 'userLogin'">用户登录</el-link>
-                        <el-link class="link" @click="formType = 'adminLogin'">管理员登录</el-link>
-                    </div>
-                </el-form-item>
-            </el-form>
-        </el-card>
+        </div>
     </div>
 </div>
-</body>
+
+<!-- User Area End -->
 
 <script src="../external/vue/js/vue.js"></script>
 <script src="../external/element-ui/js/index.js"></script>
@@ -136,4 +178,6 @@
 <script src="../js/core.js"></script>
 <script src="../js/header.js"></script>
 <script src="../js/login.js"></script>
+</body>
+
 </html>

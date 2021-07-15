@@ -1,20 +1,16 @@
 package com.zerone.secondhandmarket.controller.Admin;
 
 import com.zerone.secondhandmarket.entity.Item;
-import com.zerone.secondhandmarket.enums.ItemCheckCondition;
 import com.zerone.secondhandmarket.message.ItemCheckMessage;
 import com.zerone.secondhandmarket.message.ItemFilter;
 import com.zerone.secondhandmarket.module.ItemModule;
 import com.zerone.secondhandmarket.service.ItemImageService;
 import com.zerone.secondhandmarket.service.ItemService;
 import com.zerone.secondhandmarket.service.TagsService;
-import com.zerone.secondhandmarket.tools.JSONMapper;
 import com.zerone.secondhandmarket.viewobject.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller("AdminItem")
@@ -26,10 +22,16 @@ public class ItemController {
     @Autowired
     private TagsService tagsService = new TagsService();
 
+    @RequestMapping("/admin-item")
+    public String openAdminItemPage() {
+        return "tables-goods";
+    }
+
+
     @ResponseBody
-    @PostMapping("/requests/admin/uncheckedItems")
-    public String getItemUnchecked() {
-        ItemFilter filter = new ItemFilter(null, null, null, null, ItemCheckCondition.UNCHECKED);
+    @GetMapping("/requests/admin/items")
+    public String getAllItems() {
+        ItemFilter filter = new ItemFilter(null, null, null, null, null);
 
         Result result = ItemModule.getItemsByFilter(itemService, itemImageService, tagsService, filter);
 
