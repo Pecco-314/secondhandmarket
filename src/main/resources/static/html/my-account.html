@@ -77,20 +77,18 @@
                                     <div class="account-profile">
                                         <div class="account-profile-img">
                                             <div>
-                                                    <el-upload
-                                                            class="avatar-uploader"
-                                                            action="http://1.15.220.157:8088/requests/upload/image"
-                                                            :show-file-list="false"
-                                                            :on-success="onPostImageSuccessfully"
-                                                            :on-remove="onRemoveImage"
-                                                            :before-upload="beforeAvatarUpload">
-                                                        <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                                                        <span v-if="imageUrl" class="el-upload-action"
-                                                              @click.stop="handleRemove()">
-                                                        <i class="el-icon-delete"></i>
+                                                <el-upload
+                                                        name="multipartFile"
+                                                        class="avatar-uploader"
+                                                        action="http://localhost:8088/requests/user/upload/image"
+                                                        :show-file-list="false"
+                                                        :on-success="handleAvatarSuccess">
+                                                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                                                    <span v-if="imageUrl" class="el-upload-action">
+                                                        <i class="el-icon-upload2 avatar-uploader-icon"></i>
                                                         </span>
-                                                        <i v-else class="el-icon-upload2 avatar-uploader-icon" stop></i>
-                                                    </el-upload>
+                                                    <i v-else class="el-icon-upload2 avatar-uploader-icon" stop></i>
+                                                </el-upload>
                                             </div>
 
                                         </div>
@@ -288,31 +286,73 @@
                                             style="margin-left: 70px">数量</span><span style="margin-left: 75px">金额</span>
                                         <span style="margin-left: 68px">订单状态</span><span
                                                 style="margin-left: 90px">操作</span></h3>
-                                    <ul class="checkout-product">
-                                        <li>
-                                            <img src="../external/olex/images/products/propular-style8.png"
-                                                 alt="Images">
-                                            <h3>Local Onion</h3>
-                                            <span>$2.0</span>
-                                            <div class="price-tag" style="left: 32%">6</div>
-                                            <div class="price-tag" style="left: 43%">￥18.0</div>
-                                            <div class="price-tag" style="left: 58.5%">已完成</div>
-                                            <div class="price-tag" style="left: 75%"><a href="#">提现</a></div>
-                                            <div class="price-tag" style="left: 80%"><a href="#">删除订单</a></div>
+                                    <ul class="checkout-product" id="mySells">
+                                        <li v-for="order in orders" :key="order.orderInfo.id">
+                                            <img :src=order.imageurl alt="Images">
+                                            <div class="price-tag" style="left: 12%">
+                                                <h3><a :href=order.url class="ellipsis-type"
+                                                       style="text-overflow: ellipsis">{{order.itemInfo.name}}</a></h3>
+                                            </div>
+                                            <br>
+                                            <div class="price-tag" style="left: 31.5%;top:40%">
+                                                {{order.orderInfo.quantity}}
+                                            </div>
+                                            <div class="price-tag" style="left: 44%;top:40%">￥{{order.itemInfo.price}}
+                                            </div>
+                                            <div class="price-tag" style="left: 59%;top:40%">{{order.orderInfo.state}}
+                                            </div>
+                                            <div v-if="order.orderInfo.state==='已完成'" class="price-tag"
+                                                 style="left: 75%;top:35%">
+                                                <el-button type="text">
+                                                    提现
+                                                </el-button>
+                                            </div>
+                                            <div v-if="order.orderInfo.state==='已完成'" class="price-tag"
+                                                 style="left: 85%;top:35%">
+                                                <el-button type="text">
+                                                    删除订单
+                                                </el-button>
+                                            </div>
+                                            <br>
                                         </li>
-
-                                        <li>
-                                            <img src="../external/olex/images/products/propular-style4.png"
-                                                 alt="Images">
-                                            <h3>Protein Chocolate</h3>
-                                            <span>$25.0</span>
-                                            <div class="price-tag" style="left: 32%">1</div>
-                                            <div class="price-tag" style="left: 43%">￥25.0</div>
-                                            <div class="price-tag" style="left: 58.5%">已完成</div>
-                                            <div class="price-tag" style="left: 75%"><a href="#">提现</a></div>
-                                            <div class="price-tag" style="left: 80%"><a href="#">删除订单</a></div>
-                                        </li>
+                                        <el-dialog title="确认收货" :visible.sync="dialogVisibleForConfirm" width="30%">
+                                            是否确定已收货？
+                                            <span slot="footer" class="dialog-footer">
+                                                <el-button
+                                                        @click="dialogVisibleForConfirm = false">取 消
+                                                </el-button>
+                                                <el-button
+                                                        type="primary"
+                                                        @click="confirm">确 定
+                                                </el-button>
+                                            </span>
+                                        </el-dialog>
                                     </ul>
+<!--                                    <ul class="checkout-product">-->
+<!--                                        <li>-->
+<!--                                            <img src="../external/olex/images/products/propular-style8.png"-->
+<!--                                                 alt="Images">-->
+<!--                                            <h3>Local Onion</h3>-->
+<!--                                            <span>$2.0</span>-->
+<!--                                            <div class="price-tag" style="left: 32%">6</div>-->
+<!--                                            <div class="price-tag" style="left: 43%">￥18.0</div>-->
+<!--                                            <div class="price-tag" style="left: 58.5%">已完成</div>-->
+<!--                                            <div class="price-tag" style="left: 75%"><a href="#">提现</a></div>-->
+<!--                                            <div class="price-tag" style="left: 80%"><a href="#">删除订单</a></div>-->
+<!--                                        </li>-->
+
+<!--                                        <li>-->
+<!--                                            <img src="../external/olex/images/products/propular-style4.png"-->
+<!--                                                 alt="Images">-->
+<!--                                            <h3>Protein Chocolate</h3>-->
+<!--                                            <span>$25.0</span>-->
+<!--                                            <div class="price-tag" style="left: 32%">1</div>-->
+<!--                                            <div class="price-tag" style="left: 43%">￥25.0</div>-->
+<!--                                            <div class="price-tag" style="left: 58.5%">已完成</div>-->
+<!--                                            <div class="price-tag" style="left: 75%"><a href="#">提现</a></div>-->
+<!--                                            <div class="price-tag" style="left: 80%"><a href="#">删除订单</a></div>-->
+<!--                                        </li>-->
+<!--                                    </ul>-->
 
                                     <div class="col-lg-12 col-md-12 text-center">
                                         <div class="pagination-area">
@@ -393,6 +433,37 @@
 <!-- My Account Area End -->
 
 </body>
+<!--<script>-->
+<!--    export default {-->
+<!--        data() {-->
+<!--            return {-->
+<!--                imageUrl: ''-->
+<!--            }-->
+<!--        },-->
+<!--        methods: {-->
+<!--            // 移除图片-->
+<!--            handleRemove() {-->
+<!--                this.imageUrl = ''-->
+<!--            },-->
+<!--            // 上传成功回调-->
+<!--            handleAvatarSuccess(res, file) {-->
+<!--                this.imageUrl = res.data.url-->
+<!--            },-->
+<!--            // 上传前格式和图片大小限制-->
+<!--            beforeAvatarUpload(file) {-->
+<!--                const type = file.type === 'image/jpeg' || 'image/jpg' || 'image/webp' || 'image/png'-->
+<!--                const isLt2M = file.size / 1024 / 1024 < 2-->
+<!--                if (!type) {-->
+<!--                    this.$message.error('图片格式不正确!(只能包含jpg，png，webp，JPEG)')-->
+<!--                }-->
+<!--                if (!isLt2M) {-->
+<!--                    this.$message.error('上传图片大小不能超过 2MB!')-->
+<!--                }-->
+<!--                return type && isLt2M-->
+<!--            }-->
+<!--        }-->
+<!--    }-->
+<!--</script>-->
 
 <script src="../external/vue/js/vue.js"></script>
 <script src="../external/element-ui/js/index.js"></script>
@@ -413,39 +484,9 @@
 <script src="../js/core.js"></script>
 <script src="../js/header.js"></script>
 <script src="../js/user.js"></script>
-<script>
-    export default {
-        data() {
-            return {
-                imageUrl: ''
-            }
-        },
-        methods: {
-            // 移除图片
-            handleRemove() {
-                this.imageUrl = ''
-            },
-            // 上传成功回调
-            handleAvatarSuccess(res, file) {
-                this.imageUrl = res.data.url
-            },
-            // 上传前格式和图片大小限制
-            beforeAvatarUpload(file) {
-                const type = file.type === 'image/jpeg' || 'image/jpg' || 'image/webp' || 'image/png'
-                const isLt2M = file.size / 1024 / 1024 < 2
-                if (!type) {
-                    this.$message.error('图片格式不正确!(只能包含jpg，png，webp，JPEG)')
-                }
-                if (!isLt2M) {
-                    this.$message.error('上传图片大小不能超过 2MB!')
-                }
-                return type && isLt2M
-            }
-        }
-    }
-</script>
+
 <style scoped lang='less'>
-    .avatar-uploader{
+    .avatar-uploader {
         margin-left: 10px;
         width: 70PX;
         height: 70px;
@@ -456,7 +497,8 @@
         background: url('../img/defaulthead.png') no-repeat;
         background-size: 100% 100%;
     }
-    .avatar-uploader-icon{
+
+    .avatar-uploader-icon {
         font-size: 0;
         color: #fff;
         width: 70px;
@@ -464,16 +506,17 @@
         line-height: 70px;
         text-align: center;
     }
-    .avatar-uploader-icon:hover{
+
+    .avatar-uploader-icon:hover {
         font-size: 28px;
         background-color: rgba(0, 0, 0, .3);
     }
+
     .avatar {
         position: relative;
-        width: 120px;
-        height: 120px;
         display: block;
     }
+
     .el-upload-action {
         position: absolute;
         top: 0;
@@ -487,6 +530,7 @@
         line-height: 120px;
 
     }
+
     .el-upload-action:hover {
         font-size: 20px;
         background-color: #000;

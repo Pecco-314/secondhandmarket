@@ -18,6 +18,7 @@ let userinfoForm = new Vue({
             phoneNumber: "",
             emailAddress: "",
         },
+        imageUrl: '',
         rules: {
             nickname: [
                 {required: true, message: '请输入昵称'},
@@ -50,6 +51,9 @@ let userinfoForm = new Vue({
                 this.form.nickname = response.data.nickname;
                 this.form.phoneNumber = response.data.phoneNumber;
                 this.form.emailAddress = response.data.emailAddress;
+                if (response.data.imagePath !== null) {
+                    this.imageUrl = `${url}/requests/user/${response.data.imagePath}`;
+                }
             })
         },
         postUserInfo() {
@@ -63,7 +67,7 @@ let userinfoForm = new Vue({
                         nickname: this.form.nickname
                     };
                     $.ajax({
-                        url: `${url}/requests/user/info/update`,
+                        url: `${url}/requests/user/head/update`,
                         method: 'post',
                         data: JSON.stringify(identification),
                         contentType: "application/json;charset=utf-8",
@@ -86,7 +90,44 @@ let userinfoForm = new Vue({
         },
         validateField(field) {
             userinfoForm.$refs.form.validateField(field);
-        }
+        },
+        // 上传成功回调
+        handleAvatarSuccess(res, file) {
+            this.imageUrl = `${url}/requests/user/${res.data[0]}`;
+            let identification = {
+                userID: $.cookie("id"),
+                token: $.cookie("token"),
+                imageUrl: res.data[0],
+            };
+            $.ajax({
+                url: `${url}/requests/user/head/update`,
+                method: 'post',
+                data: JSON.stringify(identification),
+                contentType: "application/json;charset=utf-8",
+                success: (responseStr) => {
+                    let response = JSON.parse(responseStr);
+                    if (response.status === 50200) {
+                        elAlert(this, "修改成功", '', () => {
+                        });
+                    } else {
+                        alert(`${response.message}（状态码：${response.status}）`);
+                    }
+                }
+            })
+            // console.log(res.data[0]);
+        },
+        // // 上传前格式和图片大小限制
+        // beforeAvatarUpload(file) {
+        //     const type = file.type === 'image/jpeg' || 'image/jpg' || 'image/webp' || 'image/png'
+        //     const isLt2M = file.size / 1024 / 1024 < 2
+        //     if (!type) {
+        //         this.$message.error('图片格式不正确!(只能包含jpg，png，webp，JPEG)')
+        //     }
+        //     if (!isLt2M) {
+        //         this.$message.error('上传图片大小不能超过 2MB!')
+        //     }
+        //     return type && isLt2M
+        // }
 
     }
 })
@@ -337,7 +378,63 @@ let ordersForm = new Vue({
         }
     }
 })
-
+let ordersForm = new Vue({
+    el: '#mySells',
+    data: {
+        orders: [],
+        orderId: '',
+        dialogVisibleForConfirm: false,
+    },
+    methods: {
+        getOrderList() {
+            let userId = $.cookie("id");
+            console.log(userId);
+            $.ajax({
+                url: `${url}/requests/user/orderList/${userId}`,
+                method: 'get',
+                contentType: "application/json;charset=utf-8",
+                success: (responseStr) => {
+                    let response = JSON.parse(responseStr);
+                    if (response.status === 40200) {
+                        this.orders = response.data;
+                        for (let i = 0; i < this.orders.length; i++) {
+                            this.orders[i].url = `${url}/item?id=${this.orders[i].orderInfo.item}`
+                            this.orders[i].imageurl = `http://1.15.220.157:8088/requests/image/${this.orders[i].itemInfo.coverPath}`;
+                        }
+                        console.log(this.orders);
+                    } else {
+                        console.log(this.orders);
+                    }
+                }
+            })
+        },
+        confirmPressed(id) {
+            this.dialogVisibleForConfirm = true;
+            this.orderId = id;
+            console.log(this.orderId);
+        },
+        confirm() {
+            $.ajax({
+                url: `${url}/requests/user/orderChecked/${this.orderId}`,
+                method: 'get',
+                contentType: "application/json;charset=utf-8",
+                success: (responseStr) => {
+                    let response = JSON.parse(responseStr);
+                    if (response.status === 40200) {
+                        confirm("更新成功");
+                        this.getOrderList();
+                    } else {
+                        alert(`${response.message}（状态码：${response.status}）`);
+                    }
+                }
+            })
+            this.dialogVisibleForConfirm = false;
+        },
+        test() {
+            console.log(this.orders);
+        }
+    }
+})
 $(userinfoForm.getUserInfo);
 $(itemsForm.getItemList);
 $(ordersForm.getOrderList);
