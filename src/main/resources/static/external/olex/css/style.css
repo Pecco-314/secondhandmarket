@@ -237,7 +237,7 @@ Top Header
 .top-header-form {
     background-color: #ffffff;
     border-radius: 5px;
-    border: 1px solid #0162BD;
+    border: 1px solid #60A8AF;
 }
 
 .top-header-form .form-group {
@@ -257,7 +257,7 @@ Top Header
 }
 
 .top-header-form .form-group .form-control:first-child {
-    border-right: 1px solid #0162BD;
+    border-right: 1px solid #60A8AF;
     border-radius: 0 5px 5px 0;
 }
 
