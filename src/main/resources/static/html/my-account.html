@@ -81,8 +81,8 @@
                                                             class="avatar-uploader"
                                                             action="http://1.15.220.157:8088/requests/upload/image"
                                                             :show-file-list="false"
-                                                            :on-success="handleAvatarSuccess"
-                                                            :on-remove="handleRemove"
+                                                            :on-success="onPostImageSuccessfully"
+                                                            :on-remove="onRemoveImage"
                                                             :before-upload="beforeAvatarUpload">
                                                         <img v-if="imageUrl" :src="imageUrl" class="avatar">
                                                         <span v-if="imageUrl" class="el-upload-action"
