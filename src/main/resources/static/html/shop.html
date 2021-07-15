@@ -128,7 +128,7 @@
                         </div>
 
                         <div class="col-lg-4">
-                            <el-select class="yellow-select" v-model="priceOrdering" @change="changeOrdering">
+                            <el-select v-model="priceOrdering" @change="changeOrdering">
                                 <el-option v-for="ordering in orderings" :value="ordering.value" :key="ordering.value"
                                            :label="ordering.text"></el-option>
                             </el-select>
