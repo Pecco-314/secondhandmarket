@@ -20,5 +20,5 @@ public interface OrderDao {
     // 通过关键字查询订单信息
     List<Order> getOrderByKeyword(String keyword);
     // 通过userid查询订单信息
-    List<Order> getOrderByUserId(int userId);
+    List<Order> getOrderByUserId(int userId, boolean isBuyer);
 }

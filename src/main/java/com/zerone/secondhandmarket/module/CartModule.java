@@ -22,12 +22,12 @@ public class CartModule {
             if(cart.getQuantity() == 0) {
                 service.deleteCart(cart.getUserId(), cart.getItemId());
             } else {
-                //service.insertOrUpdateCart(cart);
+                service.insertOrUpdateCart(cart);
             }
-            return new Result(Status.OK, "", null);
+            return new Result(Status.CART_OK, "加入购物车成功", null);
 
         } catch (Exception e) {
-            return new Result(Status.ERROR, "", null);
+            return new Result(Status.CART_ERROR, "加入购物车失败", null);
         }
     }
 }

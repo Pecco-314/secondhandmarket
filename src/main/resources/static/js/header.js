@@ -46,7 +46,7 @@ Vue.component('page-header', {
 
     methods: {
         onSearch() {
-            window.open(`../shop?type=${this.selectedType}&keyword=${this.searchContent}`)
+            window.open(`../shop?type=${this.selectedType}&keyword=${this.searchContent}`, "_self")
         },
         openExitDialog() {
             this.dialogVisibleForExit = true;
@@ -102,7 +102,7 @@ Vue.component('page-header', {
                                                     <i class='bx bx-user'> 个人中心</i>
                                               </a>
                                                
-                                              <a class="dropdown-item" @click="openExitDialog" class="selectable">
+                                              <a class="dropdown-item selectable" @click="openExitDialog">
                                                    <i class='bx bx-exit'> 退出登录</i>
                                               </a>
                                         </div>
@@ -182,7 +182,7 @@ Vue.component('page-header', {
                                                     <i class='bx bx-user'> 个人中心</i>
                                               </a>
                                                
-                                              <a class="dropdown-item" @click="openExitDialog" class="selectable">
+                                              <a class="dropdown-item selectable" @click="openExitDialog">
                                                    <i class='bx bx-exit'> 退出登录</i>
                                               </a>
                                         </div>

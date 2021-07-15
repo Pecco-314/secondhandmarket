@@ -90,10 +90,10 @@ public class OrderDaoOption {
     }
 
     // 通过userid查询订单信息
-    public List<Order> getOrderByUserId(int userId) {
-        String sql = "select * from orders where buyer_id=:buyer_id";
+    public List<Order> getOrderByUserId(int userId, boolean isBuyer) {
+        String sql = String.format("select * from orders where %s=:user_id", isBuyer ? "buyer_id" : "seller_id");
         Map<String, Object> param = new HashMap<>();
-        param.put("buyer_id", userId);
+        param.put("user_id", userId);
         try {
             return jdbcTemplate.query(sql, param, new OrderRowMapper());
         } catch (Exception e) {

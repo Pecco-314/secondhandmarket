@@ -1,6 +1,7 @@
 package com.zerone.secondhandmarket.mapper;
 
 import com.zerone.secondhandmarket.entity.Order;
+import com.zerone.secondhandmarket.enums.OrderState;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -22,7 +23,7 @@ public class OrderRowMapper implements RowMapper<Order> {
         order.setCampus(rs.getString("campus"));
         order.setDorm(rs.getString("dorm"));
         order.setDetailedAddress(rs.getString("detailed_address"));
-        order.setState(rs.getString("state"));
+        order.setState(OrderState.valueOf(rs.getString("state")));
         return order;
     }
 }

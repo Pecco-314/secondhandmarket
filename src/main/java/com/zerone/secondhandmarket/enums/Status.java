@@ -40,7 +40,8 @@ public enum Status {
     PASSWORD_ERROR(50401),
     USER_ERROR(50402),
 
-
+    CART_OK(60200),
+    CART_ERROR(60400),
 
     ;
 

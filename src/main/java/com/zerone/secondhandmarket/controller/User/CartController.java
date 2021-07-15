@@ -26,7 +26,7 @@ public class CartController {
     }
 
     @ResponseBody
-    @PostMapping("/request/cart/info")
+    @PostMapping("/requests/cart/info")
     public String getCarts(@RequestBody UserTokenMessage token) {
         if(CodeProcessor.validateIdToken(token.getUserID(), token.getToken())) {
             Result result = CartModule.getItemsInCart(cartService, token.getUserID());
@@ -39,7 +39,7 @@ public class CartController {
 
     //添加、更改和删除都通过该方法
     @ResponseBody
-    @PostMapping("/request/cart/modifyCart")
+    @PostMapping("/requests/cart/modifyCart")
     public String modifyCart(@RequestBody CartModificationMessage modification) {
         if(CodeProcessor.validateIdToken(modification.getUserID(), modification.getToken())) {
             Cart cart = new Cart(modification.getUserID(), modification.getItemID(), modification.getQuantity());
