@@ -8,32 +8,34 @@ let goodsTable = new Vue({
                 category: '江浙小吃、小吃零食',
                 desc: '荷兰优质淡奶，奶香浓而不腻',
                 updatetime: '2021-7-8',
-                status: '已审核'
+                status: 'CHECKED'
             }, {
                 id: '12987123',
                 name: '好滋好味鸡蛋仔',
                 category: '江浙小吃、小吃零食',
                 desc: '荷兰优质淡奶，奶香浓而不腻',
                 updatetime: '2021-6-8',
-                status: '违规'
+                status: 'UNCHECKED'
             }, {
                 id: '12987125',
                 name: '好滋好味鸡蛋仔',
                 category: '江浙小吃、小吃零食',
                 desc: '荷兰优质淡奶，奶香浓而不腻',
                 updatetime: '2021-5-8',
-                status: '已审核'
+                status: 'FALSE'
             }, {
                 id: '12987126',
                 name: '好滋好味鸡蛋仔',
                 category: '江浙小吃、小吃零食',
                 desc: '荷兰优质淡奶，奶香浓而不腻',
                 updatetime: '2021-4-8',
-                status: '待审核'
+                status: 'UNCHECKED'
             }],
             dialogVisibleForIllegal: false,
             dialogVisibleForPass: false,
             currentId: 0,
+            currentPage: 1,
+            pageSize: 20,
         }
     },
     methods: {
@@ -55,14 +57,14 @@ let goodsTable = new Vue({
         },
         getGoodsList() {
             $.ajax({
-                url: `${url}requests/admin/goods`,
+                url: `${url}/requests/admin/items`,
                 method: 'get',
                 contentType: "application/json;charset=utf-8",
                 success: (responseStr) => {
-                    console.log(responseStr);
                     let response = JSON.parse(responseStr);
-                    if (response.status === 50200) {
+                    if (response.status === 30200) {
                         this.tableData = response.data;
+                        console.log(this.tableData);
                     } else {
                         alert(`${response.message}（状态码：${response.status}）`);
                     }
@@ -124,6 +126,16 @@ let goodsTable = new Vue({
                     }
                 }
             })
+        },
+
+        handleSizeChange(val) {
+            this.pageSize = val;
+            console.log('每页 ${val} 条');
+        },
+
+        handleCurrentChange(val) {
+            this.currentPage = val;
+            console.log(`当前页: ${val}`);
         },
 
         clear() {
@@ -258,5 +270,5 @@ let goodsTable = new Vue({
 // })
 
 
-$(userTableForm.getGoodsList);
+$(goodsTable.getGoodsList);
 // $(adminInfoForm.getAdminInfo);

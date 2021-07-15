@@ -3,18 +3,22 @@ package com.zerone.secondhandmarket.controller.User;
 import com.zerone.secondhandmarket.entity.User;
 import com.zerone.secondhandmarket.enums.Status;
 import com.zerone.secondhandmarket.message.PasswordModificationMessage;
+import com.zerone.secondhandmarket.message.UserHeadModificationMessage;
 import com.zerone.secondhandmarket.message.UserModificationByUserMessage;
 import com.zerone.secondhandmarket.message.UserTokenMessage;
+import com.zerone.secondhandmarket.module.UploadModule;
 import com.zerone.secondhandmarket.module.UserModule;
 import com.zerone.secondhandmarket.service.UserService;
 import com.zerone.secondhandmarket.tools.CodeProcessor;
+import com.zerone.secondhandmarket.tools.JSONMapper;
 import com.zerone.secondhandmarket.viewobject.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.FileInputStream;
 
 @Controller("OrdinaryUser")
 public class UserController {
@@ -63,6 +67,24 @@ public class UserController {
         return result.toString();
     }
 
+    //更新用户头像
+    @PostMapping("/requests/user/head/update")
+    @ResponseBody
+    public String updateUserHead(@RequestBody UserHeadModificationMessage userHeadModificationMessage) {
+        Result result;
+        if (CodeProcessor.validateIdToken(userHeadModificationMessage.getUserID(), userHeadModificationMessage.getToken())) {
+            User user = userService.getUserById(userHeadModificationMessage.getUserID());
+            
+            //根据更改信息设置用户的信息
+            user.setImagePath(userHeadModificationMessage.getImageUrl());
+
+            result = UserModule.updateUserInfo(userService, user);
+        } else
+            result = new Result(Status.TOKEN_MISMATCH, "id与token不一致", null);
+
+        return result.toString();
+    }
+
     //更新个人密码
     @PostMapping("/requests/user/password/update")
     @ResponseBody
@@ -84,4 +106,39 @@ public class UserController {
         return result.toString();
     }
 
+    //上传头像
+    @ResponseBody
+    @PostMapping("/requests/user/upload/image")
+    public String upload(@RequestParam("multipartFile") MultipartFile multipartFile) {
+        try {
+            MultipartFile[] multipartFiles = {multipartFile};
+            Result result = UploadModule.upload("user", multipartFiles);
+            System.out.println(JSONMapper.writeValueAsString(result));
+            return result.toString();
+        } catch (Exception e) {
+            return new Result(Status.ERROR, "文件传输失败", null).toString();
+        }
+    }
+
+    //获取用户图片
+    @ResponseBody
+    @GetMapping("/requests/user/{imagePath}")
+    public byte[] getImage(@PathVariable("imagePath") String imagePath) {
+        String courseFile = null;
+        try {
+            courseFile = new File("").getCanonicalPath();
+        } catch (Exception e) {
+            return null;
+        }
+
+        File file = new File((courseFile) + "/uploadFiles/user/" + imagePath);
+
+        try (FileInputStream inputStream = new FileInputStream(file)) {
+            byte[] bytes = new byte[inputStream.available()];
+            inputStream.read(bytes, 0, inputStream.available());
+            return bytes;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }
