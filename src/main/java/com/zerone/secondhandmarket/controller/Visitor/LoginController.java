@@ -22,10 +22,7 @@ public class LoginController {
     public String userLogin() {
         return "login";
     }
-    @RequestMapping("/log-in")
-    public String userLog_in() {
-        return "log-in";
-    }
+    
     @ResponseBody
     @PostMapping("/requests/login/user")
     public String userLogin(@RequestBody UserLoginMessage data) {
