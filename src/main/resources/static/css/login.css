@@ -64,4 +64,6 @@
     font-weight: 500;
     border-radius: 0;
 }
-
+.el-link.el-link--default:hover {
+    color: #e83f6e
+}

@@ -15,7 +15,7 @@
     font-family: element-icons;
     src: url(fonts/element-icons.woff) format("woff"), url(fonts/element-icons.ttf) format("truetype");
     font-weight: 400;
-    font-display: "auto";
+    font-display: auto;
     font-style: normal
 }
 
@@ -13059,7 +13059,7 @@
 }
 
 .el-link.el-link--default:hover {
-    color: #e83f6e
+    color: #409EFF
 }
 
 .el-link.el-link--default.is-disabled {

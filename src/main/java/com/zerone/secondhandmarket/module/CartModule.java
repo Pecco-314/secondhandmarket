@@ -22,7 +22,7 @@ public class CartModule {
             if(cart.getQuantity() == 0) {
                 service.deleteCart(cart.getUserId(), cart.getItemId());
             } else {
-                //service.insertOrUpdateCart(cart);
+                service.insertOrUpdateCart(cart);
             }
             return new Result(Status.OK, "", null);
 
