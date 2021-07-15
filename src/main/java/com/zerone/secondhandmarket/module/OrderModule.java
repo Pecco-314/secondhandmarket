@@ -2,6 +2,7 @@ package com.zerone.secondhandmarket.module;
 
 import com.zerone.secondhandmarket.entity.Order;
 import com.zerone.secondhandmarket.entity.SimplifiedOrder;
+import com.zerone.secondhandmarket.enums.OrderState;
 import com.zerone.secondhandmarket.enums.Status;
 import com.zerone.secondhandmarket.message.OrderFilter;
 import com.zerone.secondhandmarket.service.ItemService;
@@ -15,8 +16,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class OrderModule {
-    public static Result getOrderList(OrderService service, ItemService itemService, int userId) {
-        List<Order> list = service.getOrderByUserId(userId);
+    public static Result getOrderList(OrderService service, ItemService itemService, int userId, boolean isBuyer) {
+        List<Order> list = service.getOrderByUserId(userId, isBuyer);
 
         if (list == null || list.isEmpty()) {
             return new Result(Status.NO_QUALIFIED_ORDERS, "没有合适的订单", null);
@@ -35,12 +36,13 @@ public class OrderModule {
         return new Result(Status.ORDER_OK, "获取订单列表成功", simplifiedOrderList);
     }
 
-    public static Result generateOrder(OrderService service, ItemService itemService, Integer buyer, Integer seller, Integer itemId, Integer quantity, String receiverName, String phoneNumber, String campus, String dorm, String detailedAddress) {
+    public static Result generateOrder(OrderService service, Order order) {
         try {
 //            if (quantity > itemService.getItemById(itemId).getQuantity())
 //                throw new Exception("数量大于库存");
 
-            Order order = new Order(0, buyer, seller, itemId, quantity, DateFormatter.dateToString(new Date()), receiverName, phoneNumber, campus, dorm, detailedAddress, "待收货");
+            order.setTime(DateFormatter.dateToString(new Date()));
+            order.setState(OrderState.UNFINISHED);
 
             service.insertOrder(order);
 

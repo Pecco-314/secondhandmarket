@@ -1,5 +1,6 @@
 package com.zerone.secondhandmarket.entity;
 
+import com.zerone.secondhandmarket.enums.OrderState;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,5 +20,5 @@ public class Order {
     private String campus;
     private String dorm;
     private String detailedAddress;
-    private String state;//订单状态 包括已完成和待收货
+    private OrderState state;//订单状态 包括已完成和待收货
 }
