@@ -68,7 +68,7 @@
 
                             <div class="nav-other-item">
                                 <div class="option-btn">
-                                    <a href="log-in.html" class="default-btn">Log In Now</a>
+                                    <a href="login.html" class="default-btn">Log In Now</a>
                                 </div>
                             </div>
                         </div>
@@ -100,7 +100,8 @@
                         <h3 class="title">全部分类</h3>
                         <div class="product-side-categories">
                             <ul>
-                                <li v-for="option in options" :key="option.value" :value="option.value" :class="option.selectState">
+                                <li v-for="option in options" :key="option.value" :value="option.value"
+                                    :class="option.selectState">
                                     <a href="#" @click="select(option.value)">{{option.text}}</a>
                                 </li>
                             </ul>
