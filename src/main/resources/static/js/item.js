@@ -3,6 +3,25 @@ let itemApp = new Vue({
     methods: {
         buy() {
             window.open(`../checkout?id=${this.item.id}&cnt=${this.cnt}&type=single`)
+        },
+        addToCart() {
+            let purchaseData = {
+                userID: parseInt($.cookie('id')),
+                token: $.cookie('token'),
+                itemID: parseInt(getURLVariable('id')),
+                quantity: this.cnt
+            };
+            console.log(purchaseData);
+            $.ajax({
+                url: `${url}/requests/cart/modifyCart`,
+                method: 'post',
+                data: JSON.stringify(purchaseData),
+                contentType: "application/json;charset=utf-8",
+                success: (responseStr) => {
+                    let response = JSON.parse(responseStr);
+                    console.log(response);
+                }
+            })
         }
     },
     data: {

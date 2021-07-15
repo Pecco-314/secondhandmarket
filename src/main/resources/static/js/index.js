@@ -11,7 +11,6 @@ let indexForm = new Vue({
                 method: 'get',
                 contentType: "application/json;charset=utf-8",
                 success: (responseStr) => {
-                    console.log(responseStr);
                     let response = JSON.parse(responseStr);
                     if (response.status === 30200) {
                         this.items = response.data;

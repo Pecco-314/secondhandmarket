@@ -41,6 +41,7 @@ public class CartService implements CartDao {
 
     @Override
     public int insertOrUpdateCart(Cart cart) {
+        System.out.println(cart);
         return daoOption.insertOrUpdateCart(cart);
     }
 

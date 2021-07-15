@@ -71,14 +71,14 @@
                     </div>
 
                     <div class="product-add-btn">
-                        <button type="submit" class="default-btn btn-bg-three">
-                            <i class="fas fa-cart-plus" href="#"></i> 加入购物车
+                        <button type="submit" class="default-btn btn-bg-three selectable" @click="addToCart">
+                            <i class="fas fa-cart-plus"></i> 加入购物车
                         </button>
-                        <button type="submit" class="default-btn btn-bg-three" @click="buy">
-                            <i class="fas fa-cart-plus" href="#"></i> 立即购买
+                        <button type="submit" class="default-btn btn-bg-three selectable" @click="buy">
+                            <i class="fas fa-cart-plus"></i> 立即购买
                         </button>
-                        <button type="submit" class="default-btn btn-bg-three">
-                            <i class="fas fa-cart-plus" href="#"></i> 联系商家
+                        <button type="submit" class="default-btn btn-bg-three selectable">
+                            <i class="fas fa-cart-plus"></i> 联系商家
                         </button>
                     </div>
                 </div>
@@ -109,11 +109,4 @@
 <script src="../js/item.js"></script>
 
 </body>
-<style>
-    .img-row {
-        display: flex;
-        flex-wrap: wrap;
-        margin-right: 15px;
-    }
-</style>
 </html>
