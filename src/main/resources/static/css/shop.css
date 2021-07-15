@@ -24,3 +24,11 @@
     background-color: #E8B43F !important;
     color: #ffffff;
 }
+
+.el-select input:focus {
+    border-color: rgb(232, 180, 63) !important;
+}
+
+.el-select-dropdown__list .selected {
+    color: black !important;
+}

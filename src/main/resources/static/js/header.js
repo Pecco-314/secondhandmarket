@@ -31,7 +31,8 @@ Vue.component('page-header', {
             ],
             selectedType: null,
             searchContent: "",
-            dialogVisibleForExit: false
+            dialogVisibleForExit: false,
+            countCart: 0,
         }
     },
 
@@ -42,6 +43,22 @@ Vue.component('page-header', {
         navButtonClass() {
             return this.isMainPage ? "border-radius-5 btn-bg-one" : "btn-bg-three";
         }
+    },
+
+    mounted(){
+        $.ajax({
+            url: `${url}/requests/cart/info`,
+            method: 'post',
+            data: JSON.stringify({
+                userID: $.cookie('id'),
+                token: $.cookie('token'),
+            }),
+            contentType: "application/json;charset=utf-8",
+            success: (responseStr) => {
+                let response = JSON.parse(responseStr);
+                this.countCart = response.data.length;
+            }
+        })
     },
 
     methods: {
@@ -68,9 +85,11 @@ Vue.component('page-header', {
                             <div class="row">
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <select class="form-control" v-model="selectedType">
-                                            <option v-for="option in options" :value="option.value" :key="option.key">{{ option.text }}</option>
-                                        </select>
+                                        <el-select class="form-control" v-model="selectedType" style="padding: 0 0">
+                                            <el-option v-for="option in options" :value="option.value" :key="option.key" :label="option.text">
+<!--                                            {{ option.text }}-->
+                                            </el-option>
+                                        </el-select>
                                     </div>
                                 </div>
     
@@ -111,8 +130,8 @@ Vue.component('page-header', {
                             </div>
                             <div class="option-item">
                                 <div class="cart-btn-area">
-                                    <a href="#" class="cart-btn"><i class='bx bx-cart'></i></a>
-                                    <span>1</span>
+                                    <a href="../cart" class="cart-btn"><i class='bx bx-cart'></i></a>
+                                    <span>{{ countCart }}</span>
                                 </div>
                             </div>
                         </div>

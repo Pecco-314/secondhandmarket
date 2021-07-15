@@ -19,7 +19,8 @@ let itemApp = new Vue({
                 contentType: "application/json;charset=utf-8",
                 success: (responseStr) => {
                     let response = JSON.parse(responseStr);
-                    console.log(response);
+                    elAlert(this, response.message, '', () => {
+                    });
                 }
             })
         }
