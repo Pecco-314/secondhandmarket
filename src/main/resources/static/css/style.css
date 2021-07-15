@@ -360,10 +360,10 @@ dress-form-item-content {
     justify-content: center;
 }
 
-.el-select input:focus {
-    border-color: rgb(232, 180, 63) !important;
-}
+/*.el-select input:focus {*/
+/*    border-color: rgb(232, 180, 63) !important;*/
+/*}*/
 
-.el-select-dropdown__list .selected {
-    color: black !important;
-}
+/*.el-select-dropdown__list .selected {*/
+/*    color: black !important;*/
+/*}*/

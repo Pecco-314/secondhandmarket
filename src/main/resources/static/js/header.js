@@ -68,9 +68,11 @@ Vue.component('page-header', {
                             <div class="row">
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <select class="form-control" v-model="selectedType">
-                                            <option v-for="option in options" :value="option.value" :key="option.key">{{ option.text }}</option>
-                                        </select>
+                                        <el-select class="form-control" v-model="selectedType" style="padding: 0 0">
+                                            <el-option v-for="option in options" :value="option.value" :key="option.key" :label="option.text">
+<!--                                            {{ option.text }}-->
+                                            </el-option>
+                                        </el-select>
                                     </div>
                                 </div>
     

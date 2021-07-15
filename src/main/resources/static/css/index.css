@@ -38,3 +38,11 @@
     height: 250px;
     object-fit: scale-down;
 }
+
+.el-select input:focus {
+    border-color: #fff !important;
+}
+
+.el-select-dropdown__list .selected {
+    color: black !important;
+}
