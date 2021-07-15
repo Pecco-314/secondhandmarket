@@ -1,0 +1,14 @@
+.el-select input{
+    height: 50px;
+    color: #10142D;
+    border: 1px solid #E8B43F;
+    background-color: #F1F1F1;
+    font-size: 14px;
+    width: 100%;
+    font-weight: 500;
+    border-radius: 0;
+}
+
+.el-select {
+    width: 100%;
+}

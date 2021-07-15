@@ -304,7 +304,7 @@ button {
 
 .ui-label {
     display: inline-block;
-    font: 14px/32px tahoma,arial,Hiragino Sans GB,WenQuanYi Micro Hei,'\5FAE\8F6F\96C5\9ED1','\5B8B\4F53',sans-serif;
+    font: 14px/32px tahoma, arial, Hiragino Sans GB, WenQuanYi Micro Hei, '\5FAE\8F6F\96C5\9ED1', '\5B8B\4F53', sans-serif;
     vertical-align: middle;
     margin-right: 10px;
 }
@@ -322,6 +322,7 @@ button {
 .m-address-form .u-consignee-input {
     width: 220px;
 }
+
 dress-form-item-content {
     position: relative;
     line-height: 32px;
@@ -329,7 +330,7 @@ dress-form-item-content {
     width: 400px
 }
 
-#post-form .textarea textarea{
+#post-form .textarea textarea {
     font-family: "微软雅黑";
 }
 
@@ -350,11 +351,19 @@ dress-form-item-content {
 .el-button--three:focus,
 .el-button--three:hover,
 .el-button--three {
-    background: rgb(232,180,63);
+    background: rgb(232, 180, 63);
     color: #fff;
 }
 
 .flex-center {
     display: flex;
     justify-content: center;
+}
+
+.el-select input:focus {
+    border-color: rgb(232, 180, 63) !important;
+}
+
+.el-select-dropdown__list .selected {
+    color: black !important;
 }

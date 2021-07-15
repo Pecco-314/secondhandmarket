@@ -1,27 +1,3 @@
-Vue.component('ordering-select', {
-    data() {
-        return {
-            priceOrdering: 'DEFAULT',
-            orderings: [
-                {text: "默认排序", value: 'DEFAULT'},
-                {text: "价格升序", value: 'ASC'},
-                {text: "价格降序", value: 'DESC'},
-            ],
-        }
-    },
-    template: `
-        <select class="form-control" v-model="priceOrdering" @change="onSelectionChange">
-            <option v-for="ordering in orderings" :value="ordering.value" :key="ordering.value">{{ ordering.text }}</option>
-        </select>
-    `,
-    methods: {
-        onSelectionChange() {
-            shopApp.itemFilter.priceOrdering = this.priceOrdering;
-            shopApp.getSearchResult();
-        }
-    },
-})
-
 let shopApp = new Vue({
     el: '#search-app',
     data: {
@@ -48,6 +24,12 @@ let shopApp = new Vue({
             {text: "票券产品", value: 'TICKET', selectState: ''},
             {text: "其他", value: 'OTHERS', selectState: ''},
         ],
+        orderings: [
+            {text: "默认排序", value: 'DEFAULT'},
+            {text: "价格升序", value: 'ASC'},
+            {text: "价格降序", value: 'DESC'},
+        ],
+        priceOrdering: 'DEFAULT'
     },
     methods: {
         select(selection) {
@@ -61,7 +43,6 @@ let shopApp = new Vue({
                 itemFilter: this.itemFilter,
                 keyword: this.keyword,
             }
-            console.log(searchData);
             $.ajax({
                 url: `${url}/requests/product/search`,
                 method: 'post',
@@ -88,14 +69,18 @@ let shopApp = new Vue({
                 }
             })
         },
-        onSearch() {
+        search() {
             window.history.pushState(null, null, `/shop?filter`);
             this.getSearchResult();
+        },
+        changeOrdering(ordering) {
+            this.itemFilter.priceOrdering = ordering;
+            this.search();
         }
     },
     mounted() {
         this.select(this.itemFilter.type);
-        $('select').niceSelect();
+        // $('select').niceSelect();
     },
     computed: {
         title: () => hasURLVariables() ? '搜索结果' : '全部商品',
