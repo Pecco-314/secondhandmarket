@@ -84,10 +84,10 @@
                                                         :show-file-list="false"
                                                         :on-success="handleAvatarSuccess">
                                                     <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                                                    <span v-if="imageUrl" class="el-upload-action">
+                                                    <img v-else src="../img/defaulthead.png">
+                                                    <span class="el-upload-action">
                                                         <i class="el-icon-upload2 avatar-uploader-icon"></i>
-                                                        </span>
-                                                    <i v-else class="el-icon-upload2 avatar-uploader-icon" stop></i>
+                                                    </span>
                                                 </el-upload>
                                             </div>
 
@@ -341,31 +341,31 @@
                                             </span>
                                         </el-dialog>
                                     </ul>
-                                    <!--                                    <ul class="checkout-product">-->
-                                    <!--                                        <li>-->
-                                    <!--                                            <img src="../external/olex/images/products/propular-style8.png"-->
-                                    <!--                                                 alt="Images">-->
-                                    <!--                                            <h3>Local Onion</h3>-->
-                                    <!--                                            <span>$2.0</span>-->
-                                    <!--                                            <div class="price-tag" style="left: 32%">6</div>-->
-                                    <!--                                            <div class="price-tag" style="left: 43%">￥18.0</div>-->
-                                    <!--                                            <div class="price-tag" style="left: 58.5%">已完成</div>-->
-                                    <!--                                            <div class="price-tag" style="left: 75%"><a href="#">提现</a></div>-->
-                                    <!--                                            <div class="price-tag" style="left: 80%"><a href="#">删除订单</a></div>-->
-                                    <!--                                        </li>-->
+<!--                                    <ul class="checkout-product">-->
+<!--                                        <li>-->
+<!--                                            <img src="../external/olex/images/products/propular-style8.png"-->
+<!--                                                 alt="Images">-->
+<!--                                            <h3>Local Onion</h3>-->
+<!--                                            <span>$2.0</span>-->
+<!--                                            <div class="price-tag" style="left: 32%">6</div>-->
+<!--                                            <div class="price-tag" style="left: 43%">￥18.0</div>-->
+<!--                                            <div class="price-tag" style="left: 58.5%">已完成</div>-->
+<!--                                            <div class="price-tag" style="left: 75%"><a href="#">提现</a></div>-->
+<!--                                            <div class="price-tag" style="left: 80%"><a href="#">删除订单</a></div>-->
+<!--                                        </li>-->
 
-                                    <!--                                        <li>-->
-                                    <!--                                            <img src="../external/olex/images/products/propular-style4.png"-->
-                                    <!--                                                 alt="Images">-->
-                                    <!--                                            <h3>Protein Chocolate</h3>-->
-                                    <!--                                            <span>$25.0</span>-->
-                                    <!--                                            <div class="price-tag" style="left: 32%">1</div>-->
-                                    <!--                                            <div class="price-tag" style="left: 43%">￥25.0</div>-->
-                                    <!--                                            <div class="price-tag" style="left: 58.5%">已完成</div>-->
-                                    <!--                                            <div class="price-tag" style="left: 75%"><a href="#">提现</a></div>-->
-                                    <!--                                            <div class="price-tag" style="left: 80%"><a href="#">删除订单</a></div>-->
-                                    <!--                                        </li>-->
-                                    <!--                                    </ul>-->
+<!--                                        <li>-->
+<!--                                            <img src="../external/olex/images/products/propular-style4.png"-->
+<!--                                                 alt="Images">-->
+<!--                                            <h3>Protein Chocolate</h3>-->
+<!--                                            <span>$25.0</span>-->
+<!--                                            <div class="price-tag" style="left: 32%">1</div>-->
+<!--                                            <div class="price-tag" style="left: 43%">￥25.0</div>-->
+<!--                                            <div class="price-tag" style="left: 58.5%">已完成</div>-->
+<!--                                            <div class="price-tag" style="left: 75%"><a href="#">提现</a></div>-->
+<!--                                            <div class="price-tag" style="left: 80%"><a href="#">删除订单</a></div>-->
+<!--                                        </li>-->
+<!--                                    </ul>-->
 
                                     <div class="col-lg-12 col-md-12 text-center">
                                         <div class="pagination-area">
@@ -501,52 +501,37 @@
 <style scoped lang='less'>
     .avatar-uploader {
         margin-left: 10px;
-        width: 70PX;
+        width: 70px;
         height: 70px;
         border-radius: 50%;
         cursor: pointer;
         position: relative;
         overflow: hidden;
-        background: url('../img/defaulthead.png') no-repeat;
+        /*background: url('../img/defaulthead.png') no-repeat;*/
         background-size: 100% 100%;
     }
 
     .avatar-uploader-icon {
         font-size: 0;
         color: #fff;
-
+        width: 70px;
+        height: 70px;
+        line-height: 70px;
         text-align: center;
     }
 
     .avatar-uploader-icon:hover {
         font-size: 28px;
-        background-color: rgba(0, 0, 0, 0);
+        background-color: rgba(0, 0, 0, .3);
     }
 
     .avatar {
-        max-width: 70px;
-        max-height: 70px;
+        width: 70px;
+        height: 70px;
+        object-fit: scale-down;
         position: relative;
         display: block;
-        /*display: table-cell;*/
-        /*text-align: center;*/
-        /*vertical-align: middle;*/
-        /*width: 70px;*/
-        /*height: 70px;*/
-        /*background-color: #666666;*/
     }
-
-    /*.avatar span {*/
-    /*    vertical-align: middle;*/
-    /*    height: 100%;*/
-    /*    display: inline-block;*/
-    /*}*/
-
-    /*.avatar img {*/
-    /*    vertical-align: middle;*/
-    /*    max-width: 70px;*/
-    /*    max-height: 70px;*/
-    /*}*/
 
     .el-upload-action {
         position: absolute;
@@ -558,7 +543,7 @@
         font-size: 0;
         color: #fff;
         text-align: center;
-
+        /*line-height: 120px;*/
     }
 
     .el-upload-action:hover {
