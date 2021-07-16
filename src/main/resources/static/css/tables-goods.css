@@ -12,3 +12,14 @@
     margin-bottom: 0;
     width: 50%;
 }
+
+.ellipsis-type {
+    max-width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.ellipsis-type:hover {
+    text-overflow: inherit;
+    overflow: visible;
+}

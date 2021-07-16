@@ -293,16 +293,28 @@
                                                             <span>{{props.row.name}}</span>
                                                         </el-form-item>
                                                         <el-form-item label="类别">
-                                                            <span>{{props.row.type}}</span>
+                                                            <span v-if="props.row.type=='SPORTS'">体育健身</span>
+                                                            <span v-if="props.row.type=='BOOK'">书籍</span>
+                                                            <span v-if="props.row.type=='DAILY_USE'">日常用品</span>
+                                                            <span v-if="props.row.type=='TICKET'">票券</span>
+                                                            <span v-if="props.row.type=='DIGITAL'">数码产品</span>
+                                                            <span v-if="props.row.type=='CLOTHES'">衣鞋帽伞</span>
+                                                            <span v-if="props.row.type=='TRANSPORT'">代步工具</span>
+                                                            <span v-if="props.row.type=='ELECTRIC'">家用电器</span>
+                                                            <span v-if="props.row.type=='OTHERS'">其他</span>
                                                         </el-form-item>
-                                                        <el-form-item label="描述">
-                                                            <span>{{props.row.introduction}}</span>
+                                                        <el-form-item label="描述" class="ellipsis-type"
+                                                                      style="text-overflow: ellipsis">
+                                                            <span>{{props.row.introduction}}
+                                                            </span>
                                                         </el-form-item>
                                                         <el-form-item label="时间">
                                                             <span>{{props.row.releaseTime}}</span>
                                                         </el-form-item>
                                                         <el-form-item label="状态">
-                                                            <span>{{props.row.checkCondition}}</span>
+                                                            <span v-if="props.row.checkCondition === 'TRUE'">正常</span>
+                                                            <span v-if="props.row.checkCondition === 'UNCHECKED'">待审核</span>
+                                                            <span v-if="props.row.checkCondition === 'FALSE'">违规</span>
                                                         </el-form-item>
                                                     </el-form>
                                                 </template>
@@ -326,13 +338,15 @@
                                             <el-table-column label="操作" min-width="50%">
                                                 <template slot-scope="scope">
                                                     <div style="float:left">
-                                                        <el-button type="button" @click="openIllegalDialog(scope.row)"
+                                                        <el-button type="button" :disabled="scope.row.btnIllegalEnable"
+                                                                   @click="openIllegalDialog(scope.row)"
                                                                    class="btn-sm btn-danger waves-effect waves-light">
                                                             违规
                                                         </el-button>
                                                     </div>
                                                     <div style="display: flex; justify-content: center">
-                                                        <el-button type="button" @click="openPassDialog(scope.row)"
+                                                        <el-button type="button" :disabled="scope.row.btnPassEnable"
+                                                                   @click="openPassDialog(scope.row)"
                                                                    class="btn-sm btn-success waves-effect waves-light">
                                                             通过审核
                                                         </el-button>
