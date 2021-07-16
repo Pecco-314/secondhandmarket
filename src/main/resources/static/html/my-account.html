@@ -84,33 +84,11 @@
                                                         :show-file-list="false"
                                                         :on-success="handleAvatarSuccess">
                                                     <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                                                    <span v-if="imageUrl" class="el-upload-action">
-                                                        <i class="el-icon-upload2 avatar-uploader-icon"></i>
-                                                        </span>
                                                     <img v-else src="../img/defaulthead.png">
-                                                    <i v-else class="el-icon-upload2 avatar-uploader-icon" stop>
-                                                        <!--                                                        <<img v-else src="../img/defaulthead.png">-->
-                                                    </i>
-
-
+                                                    <span class="el-upload-action">
+                                                        <i class="el-icon-upload2 avatar-uploader-icon"></i>
+                                                    </span>
                                                 </el-upload>
-<!--                                                <el-upload-->
-<!--                                                        v-else-->
-<!--                                                        name="multipartFile"-->
-<!--                                                        class="avatar-uploader"-->
-<!--                                                        action="http://localhost:8088/requests/user/upload/image"-->
-<!--                                                        :show-file-list="false"-->
-<!--                                                        :on-success="handleAvatarSuccess"-->
-<!--                                                        style="background: url('../img/defaulthead.png') no-repeat"-->
-<!--                                                >-->
-<!--                                                    <span v-if="imageUrl" class="el-upload-action">-->
-<!--                                                        <i class="el-icon-upload2 avatar-uploader-icon"></i>-->
-<!--                                                        </span>-->
-<!--                                                    <i v-else class="el-icon-upload2 avatar-uploader-icon">-->
-<!--                                                    </i>-->
-<!--                                                    <img v-if="imageUrl" :src="imageUrl" class="avatar">-->
-
-<!--                                                </el-upload>-->
                                             </div>
 
                                         </div>
@@ -321,20 +299,33 @@
                                             </div>
                                             <div class="price-tag" style="left: 44%;top:40%">￥{{order.itemInfo.price}}
                                             </div>
-                                            <div class="price-tag" style="left: 59%;top:40%">{{order.orderInfo.state}}
+                                            <div v-if="order.orderInfo.state==='FINISHED'" class="price-tag"
+                                                 style="left: 59%;top:40%">
+                                                   已完成
                                             </div>
-                                            <div v-if="order.orderInfo.state==='已完成'" class="price-tag"
-                                                 style="left: 75%;top:35%">
-                                                <el-button type="text">
+                                            <div v-if="order.orderInfo.state==='UNFINISHED'" class="price-tag"
+                                                 style="left: 59%;top:40%">
+                                                    待收货
+                                            </div>
+<!--                                            <div class="price-tag" style="left: 59%;top:40%">{{order.orderInfo.state}}-->
+<!--                                            </div>-->
+                                            <div class="price-tag" style="left: 75%;top:35%">
+                                                <el-button type="text" :disabled="order.orderInfo.state==='UNFINISHED'">
                                                     提现
                                                 </el-button>
                                             </div>
-                                            <div v-if="order.orderInfo.state==='已完成'" class="price-tag"
-                                                 style="left: 85%;top:35%">
-                                                <el-button type="text">
-                                                    删除订单
-                                                </el-button>
-                                            </div>
+<!--                                            <div v-if="order.orderInfo.state==='FINISHED'" class="price-tag"-->
+<!--                                                 style="left: 75%;top:35%">-->
+<!--                                                <el-button type="text">-->
+<!--                                                    提现-->
+<!--                                                </el-button>-->
+<!--                                            </div>-->
+<!--                                            <div v-if="order.orderInfo.state==='FINISHED'" class="price-tag"-->
+<!--                                                 style="left: 82%;top:35%">-->
+<!--                                                <el-button type="text">-->
+<!--                                                    删除订单-->
+<!--                                                </el-button>-->
+<!--                                            </div>-->
                                             <br>
                                         </li>
                                         <el-dialog title="确认收货" :visible.sync="dialogVisibleForConfirm" width="30%">
@@ -552,7 +543,7 @@
         font-size: 0;
         color: #fff;
         text-align: center;
-        line-height: 120px;
+        /*line-height: 120px;*/
     }
 
     .el-upload-action:hover {

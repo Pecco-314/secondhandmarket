@@ -333,7 +333,7 @@ let ordersForm = new Vue({
             let userId = $.cookie("id");
             console.log(userId);
             $.ajax({
-                url: `${url}/requests/user/orderList/${userId}`,
+                url: `${url}/requests/user/orderList/buyer/${userId}`,
                 method: 'get',
                 contentType: "application/json;charset=utf-8",
                 success: (responseStr) => {
@@ -390,7 +390,7 @@ let sellsForm = new Vue({
             let userId = $.cookie("id");
             console.log(userId);
             $.ajax({
-                url: `${url}/requests/user/orderList/${userId}`,
+                url: `${url}/requests/user/orderList/seller/${userId}`,
                 method: 'get',
                 contentType: "application/json;charset=utf-8",
                 success: (responseStr) => {
@@ -438,3 +438,4 @@ let sellsForm = new Vue({
 $(userinfoForm.getUserInfo);
 $(itemsForm.getItemList);
 $(ordersForm.getOrderList);
+$(sellsForm.getOrderList);
