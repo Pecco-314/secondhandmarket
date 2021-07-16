@@ -12,6 +12,7 @@ import com.zerone.secondhandmarket.tools.DateFormatter;
 import com.zerone.secondhandmarket.viewobject.Result;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +26,7 @@ public class ItemModule {
 
         int size = itemList.size();
         itemList = itemList.subList(Math.max(size - itemsInHomepage, 0), size);
+        Collections.reverse(itemList);
         //只获取最新的至多8个
 
         /*List<Item> itemList1 = new ArrayList<Item>();

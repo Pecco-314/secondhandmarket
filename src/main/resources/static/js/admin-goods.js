@@ -36,6 +36,14 @@ let goodsTable = new Vue({
                     let response = JSON.parse(responseStr);
                     if (response.status === 30200) {
                         this.tableData = response.data;
+                        for (let i = 0; i < this.tableData.length; i++) {
+                            this.tableData[i].btnIllegalEnable = true;
+                            this.tableData[i].btnPassEnable = true;
+                            if (this.tableData[i].checkCondition === 'UNCHECKED') {
+                                this.tableData[i].btnIllegalEnable = false;
+                                this.tableData[i].btnPassEnable = false;
+                            }
+                        }
                         console.log(this.tableData);
                     } else {
                         alert(`${response.message}（状态码：${response.status}）`);
@@ -56,17 +64,18 @@ let goodsTable = new Vue({
 
         illegalGoods() {
             let identification = {
-                goodsId: this.currentId
+                itemId: this.currentId,
+                checkCondition: 'FALSE',
             };
 
             $.ajax({
-                url: `${url}/requests/admin/illegalGoods${this.currentId}`,
+                url: `${url}/requests/admin/checkItem`,
                 method: 'post',
                 data: JSON.stringify(identification),
                 contentType: "application/json;charset=utf-8",
                 success: (responseStr) => {
                     let response = JSON.parse(responseStr);
-                    if (response.status === 50200) {
+                    if (response.status === 30200) {
                         this.dialogVisibleForIllegal = false;
                         confirm("更新成功");
                         goodsTable.getGoodsList();
@@ -79,16 +88,17 @@ let goodsTable = new Vue({
 
         passedGoods(row) {
             let identification = {
-                goodsId: this.currentId
+                itemId: this.currentId,
+                checkCondition: 'TRUE',
             };
             $.ajax({
-                url: `${url}/requests/admin/passGoods${this.currentId}`,
+                url: `${url}/requests/admin/checkItem`,
                 method: 'post',
                 data: JSON.stringify(identification),
                 contentType: "application/json;charset=utf-8",
                 success: (responseStr) => {
                     let response = JSON.parse(responseStr);
-                    if (response.status === 50200) {
+                    if (response.status === 30200) {
                         this.dialogVisibleForPass = false;
                         this.$("#passbtn").setAttribute("disabled", true);
                         confirm("通过审核成功");
@@ -110,10 +120,10 @@ let goodsTable = new Vue({
             console.log(`当前页: ${val}`);
         },
 
-        clear() {
-            this.$refs.form.resetFields();
-            // this.dialogVisibleForUpdate = false;
-        }
+        // clear() {
+        //     this.$refs.form.resetFields();
+        //     // this.dialogVisibleForUpdate = false;
+        // }
     }
 })
 
