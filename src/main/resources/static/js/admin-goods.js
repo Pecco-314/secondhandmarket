@@ -2,35 +2,7 @@ let goodsTable = new Vue({
     el: '#goodsTable',
     data() {
         return {
-            tableData: [{
-                id: '12987122',
-                name: '好滋好味鸡蛋仔',
-                category: '江浙小吃、小吃零食',
-                desc: '荷兰优质淡奶，奶香浓而不腻',
-                updatetime: '2021-7-8',
-                status: 'CHECKED'
-            }, {
-                id: '12987123',
-                name: '好滋好味鸡蛋仔',
-                category: '江浙小吃、小吃零食',
-                desc: '荷兰优质淡奶，奶香浓而不腻',
-                updatetime: '2021-6-8',
-                status: 'UNCHECKED'
-            }, {
-                id: '12987125',
-                name: '好滋好味鸡蛋仔',
-                category: '江浙小吃、小吃零食',
-                desc: '荷兰优质淡奶，奶香浓而不腻',
-                updatetime: '2021-5-8',
-                status: 'FALSE'
-            }, {
-                id: '12987126',
-                name: '好滋好味鸡蛋仔',
-                category: '江浙小吃、小吃零食',
-                desc: '荷兰优质淡奶，奶香浓而不腻',
-                updatetime: '2021-4-8',
-                status: 'UNCHECKED'
-            }],
+            tableData: [],
             dialogVisibleForIllegal: false,
             dialogVisibleForPass: false,
             currentId: 0,
