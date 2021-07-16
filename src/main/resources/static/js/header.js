@@ -31,6 +31,7 @@ Vue.component('page-header', {
             ],
             selectedType: null,
             searchContent: "",
+            imageUrl: '',
             dialogVisibleForExit: false,
             countCart: 0,
         }
@@ -56,12 +57,21 @@ Vue.component('page-header', {
             contentType: "application/json;charset=utf-8",
             success: (responseStr) => {
                 let response = JSON.parse(responseStr);
+                console.log(response)
                 this.countCart = response.data.length;
             }
         })
     },
 
     methods: {
+        getUserInfo() {
+            getUserInfo((response) => {
+                if (response.data.imagePath !== null) {
+                    this.imageUrl = `${url}/requests/user/${response.data.imagePath}`;
+                    console.log(this.imageUrl);
+                }
+            })
+        },
         onSearch() {
             window.open(`../shop?type=${this.selectedType}&keyword=${this.searchContent}`, "_self")
         },
@@ -113,7 +123,7 @@ Vue.component('page-header', {
                                 <div class="language-list">
                                     <div class="dropdown language-list-dropdown">
                                         <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <img src="../img/admin_profile.png">
+                                                <img :src="imageUrl">
                                                 <i class='bx bx-chevron-down'></i>
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -193,7 +203,7 @@ Vue.component('page-header', {
                                     <div class="language-list">
                                         <div class="dropdown language-list-dropdown">
                                         <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <img src="../img/admin_profile.png">
+                                                <img :src="imageUrl">
                                                 <i class='bx bx-chevron-down'></i>
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -232,3 +242,5 @@ Vue.component('page-header', {
 let pageHeader = new Vue({
     el: "#page-header"
 }).$children[0];
+
+$(pageHeader.getUserInfo);
