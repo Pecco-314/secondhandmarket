@@ -87,8 +87,30 @@
                                                     <span v-if="imageUrl" class="el-upload-action">
                                                         <i class="el-icon-upload2 avatar-uploader-icon"></i>
                                                         </span>
-                                                    <i v-else class="el-icon-upload2 avatar-uploader-icon" stop></i>
+                                                    <img v-else src="../img/defaulthead.png">
+                                                    <i v-else class="el-icon-upload2 avatar-uploader-icon" stop>
+                                                        <!--                                                        <<img v-else src="../img/defaulthead.png">-->
+                                                    </i>
+
+
                                                 </el-upload>
+<!--                                                <el-upload-->
+<!--                                                        v-else-->
+<!--                                                        name="multipartFile"-->
+<!--                                                        class="avatar-uploader"-->
+<!--                                                        action="http://localhost:8088/requests/user/upload/image"-->
+<!--                                                        :show-file-list="false"-->
+<!--                                                        :on-success="handleAvatarSuccess"-->
+<!--                                                        style="background: url('../img/defaulthead.png') no-repeat"-->
+<!--                                                >-->
+<!--                                                    <span v-if="imageUrl" class="el-upload-action">-->
+<!--                                                        <i class="el-icon-upload2 avatar-uploader-icon"></i>-->
+<!--                                                        </span>-->
+<!--                                                    <i v-else class="el-icon-upload2 avatar-uploader-icon">-->
+<!--                                                    </i>-->
+<!--                                                    <img v-if="imageUrl" :src="imageUrl" class="avatar">-->
+
+<!--                                                </el-upload>-->
                                             </div>
 
                                         </div>
@@ -488,13 +510,13 @@
 <style scoped lang='less'>
     .avatar-uploader {
         margin-left: 10px;
-        width: 70PX;
+        width: 70px;
         height: 70px;
         border-radius: 50%;
         cursor: pointer;
         position: relative;
         overflow: hidden;
-        background: url('../img/defaulthead.png') no-repeat;
+        /*background: url('../img/defaulthead.png') no-repeat;*/
         background-size: 100% 100%;
     }
 
@@ -513,6 +535,9 @@
     }
 
     .avatar {
+        width: 70px;
+        height: 70px;
+        object-fit: scale-down;
         position: relative;
         display: block;
     }
@@ -528,7 +553,6 @@
         color: #fff;
         text-align: center;
         line-height: 120px;
-
     }
 
     .el-upload-action:hover {
