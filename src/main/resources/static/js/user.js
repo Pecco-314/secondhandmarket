@@ -378,7 +378,7 @@ let ordersForm = new Vue({
         }
     }
 })
-let ordersForm = new Vue({
+let sellsForm = new Vue({
     el: '#mySells',
     data: {
         orders: [],
