@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 
 @Controller("OrdinaryItem")
@@ -95,21 +96,25 @@ public class ItemController {
     //搜索物品
     @ResponseBody
     @PostMapping("/requests/product/search")
-    public String searchItems(@RequestBody SearchMessage searchMessage) {
-        searchMessage.setKeyword(URLDecoder.decode(searchMessage.getKeyword()));
-        Result result = ItemModule.searchItems(itemService, itemImageService, tagsService, searchMessage.getItemFilter(), searchMessage.getKeyword());
+    public String searchItems(@RequestBody ItemFilter filter) {
+        try {
+            filter.setKeyword(URLDecoder.decode(filter.getKeyword(), "UTF-8"));
+        } catch (Exception e) {
+            return null;
+        }
+        Result result = ItemModule.getItemsByFilter(itemService, itemImageService, tagsService, filter);
 
         return result.toString();
     }
 
-    //筛选物品
+    /*//筛选物品
     @ResponseBody
     @PostMapping("/requests/product/filter")
     public String getItemListByFilter(@RequestBody ItemFilter itemFilter) {
         Result result = ItemModule.getItemsByFilter(itemService, itemImageService, tagsService, itemFilter);
 
         return result.toString();
-    }
+    }*/
 
     //物品详情
     @ResponseBody
@@ -120,14 +125,14 @@ public class ItemController {
         return result.toString();
     }
 
-    //关键词搜索
+    /*//关键词搜索
     @ResponseBody
     @GetMapping("/requests/search/{keyword}")
     public String getItemInfoByKeyword(@PathVariable("keyword") String keyword) {
         Result result = ItemModule.getCheckedItemsByKeyWords(itemService, itemImageService, tagsService, keyword);
 
         return result.toString();
-    }
+    }*/
 
     //更新物品信息（只修改商品名称、数量、金额、简介）
     @ResponseBody
@@ -160,7 +165,8 @@ public class ItemController {
     @ResponseBody
     @GetMapping("requests/user/items/{userId}")
     public String getUserItems(@PathVariable("userId") int userId) {
-        ItemFilter itemFilter = new ItemFilter(userId, null, null, null, null);
+        ItemFilter itemFilter = new ItemFilter();
+        itemFilter.setSeller(userId);
 
         Result result = ItemModule.getItemsByFilter(itemService, itemImageService, tagsService, itemFilter);
 

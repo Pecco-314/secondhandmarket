@@ -31,7 +31,7 @@ public class ItemController {
     @ResponseBody
     @GetMapping("/requests/admin/items")
     public String getAllItems() {
-        ItemFilter filter = new ItemFilter(null, null, null, null, null);
+        ItemFilter filter = new ItemFilter();
 
         Result result = ItemModule.getItemsByFilter(itemService, itemImageService, tagsService, filter);
 

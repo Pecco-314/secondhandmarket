@@ -11,14 +11,13 @@ import com.zerone.secondhandmarket.service.TagsService;
 import com.zerone.secondhandmarket.tools.DateFormatter;
 import com.zerone.secondhandmarket.viewobject.Result;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ItemModule {
-    private static final int itemsInHomepage = 8;
+    private static final int itemsInHomepage = 8; //主页物品个数
 
     //获取主页物品
     public static Result getItemListForHomepage(ItemService itemService, ItemImageService itemImageService, TagsService tagsService) {
@@ -27,59 +26,34 @@ public class ItemModule {
         int size = itemList.size();
         itemList = itemList.subList(Math.max(size - itemsInHomepage, 0), size);
         Collections.reverse(itemList);
-        //只获取最新的至多8个
 
-        /*List<Item> itemList1 = new ArrayList<Item>();
-        for (int i = itemList.size() - 1; i >= 0 && i >= itemList.size() - 8; i--) {
-            itemList1.add(itemList.get(i));
-        }*/
-
-        getItemTagsAndImages(itemImageService, tagsService, itemList);
+        getItemTagsAndImages(itemImageService, tagsService, itemList, false, true);
         return new Result(Status.ITEM_OK, "获取全部物品成功", itemList);
     }
 
-    //获取所有物品（对于管理员来说），用于审核用户发布的物品
+    /*//获取所有物品（对于管理员来说），用于审核用户发布的物品
     public static Result getItemList(ItemService itemService, ItemImageService itemImageService, TagsService tagsService) {
         List<Item> itemList = itemService.getItemList();
-        getItemTagsAndImages(itemImageService, tagsService, itemList);
+        getItemTagsAndImages(itemImageService, tagsService, itemList, true, true);
         return new Result(Status.ITEM_OK, "获取全部物品成功", itemList);
-    }
-
-    //获取所有审核通过的所有物品
-    /*public static Result getCheckedItemList(ItemService itemService,ItemImageService itemImageService,TagsService tagsService){
-        List<Item> itemList = itemService.getItemList();
-        List<Item> checkedItems=getCheckedItems(itemList);
-        getItemTagsAndImages(itemImageService,tagsService,checkedItems);
-
-        return new Result(Status.ITEM_OK,"获取全部物品成功",checkedItems);
     }*/
 
     //根据类型筛选
     public static Result getItemsByFilter(ItemService service, ItemImageService itemImageService, TagsService tagsService, ItemFilter filter) {
         //获取所有符合条件的物品
-        List<Item> list = service.getItemByFilter(filter);
-
-        //List<SimplifiedItem> list = service.getItemByFilter(filter);
-        //写完了Service的查询方案后改为这句
+        List<Item> list = service.getItemListByFilterAndKeyword(filter, filter.getKeyword());
 
         if (list == null || list.isEmpty()) {
             return new Result(Status.ITEM_ERROR, "无符合条件物品", null);
         }
-        //获取Item的图片和标签
-        getItemTagsAndImages(itemImageService, tagsService, list);
+
+        getItemTagsAndImages(itemImageService, tagsService, list, filter.isImagesNeeded(), filter.isTagsNeeded());
 
         return new Result(Status.ITEM_OK, "获得所需物品", list);
     }
 
-    //搜索物品
-    public static Result searchItems(ItemService itemService, ItemImageService itemImageService, TagsService tagsService, ItemFilter itemFilter, String keyword) {
-        /*//根据类型筛选物品
-        List<Item> list = itemService.getItemByFilter(itemFilter);
-        //根据关键词筛选物品
-        List<Item> list1 = itemService.getItemByKeyword(keyword);
-        //求交集
-        list.retainAll(list1);*/
-
+    /*//搜索物品
+    public static Result searchItems(ItemService itemService, ItemImageService itemImageService, TagsService tagsService, ItemFilter itemFilter) {
         List<Item> list = itemService.getItemListByFilterAndKeyword(itemFilter, keyword);
 
         if (list == null || list.isEmpty()) {
@@ -89,9 +63,9 @@ public class ItemModule {
         getItemTagsAndImages(itemImageService, tagsService, list);
 
         return new Result(Status.ITEM_OK, "获得所需物品", list);
-    }
+    }*/
 
-    //根据关键词筛选
+    /*//根据关键词筛选
     public static Result getCheckedItemsByKeyWords(ItemService service, ItemImageService itemImageService, TagsService tagsService, String keyword) {
         //按关键词获得符合条件的物品
         List<Item> list = service.getItemByKeyword(keyword)
@@ -102,7 +76,7 @@ public class ItemModule {
         getItemTagsAndImages(itemImageService, tagsService, list);
 
         return new Result(Status.ITEM_OK, "搜索成功", list);
-    }
+    }*/
 
     //获取物品详情
     public static Result getItemInfo(ItemService itemService, ItemImageService itemImageService, TagsService tagsService, int itemId) {
@@ -112,7 +86,7 @@ public class ItemModule {
             return new Result(Status.ITEM_ERROR, "无此物品", null);
         }
         //获取物品的图片和标签
-        getItemTagsAndImages(itemImageService, tagsService, item);
+        getItemTagsAndImages(itemImageService, tagsService, item, true, true);
         return new Result(Status.ITEM_OK, "获取物品成功", item);
     }
 
@@ -172,16 +146,6 @@ public class ItemModule {
     public static Result deleteUserItem(ItemService itemService, ItemImageService itemImageService, TagsService tagsService, int itemId) {
         try {
             itemService.deleteItem(itemId);
-//            //删除对应的images
-//            List<String> images= itemImageService.getImagesByItemId(itemId);
-//            for(String image:images){
-//                itemImageService.deleteItemImage(itemId,image);
-//            }
-//            //删除对应的tags
-//            List<String> tags=tagsService.getTagsByItemId(itemId);
-//            for(String tag:tags){
-//                tagsService.deleteItem(itemId,tag);
-//            }
 
             return new Result(Status.ITEM_OK, "删除物品成功", null);
         } catch (Exception e) {
@@ -189,15 +153,26 @@ public class ItemModule {
         }
     }
 
-    private static void getItemTagsAndImages(ItemImageService itemImageService, TagsService tagsService, Item item) {
-        item.setItemImages(itemImageService.getImagesByItemId(item.getId()));
-        item.setItemTags(tagsService.getTagsByItemId(item.getId()));
+    private static void getItemTagsAndImages(ItemImageService itemImageService, TagsService tagsService, Item item, boolean imagesNeeded, boolean tagsNeeded) {
+        if(imagesNeeded)
+            item.setItemImages(itemImageService.getImagesByItemId(item.getId()));
+        if(tagsNeeded)
+            item.setItemTags(tagsService.getTagsByItemId(item.getId()));
     }
 
-    private static void getItemTagsAndImages(ItemImageService itemImageService, TagsService tagsService, List<Item> items) {
+    private static void getItemTagsAndImages(ItemImageService itemImageService, TagsService tagsService, List<Item> items, boolean imagesNeeded, boolean tagsNeeded) {
         for (Item item : items) {
-            item.setItemImages(itemImageService.getImagesByItemId(item.getId()));
-            item.setItemTags(tagsService.getTagsByItemId(item.getId()));
+            if(imagesNeeded)
+                item.setItemImages(itemImageService.getImagesByItemId(item.getId()));
+            if(tagsNeeded)
+                item.setItemTags(tagsService.getTagsByItemId(item.getId()));
         }
+
+        /*items.stream().parallel().forEach(item -> {
+            if(imagesNeeded)
+                item.setItemImages(itemImageService.getImagesByItemId(item.getId()));
+            if(tagsNeeded)
+                item.setItemTags(tagsService.getTagsByItemId(item.getId()));
+        });*/
     }
 }

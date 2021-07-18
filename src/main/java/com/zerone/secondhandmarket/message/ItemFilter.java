@@ -14,8 +14,11 @@ import lombok.NoArgsConstructor;
 //select
 public class ItemFilter {
     private Integer seller = null;
+    private String keyword = null;
     private ItemType type = null;
     private String[] tags = null;
     private Ordering priceOrdering = Ordering.DEFAULT;
     private ItemCheckCondition checkCondition = null;
+    private boolean imagesNeeded = false;
+    private boolean tagsNeeded = false;
 }
