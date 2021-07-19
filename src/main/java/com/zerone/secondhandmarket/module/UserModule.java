@@ -7,6 +7,7 @@ import com.zerone.secondhandmarket.viewobject.Result;
 import com.zerone.secondhandmarket.enums.Status;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserModule {
     public static Result getUserList(UserService service) {
@@ -28,14 +29,22 @@ public class UserModule {
         return new Result(Status.USER_OK, "获取成功", user);
     }
 
-    public static Result getSimplifiedUserInfo(UserService service, int userId) {
+    public static Result getUsersByIds(UserService service, List<Integer> ids) {
+        List<User> list = ids.parallelStream()
+                .map(service::getUserById)
+                .collect(Collectors.toList());
+
+        return new Result(Status.OK, "", list);
+    }
+
+    /*public static Result getSimplifiedUserInfo(UserService service, int userId) {
         SimplifiedUser user = service.getSimplifiedUserInfoById(userId);
 
         if(user == null)
             return new Result(Status.USER_ERROR, "获取失败", null);
 
         return new Result(Status.USER_OK, "获取成功", user);
-    }
+    }*/
 
     public static Result insertNewUser(UserService service, User user) {
         try {

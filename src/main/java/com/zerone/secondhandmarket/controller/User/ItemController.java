@@ -128,7 +128,7 @@ public class ItemController {
 
     @ResponseBody
     @PostMapping("requests/item/items")
-    public String getItemsByIds(List<Integer> ids) {
+    public String getItemsByIds(@RequestBody List<Integer> ids) {
         Result result = ItemModule.getItemListByIDs(itemService, ids);
 
         return result.toString();

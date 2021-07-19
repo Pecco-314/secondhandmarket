@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.List;
 
 @Controller("OrdinaryUser")
 public class UserController {
@@ -44,6 +45,13 @@ public class UserController {
             result = UserModule.getUserInfo(userService, userIdToken.getUserID());
         else
             result = new Result(Status.TOKEN_MISMATCH, "id与token不一致", null);
+        return result.toString();
+    }
+
+    @ResponseBody
+    @PostMapping("/requests/user/infos")
+    public String getUsersByIds(@RequestBody List<Integer> ids) {
+        Result result = UserModule.getUsersByIds(userService, ids);
         return result.toString();
     }
 
