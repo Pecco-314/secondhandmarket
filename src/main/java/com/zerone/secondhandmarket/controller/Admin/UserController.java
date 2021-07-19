@@ -28,6 +28,16 @@ public class UserController {
         return result.toString();
     }
 
+    //获取单个用户
+    @ResponseBody
+    @GetMapping("requests/admin/user/{userID}")
+    public String getUser(@PathVariable int userID) {
+        Result result = UserModule.getUserInfo(userService, userID);
+
+        return result.toString();
+    }
+
+
 //    //添加用户
 //    @ResponseBody
 //    @PostMapping("requests/admin/addUser")
