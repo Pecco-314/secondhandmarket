@@ -39,6 +39,14 @@ public class OrderController {
         return result.toString();
     }
 
+    @ResponseBody
+    @GetMapping("/requests/user/orderList/search")
+    public String searchOrder(@RequestBody OrderFilter filter) {
+        Result result = OrderModule.getOrderListByFilter(orderService, filter);
+
+        return result.toString();
+    }
+
     //生成单个订单
     @ResponseBody
     @PostMapping("/requests/user/insertOrder")

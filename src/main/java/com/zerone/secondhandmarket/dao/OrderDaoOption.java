@@ -1,7 +1,9 @@
 package com.zerone.secondhandmarket.dao;
 
 import com.zerone.secondhandmarket.entity.Order;
+import com.zerone.secondhandmarket.mapper.ItemRowMapper;
 import com.zerone.secondhandmarket.mapper.OrderRowMapper;
+import com.zerone.secondhandmarket.message.OrderFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Repository
 public class OrderDaoOption {
@@ -30,7 +33,7 @@ public class OrderDaoOption {
         param.put("campus", order.getCampus());
         param.put("dorm", order.getDorm());
         param.put("detailed_address", order.getDetailedAddress());
-        param.put("state", order.getState());
+        param.put("state", order.getState().toString());
         return jdbcTemplate.update(sql, param);
     }
 
@@ -96,6 +99,49 @@ public class OrderDaoOption {
         param.put("user_id", userId);
         try {
             return jdbcTemplate.query(sql, param, new OrderRowMapper());
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public List<Order> getOrderListByFilter(OrderFilter filter) {
+        StringBuilder sql = new StringBuilder(500);
+
+        boolean has_where = false;
+
+        Map<String, Object> param = new HashMap<>();
+
+        sql.append("select * from orders");
+
+        if(filter.getBuyer() != null) {
+            sql.append(" where buyer_id=:buyer_id");
+            has_where = true;
+
+            param.put("buyer_id", filter.getBuyer());
+        }
+
+        if (filter.getSeller() != null) {
+            if(!has_where) {
+                sql.append(" where seller_id=:seller_id");
+                has_where = true;
+            } else {
+                sql.append(" and seller_id=:seller_id");
+            }
+            param.put("seller_id", filter.getSeller());
+        }
+
+        if(filter.getItem() != null) {
+            if(!has_where) {
+                sql.append(" where item_id=:item_id");
+                //has_where = true;
+            } else {
+                sql.append(" and item_id=:item_id");
+            }
+            param.put("item_id", filter.getItem());
+        }
+
+        try {
+            return jdbcTemplate.query(sql.toString(), param, new OrderRowMapper());
         } catch (Exception e) {
             return null;
         }
