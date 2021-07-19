@@ -41,7 +41,7 @@ public class ItemController {
     @ResponseBody
     @PostMapping("/requests/admin/checkItem")
     public String checkItem(@RequestBody ItemCheckMessage message) {
-        Item item = itemService.getItemById(message.getItemID());
+        Item item = itemService.getItemById(message.getItemId());
         item.setCheckCondition(message.getCheckCondition());
 
         Result result = ItemModule.modifyUserItem(itemService, itemImageService, tagsService, item);

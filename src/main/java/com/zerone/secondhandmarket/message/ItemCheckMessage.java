@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 //update
 public class ItemCheckMessage {
     //locate
-    private Integer itemID;
+    private Integer itemId;
 
     //modify
     private ItemCheckCondition checkCondition;

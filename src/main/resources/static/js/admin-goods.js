@@ -37,14 +37,18 @@ let goodsTable = new Vue({
                     if (response.status === 30200) {
                         this.tableData = response.data;
                         for (let i = 0; i < this.tableData.length; i++) {
-                            this.tableData[i].btnIllegalEnable = true;
-                            this.tableData[i].btnPassEnable = true;
                             if (this.tableData[i].checkCondition === 'UNCHECKED') {
-                                this.tableData[i].btnIllegalEnable = false;
-                                this.tableData[i].btnPassEnable = false;
+                                this.tableData[i].btnIllegalDisabled = false;
+                                this.tableData[i].btnPassDisabled = false;
+                            } else if (this.tableData[i].checkCondition === 'TRUE') {
+                                this.tableData[i].btnIllegalDisabled = false;
+                                this.tableData[i].btnPassDisabled = true;
+                            } else if (this.tableData[i].checkCondition === 'FALSE') {
+                                this.tableData[i].btnIllegalDisabled = true;
+                                this.tableData[i].btnPassDisabled = false;
                             }
                         }
-                        console.log(this.tableData);
+                        //console.log(this.tableData);
                     } else {
                         alert(`${response.message}（状态码：${response.status}）`);
                     }
@@ -86,7 +90,7 @@ let goodsTable = new Vue({
             })
         },
 
-        passedGoods(row) {
+        passedGoods() {
             let identification = {
                 itemId: this.currentId,
                 checkCondition: 'TRUE',
@@ -100,7 +104,6 @@ let goodsTable = new Vue({
                     let response = JSON.parse(responseStr);
                     if (response.status === 30200) {
                         this.dialogVisibleForPass = false;
-                        this.$("#passbtn").setAttribute("disabled", true);
                         confirm("通过审核成功");
                         goodsTable.getGoodsList();
                     } else {

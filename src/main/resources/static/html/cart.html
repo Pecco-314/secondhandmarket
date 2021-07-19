@@ -97,7 +97,7 @@
                                 </tr>
                                 </thead>
 
-                                <tbody>
+                                <tbody id="myCart" v-for="cart in carts">
                                 <tr>
                                     <td class="product-thumbnail">
                                         <a href="#">
@@ -106,141 +106,176 @@
                                     </td>
 
                                     <td class="product-name">
-                                        <a href="#">Headphone</a>
+                                        <a href="#">{{cart.itemName}}</a>
                                     </td>
 
                                     <td class="product-price">
-                                        <span class="unit-amount">$50.00</span>
+                                        <span class="unit-amount">￥{{cart.price}}</span>
                                     </td>
 
                                     <td class="product-quantity">
                                         <div class="input-counter">
-														<span class="minus-btn">
-															<i class='bx bx-minus'></i>
-														</span>
-                                            <input type="text" value="1">
+                                														<span class="minus-btn">
+                                															<i class='bx bx-minus'></i>
+                                														</span>
+                                            <input type="text" v-model=cart.quantity>
                                             <span class="plus-btn">
-															<i class='bx bx-plus'></i>
-														</span>
+                                															<i class='bx bx-plus'></i>
+                                														</span>
                                         </div>
                                     </td>
 
                                     <td class="product-subtotal">
-                                        <span class="subtotal-amount">$50.00</span>
+                                        <span class="subtotal-amount">{{cart.total}}</span>
 
                                         <a href="#" class="remove">
                                             <i class='bx bx-trash'></i>
                                         </a>
                                     </td>
                                 </tr>
+                                <!--                                <tr>-->
+                                <!--                                    <td class="product-thumbnail">-->
+                                <!--                                        <a href="#">-->
+                                <!--                                            <img src="../external/olex/images/products/product-img1.png" alt="Image">-->
+                                <!--                                        </a>-->
+                                <!--                                    </td>-->
 
-                                <tr>
-                                    <td class="product-thumbnail">
-                                        <a href="#">
-                                            <img src="../external/olex/images/products/product-img2.png" alt="Image">
-                                        </a>
-                                    </td>
+                                <!--                                    <td class="product-name">-->
+                                <!--                                        <a href="#">Headphone</a>-->
+                                <!--                                    </td>-->
 
-                                    <td class="product-name">
-                                        <a href="#">Nikkon</a>
-                                    </td>
+                                <!--                                    <td class="product-price">-->
+                                <!--                                        <span class="unit-amount">$50.00</span>-->
+                                <!--                                    </td>-->
 
-                                    <td class="product-price">
-                                        <span class="unit-amount">$30.00</span>
-                                    </td>
+                                <!--                                    <td class="product-quantity">-->
+                                <!--                                        <div class="input-counter">-->
+                                <!--                                			<span class="minus-btn">-->
+                                <!--                                				<i class='bx bx-minus'></i>-->
+                                <!--                                			</span>-->
+                                <!--                                            <input type="text" value="1">-->
+                                <!--                                            <span class="plus-btn">-->
+                                <!--                                			    <i class='bx bx-plus'></i>-->
+                                <!--                                			</span>-->
+                                <!--                                        </div>-->
+                                <!--                                    </td>-->
 
-                                    <td class="product-quantity">
-                                        <div class="input-counter">
-														<span class="minus-btn">
-															<i class='bx bx-minus'></i>
-														</span>
-                                            <input type="text" value="1">
-                                            <span class="plus-btn">
-															<i class='bx bx-plus'></i>
-														</span>
-                                        </div>
-                                    </td>
+                                <!--                                    <td class="product-subtotal">-->
+                                <!--                                        <span class="subtotal-amount">$50.00</span>-->
 
-                                    <td class="product-subtotal">
-                                        <span class="subtotal-amount">$30.00</span>
+                                <!--                                        <a href="#" class="remove">-->
+                                <!--                                            <i class='bx bx-trash'></i>-->
+                                <!--                                        </a>-->
+                                <!--                                    </td>-->
+                                <!--                                </tr>-->
 
-                                        <a href="#" class="remove">
-                                            <i class='bx bx-trash'></i>
-                                        </a>
-                                    </td>
-                                </tr>
+                                <!--                                <tr>-->
+                                <!--                                    <td class="product-thumbnail">-->
+                                <!--                                        <a href="#">-->
+                                <!--                                            <img src="../external/olex/images/products/product-img2.png" alt="Image">-->
+                                <!--                                        </a>-->
+                                <!--                                    </td>-->
 
-                                <tr>
-                                    <td class="product-thumbnail">
-                                        <a href="#">
-                                            <img src="../external/olex/images/products/product-img3.png" alt="Image">
-                                        </a>
-                                    </td>
+                                <!--                                    <td class="product-name">-->
+                                <!--                                        <a href="#">Nikkon</a>-->
+                                <!--                                    </td>-->
 
-                                    <td class="product-name">
-                                        <a href="#">Mobile</a>
-                                    </td>
+                                <!--                                    <td class="product-price">-->
+                                <!--                                        <span class="unit-amount">$30.00</span>-->
+                                <!--                                    </td>-->
 
-                                    <td class="product-price">
-                                        <span class="unit-amount"> $75.00</span>
-                                    </td>
+                                <!--                                    <td class="product-quantity">-->
+                                <!--                                        <div class="input-counter">-->
+                                <!--                                														<span class="minus-btn">-->
+                                <!--                                															<i class='bx bx-minus'></i>-->
+                                <!--                                														</span>-->
+                                <!--                                            <input type="text" value="1">-->
+                                <!--                                            <span class="plus-btn">-->
+                                <!--                                															<i class='bx bx-plus'></i>-->
+                                <!--                                														</span>-->
+                                <!--                                        </div>-->
+                                <!--                                    </td>-->
 
-                                    <td class="product-quantity">
-                                        <div class="input-counter">
-														<span class="minus-btn">
-															<i class='bx bx-minus'></i>
-														</span>
-                                            <input type="text" value="1">
-                                            <span class="plus-btn">
-															<i class='bx bx-plus'></i>
-														</span>
-                                        </div>
-                                    </td>
+                                <!--                                    <td class="product-subtotal">-->
+                                <!--                                        <span class="subtotal-amount">$30.00</span>-->
 
-                                    <td class="product-subtotal">
-                                        <span class="subtotal-amount">$75.00</span>
+                                <!--                                        <a href="#" class="remove">-->
+                                <!--                                            <i class='bx bx-trash'></i>-->
+                                <!--                                        </a>-->
+                                <!--                                    </td>-->
+                                <!--                                </tr>-->
 
-                                        <a href="#" class="remove">
-                                            <i class='bx bx-trash'></i>
-                                        </a>
-                                    </td>
-                                </tr>
+                                <!--                                <tr>-->
+                                <!--                                    <td class="product-thumbnail">-->
+                                <!--                                        <a href="#">-->
+                                <!--                                            <img src="../external/olex/images/products/product-img3.png" alt="Image">-->
+                                <!--                                        </a>-->
+                                <!--                                    </td>-->
 
-                                <tr>
-                                    <td class="product-thumbnail">
-                                        <a href="#">
-                                            <img src="../external/olex/images/products/product-img4.png" alt="Image">
-                                        </a>
-                                    </td>
+                                <!--                                    <td class="product-name">-->
+                                <!--                                        <a href="#">Mobile</a>-->
+                                <!--                                    </td>-->
 
-                                    <td class="product-name">
-                                        <a href="#">Watch</a>
-                                    </td>
+                                <!--                                    <td class="product-price">-->
+                                <!--                                        <span class="unit-amount"> $75.00</span>-->
+                                <!--                                    </td>-->
 
-                                    <td class="product-price">
-                                        <span class="unit-amount">$50.00</span>
-                                    </td>
+                                <!--                                    <td class="product-quantity">-->
+                                <!--                                        <div class="input-counter">-->
+                                <!--                                														<span class="minus-btn">-->
+                                <!--                                															<i class='bx bx-minus'></i>-->
+                                <!--                                														</span>-->
+                                <!--                                            <input type="text" value="1">-->
+                                <!--                                            <span class="plus-btn">-->
+                                <!--                                															<i class='bx bx-plus'></i>-->
+                                <!--                                														</span>-->
+                                <!--                                        </div>-->
+                                <!--                                    </td>-->
 
-                                    <td class="product-quantity">
-                                        <div class="input-counter">
-														<span class="minus-btn">
-															<i class='bx bx-minus'></i>
-														</span>
-                                            <input type="text" value="1">
-                                            <span class="plus-btn">
-															<i class='bx bx-plus'></i>
-														</span>
-                                        </div>
-                                    </td>
+                                <!--                                    <td class="product-subtotal">-->
+                                <!--                                        <span class="subtotal-amount">$75.00</span>-->
 
-                                    <td class="product-subtotal">
-                                        <span class="subtotal-amount">$50.00</span>
+                                <!--                                        <a href="#" class="remove">-->
+                                <!--                                            <i class='bx bx-trash'></i>-->
+                                <!--                                        </a>-->
+                                <!--                                    </td>-->
+                                <!--                                </tr>-->
 
-                                        <a href="#" class="remove">
-                                            <i class='bx bx-trash'></i>
-                                        </a>
-                                    </td>
-                                </tr>
+                                <!--                                <tr>-->
+                                <!--                                    <td class="product-thumbnail">-->
+                                <!--                                        <a href="#">-->
+                                <!--                                            <img src="../external/olex/images/products/product-img4.png" alt="Image">-->
+                                <!--                                        </a>-->
+                                <!--                                    </td>-->
+
+                                <!--                                    <td class="product-name">-->
+                                <!--                                        <a href="#">Watch</a>-->
+                                <!--                                    </td>-->
+
+                                <!--                                    <td class="product-price">-->
+                                <!--                                        <span class="unit-amount">$50.00</span>-->
+                                <!--                                    </td>-->
+
+                                <!--                                    <td class="product-quantity">-->
+                                <!--                                        <div class="input-counter">-->
+                                <!--                                														<span class="minus-btn">-->
+                                <!--                                															<i class='bx bx-minus'></i>-->
+                                <!--                                														</span>-->
+                                <!--                                            <input type="text" value="1">-->
+                                <!--                                            <span class="plus-btn">-->
+                                <!--                                															<i class='bx bx-plus'></i>-->
+                                <!--                                														</span>-->
+                                <!--                                        </div>-->
+                                <!--                                    </td>-->
+
+                                <!--                                    <td class="product-subtotal">-->
+                                <!--                                        <span class="subtotal-amount">$50.00</span>-->
+
+                                <!--                                        <a href="#" class="remove">-->
+                                <!--                                            <i class='bx bx-trash'></i>-->
+                                <!--                                        </a>-->
+                                <!--                                    </td>-->
+                                <!--                                </tr>-->
                                 </tbody>
                             </table>
                         </div>
@@ -305,6 +340,7 @@
 <script src="../external/olex/js/custom.js"></script>
 <script src="../js/core.js"></script>
 <script src="../js/header.js"></script>
+<script src="../js/cart.js"></script>
 
 
 </html>
