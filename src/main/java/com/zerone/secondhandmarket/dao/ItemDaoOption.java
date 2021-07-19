@@ -69,7 +69,7 @@ public class ItemDaoOption {
     }
 
 
-    // 通过类型查询商品
+    /*// 通过类型查询商品
     public List<Item> getItemByType(ItemType itemtype) {
         String sql = "select * from item where item_type=:item_type";
         Map<String, Object> param = new HashMap<>();
@@ -79,7 +79,7 @@ public class ItemDaoOption {
         } catch (Exception e) {
             return null;
         }
-    }
+    }*/
 
     // 通过id查询商品
     public Item getItemById(int itemId) {
@@ -104,7 +104,7 @@ public class ItemDaoOption {
         }
     }
 
-    //按价格排序获取商品列表
+    /*//按价格排序获取商品列表
     public List<Item> getItemListOrderByPrice(Ordering ordering) {
         String sql;
         switch(ordering) {
@@ -123,9 +123,9 @@ public class ItemDaoOption {
         } catch (Exception e) {
             return null;
         }
-    }
+    }*/
 
-    // 通过类似商品名（关键字）查询商品
+    /*// 通过类似商品名（关键字）查询商品
     public List<Item> getItemByKeyword(String keyword) {
         String sql = "select * from item where item_name LIKE :item_name";
         Map<String, Object> param = new HashMap<>();
@@ -136,93 +136,22 @@ public class ItemDaoOption {
         } catch (Exception e) {
             return null;
         }
-    }
+    }*/
 
-    //按filter获取商品列表
-    public List<Item> getItemByFilter(ItemFilter itemFilter) {
+    public List<Item> getItemListByFilter(ItemFilter filter) {
         StringBuilder sql = new StringBuilder(500);
-        if(itemFilter.getTags() == null)
-            sql.append("select * from item");
-        else
-            sql.append("select * from item natural join keywords");
+        boolean hasOrder = false;
+        boolean has_where = false;
+        String keyword = filter.getKeyword();
 
         Map<String, Object> param = new HashMap<>();
-        boolean has_where = false;
 
-        if (itemFilter.getSeller() != null) {
-            sql.append(" where seller_id=:seller_id");
-            has_where = true;
-
-            param.put("seller_id", itemFilter.getSeller());
-        }
-        if (itemFilter.getType() != null) {
-            if (!has_where) {
-                sql.append(" where item_type=:item_type");
-                has_where = true;
-            } else {
-                sql.append(" and item_type=:item_type");
-            }
-            param.put("item_type", itemFilter.getType().toString());
-        }
-        if (itemFilter.getTags() != null) {
-            if(!has_where) {
-                sql.append(" where (");
-                has_where = true;
-            } else {
-                sql.append(" and (");
-            }
-
-            for(int i = 0; i < itemFilter.getTags().length; ++i) {
-                if(i > 0) {
-                    sql.append(" or");
-                }
-                sql.append(" keyword=:keyword" + i);
-                param.put("keyword" + i, itemFilter.getTags()[i]);
-            }
-            sql.append(")");
-        }
-        if (itemFilter.getCheckCondition() != null) {
-            if (!has_where) {
-                sql.append(" where checked=:checked");
-                //has_where = true;
-            } else {
-                sql.append(" and checked=:checked");
-            }
-            param.put("checked", itemFilter.getCheckCondition().toString());
-        }
-
-        if(itemFilter.getPriceOrdering() != null) {
-            switch (itemFilter.getPriceOrdering()) {
-                case ASC:
-                    sql.append(" order by price_now ASC");
-                    break;
-                case DESC:
-                    sql.append(" order by price_now DESC");
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        try {
-            return jdbcTemplate.query(sql.toString(), param, new ItemRowMapper())
-                    .stream()
-                    .distinct()
-                    .collect(Collectors.toList());
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    public List<Item> getItemListByFilterAndKeyword(ItemFilter filter, String keyword) {
-        StringBuilder sql = new StringBuilder(500);
         if(filter.getTags() == null)
             sql.append("select * from item ");
         else
             sql.append("select * from item natural join keywords");
 
-        Map<String, Object> param = new HashMap<>();
-        boolean has_where = false;
+
         if (filter.getSeller() != null) {
             sql.append(" where seller_id=:seller_id");
             has_where = true;
@@ -277,14 +206,34 @@ public class ItemDaoOption {
             switch (filter.getPriceOrdering()) {
                 case ASC:
                     sql.append(" order by price_now ASC");
+                    hasOrder = true;
                     break;
                 case DESC:
                     sql.append(" order by price_now DESC");
+                    hasOrder = true;
                     break;
                 default:
                     break;
             }
         }
+
+        if(filter.getQuantityOrdering() != null)
+            switch (filter.getQuantityOrdering()) {
+                case ASC:
+                    if(hasOrder)
+                        sql.append(" ,quantity ASC");
+                    else
+                        sql.append(" order by quantity ASC");
+                    break;
+                case DESC:
+                    if(hasOrder)
+                        sql.append(" ,quantity DESC");
+                    else
+                        sql.append(" order by quantity DESC");
+                    break;
+                default:
+                    break;
+            }
 
         try {
             return jdbcTemplate.query(sql.toString(), param, new ItemRowMapper())

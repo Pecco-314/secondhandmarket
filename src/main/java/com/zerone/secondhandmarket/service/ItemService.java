@@ -40,11 +40,11 @@ public class ItemService implements ItemDao {
         return 0;
     }
 
-    @Override
+    /*@Override
     // 通过类型查询商品
     public List<Item> getItemByType(ItemType itemtype) {
         return daoOption.getItemByType(itemtype);
-    }
+    }*/
 
     @Override
     // 通过id查询商品
@@ -58,26 +58,21 @@ public class ItemService implements ItemDao {
         return daoOption.getItemList();
     }
 
-    //按价格升序或降序获得商品列表，输入ordering
+    /*//按价格升序或降序获得商品列表，输入ordering
     @Override
     public List<Item> getItemListOrderByPrice(Ordering ordering) {
         return daoOption.getItemListOrderByPrice(ordering);
     }
-
+*/
     @Override
-    public List<Item> getItemByFilter(ItemFilter itemFilter) {
-        return daoOption.getItemByFilter(itemFilter);
+    public List<Item> getItemListByFilter(ItemFilter itemFilter) {
+        return daoOption.getItemListByFilter(itemFilter);
     }
 
-    @Override
+    /*@Override
     public List<Item> getItemByKeyword(String keyword) {
         return daoOption.getItemByKeyword(keyword);
-    }
-
-    @Override
-    public List<Item> getItemListByFilterAndKeyword(ItemFilter filter, String keyword) {
-        return daoOption.getItemListByFilterAndKeyword(filter, keyword);
-    }
+    }*/
 
     /*@Override
     public List<SimplifiedItem> getSimplifiedItemByFilter(ItemFilter itemFilter) {
