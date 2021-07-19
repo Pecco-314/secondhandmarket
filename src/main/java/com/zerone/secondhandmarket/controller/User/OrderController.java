@@ -26,7 +26,7 @@ public class OrderController {
     @ResponseBody
     @GetMapping("/requests/user/orderList/buyer/{userId}")
     public String getOrderListAsBuyer(@PathVariable int userId) {
-        Result result = OrderModule.getOrderList(orderService, itemService, userId, true);
+        Result result = OrderModule.getOrderList(orderService, userId, true);
 
         return result.toString();
     }
@@ -34,7 +34,7 @@ public class OrderController {
     @ResponseBody
     @GetMapping("/requests/user/orderList/seller/{userId}")
     public String getOrderListAsSeller(@PathVariable int userId) {
-        Result result = OrderModule.getOrderList(orderService, itemService, userId, false);
+        Result result = OrderModule.getOrderList(orderService, userId, false);
 
         return result.toString();
     }

@@ -10,6 +10,7 @@ import com.zerone.secondhandmarket.service.ItemService;
 import com.zerone.secondhandmarket.service.TagsService;
 import com.zerone.secondhandmarket.tools.DateFormatter;
 import com.zerone.secondhandmarket.viewobject.Result;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collections;
 import java.util.Date;
@@ -50,6 +51,15 @@ public class ItemModule {
         getItemTagsAndImages(itemImageService, tagsService, list, filter.isImagesNeeded(), filter.isTagsNeeded());
 
         return new Result(Status.ITEM_OK, "获得所需物品", list);
+    }
+
+    public static Result getItemListByIDs(ItemService service, List<Integer> ids) {
+        List<Item> list = ids
+                .parallelStream()
+                .map(service::getItemById)
+                .collect(Collectors.toList());
+
+        return new Result(Status.OK, "", list);
     }
 
     /*//搜索物品
@@ -161,18 +171,11 @@ public class ItemModule {
     }
 
     private static void getItemTagsAndImages(ItemImageService itemImageService, TagsService tagsService, List<Item> items, boolean imagesNeeded, boolean tagsNeeded) {
-        for (Item item : items) {
+        items.parallelStream().forEach(item -> {
             if(imagesNeeded)
                 item.setItemImages(itemImageService.getImagesByItemId(item.getId()));
             if(tagsNeeded)
                 item.setItemTags(tagsService.getTagsByItemId(item.getId()));
-        }
-
-        /*items.stream().parallel().forEach(item -> {
-            if(imagesNeeded)
-                item.setItemImages(itemImageService.getImagesByItemId(item.getId()));
-            if(tagsNeeded)
-                item.setItemTags(tagsService.getTagsByItemId(item.getId()));
-        });*/
+        });
     }
 }

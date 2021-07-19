@@ -21,7 +21,7 @@ public class OrderController {
     @ResponseBody
     @PostMapping("/requests/admin/order/{userId}")
     public String getOrderList(@PathVariable int userId) {
-        Result result = OrderModule.getOrderList(orderService, itemService, userId, true);
+        Result result = OrderModule.getOrderList(orderService, userId, true);
 
         return JSONMapper.writeValueAsString(result);
     }
