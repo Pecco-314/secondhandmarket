@@ -53,6 +53,15 @@ public class ItemModule {
         return new Result(Status.ITEM_OK, "获得所需物品", list);
     }
 
+    public static Result getItemListByIDs(ItemService service, List<Integer> ids) {
+        List<Item> list = ids
+                .parallelStream()
+                .map(service::getItemById)
+                .collect(Collectors.toList());
+
+        return new Result(Status.OK, "", list);
+    }
+
     /*//搜索物品
     public static Result searchItems(ItemService itemService, ItemImageService itemImageService, TagsService tagsService, ItemFilter itemFilter) {
         List<Item> list = itemService.getItemListByFilterAndKeyword(itemFilter, keyword);

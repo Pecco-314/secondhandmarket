@@ -1,7 +1,6 @@
 package com.zerone.secondhandmarket.module;
 
 import com.zerone.secondhandmarket.entity.Order;
-import com.zerone.secondhandmarket.entity.SimplifiedOrder;
 import com.zerone.secondhandmarket.enums.OrderState;
 import com.zerone.secondhandmarket.enums.Status;
 import com.zerone.secondhandmarket.message.OrderFilter;
@@ -16,24 +15,24 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class OrderModule {
-    public static Result getOrderList(OrderService service, ItemService itemService, int userId, boolean isBuyer) {
+    public static Result getOrderList(OrderService service, int userId, boolean isBuyer) {
         List<Order> list = service.getOrderByUserId(userId, isBuyer);
 
         if (list == null || list.isEmpty()) {
             return new Result(Status.NO_QUALIFIED_ORDERS, "没有合适的订单", null);
         }
 
-        List<SimplifiedOrder> simplifiedOrderList = list
+        /*List<SimplifiedOrder> simplifiedOrderList = list
                 .stream()
                 .map(order -> new SimplifiedOrder(order, itemService.getItemById(order.getItem())))
-                .collect(Collectors.toList());
+                .collect(Collectors.toList());*/
 
         /*List<SimplifiedOrder> simplifiedOrderList = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
             simplifiedOrderList.add(new SimplifiedOrder(list.get(i), itemService.getItemById(list.get(i).getItem())));
         }*/
 
-        return new Result(Status.ORDER_OK, "获取订单列表成功", simplifiedOrderList);
+        return new Result(Status.ORDER_OK, "获取订单列表成功", list);
     }
 
     public static Result generateOrder(OrderService service, Order order) {
