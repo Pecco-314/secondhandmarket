@@ -338,14 +338,15 @@
                                             <el-table-column label="操作" min-width="50%">
                                                 <template slot-scope="scope">
                                                     <div style="float:left">
-                                                        <el-button type="button" :disabled="scope.row.btnIllegalEnable"
+                                                        <el-button type="button"
+                                                                   :disabled="scope.row.btnIllegalDisabled"
                                                                    @click="openIllegalDialog(scope.row)"
                                                                    class="btn-sm btn-danger waves-effect waves-light">
                                                             违规
                                                         </el-button>
                                                     </div>
                                                     <div style="display: flex; justify-content: center">
-                                                        <el-button type="button" :disabled="scope.row.btnPassEnable"
+                                                        <el-button type="button" :disabled="scope.row.btnPassDisabled"
                                                                    @click="openPassDialog(scope.row)"
                                                                    class="btn-sm btn-success waves-effect waves-light">
                                                             通过审核

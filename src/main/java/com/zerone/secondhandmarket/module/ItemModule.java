@@ -60,7 +60,7 @@ public class ItemModule {
             return new Result(Status.ITEM_ERROR, "无符合条件物品", null);
         }
         //获取Item的图片和标签
-        getItemTagsAndImages(itemImageService, tagsService, list);
+//        getItemTagsAndImages(itemImageService, tagsService, list);
 
         return new Result(Status.ITEM_OK, "获得所需物品", list);
     }*/
