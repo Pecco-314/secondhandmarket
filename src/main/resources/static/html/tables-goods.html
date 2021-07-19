@@ -64,8 +64,8 @@
                 <div class="text-center">
                     <img src="../img/admin_profile.png" alt="" class="rounded-circle">
                 </div>
-                <div class="user-info">
-                    <h4 class="font-16 text-white">Elena Retson</h4>
+                <div class="user-info" id="admin-info">
+                    <h4 class="font-16 text-white">{{nickname}}</h4>
                     <span class="text-white"><i class="fa fa-dot-circle-o text-success"></i> Online</span>
                 </div>
             </div>
@@ -303,8 +303,7 @@
                                                             <span v-if="props.row.type=='ELECTRIC'">家用电器</span>
                                                             <span v-if="props.row.type=='OTHERS'">其他</span>
                                                         </el-form-item>
-                                                        <el-form-item label="描述" class="ellipsis-type"
-                                                                      style="text-overflow: ellipsis">
+                                                        <el-form-item label="描述">
                                                             <span>{{props.row.introduction}}
                                                             </span>
                                                         </el-form-item>

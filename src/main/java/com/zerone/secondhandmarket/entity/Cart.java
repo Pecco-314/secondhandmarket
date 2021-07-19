@@ -19,4 +19,5 @@ public class Cart {
      * 数量
      */
     private Integer quantity;
+
 }

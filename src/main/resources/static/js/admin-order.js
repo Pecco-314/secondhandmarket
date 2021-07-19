@@ -1,5 +1,5 @@
-let goodsTable = new Vue({
-    el: '#goodsTable',
+let ordersTable = new Vue({
+    el: '#ordersTable',
     data() {
         return {
             tableData: [],
@@ -131,104 +131,6 @@ let goodsTable = new Vue({
 })
 
 
-// let goodsTableForm = new Vue({
-//         //el: '#goodsTable',
-//         data: {
-//             tableData: [],
-//             dialogVisibleForDetail: false,
-//             dialogVisibleForIllegal: false,
-//             dialogVisibleForPass: false,
-//             form: {
-//                 id: '',
-//                 goodsname: '',
-//                 goodstype: '',
-//                 introduction: '',
-//                 updatetime: '',
-//             },
-//             currentId: '',
-//         },
-//
-//         methods: {
-//             getGoodsList() {
-//                 $.ajax({
-//                     url: `${url}requests/admin/goods`,
-//                     method: 'get',
-//                     contentType: "application/json;charset=utf-8",
-//                     success: (responseStr) => {
-//                         console.log(responseStr);
-//                         let response = JSON.parse(responseStr);
-//                         if (response.status === 50200) {
-//                             this.tableData = response.data;
-//                         } else {
-//                             alert(`${response.message}（状态码：${response.status}）`);
-//                         }
-//                     }
-//                 });
-//             },
-//
-//             openIllegalDialog(row) {
-//                 this.dialogVisibleForIllegal = true;
-//                 this.currentId = row.id;
-//             },
-//
-//             openPassDialog(row) {
-//                 this.dialogVisibleForPass = true;
-//                 this.currentId = row.id;
-//             },
-//
-//             illegalGoods() {
-//                 let identification = {
-//                     goodsId: this.currentId
-//                 };
-//
-//                 $.ajax({
-//                     url: `${url}/requests/admin/illegalGoods`,
-//                     method: 'post',
-//                     data: JSON.stringify(identification),
-//                     contentType: "application/json;charset=utf-8",
-//                     success: (responseStr) => {
-//                         let response = JSON.parse(responseStr);
-//                         if (response.status === 50200) {
-//                             this.dialogVisibleForIllegal = false;
-//                             confirm("更新成功");
-//                             goodsTableForm.getGoodsList();
-//                         } else {
-//                             alert(`${response.message}（状态码：${response.status}）`);
-//                         }
-//                     }
-//                 })
-//             },
-//
-//             passedGoods(row) {
-//                 let identification = {
-//                     goodsId: this.currentId
-//                 };
-//                 $.ajax({
-//                     url: `${url}/requests/admin/passGoods`,
-//                     method: 'post',
-//                     data: JSON.stringify(identification),
-//                     contentType: "application/json;charset=utf-8",
-//                     success: (responseStr) => {
-//                         let response = JSON.parse(responseStr);
-//                         if (response.status === 50200) {
-//                             this.$("#passbtn").setAttribute("disabled", true);
-//                             confirm("通过审核成功");
-//                             goodsTableForm.getGoodsList();
-//                         } else {
-//                             alert(`${response.message}（状态码：${response.status}）`);
-//                         }
-//                     }
-//                 })
-//             },
-//
-//             clear() {
-//                 this.$refs.form.resetFields();
-//                 // this.dialogVisibleForUpdate = false;
-//             }
-//         }
-//     }
-// )
-
 let adminInfoForm = new Vue({
     el: '#admin-info',
     data: {
@@ -255,5 +157,5 @@ let adminInfoForm = new Vue({
 })
 
 
-$(goodsTable.getGoodsList);
+$(ordersTable.getGoodsList);
 $(adminInfoForm.getAdminInfo);
