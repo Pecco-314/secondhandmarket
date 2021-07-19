@@ -35,6 +35,16 @@ public class OrderModule {
         return new Result(Status.ORDER_OK, "获取订单列表成功", list);
     }
 
+    public static Result getOrderListByFilter(OrderService service, OrderFilter filter) {
+        List<Order> list = service.getOrderListByFilter(filter);
+
+        if (list == null || list.isEmpty()) {
+            return new Result(Status.NO_QUALIFIED_ORDERS, "没有合适的订单", null);
+        }
+
+        return new Result(Status.ORDER_OK, "获取订单列表成功", list);
+    }
+
     public static Result generateOrder(OrderService service, Order order) {
         try {
 //            if (quantity > itemService.getItemById(itemId).getQuantity())
@@ -64,7 +74,7 @@ public class OrderModule {
 
     public static Result cancelOrder(OrderService service, OrderFilter filter) {
         try {
-            List<Order> list = service.getOrderByFilter(filter);
+            List<Order> list = service.getOrderListByFilter(filter);
 
             if (list == null || list.size() != 1) {
                 return new Result(Status.ERROR, "", null);

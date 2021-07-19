@@ -3,6 +3,7 @@ package com.zerone.secondhandmarket.dao;
 import com.zerone.secondhandmarket.entity.Item;
 import com.zerone.secondhandmarket.entity.Order;
 import com.zerone.secondhandmarket.enums.ItemType;
+import com.zerone.secondhandmarket.message.OrderFilter;
 
 import java.util.List;
 
@@ -21,4 +22,6 @@ public interface OrderDao {
     List<Order> getOrderByKeyword(String keyword);
     // 通过userid查询订单信息
     List<Order> getOrderByUserId(int userId, boolean isBuyer);
+
+    List<Order> getOrderListByFilter(OrderFilter filter);
 }
