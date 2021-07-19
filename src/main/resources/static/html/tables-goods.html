@@ -256,28 +256,6 @@
                                 <div class="card-body">
 
                                     <h4 class="mt-0 header-title">商品信息</h4>
-                                    <!--                                    <div class="row align-items-center" style="padding-left: 15px">-->
-                                    <!--                                        <div class="col-lg-7 col-md-7">-->
-                                    <!--                                            <div class="top-header-form">-->
-                                    <!--                                                <form>-->
-                                    <!--                                                    <div class="row">-->
-                                    <!--                                                            <span class="col-lg-2"-->
-                                    <!--                                                                  style="font-size: 15px; padding-top: 5px">选择状态</span>-->
-                                    <!--                                                        <div class="col-lg-4">-->
-                                    <!--                                                            <div class="form-group">-->
-                                    <!--                                                                <select class="form-control">-->
-                                    <!--                                                                    <option>全部商品</option>-->
-                                    <!--                                                                    <option>待审核</option>-->
-                                    <!--                                                                    <option>正常</option>-->
-                                    <!--                                                                    <option>已售出</option>-->
-                                    <!--                                                                </select>-->
-                                    <!--                                                            </div>-->
-                                    <!--                                                        </div>-->
-                                    <!--                                                    </div>-->
-                                    <!--                                                </form>-->
-                                    <!--                                            </div>-->
-                                    <!--                                        </div>-->
-                                    <!--                                    </div>-->
                                     <div id="goodsTable">
 
                                         <el-table
@@ -305,7 +283,7 @@
                                                         </el-form-item>
                                                         <el-form-item label="描述" class="ellipsis-type"
                                                                       style="text-overflow: ellipsis">
-                                                            <span>{{props.row.introduction}}
+                                                            <span class="ellipsis-type" style="text-overflow: ellipsis">{{props.row.introduction}}
                                                             </span>
                                                         </el-form-item>
                                                         <el-form-item label="时间">
@@ -444,4 +422,19 @@
 <script src="../js/admin-goods.js"></script>
 
 </body>
+<style>
+
+    .el-form-item__content {
+        max-width: 300px;
+        white-space: nowrap;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    .el-form-item__content:hover {
+        text-overflow: inherit;
+        overflow: visible;
+    }
+
+</style>
 </html>

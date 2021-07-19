@@ -13,10 +13,22 @@
     width: 50%;
 }
 
+.desc-type {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.desc-type:hover {
+    text-overflow: inherit;
+    overflow: visible;
+}
+
 .ellipsis-type {
     max-width: 250px;
     white-space: nowrap;
-    overflow: hidden;
+    overflow: inherit;
 }
 
 .ellipsis-type:hover {
