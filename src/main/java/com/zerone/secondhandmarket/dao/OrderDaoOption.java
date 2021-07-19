@@ -33,7 +33,7 @@ public class OrderDaoOption {
         param.put("campus", order.getCampus());
         param.put("dorm", order.getDorm());
         param.put("detailed_address", order.getDetailedAddress());
-        param.put("state", order.getState());
+        param.put("state", order.getState().toString());
         return jdbcTemplate.update(sql, param);
     }
 
