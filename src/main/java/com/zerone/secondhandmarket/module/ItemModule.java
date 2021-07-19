@@ -41,7 +41,7 @@ public class ItemModule {
     //根据类型筛选
     public static Result getItemsByFilter(ItemService service, ItemImageService itemImageService, TagsService tagsService, ItemFilter filter) {
         //获取所有符合条件的物品
-        List<Item> list = service.getItemListByFilterAndKeyword(filter, filter.getKeyword());
+        List<Item> list = service.getItemListByFilter(filter);
 
         if (list == null || list.isEmpty()) {
             return new Result(Status.ITEM_ERROR, "无符合条件物品", null);

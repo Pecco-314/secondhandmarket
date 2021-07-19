@@ -18,6 +18,7 @@ public class ItemFilter {
     private ItemType type = null;
     private String[] tags = null;
     private Ordering priceOrdering = Ordering.DEFAULT;
+    private Ordering quantityOrdering = Ordering.DEFAULT;
     private ItemCheckCondition checkCondition = null;
     private boolean imagesNeeded = false;
     private boolean tagsNeeded = false;
