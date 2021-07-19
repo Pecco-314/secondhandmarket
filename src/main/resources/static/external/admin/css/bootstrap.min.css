@@ -2552,8 +2552,8 @@ a.btn.disabled, fieldset[disabled] a.btn {
 }
 
 .btn-success.disabled, .btn-success:disabled {
-    background-color: #28a745;
-    border-color: #28a745
+    background-color: #868e96;
+    border-color: #868e96
 }
 
 .btn-success:not([disabled]):not(.disabled).active, .btn-success:not([disabled]):not(.disabled):active, .show > .btn-success.dropdown-toggle {
@@ -2645,8 +2645,8 @@ a.btn.disabled, fieldset[disabled] a.btn {
 }
 
 .btn-danger.disabled, .btn-danger:disabled {
-    background-color: #dc3545;
-    border-color: #dc3545
+    background-color: #868e96;
+    border-color: #868e96
 }
 
 .btn-danger:not([disabled]):not(.disabled).active, .btn-danger:not([disabled]):not(.disabled):active, .show > .btn-danger.dropdown-toggle {
@@ -2788,8 +2788,8 @@ a.btn.disabled, fieldset[disabled] a.btn {
 
 .btn-outline-success:hover {
     color: #fff;
-    background-color: #28a745;
-    border-color: #28a745
+    background-color: #868e96;
+    border-color: #868e96
 }
 
 .btn-outline-success.focus, .btn-outline-success:focus {

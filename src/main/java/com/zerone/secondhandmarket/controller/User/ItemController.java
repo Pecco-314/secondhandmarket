@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.List;
 
 @Controller("OrdinaryItem")
 public class ItemController {
@@ -121,6 +122,14 @@ public class ItemController {
     @GetMapping("/requests/item/{itemId}")
     public String getItemInfoByItemId(@PathVariable("itemId") int itemId) {
         Result result = ItemModule.getItemInfo(itemService, itemImageService, tagsService, itemId);
+
+        return result.toString();
+    }
+
+    @ResponseBody
+    @PostMapping("requests/item/items")
+    public String getItemsByIds(@RequestBody List<Integer> ids) {
+        Result result = ItemModule.getItemListByIDs(itemService, ids);
 
         return result.toString();
     }
