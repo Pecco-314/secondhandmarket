@@ -11,15 +11,15 @@ public class CartModule {
     public static Result getItemsInCart(CartService service, int userId) {
         List<Cart> list = service.getCartListByUserId(userId);
 
-        if(list == null || list.isEmpty())
-            return new Result(Status.ERROR, "", null);
+        if (list == null || list.isEmpty())
+            return new Result(Status.CART_ERROR, "", null);
 
-        return new Result(Status.OK, "", list);
+        return new Result(Status.CART_OK, "", list);
     }
 
     public static Result modifyItemQuantity(CartService service, Cart cart) {
         try {
-            if(cart.getQuantity() == 0) {
+            if (cart.getQuantity() == 0) {
                 service.deleteCart(cart.getUserId(), cart.getItemId());
             } else {
                 service.insertOrUpdateCart(cart);
