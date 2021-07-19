@@ -27,7 +27,7 @@ let ordersTable = new Vue({
             const property = column['property'];
             return row[property] === value;
         },
-        getGoodsList() {
+        getOrdersList() {
             $.ajax({
                 url: `${url}/requests/admin/items`,
                 method: 'get',
@@ -37,23 +37,26 @@ let ordersTable = new Vue({
                     if (response.status === 30200) {
                         this.tableData = response.data;
                         for (let i = 0; i < this.tableData.length; i++) {
-                            if (this.tableData[i].checkCondition === 'UNCHECKED') {
+                            if (this.tableData[i].checkCondition === 'UNFINISHED') {
                                 this.tableData[i].btnIllegalDisabled = false;
                                 this.tableData[i].btnPassDisabled = false;
                             } else if (this.tableData[i].checkCondition === 'TRUE') {
                                 this.tableData[i].btnIllegalDisabled = false;
                                 this.tableData[i].btnPassDisabled = true;
-                            } else if (this.tableData[i].checkCondition === 'FALSE') {
-                                this.tableData[i].btnIllegalDisabled = true;
-                                this.tableData[i].btnPassDisabled = false;
                             }
+                            getItemInfo(this.tableData[i].itemId, response => {
+                                this.$set(this.tableData[i], 'quantity', response.data.quantity);
+                                this.$set(this.tableData[i], 'itemName', response.data.name);
+                                this.$set(this.tableData[i], 'price', response.data.price);
+                                this.$set(this.tableData[i], 'total', this.tableData[i].price * this.tableData[i].quantity);
+
+                            })
+                            //console.log(this.tableData);
                         }
-                        //console.log(this.tableData);
-                    } else {
-                        alert(`${response.message}（状态码：${response.status}）`);
+                        console.log(this.tableData);
                     }
                 }
-            });
+            })
         },
         openIllegalDialog(row) {
             this.dialogVisibleForIllegal = true;

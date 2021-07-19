@@ -326,11 +326,11 @@
                                             <el-table-column prop="email" label="买家邮箱"></el-table-column>
                                             <el-table-column prop="name" label="商品名称"></el-table-column>
                                             <el-table-column prop="checkCondition" label="订单状态" column-key="status"
-                                                             :filters="[{text: '待审核', value: 'UNCHECKED'},{text: '正常', value: 'TRUE'}, {text: '违规', value: 'FALSE'}]"
+                                                             :filters="[{text: '待收货', value: 'UNFINISHED'},{text: '已完成', value: 'UNFINISHED'}]"
                                                              :filter-method="filterHandler">
                                                 <template slot-scope="scope">
-                                                    <span v-if="scope.row.checkCondition === 'TRUE'">待收货</span>
-                                                    <span v-if="scope.row.checkCondition === 'UNCHECKED'">已完成</span>
+                                                    <span v-if="scope.row.checkCondition === 'UNFINISHED'">待收货</span>
+                                                    <span v-if="scope.row.checkCondition === 'FINISHED'">已完成</span>
                                                 </template>
                                             </el-table-column>
                                             <el-table-column label="操作" min-width="50%">
