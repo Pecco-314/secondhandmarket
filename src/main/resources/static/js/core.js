@@ -71,6 +71,22 @@ function phoneNumberValidator(rule, value, callback) {
     }
 }
 
+function getUserInfoByAdmin(buyer, callback) {
+    $.ajax({
+        url: `${url}/requests/admin/user/${buyer}`,
+        method: 'get',
+        contentType: "application/json;charset=utf-8",
+        success: (responseStr) => {
+            let response = JSON.parse(responseStr);
+            if (response.status === 50200) {
+                callback(response);
+            } else {
+                alert(`${response.message}（状态码：${response.status}）`);
+            }
+        }
+    });
+}
+
 function getUserInfo(callback) {
     let identification = {
         userID: $.cookie("id"),
@@ -108,7 +124,7 @@ function getItemInfo(id, callback) {
     });
 }
 
-function elAlert(component, content, title, callback){
+function elAlert(component, content, title, callback) {
     component.$alert(content, title, {
         confirmButtonText: '确定',
         callback: callback

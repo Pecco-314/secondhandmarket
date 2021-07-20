@@ -3,8 +3,6 @@ let ordersTable = new Vue({
     data() {
         return {
             tableData: [],
-            dialogVisibleForIllegal: false,
-            dialogVisibleForPass: false,
             currentId: 0,
             currentPage: 1,
             pageSize: 20,
@@ -29,93 +27,30 @@ let ordersTable = new Vue({
         },
         getOrdersList() {
             $.ajax({
-                url: `${url}/requests/admin/items`,
+                url: `${url}/requests/admin/order`,
                 method: 'get',
                 contentType: "application/json;charset=utf-8",
                 success: (responseStr) => {
                     let response = JSON.parse(responseStr);
-                    if (response.status === 30200) {
+                    if (response.status === 40200) {
                         this.tableData = response.data;
                         for (let i = 0; i < this.tableData.length; i++) {
-                            if (this.tableData[i].checkCondition === 'UNFINISHED') {
-                                this.tableData[i].btnIllegalDisabled = false;
-                                this.tableData[i].btnPassDisabled = false;
-                            } else if (this.tableData[i].checkCondition === 'TRUE') {
-                                this.tableData[i].btnIllegalDisabled = false;
-                                this.tableData[i].btnPassDisabled = true;
-                            }
-                            getItemInfo(this.tableData[i].itemId, response => {
-                                this.$set(this.tableData[i], 'quantity', response.data.quantity);
-                                this.$set(this.tableData[i], 'itemName', response.data.name);
-                                this.$set(this.tableData[i], 'price', response.data.price);
-                                this.$set(this.tableData[i], 'total', this.tableData[i].price * this.tableData[i].quantity);
-
+                            getItemInfo(this.tableData[i].item, response => {
+                                this.$set(this.tableData[i], 'money', response.data.price * this.tableData[i].quantity);
+                                this.$set(this.tableData[i], 'name', response.data.name);
                             })
-                            //console.log(this.tableData);
+                            getUserInfoByAdmin(this.tableData[i].buyer, response => {
+                                this.$set(this.tableData[i], 'email', response.data.emailAddress);
+                            })
+                            console.log(this.tableData);
                         }
                         console.log(this.tableData);
-                    }
-                }
-            })
-        },
-        openIllegalDialog(row) {
-            this.dialogVisibleForIllegal = true;
-            this.currentId = row.id;
-            console.log(this.currentId);
-        },
-
-        openPassDialog(row) {
-            this.dialogVisibleForPass = true;
-            this.currentId = row.id;
-        },
-
-        illegalGoods() {
-            let identification = {
-                itemId: this.currentId,
-                checkCondition: 'FALSE',
-            };
-
-            $.ajax({
-                url: `${url}/requests/admin/checkItem`,
-                method: 'post',
-                data: JSON.stringify(identification),
-                contentType: "application/json;charset=utf-8",
-                success: (responseStr) => {
-                    let response = JSON.parse(responseStr);
-                    if (response.status === 30200) {
-                        this.dialogVisibleForIllegal = false;
-                        confirm("更新成功");
-                        goodsTable.getGoodsList();
                     } else {
-                        alert(`${response.message}（状态码：${response.status}）`);
+                        console.log(response);
                     }
                 }
             })
         },
-
-        passedGoods() {
-            let identification = {
-                itemId: this.currentId,
-                checkCondition: 'TRUE',
-            };
-            $.ajax({
-                url: `${url}/requests/admin/checkItem`,
-                method: 'post',
-                data: JSON.stringify(identification),
-                contentType: "application/json;charset=utf-8",
-                success: (responseStr) => {
-                    let response = JSON.parse(responseStr);
-                    if (response.status === 30200) {
-                        this.dialogVisibleForPass = false;
-                        confirm("通过审核成功");
-                        goodsTable.getGoodsList();
-                    } else {
-                        alert(`${response.message}（状态码：${response.status}）`);
-                    }
-                }
-            })
-        },
-
         handleSizeChange(val) {
             this.pageSize = val;
             console.log('每页 ${val} 条');
@@ -125,11 +60,6 @@ let ordersTable = new Vue({
             this.currentPage = val;
             console.log(`当前页: ${val}`);
         },
-
-        // clear() {
-        //     this.$refs.form.resetFields();
-        //     // this.dialogVisibleForUpdate = false;
-        // }
     }
 })
 
@@ -160,5 +90,5 @@ let adminInfoForm = new Vue({
 })
 
 
-$(ordersTable.getGoodsList);
+$(ordersTable.getOrdersList);
 $(adminInfoForm.getAdminInfo);
