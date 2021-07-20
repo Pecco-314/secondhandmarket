@@ -3,6 +3,10 @@ let indexForm = new Vue({
     data: {
         items: [],
         loading: true,
+        dialogVisibleForCart: false,
+        cnt: 1,
+        max: 1,
+        currentItem: ''
     },
     methods: {
         getIndexItems() {
@@ -22,7 +26,37 @@ let indexForm = new Vue({
                     } else {
                         alert(`${response.message}（状态码：${response.status}）`);
                     }
+                }
+            })
+        },
 
+        openCartDialog(item) {
+            this.dialogVisibleForCart = true;
+            this.currentItem = item.id;
+            this.max = item.quantity;
+        },
+
+        addToCart() {
+            let purchaseData = {
+                userID: parseInt($.cookie('id')),
+                token: $.cookie('token'),
+                itemID: this.currentItem,
+                quantity: this.cnt
+            };
+            console.log(purchaseData);
+            $.ajax({
+                url: `${url}/requests/cart/modifyCart`,
+                method: 'post',
+                data: JSON.stringify(purchaseData),
+                contentType: "application/json;charset=utf-8",
+                success: (responseStr) => {
+                    let response = JSON.parse(responseStr);
+                    // elAlert(this, response.message, '', () => {
+                    // });
+                    if(response.status === 60200) {
+                        this.dialogVisibleForCart = false;
+                        confirm("加入购物车成功");
+                    }
                 }
             })
         }
