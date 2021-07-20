@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="../external/olex/css/style.css">
     <link rel="stylesheet" href="../external/olex/css/responsive.css">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/cart.css">
     <title>购物车</title>
 </head>
 
@@ -89,10 +90,10 @@
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
-                                    <th scope="col">商品</th>
-                                    <th scope="col">名称</th>
-                                    <th scope="col">单价</th>
-                                    <th scope="col" style="padding-left: 45px">数量</th>
+                                    <th scope="col" width="20%">商品</th>
+                                    <th scope="col" width="20%">名称</th>
+                                    <th scope="col" width="20%">单价</th>
+                                    <th scope="col" style="padding-left: 45px" width="30%">数量</th>
                                     <th scope="col">总价</th>
                                 </tr>
                                 </thead>
@@ -107,7 +108,7 @@
                                     </td>
 
                                     <td class="product-name">
-                                        <a :href=cart.url>{{cart.itemName}}</a>
+                                        <a :href=cart.url class="item__name" style="text-overflow: ellipsis;">{{cart.itemName}}</a>
                                     </td>
 
                                     <td class="product-price">

@@ -3,12 +3,14 @@
     white-space: nowrap;
     overflow: hidden;
     cursor: pointer;
+
+
 }
 
-.item__name:hover {
-    text-overflow: inherit;
-    overflow: visible;
-}
+/*.item__name:hover {*/
+/*    text-overflow: inherit;*/
+/*    overflow: visible;*/
+/*}*/
 
 .item__img {
     width: 100%;

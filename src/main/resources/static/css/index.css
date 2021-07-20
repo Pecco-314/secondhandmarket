@@ -28,10 +28,10 @@
     cursor: pointer;
 }
 
-.ellipsis-type:hover {
-    text-overflow: inherit;
-    overflow: visible;
-}
+/*.ellipsis-type:hover {*/
+/*    text-overflow: inherit;*/
+/*    overflow: visible;*/
+/*}*/
 
 .product__img {
     width: 100%;

@@ -52,7 +52,7 @@ let userinfoForm = new Vue({
                 this.form.phoneNumber = response.data.phoneNumber;
                 this.form.emailAddress = response.data.emailAddress;
                 if (response.data.imagePath !== null) {
-                    this.imageUrl = `${url}/requests/user/${response.data.imagePath}`;
+                    this.imageUrl = `http://1.15.220.157:8088/requests/user/${response.data.imagePath}`;
                 }
             })
         },
