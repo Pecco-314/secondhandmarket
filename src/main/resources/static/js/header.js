@@ -46,7 +46,7 @@ Vue.component('page-header', {
         }
     },
 
-    mounted(){
+    mounted() {
         $.ajax({
             url: `${url}/requests/cart/info`,
             method: 'post',
@@ -67,7 +67,7 @@ Vue.component('page-header', {
         getUserInfo() {
             getUserInfo((response) => {
                 if (response.data.imagePath !== null) {
-                    this.imageUrl = `${url}/requests/user/${response.data.imagePath}`;
+                    this.imageUrl = `http://1.15.220.157:8088/requests/user/${response.data.imagePath}`;
                     console.log(this.imageUrl);
                 }
             })
@@ -105,10 +105,9 @@ Vue.component('page-header', {
     
                                 <div class="col-lg-8 pl-0">
                                     <div class="form-group search-form">
-                                        <input type="search" class="form-control" placeholder="搜索商品" v-model="searchContent">
-                                        <button @click="onSearch">
-                                            <i class="bx bx-search"></i>
-                                        </button>
+                                        <input class="form-control" placeholder="搜索商品" v-model="searchContent" @keydown.enter="onSearch">
+                                        <el-button @click="onSearch" class="flex-center" icon="el-icon-search">
+                                        </el-button>
                                     </div>
                                 </div>
                             </div>
@@ -123,8 +122,9 @@ Vue.component('page-header', {
                                 <div class="language-list">
                                     <div class="dropdown language-list-dropdown">
                                         <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <img :src="imageUrl">
-                                                <i class='bx bx-chevron-down'></i>
+                                                <img v-if="imageUrl" :src="imageUrl">
+                                                <img v-else src="../img/defaulthead.png">
+                                                <i  class='bx bx-chevron-down'></i>
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                               <a class="dropdown-item" href="../user">
@@ -221,7 +221,7 @@ Vue.component('page-header', {
                                 <div class="nav-other-item">
                                     <div class="cart-btn-area">
                                         <a href="../cart" class="cart-btn"><i class='bx bx-cart'></i></a>
-                                        <span>1</span>
+                                        <span>{{ countCart }}</span>
                                     </div>
                                 </div>
                                 

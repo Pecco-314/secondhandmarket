@@ -154,7 +154,7 @@
                                     <h2>我的订单</h2>
                                     <ul class="checkout-product">
                                         <checkout-item v-for="item in ids" :key="item.index" :item-id="item.id"
-                                                       :ref="item.index">
+                                                       :ref="item.index" :quantity="item.quantity">
                                         </checkout-item>
                                     </ul>
 

@@ -52,4 +52,16 @@ public class CartController {
             return new Result(Status.ERROR, "ID与Token不符", null).toString();
         }
     }
+
+    @ResponseBody
+    @PostMapping("/requests/cart/clear")
+    public String modifyCart(UserTokenMessage token) {
+        if(CodeProcessor.validateIdToken(token.getUserID(), token.getToken())) {
+            Result result = CartModule.clearCart(cartService, token.getUserID());
+
+            return result.toString();
+        } else {
+            return new Result(Status.ERROR, "ID与Token不符", null).toString();
+        }
+    }
 }

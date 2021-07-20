@@ -124,7 +124,26 @@ function getItemInfo(id, callback) {
     });
 }
 
-function elAlert(component, content, title, callback) {
+function getCartList(callback) {
+    let identification = {
+        userID: $.cookie("id"),
+        token: $.cookie("token"),
+    };
+    $.ajax({
+        url: `${url}/requests/cart/info`,
+        method: 'post',
+        data: JSON.stringify(identification),
+        contentType: "application/json;charset=utf-8",
+        success: (responseStr) => {
+            let response = JSON.parse(responseStr);
+            if (response.status === 60200) {
+                callback(response);
+            }
+        }
+    })
+}
+
+function elAlert(component, content, title, callback){
     component.$alert(content, title, {
         confirmButtonText: '确定',
         callback: callback
