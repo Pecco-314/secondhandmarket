@@ -1,0 +1,8 @@
+.item__name {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    cursor: pointer;
+
+
+}
