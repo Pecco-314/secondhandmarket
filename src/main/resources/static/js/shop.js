@@ -6,12 +6,15 @@ let shopApp = new Vue({
         notFound: false,
         itemFilter: {
             seller: toNull(getURLVariable('seller')),
+            keyword: toEmptyString(getURLVariable('keyword')),
             type: toNull(getURLVariable('type')),
             tags: null, // TODO
             priceOrdering: 'DEFAULT',
+            quantityOrdering: 'DEFAULT', // TODO
             checkCondition: null, // TODO
+            imageNeeded: true,
+            tagsNeeded: true,
         },
-        keyword: toEmptyString(getURLVariable('keyword')),
         options: [
             {text: "所有商品", value: null, selectState: ''},
             {text: "数码产品", value: 'DIGITAL', selectState: ''},
@@ -39,20 +42,16 @@ let shopApp = new Vue({
         },
         getSearchResult() {
             this.loading = true;
-            let searchData = {
-                itemFilter: this.itemFilter,
-                keyword: this.keyword,
-            }
             $.ajax({
                 url: `${url}/requests/product/search`,
                 method: 'post',
-                data: JSON.stringify(searchData),
+                data: JSON.stringify(this.itemFilter),
                 contentType: "application/json;charset=utf-8",
                 success: (responseStr) => {
                     if (this.loading) {
                         this.loading = false;
-                        console.log(responseStr);
                         let response = JSON.parse(responseStr);
+                        console.log(response);
                         if (response.status === 30200) {
                             this.items = response.data;
                             for (let i = 0; i < this.items.length; i++) {

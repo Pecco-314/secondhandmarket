@@ -89,7 +89,7 @@
                 <div class="product-side-bar">
                     <div class="search-widget">
                         <form class="search-form">
-                            <input class="form-control" placeholder="搜索..." v-model="keyword">
+                            <input class="form-control" placeholder="搜索..." v-model="itemFilter.keyword">
                             <el-button @click="search" class="search-button">
                                 <i class="bx bx-search"></i>
                             </el-button>
@@ -101,8 +101,8 @@
                         <div class="product-side-categories">
                             <ul>
                                 <li v-for="option in options" :key="option.value" :value="option.value"
-                                    :class="option.selectState">
-                                    <a @click="select(option.value)">{{option.text}}</a>
+                                    :class="option.selectState" @click="select(option.value)">
+                                    <a >{{option.text}}</a>
                                 </li>
                             </ul>
                         </div>

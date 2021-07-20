@@ -106,9 +106,8 @@ Vue.component('page-header', {
                                 <div class="col-lg-8 pl-0">
                                     <div class="form-group search-form">
                                         <input type="search" class="form-control" placeholder="搜索商品" v-model="searchContent">
-                                        <button @click="onSearch">
-                                            <i class="bx bx-search"></i>
-                                        </button>
+                                        <el-button @click="onSearch" class="flex-center" icon="el-icon-search">
+                                        </el-button>
                                     </div>
                                 </div>
                             </div>
