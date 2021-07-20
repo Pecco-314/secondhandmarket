@@ -50,7 +50,7 @@
                     <h3>{{ item.name }}</h3>
                     <div class="price">
                         <span class="new-price">￥{{ item.price }}</span>
-                        <span v-if="item.originalPrice !== null" class="old-price">￥{{ item.originalPrice }}</span>
+                        <span v-if="item.originalPrice" class="old-price">￥{{ item.originalPrice }}</span>
                     </div>
                     <div>
                         <i class="el-icon-date" style="margin-bottom: 10px"><span
