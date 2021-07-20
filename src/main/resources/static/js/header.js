@@ -220,7 +220,7 @@ Vue.component('page-header', {
                                 <div class="nav-other-item">
                                     <div class="cart-btn-area">
                                         <a href="../cart" class="cart-btn"><i class='bx bx-cart'></i></a>
-                                        <span>1</span>
+                                        <span>{{ countCart }}</span>
                                     </div>
                                 </div>
                                 

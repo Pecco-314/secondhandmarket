@@ -6,7 +6,6 @@ function switchToTab(index) {
     tab.find('.tab_content').find('div.tabs_item:eq(' + index + ')').slideDown();
 }
 
-
 let checkoutForm = new Vue({
     el: "#checkout-form",
     methods: {
@@ -49,15 +48,12 @@ let checkoutForm = new Vue({
         id: getURLVariable('id'),
 
     },
-    mounted() {
-        $('select').niceSelect();
-    }
 });
 
 Vue.component('checkout-item', {
-    props: ["itemId"],
+    props: ["itemId", "quantity"],
     methods: {
-        getData(id) {
+        setCheckoutItemData(id) {
             getItemInfo(id, response => {
                 this.imagePath = response.data.itemImages[0];
                 this.name = response.data.name;
@@ -67,14 +63,13 @@ Vue.component('checkout-item', {
         }
     },
     mounted() {
-        this.getData(this.itemId);
+        this.setCheckoutItemData(this.itemId);
     },
     data() {
         return {
             imagePath: '',
             name: '',
             price: 0,
-            quantity: getURLVariable('cnt'),
         }
     },
     computed: {
@@ -100,20 +95,12 @@ let checkoutConfirm = new Vue({
     el: '#checkout-confirm',
     data() {
         return {
-            totalPrice: 0
+            totalPrice: 0,
+            ids: null,
         }
     },
-    computed: {
-        ids: () => {
-            if (getURLVariable('type') === 'single') {
-                return [{
-                    id: getURLVariable('id'),
-                    index: 0
-                }];
-            } else {
-                // TODO
-            }
-        },
+    mounted() {
+        this.updateIds();
     },
     methods: {
         switchToTab: switchToTab,
@@ -122,7 +109,29 @@ let checkoutConfirm = new Vue({
             for (let i = 0; i < checkoutConfirm.ids.length; ++i) {
                 checkoutConfirm.totalPrice += checkoutConfirm.$refs[i][0].totalPrice;
             }
-        }
+        },
+        updateIds() {
+            let type = getURLVariable('type');
+            if (type === 'single') {
+                this.ids = [{
+                    id: getURLVariable('id'),
+                    quantity: getURLVariable('cnt'),
+                    index: 0
+                }];
+            } else if (type === 'cart') {
+                getCartList(response => {
+                    let res = [];
+                    for (let i = 0; i < response.data.length; ++i) {
+                        res.push({
+                            id: response.data[i].itemId,
+                            quantity: response.data[i].quantity,
+                            index: i,
+                        });
+                    }
+                    this.ids = res;
+                })
+            }
+        },
     }
 })
 

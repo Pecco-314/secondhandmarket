@@ -134,7 +134,7 @@
                                     </td>
 
                                     <td class="product-subtotal">
-                                        <span class="subtotal-amount">{{cart.total}}</span>
+                                        <span class="subtotal-amount">￥{{cart.total}}</span>
 
                                         <a href="#" class="remove">
                                             <i class='bx bx-trash'></i>
@@ -149,14 +149,14 @@
                             <div class="row align-items-center">
                                 <div class="col-lg-7 col-sm-7 col-md-7">
                                     <div class="continue-shopping-box">
-                                        <a href="#" class="default-btn btn-bg-three">
+                                        <a class="default-btn btn-bg-three selectable" @click="returnToShop">
                                             继续购物
                                         </a>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-5 col-sm-5 col-md-5 text-right">
-                                    <a href="#" class="default-btn btn-bg-three">
+                                    <a class="default-btn btn-bg-three selectable" @click="checkout">
                                         立即结算
                                     </a>
                                 </div>
