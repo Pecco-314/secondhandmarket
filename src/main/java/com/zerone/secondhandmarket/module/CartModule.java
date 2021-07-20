@@ -30,4 +30,14 @@ public class CartModule {
             return new Result(Status.CART_ERROR, "加入购物车失败", null);
         }
     }
+
+    public static Result clearCart(CartService service, int userId) {
+        try {
+            service.clearCart(userId);
+
+            return new Result(Status.OK, "", null);
+        } catch (Exception e) {
+            return new Result(Status.ERROR, "", null);
+        }
+    }
 }
