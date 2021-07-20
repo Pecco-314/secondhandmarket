@@ -70,7 +70,7 @@
                         </div>
                         <div class="price-tag">
                             <h4>￥{{item.price}}
-                                <del>￥{{item.originalPrice}}</del>
+                                <del v-if="item.originalPrice">￥{{item.originalPrice}}</del>
                             </h4>
                         </div>
 
