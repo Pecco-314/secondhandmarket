@@ -130,6 +130,10 @@ Vue.component('page-header', {
                                               <a class="dropdown-item" href="../user">
                                                     <i class='bx bx-user'> 个人中心</i>
                                               </a>
+                                              
+                                              <a class="dropdown-item" href="../wishlist">
+                                                    <i class='bx bx-heart'> 我的收藏</i>
+                                              </a>
                                                
                                               <a class="dropdown-item selectable" @click="openExitDialog">
                                                    <i class='bx bx-exit'> 退出登录</i>
@@ -209,6 +213,10 @@ Vue.component('page-header', {
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                               <a class="dropdown-item" href="../user">
                                                     <i class='bx bx-user'> 个人中心</i>
+                                              </a>
+                                              
+                                               <a class="dropdown-item" href="../wishlist">
+                                                    <i class='bx bx-heart'> 我的收藏</i>
                                               </a>
                                                
                                               <a class="dropdown-item selectable" @click="openExitDialog">
