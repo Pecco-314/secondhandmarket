@@ -12,3 +12,16 @@
 .el-select {
     width: 100%;
 }
+.el-select-dropdown__item.selected {
+    color: #E8B43F;
+    font-weight: 700;
+}
+.el-select .el-input.is-focus .el-input__inner {
+    border-color: #E8B43F;
+}
+.el-select:hover .el-input__inner {
+    border-color: #E8B43F;
+}
+.el-select .el-input__inner:focus {
+    border-color: #E8B43F;
+}
