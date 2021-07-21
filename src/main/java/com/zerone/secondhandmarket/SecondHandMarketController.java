@@ -1,6 +1,5 @@
 package com.zerone.secondhandmarket;
 
-import com.zerone.secondhandmarket.entity.Wishlist;
 import com.zerone.secondhandmarket.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,9 +26,9 @@ public class SecondHandMarketController {
 
     @RequestMapping("/")
     public String run() {
-        Wishlist wishlist=new Wishlist(100004,88);
-        wishlistService.insertWishlist(wishlist);
-        wishlistService.getWishlistByUserId(100004);
+//        Wishlist wishlist=new Wishlist(100004,88);
+//        wishlistService.insertWishlist(wishlist);
+//        wishlistService.getWishlistByUserId(100004);
 //        ItemFilter itemFilter = new ItemFilter();
 //        itemFilter.setPriceOrdering(Ordering.DESC);
 //        List<Item> items = itemService.getItemByFilter(itemFilter);
