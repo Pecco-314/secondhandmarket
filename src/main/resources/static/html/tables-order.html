@@ -52,13 +52,11 @@
                 <!--<a href="index.html" class="logo">Admiry</a>-->
                 <a href="index.html" class="logo">
                     后台管理
-                    <!--                            <img src="../external/admin/images/logo.png" height="24" alt="logo">-->
                 </a>
             </div>
         </div>
 
         <div class="sidebar-inner slimscrollleft">
-
             <div class="user-details">
                 <div class="text-center">
                     <img src="../img/admin_profile.png" alt="" class="rounded-circle">
@@ -111,9 +109,7 @@
 
             <!-- Top Bar Start -->
             <div class="topbar">
-
                 <nav class="navbar-custom">
-
                     <ul class="list-inline float-right mb-0">
                         <li class="list-inline-item dropdown notification-list">
                             <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#"
@@ -253,48 +249,20 @@
                                 <div class="card-body" id="ordersTable">
 
                                     <h4 class="mt-0 header-title">订单信息</h4>
-
                                     <div class="row align-items-center" style="padding-left: 15px">
                                         <div class="col-lg-7 col-md-7">
                                             <div class="top-header-form">
                                                 <form onsubmit="return false;">
                                                     <div class="row">
-                                                        <!--                                                        <div class="form-group">-->
-                                                        <!--                                                            <el-select class="form-control" v-model="selectedType"-->
-                                                        <!--                                                                       style="padding: 0 0">-->
-                                                        <!--                                                                <el-option v-for="option in options"-->
-                                                        <!--                                                                           :value="option.value" :key="option.key"-->
-                                                        <!--                                                                           :label="option.text">-->
-                                                        <!--                                                                </el-option>-->
-                                                        <!--                                                            </el-select>-->
-                                                        <!--                                                        </div>-->
-
-
-                                                        <!--                                                        <div class="search-widget">-->
-                                                        <!--                                                            <form class="search-form">-->
-                                                        <!--                                                                <input class="form-control" placeholder="搜索..."-->
-                                                        <!--                                                                       v-model="keyword">-->
-                                                        <!--                                                                <el-button @click="search" class="search-button">-->
-                                                        <!--                                                                    <i class="bx bx-search"></i>-->
-                                                        <!--                                                                </el-button>-->
-                                                        <!--                                                            </form>-->
-                                                        <!--                                                        </div>-->
 
                                                         <div class="col-lg-4">
                                                             <div class="form-group">
-                                                                <el-select class="form-control" v-model="selectedType"
-                                                                           style=" padding: 0 0">
+                                                                <el-select class="form-control" v-model="selectedType" style="padding: 0 0">
                                                                     <el-option v-for="option in options"
                                                                                :value="option.value" :key="option.key"
                                                                                :label="option.text">
-                                                                        <!--                                            {{ option.text }}-->
                                                                     </el-option>
                                                                 </el-select>
-                                                                <!--                                                                                                                                <select class="form-control">-->
-                                                                <!--                                                                                                                                    <option>订单号</option>-->
-                                                                <!--                                                                                                                                    <option>买家编号</option>-->
-                                                                <!--                                                                                                                                    <option>买家邮箱</option>-->
-                                                                <!--                                                                                                                                </select>-->
                                                             </div>
                                                         </div>
 
@@ -324,7 +292,6 @@
                                     </div>
 
                                     <div>
-
                                         <el-table
                                                 :data="tableDataResult.slice((currentPage - 1) * pageSize, currentPage * pageSize)"
                                                 style="width: 100%" class="table table-bordered">
@@ -379,17 +346,7 @@
                                                     <span v-if="scope.row.state === 'FINISHED'">已完成</span>
                                                 </template>
                                             </el-table-column>
-                                            <!--                                            <el-table-column label="操作" min-width="50%">-->
-                                            <!--                                                <template slot-scope="scope">-->
-                                            <!--                                                    <div style="display: flex; justify-content: center">-->
-                                            <!--                                                        <el-button type="button" :disabled="scope.row.btnDeleteDisabled"-->
-                                            <!--                                                                   @click="openDeleteDialog(scope.row)"-->
-                                            <!--                                                                   class="btn-sm btn-success waves-effect waves-light">-->
-                                            <!--                                                            删除-->
-                                            <!--                                                        </el-button>-->
-                                            <!--                                                    </div>-->
-                                            <!--                                                </template>-->
-                                            <!--                                            </el-table-column>-->
+
                                         </el-table>
                                         <el-pagination
                                                 @size-change="handleSizeChange"
