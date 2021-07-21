@@ -1711,6 +1711,7 @@ hr.line-bottom {
     margin-bottom: 30px;
     -webkit-transition: 0.7s;
     transition: 0.7s;
+    height: 482px;
 }
 
 .arrival-product:hover .content a {
@@ -1727,6 +1728,11 @@ hr.line-bottom {
 .arrival-product .arrival-img img {
     display: inline-block;
     padding: 15px 20px 30px 20px;
+}
+
+.arrival-product .arrival-tag {
+    height: 32px;
+    margin-top: 8%;
 }
 
 .arrival-product .arrival-img .new-tag {

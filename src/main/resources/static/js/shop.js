@@ -4,6 +4,10 @@ let shopApp = new Vue({
         items: [],
         loading: true,
         notFound: false,
+        dialogVisibleForCart: false,
+        cnt: 1,
+        max: 1,
+        currentId: '',
         itemFilter: {
             seller: toNull(getURLVariable('seller')),
             keyword: toEmptyString(getURLVariable('keyword')),
@@ -35,6 +39,36 @@ let shopApp = new Vue({
         priceOrdering: 'DEFAULT'
     },
     methods: {
+        openCartDialog(item) {
+            this.dialogVisibleForCart = true;
+            this.currentId = item.id;
+            this.max = item.quantity;
+        },
+
+        addToCart() {
+            let purchaseData = {
+                userID: parseInt($.cookie('id')),
+                token: $.cookie('token'),
+                itemID: this.currentId,
+                quantity: this.cnt
+            };
+            console.log(purchaseData);
+            $.ajax({
+                url: `${url}/requests/cart/modifyCart`,
+                method: 'post',
+                data: JSON.stringify(purchaseData),
+                contentType: "application/json;charset=utf-8",
+                success: (responseStr) => {
+                    let response = JSON.parse(responseStr);
+                    // elAlert(this, response.message, '', () => {
+                    // });
+                    if(response.status === 60200) {
+                        this.dialogVisibleForCart = false;
+                        confirm("加入购物车成功");
+                    }
+                }
+            })
+        },
         select(selection) {
             this.options.forEach(e => e.selectState = (e.value === selection ? 'active' : ''))
             this.itemFilter.type = selection;
