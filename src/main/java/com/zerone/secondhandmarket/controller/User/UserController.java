@@ -26,6 +26,9 @@ public class UserController {
     @Autowired
     private UserService userService = new UserService();
 
+    @RequestMapping("/wishlist")
+    public String openWishlistPage() { return "wishlist"; }
+
     @RequestMapping("/user")
     public String openUserPage() {
         return "my-account";
