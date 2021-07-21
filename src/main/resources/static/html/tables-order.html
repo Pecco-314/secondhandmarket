@@ -77,17 +77,17 @@
                     </li>
 
                     <li>
-                        <a href="tables-user.html" class="waves-effect"><i class="ion-person-stalker"></i>
+                        <a href="../admin-user" class="waves-effect"><i class="ion-person-stalker"></i>
                             <span>用户管理</span> </a>
                     </li>
 
                     <li>
-                        <a href="tables-goods.html" class="waves-effect"><i class="ion-bag"></i>
+                        <a href="../admin-item" class="waves-effect"><i class="ion-bag"></i>
                             <span>商品管理</span> </span></a>
                     </li>
 
                     <li>
-                        <a href="tables-order.html" class="waves-effect"><i class="ion-ios7-paper"></i>
+                        <a href="../admin-order" class="waves-effect"><i class="ion-ios7-paper"></i>
                             <span>订单管理</span> </span></a>
                     </li>
 
@@ -250,41 +250,83 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="card m-b-30">
-                                <div class="card-body">
+                                <div class="card-body" id="ordersTable">
 
                                     <h4 class="mt-0 header-title">订单信息</h4>
 
                                     <div class="row align-items-center" style="padding-left: 15px">
                                         <div class="col-lg-7 col-md-7">
                                             <div class="top-header-form">
-                                                <form>
+                                                <form onsubmit="return false;">
                                                     <div class="row">
+                                                        <!--                                                        <div class="form-group">-->
+                                                        <!--                                                            <el-select class="form-control" v-model="selectedType"-->
+                                                        <!--                                                                       style="padding: 0 0">-->
+                                                        <!--                                                                <el-option v-for="option in options"-->
+                                                        <!--                                                                           :value="option.value" :key="option.key"-->
+                                                        <!--                                                                           :label="option.text">-->
+                                                        <!--                                                                </el-option>-->
+                                                        <!--                                                            </el-select>-->
+                                                        <!--                                                        </div>-->
+
+
+                                                        <!--                                                        <div class="search-widget">-->
+                                                        <!--                                                            <form class="search-form">-->
+                                                        <!--                                                                <input class="form-control" placeholder="搜索..."-->
+                                                        <!--                                                                       v-model="keyword">-->
+                                                        <!--                                                                <el-button @click="search" class="search-button">-->
+                                                        <!--                                                                    <i class="bx bx-search"></i>-->
+                                                        <!--                                                                </el-button>-->
+                                                        <!--                                                            </form>-->
+                                                        <!--                                                        </div>-->
+
                                                         <div class="col-lg-4">
                                                             <div class="form-group">
-                                                                <select class="form-control">
-                                                                    <option>订单号</option>
-                                                                    <option>买家编号</option>
-                                                                    <option>买家邮箱</option>
-                                                                </select>
+                                                                <el-select class="form-control" v-model="selectedType"
+                                                                           style=" padding: 0 0">
+                                                                    <el-option v-for="option in options"
+                                                                               :value="option.value" :key="option.key"
+                                                                               :label="option.text">
+                                                                        <!--                                            {{ option.text }}-->
+                                                                    </el-option>
+                                                                </el-select>
+                                                                <!--                                                                                                                                <select class="form-control">-->
+                                                                <!--                                                                                                                                    <option>订单号</option>-->
+                                                                <!--                                                                                                                                    <option>买家编号</option>-->
+                                                                <!--                                                                                                                                    <option>买家邮箱</option>-->
+                                                                <!--                                                                                                                                </select>-->
                                                             </div>
                                                         </div>
 
                                                         <div class="col-lg-8 pl-0">
                                                             <div class="form-group search-form">
                                                                 <input type="search" class="form-control"
-                                                                       placeholder="Search">
+                                                                       placeholder="Search" v-model="searchContent"
+                                                                       @keydown.enter="onSearch">
                                                             </div>
                                                         </div>
+
+                                                        <el-date-picker v-model="selectDatetime" type="datetimerange"
+                                                                        :picker-options="pickerOptions"
+                                                                        size="medium"
+                                                                        start-placeholder="开始时间"
+                                                                        end-placeholder="结束时间"
+                                                                        range-separator="至"
+                                                                        @change="dateSearch"
+                                                                        value-format="yyyy-MM-dd HH:mm:ss"
+                                                                        format="yyyy-MM-dd HH:mm:ss">
+
+                                                        </el-date-picker>
                                                     </div>
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div id="ordersTable">
+                                    <div>
 
                                         <el-table
-                                                :data="tableData.slice((currentPage - 1) * pageSize, currentPage * pageSize)"
+                                                :data="tableDataSelected.slice((currentPage - 1) * pageSize, currentPage * pageSize)"
                                                 style="width: 100%" class="table table-bordered">
                                             <el-table-column type="expand">
                                                 <template slot-scope="props">
@@ -330,7 +372,7 @@
                                             <el-table-column prop="email" label="买家邮箱"></el-table-column>
                                             <el-table-column prop="name" label="商品名称"></el-table-column>
                                             <el-table-column prop="state" label="订单状态" column-key="state"
-                                                             :filters="[{text: '待收货', value: 'UNFINISHED'},{text: '已完成', value: 'UNFINISHED'}]"
+                                                             :filters="[{text: '待收货', value: 'UNFINISHED'},{text: '已完成', value: 'FINISHED'}]"
                                                              :filter-method="filterHandler">
                                                 <template slot-scope="scope">
                                                     <span v-if="scope.row.state === 'UNFINISHED'">待收货</span>
@@ -356,7 +398,7 @@
                                                 :page-sizes="[10, 20, 30]"
                                                 :page-size="pageSize"
                                                 layout="total, sizes, prev, pager, next, jumper"
-                                                :total="tableData.length">
+                                                :total="tableDataSelected.length">
                                         </el-pagination>
                                         <!--                                        <el-dialog title="删除" :visible.sync="dialogVisibleForDelete" width="30%">-->
                                         <!--                                            是否将该订单删除？-->
