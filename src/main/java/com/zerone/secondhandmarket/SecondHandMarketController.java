@@ -27,9 +27,9 @@ public class SecondHandMarketController {
 
     @RequestMapping("/")
     public String run() {
-        Wishlist wishlist=new Wishlist(100004,88);
-        wishlistService.insertWishlist(wishlist);
-        wishlistService.getWishlistByUserId(100004);
+//        Wishlist wishlist=new Wishlist(100004,88);
+//        wishlistService.insertWishlist(wishlist);
+//        wishlistService.getWishlistByUserId(100004);
 //        ItemFilter itemFilter = new ItemFilter();
 //        itemFilter.setPriceOrdering(Ordering.DESC);
 //        List<Item> items = itemService.getItemByFilter(itemFilter);

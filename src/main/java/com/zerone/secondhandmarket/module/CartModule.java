@@ -11,7 +11,7 @@ public class CartModule {
     public static Result getItemsInCart(CartService service, int userId) {
         List<Cart> list = service.getCartListByUserId(userId);
 
-        if (list == null || list.isEmpty())
+        if (list == null)
             return new Result(Status.CART_ERROR, "", null);
 
         return new Result(Status.CART_OK, "", list);
