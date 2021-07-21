@@ -1,6 +1,5 @@
 package com.zerone.secondhandmarket;
 
-import com.zerone.secondhandmarket.entity.Wishlist;
 import com.zerone.secondhandmarket.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

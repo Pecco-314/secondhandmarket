@@ -84,10 +84,11 @@
         </div>
         <div class="row" id="myCart">
             <div class="col-lg-12 col-md-12">
+                <el-empty v-show="carts.length===0" description="购物车空空如也"></el-empty>
                 <form>
                     <div class="cart-wraps">
                         <div class="cart-table table-responsive">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered" v-show="carts.length">
                                 <thead>
                                 <tr>
                                     <th scope="col" width="20%">商品</th>
@@ -137,7 +138,7 @@
                                     <td class="product-subtotal">
                                         <span class="subtotal-amount">￥{{cart.total}}</span>
 
-                                        <a href="#" class="remove">
+                                        <a class="remove selectable" @click="removeCartItem(cart.itemId)">
                                             <i class='bx bx-trash'></i>
                                         </a>
                                     </td>
@@ -148,15 +149,10 @@
 
                         <div class="cart-buttons">
                             <div class="row align-items-center">
-                                <div class="col-lg-7 col-sm-7 col-md-7">
-                                    <div class="continue-shopping-box">
-                                        <a class="default-btn btn-bg-three selectable" @click="returnToShop">
-                                            继续购物
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-5 col-sm-5 col-md-5 text-right">
+                                <div class="col-lg-12 col-sm-12 col-md-12 text-right">
+                                    <a class="default-btn btn-bg-three selectable" @click="returnToShop">
+                                        继续购物
+                                    </a>
                                     <a class="default-btn btn-bg-three selectable" @click="checkout">
                                         立即结算
                                     </a>

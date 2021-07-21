@@ -5,6 +5,7 @@ import com.zerone.secondhandmarket.enums.OrderState;
 import com.zerone.secondhandmarket.enums.Status;
 import com.zerone.secondhandmarket.message.OrderFilter;
 import com.zerone.secondhandmarket.message.OrderMessage;
+import com.zerone.secondhandmarket.message.OrderStateModificationMessage;
 import com.zerone.secondhandmarket.module.OrderModule;
 import com.zerone.secondhandmarket.service.ItemService;
 import com.zerone.secondhandmarket.service.OrderService;
@@ -69,14 +70,21 @@ public class OrderController {
 
     //更新订单状态
     @ResponseBody
-    @GetMapping("requests/user/orderChecked/{orderId}")
-    public String updateOrderState(@PathVariable int orderId) {
-        Order newOrder = orderService.getOrderByOrderId(orderId);
-        newOrder.setState(OrderState.FINISHED);
+    @PostMapping("requests/user/orderChecked")
+    public String updateOrderState(@RequestBody OrderStateModificationMessage modification) {
+        if(CodeProcessor.validateIdToken(modification.getUserId(), modification.getToken())) {
+            Order newOrder = orderService.getOrderByOrderId(modification.getOrderId());
 
-        Result result = OrderModule.updateOrder(orderService, newOrder);
+            if(newOrder == null)
+                return new Result(Status.ERROR, "无法获取订单", null).toString();
 
-        return result.toString();
+            newOrder.setState(modification.getState());
+
+            Result result = OrderModule.updateOrder(orderService, newOrder);
+
+            return result.toString();
+        }
+        return new Result(Status.USER_ERROR, "id与token不一致", null).toString();
     }
 
     //取消订单

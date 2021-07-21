@@ -47,15 +47,12 @@ public class OrderModule {
 
     public static Result generateOrder(OrderService service, Order order) {
         try {
-//            if (quantity > itemService.getItemById(itemId).getQuantity())
-//                throw new Exception("数量大于库存");
-
             order.setTime(DateFormatter.dateToString(new Date()));
-            order.setState(OrderState.UNFINISHED);
+            order.setState(OrderState.UNPAID);
 
-            service.insertOrder(order);
+            Integer orderId = service.insertOrder(order);
 
-            return new Result(Status.ORDER_OK, "生成订单成功", null);
+            return new Result(Status.ORDER_OK, "生成订单成功", orderId);
         } catch (Exception e) {
             System.out.println(e.getMessage());
 
