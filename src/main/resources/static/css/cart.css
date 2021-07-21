@@ -3,6 +3,8 @@
     white-space: nowrap;
     overflow: hidden;
     cursor: pointer;
+}
 
-
+.cart-buttons a {
+    margin-right: 30px
 }

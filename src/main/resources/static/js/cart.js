@@ -48,16 +48,20 @@ let MyCartForm = new Vue({
                 success: (responseStr) => {
                     let response = JSON.parse(responseStr);
                     if (response.status === 60200) {
-                        for (let i = 0; i < this.carts.length; i++) {
-                            if (this.carts[i].itemId === itemID) {
-                                this.carts[i].total = this.carts[i].price * quantity;
-                                break;
+                        if (this.carts)
+                            for (let i = 0; i < this.carts.length; i++) {
+                                if (this.carts[i].itemId === itemID) {
+                                    this.carts[i].total = this.carts[i].price * quantity;
+                                    break;
+                                }
                             }
-                        }
-                        console.log(this.carts);
                     }
                 }
             })
+        },
+        removeCartItem(itemID) {
+            this.changeQuantity(itemID, 0);
+            location.reload();
         }
     }
 })
