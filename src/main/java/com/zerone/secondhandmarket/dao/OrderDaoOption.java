@@ -1,11 +1,16 @@
 package com.zerone.secondhandmarket.dao;
 
+import com.zerone.secondhandmarket.entity.Item;
 import com.zerone.secondhandmarket.entity.Order;
 import com.zerone.secondhandmarket.mapper.ItemRowMapper;
 import com.zerone.secondhandmarket.mapper.OrderRowMapper;
 import com.zerone.secondhandmarket.message.OrderFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -18,23 +23,21 @@ public class OrderDaoOption {
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 
-    // 用于添加订单信息
+
+    // 用于添加订单信息,返回order_id
     public int insertOrder(Order order) {
         String sql = "insert into orders(buyer_id, seller_id, item_id, quantity, ordering_time, receiverName, phoneNumber, campus, dorm, detailed_address,state)" +
                 "values(:buyer_id, :seller_id, :item_id, :quantity, :ordering_time, :receiverName, :phoneNumber, :campus, :dorm, :detailed_address,:state)";
         Map<String, Object> param = new HashMap<>();
-        param.put("item_id", order.getItem());
-        param.put("seller_id", order.getSeller());
-        param.put("buyer_id", order.getBuyer());
-        param.put("quantity", order.getQuantity());
-        param.put("ordering_time", order.getTime());
-        param.put("receiverName", order.getReceiverName());
-        param.put("phoneNumber", order.getPhoneNumber());
-        param.put("campus", order.getCampus());
-        param.put("dorm", order.getDorm());
-        param.put("detailed_address", order.getDetailedAddress());
-        param.put("state", order.getState().toString());
-        return jdbcTemplate.update(sql, param);
+        SqlParameterSource parameters = new MapSqlParameterSource().addValue("item_id", order.getItem()).addValue("buyer_id", order.getBuyer())
+                .addValue("seller_id", order.getSeller()).addValue( "ordering_time", order.getTime())
+                .addValue("quantity", order.getQuantity()).addValue("phoneNumber", order.getPhoneNumber())
+                .addValue("receiverName", order.getReceiverName()).addValue("dorm", order.getDorm())
+                .addValue("campus", order.getCampus()).addValue("detailed_address", order.getDetailedAddress())
+                .addValue("state", order.getState().toString());
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(sql, parameters, keyHolder, new String[]{"order_id"});
+        return keyHolder.getKey().intValue();
     }
 
 
