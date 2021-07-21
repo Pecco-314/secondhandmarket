@@ -28,7 +28,7 @@ public class CartController {
     @ResponseBody
     @PostMapping("/requests/cart/info")
     public String getCarts(@RequestBody UserTokenMessage token) {
-        if(CodeProcessor.validateIdToken(token.getUserID(), token.getToken())) {
+        if (CodeProcessor.validateIdToken(token.getUserID(), token.getToken())) {
             Result result = CartModule.getItemsInCart(cartService, token.getUserID());
 
             return result.toString();
@@ -41,7 +41,7 @@ public class CartController {
     @ResponseBody
     @PostMapping("/requests/cart/modifyCart")
     public String modifyCart(@RequestBody CartModificationMessage modification) {
-        if(CodeProcessor.validateIdToken(modification.getUserID(), modification.getToken())) {
+        if (CodeProcessor.validateIdToken(modification.getUserID(), modification.getToken())) {
             Cart cart = new Cart(modification.getUserID(), modification.getItemID(), modification.getQuantity());
 
             Result result = CartModule.modifyItemQuantity(cartService, cart);
@@ -55,8 +55,8 @@ public class CartController {
 
     @ResponseBody
     @PostMapping("/requests/cart/clear")
-    public String modifyCart(UserTokenMessage token) {
-        if(CodeProcessor.validateIdToken(token.getUserID(), token.getToken())) {
+    public String modifyCart(@RequestBody UserTokenMessage token) {
+        if (CodeProcessor.validateIdToken(token.getUserID(), token.getToken())) {
             Result result = CartModule.clearCart(cartService, token.getUserID());
 
             return result.toString();
