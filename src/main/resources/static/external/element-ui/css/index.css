@@ -2571,7 +2571,8 @@
 
 .el-select .el-input__inner {
     cursor: pointer;
-    padding-right: 35px
+    padding-right: 35px;
+    height: 36px;
 }
 
 .el-select .el-input__inner:focus {
@@ -3892,7 +3893,8 @@
 }
 
 .el-range-editor--medium.el-input__inner {
-    height: 36px
+    height: 36px;
+    margin-bottom: 10px;
 }
 
 .el-range-editor--medium .el-range-separator {
