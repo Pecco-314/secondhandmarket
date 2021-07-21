@@ -46,7 +46,7 @@ let checkoutForm = new Vue({
             '思明校区',
         ],
         id: getURLVariable('id'),
-
+        cntSuccess: 0,
     },
 });
 
@@ -149,7 +149,7 @@ async function handleCheckoutItem(checkoutItem) {
 
         quantity: checkoutItem.quantity
     }
-    $.ajax({
+    return $.ajax({
         url: `${url}/requests/user/insertOrder`,
         method: 'post',
         data: JSON.stringify(orderData),
@@ -157,7 +157,7 @@ async function handleCheckoutItem(checkoutItem) {
         success: (responseStr) => {
             let response = JSON.parse(responseStr);
             if (response.status === 40200) {
-
+                checkoutForm.cntSuccess++;
             } else {
                 alert(`${response.message}（状态码：${response.status}）`);
             }
@@ -167,16 +167,33 @@ async function handleCheckoutItem(checkoutItem) {
 
 let paidButton = new Vue({
     el: '#paid-button',
+    data: {
+        paying: false
+    },
     methods: {
-        async onPay() {
-            for (let i = 0; i < checkoutConfirm.ids.length; ++i) {
-                await handleCheckoutItem(checkoutConfirm.$refs[i][0]);
-            }
-            alert('交易成功！');
-            window.open("../", "_self");
+        onPay() {
+            checkoutForm.$refs.form.validate(async valid => {
+                if (valid) {
+                    checkoutForm.cntSuccess = 0;
+                    if (!this.paying) {
+                        this.paying = true;
+                        let promises = [];
+                        for (let i = 0; i < checkoutConfirm.ids.length; ++i) {
+                            promises.push(handleCheckoutItem(checkoutConfirm.$refs[i][0]));
+                        }
+                        await Promise.all(promises);
+                        this.paying = false;
+                        if (checkoutForm.cntSuccess === checkoutConfirm.ids.length) {
+                            elAlert(this, '交易成功！', '', () => window.open("../", "_self"));
+                        }
+                    }
+                } else {
+                    switchToTab(0);
+                }
+            })
         }
     }
-})
+});
 
 $(() => {
         getUserInfo((response) => {
