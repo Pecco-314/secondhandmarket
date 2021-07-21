@@ -30,9 +30,10 @@ let ordersTable = new Vue({
             this.tableDataTime = [];
             for (let i = 0; i < this.tableDataAll.length; i++) {
                 if (this.tableDataAll[i].time >= this.selectDatetime[0] && this.tableDataAll[i].time <= this.selectDatetime[1]) {
-                    this.tableDataSelected.splice(i, 1);
+                    this.tableDataTime.push(this.tableDataAll[i]);
                 }
             }
+            this.unionSearch();
         },
         onSearch() {
             if (this.searchContent === '') {
@@ -57,9 +58,18 @@ let ordersTable = new Vue({
                 }
             }
 
+            this.unionSearch();
         },
         unionSearch() {
-
+            this.tableDataResult = [];
+            for (let i = 0; i < this.tableDataSelected.length; i++) {
+                for (let j = 0; j < this.tableDataTime.length; j++) {
+                    if (this.tableDataSelected[i] === this.tableDataTime[j]) {
+                        this.tableDataResult.push(this.tableDataSelected[i]);
+                        break;
+                    }
+                }
+            }
         },
         formatter(row, column) {
             return row.address;
@@ -88,11 +98,11 @@ let ordersTable = new Vue({
                             getUserInfoByAdmin(this.tableDataAll[i].buyer, response => {
                                 this.$set(this.tableDataAll[i], 'email', response.data.emailAddress);
                             })
+                            this.tableDataResult = this.tableDataAll;
+                            this.tableDataTime = this.tableDataAll;
                             this.tableDataSelected = this.tableDataAll;
-                            console.log(this.tableDataAll);
                         }
 
-                        console.log(this.tableDataAll);
                     } else {
                         console.log(response);
                     }
