@@ -1,5 +1,5 @@
 let wishList = new Vue({
-    el: 'myWishes',
+    el: '#myWishes',
     data: {
         wishes: [],
     },
@@ -17,6 +17,7 @@ let wishList = new Vue({
                 success: (responseStr) => {
                     let response = JSON.parse(responseStr);
                     if (response.status === 10200) {
+                        this.wishes = response.data;
                         for (let i = 0; i < this.wishes.length; i++) {
                             getItemInfo(this.wishes[i].itemId, response => {
                                 this.$set(this.wishes[i], 'name', response.data.name);
@@ -32,4 +33,4 @@ let wishList = new Vue({
     }
 })
 
-$(wishList.getWishList());
+$(wishList.getWishList);

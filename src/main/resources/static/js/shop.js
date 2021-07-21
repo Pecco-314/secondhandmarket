@@ -1,10 +1,13 @@
 let shopApp = new Vue({
     el: '#search-app',
     data: {
+        wishList: [],
         items: [],
         loading: true,
         notFound: false,
         dialogVisibleForCart: false,
+        dialogVisibleForCollection: false,
+        dialogVisibleForCancelCollection: false,
         cnt: 1,
         max: 1,
         currentId: '',
@@ -45,6 +48,16 @@ let shopApp = new Vue({
             this.max = item.quantity;
         },
 
+        openCollectionDialog(item) {
+            this.dialogVisibleForCollection = true;
+            this.currentId = item.id;
+        },
+
+        openCancelCollectionDialog(item) {
+            this.dialogVisibleForCancelCollection = true;
+            this.currentId = item.id;
+        },
+
         addToCart() {
             let purchaseData = {
                 userID: parseInt($.cookie('id')),
@@ -62,13 +75,72 @@ let shopApp = new Vue({
                     let response = JSON.parse(responseStr);
                     // elAlert(this, response.message, '', () => {
                     // });
-                    if(response.status === 60200) {
+                    if (response.status === 60200) {
                         this.dialogVisibleForCart = false;
                         confirm("加入购物车成功");
                     }
                 }
             })
         },
+
+        addToCollection() {
+            let data = {
+                userID: parseInt($.cookie('id')),
+                token: $.cookie('token'),
+                itemID: this.currentId,
+                isAdding: true,
+            };
+            $.ajax({
+                url: `${url}/requests/user/wishlist/modify`,
+                method: 'post',
+                data: JSON.stringify(data),
+                contentType: "application/json;charset=utf-8",
+                success: (responseStr) => {
+                    let response = JSON.parse(responseStr);
+                    if (response.status === 10200) {
+                        this.dialogVisibleForCollection = false;
+                        this.updateCollectionState();
+                        confirm("收藏成功");
+                    } else {
+                        alert("收藏失败");
+                    }
+                }
+            })
+        },
+
+        cancelCollection() {
+            let data = {
+                userID: parseInt($.cookie('id')),
+                token: $.cookie('token'),
+                itemID: this.currentId,
+                isAdding: false,
+            };
+            $.ajax({
+                url: `${url}/requests/user/wishlist/modify`,
+                method: 'post',
+                data: JSON.stringify(data),
+                contentType: "application/json;charset=utf-8",
+                success: (responseStr) => {
+                    let response = JSON.parse(responseStr);
+                    if (response.status === 10200) {
+                        this.dialogVisibleForCancelCollection = false;
+                        this.updateCollectionState();
+                        confirm("取消成功");
+                    } else {
+                        alert("取消失败");
+                    }
+                }
+            })
+        },
+
+        updateCollectionState() {
+            for (let i = 0; i < this.items.length; i++) {
+                if (this.items[i].id === this.currentId) {
+                    this.items[i].isCollected = this.items[i].isCollected ? false : true;
+                }
+            }
+        },
+
         select(selection) {
             this.options.forEach(e => e.selectState = (e.value === selection ? 'active' : ''))
             this.itemFilter.type = selection;
@@ -85,14 +157,26 @@ let shopApp = new Vue({
                     if (this.loading) {
                         this.loading = false;
                         let response = JSON.parse(responseStr);
-                        console.log(response);
                         if (response.status === 30200) {
                             this.items = response.data;
+                            //获取用户的收藏情况
+                            getWishList(response => {
+                                this.wishList = response.data;
+                            });
                             for (let i = 0; i < this.items.length; i++) {
                                 this.items[i].imageurl = `http://1.15.220.157:8088/requests/image/${this.items[i].coverPath}`;
                                 this.items[i].url = `${url}/item?id=${this.items[i].id}`;
+                                //添加是否收藏的信息
+                                if ((this.wishList.find(element => {
+                                    return element.itemId == this.items[i].id
+                                })) !== undefined) {
+                                    this.items[i].isCollected = true;
+                                } else {
+                                    this.items[i].isCollected = false;
+                                }
                             }
                             this.notFound = false;
+                            console.log(this.items);
                         } else if (response.status === 30400) {
                             this.notFound = true;
                         } else {
@@ -109,7 +193,7 @@ let shopApp = new Vue({
         changeOrdering(ordering) {
             this.itemFilter.priceOrdering = ordering;
             this.search();
-        }
+        },
     },
     mounted() {
         this.select(this.itemFilter.type);
@@ -120,6 +204,6 @@ let shopApp = new Vue({
     }
 })
 
-$(function() {
+$(function () {
     shopApp.getSearchResult();
 });

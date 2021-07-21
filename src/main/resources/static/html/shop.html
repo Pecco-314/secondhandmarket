@@ -92,7 +92,8 @@
                             <el-button @click="search" class="search-button">
                                 <i class="bx bx-search"></i>
                             </el-button>
-                            <input class="form-control" placeholder="搜索..." v-model="itemFilter.keyword" @keydown.enter="search">
+                            <input class="form-control" placeholder="搜索..." v-model="itemFilter.keyword"
+                                   @keydown.enter="search">
                         </div>
                     </div>
 
@@ -102,7 +103,7 @@
                             <ul>
                                 <li v-for="option in options" :key="option.value" :value="option.value"
                                     :class="option.selectState" @click="select(option.value)">
-                                    <a >{{option.text}}</a>
+                                    <a>{{option.text}}</a>
                                 </li>
                             </ul>
                         </div>
@@ -136,7 +137,9 @@
                     </div>
                 </div>
                 <div class="row" v-loading="loading">
-                    <div v-if="notFound"><el-empty description="未找到相关商品" style="margin: 20px 0 0 300px"></el-empty></div>
+                    <div v-if="notFound">
+                        <el-empty description="未找到相关商品" style="margin: 20px 0 0 300px"></el-empty>
+                    </div>
                     <div v-else class="col-lg-4 col-sm-6" v-for="item in items" :key="item.id">
                         <div class="product-card">
                             <div class="product-card-img">
@@ -145,21 +148,49 @@
                                 </a>
                                 <ul class="product-card-action">
                                     <li>
-                                        <a class="selectable" @click="openCartDialog(item)" ><i class='bx bx-cart'></i></a>
+                                        <a class="selectable" @click="openCartDialog(item)"><i
+                                                class='bx bx-cart'></i></a>
                                     </li>
                                     <li>
-                                        <a class="selectable"><i class='bx bx-heart'></i></a>
+                                        <a v-if="item.isCollected" class="selectable"
+                                           @click="openCancelCollectionDialog(item)">
+                                            <i class='bx bxs-heart'></i>
+                                        </a>
+                                        <a v-else class="selectable"
+                                           @click="openCollectionDialog(item)">
+                                            <i class='bx bx-heart'></i>
+                                        </a>
+
                                     </li>
                                     <li>
                                         <a class="selectable" data-toggle="modal" data-target="#productsQuickView">
                                             <i class='bx bx-show-alt'></i>
                                         </a>
                                     </li>
-
+                                    <el-dialog title="加入收藏" :visible.sync="dialogVisibleForCollection" width="30%">
+                                        是否确定要加入收藏？
+                                        <span slot="footer" class="dialog-footer">
+                                                        <el-button
+                                                                @click="dialogVisibleForCollection = false">取 消</el-button>
+                                                        <el-button type="primary"
+                                                                   @click="addToCollection">确 定</el-button>
+                                                    </span>
+                                    </el-dialog>
+                                    <el-dialog title="取消收藏" :visible.sync="dialogVisibleForCancelCollection"
+                                               width="30%">
+                                        是否确定要取消收藏？
+                                        <span slot="footer" class="dialog-footer">
+                                                        <el-button
+                                                                @click="dialogVisibleForCancelCollection = false">取 消</el-button>
+                                                        <el-button type="primary"
+                                                                   @click="cancelCollection">确 定</el-button>
+                                                    </span>
+                                    </el-dialog>
                                     <el-dialog title="加入购物车" :visible.sync="dialogVisibleForCart" width="30%">
                                         <div class="adder">
                                             <span class="quantity-label">数量</span>
-                                            <el-input-number v-model="cnt" :min=1 :max="max" size="small"></el-input-number>
+                                            <el-input-number v-model="cnt" :min=1 :max="max"
+                                                             size="small"></el-input-number>
                                             <span class="stock-label"> 件（库存 {{max}} 件）</span>
                                         </div>
                                         <span slot="footer" class="dialog-footer">

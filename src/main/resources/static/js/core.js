@@ -166,7 +166,27 @@ function clearCart(callback) {
     })
 }
 
-function elAlert(component, content, title, callback){
+function getWishList(callback) {
+    let identification = {
+        userID: $.cookie("id"),
+        token: $.cookie("token"),
+    };
+    $.ajax({
+        url: `${url}/requests/user/wishlist`,
+        method: 'post',
+        data: JSON.stringify(identification),
+        contentType: "application/json;charset=utf-8",
+        async: false,//同步
+        success: (responseStr) => {
+            let response = JSON.parse(responseStr);
+            if (response.status === 10200) {
+                callback(response);
+            }
+        }
+    });
+}
+
+function elAlert(component, content, title, callback) {
     component.$alert(content, title, {
         confirmButtonText: '确定',
         callback: callback

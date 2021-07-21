@@ -12,5 +12,5 @@ public class WishlistModificationMessage {
     private String token;
     private Integer itemID;
 
-    private boolean isAdding;
+    private Boolean isAdding;
 }
