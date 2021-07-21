@@ -47,14 +47,22 @@
 
             <div class="col-lg-6 col-md-12">
                 <div class="product-desc">
-                    <h3>{{ item.name }}</h3>
+                    <div>
+                        <h3>{{ item.name }}
+                            <div class="icon__class" style="float:right"><a class="selectable"><i
+                                    class="bx bx-heart"></i></a></div>
+                        </h3>
+                    </div>
+
+
                     <div class="price">
                         <span class="new-price">￥{{ item.price }}</span>
                         <span v-if="item.originalPrice" class="old-price">￥{{ item.originalPrice }}</span>
                     </div>
                     <div>
                         <i class="el-icon-date" style="margin-bottom: 10px"><span
-                                style="font-size:15px;font-weight: 500; color: #10142D"> {{ item.releaseDate }}</span></i>
+                                style="font-size:15px;font-weight: 500; color: #10142D"> {{ item.releaseDate
+                            }}</span></i>
                     </div>
                     <p>
                         {{ item.introduction }}
@@ -80,6 +88,7 @@
                         <button type="submit" class="default-btn btn-bg-three selectable">
                             <i class="fas fa-cart-plus"></i> 联系商家
                         </button>
+
                     </div>
                 </div>
             </div>

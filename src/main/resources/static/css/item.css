@@ -30,3 +30,19 @@
     flex-wrap: wrap;
     margin-right: 15px;
 }
+.icon__class
+{
+    display: block;
+    background-color: #ffffff;
+    text-align: center;
+    position: relative;
+    font-size: 28px;
+    color: #10142D;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+}
+.icon__class a i
+{
+    color: #ff626c;
+}
+
