@@ -184,7 +184,11 @@ let paidButton = new Vue({
                         await Promise.all(promises);
                         this.paying = false;
                         if (checkoutForm.cntSuccess === checkoutConfirm.ids.length) {
+                            clearCart(() => {});
                             elAlert(this, '交易成功！', '', () => window.open("../", "_self"));
+                        } else {
+                            elAlert(this, `交易中发生异常（${checkoutForm.cntSuccess}项成功，${checkoutConfirm.ids.length - checkoutForm.cntSuccess}项失败）`, '', () => {
+                            });
                         }
                     }
                 } else {
