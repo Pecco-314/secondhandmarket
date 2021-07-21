@@ -56,6 +56,11 @@ $(function () {
             if (itemApp.item.introduction === null) {
                 itemApp.item.introduction = "本物品暂无简介";
             }
+            if (itemApp.item.itemImages.length === 0) {
+                itemApp.imageList.push({
+                    url: `../img/null.jpg`
+                })
+            }
             for (let image of itemApp.item.itemImages) {
                 itemApp.imageList.push({
                     name: image,
