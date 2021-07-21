@@ -129,7 +129,7 @@ function getCartList(callback) {
         userID: $.cookie("id"),
         token: $.cookie("token"),
     };
-    $.ajax({
+    return $.ajax({
         url: `${url}/requests/cart/info`,
         method: 'post',
         data: JSON.stringify(identification),
@@ -138,6 +138,29 @@ function getCartList(callback) {
             let response = JSON.parse(responseStr);
             if (response.status === 60200) {
                 callback(response);
+            } else {
+                alert(`${response.message}（状态码：${response.status}）`)
+            }
+        }
+    });
+}
+
+function clearCart(callback) {
+    let identification = {
+        userID: $.cookie("id"),
+        token: $.cookie("token"),
+    };
+    return $.ajax({
+        url: `${url}/requests/cart/clear`,
+        method: 'post',
+        data: JSON.stringify(identification),
+        contentType: "application/json;charset=utf-8",
+        success: (responseStr) => {
+            let response = JSON.parse(responseStr);
+            if (response.status === 60200) {
+                callback(response);
+            } else {
+                alert(`${response.message}（状态码：${response.status}）`)
             }
         }
     })
