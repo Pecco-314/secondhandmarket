@@ -186,7 +186,7 @@ let shopApp = new Vue({
                             });
                             for (let i = 0; i < this.items.length; i++) {
                                 if (this.items[i].coverPath === null)
-                                    this.items[i].imageurl = `../img/null.jpg`;
+                                    this.items[i].imageurl = `../img/null2.jpg`;
                                 else
                                     this.items[i].imageurl = `http://1.15.220.157:8088/requests/image/${this.items[i].coverPath}`;
                                 this.items[i].url = `${url}/item?id=${this.items[i].id}`;
@@ -221,6 +221,7 @@ let shopApp = new Vue({
     },
     mounted() {
         this.select(this.itemFilter.type);
+        // $('select').niceSelect();
     },
     computed: {
         title: () => hasURLVariables() ? '搜索结果' : '全部商品',

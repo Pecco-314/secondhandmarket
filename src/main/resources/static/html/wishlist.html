@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="../external/olex/css/style.css">
     <link rel="stylesheet" href="../external/olex/css/responsive.css">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/wishlist.css">
+
     <title>我的收藏</title>
 </head>
 
@@ -57,10 +59,11 @@
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
-                                    <th scope="col">商品</th>
-                                    <th scope="col">名称</th>
-                                    <th scope="col">价格</th>
-                                    <th scope="col">加入购物车</th>
+                                    <th scope="col"  width="20%">商品</th>
+                                    <th scope="col" width="20%">名称</th>
+                                    <th scope="col" width="20%" style="padding-left:2%">价格</th>
+                                    <th scope="col" width="20%">加入购物车</th>
+                                    <th scope="col"  width="20%">取消收藏</th>
                                 </tr>
                                 </thead>
 
@@ -73,16 +76,33 @@
                                     </td>
 
                                     <td class="product-name">
-                                        <a :href=wish.url>{{wish.name}}</a>
+                                        <a :href=wish.url style="font-size:18px">{{wish.name}}</a>
                                     </td>
 
-                                    <td class="product-price">
-                                        <span class="unit-amount">￥{{wish.price}}</span>
+                                    <td class="product-price" style="padding-left:2%">
+                                        <span class="unit-amount" style="font-size:17px">￥{{wish.price}}</span>
                                     </td>
 
-                                    <td class="product-quantity">
-                                        <a href="#" class="default-btn btn-bg-three">加入购物车</a>
+                                    <td class="product-quantity" style="padding-left:2%">
+                                        <a class="selectable" @click="openCartDialog(wish)"><i
+                                                class='bx bx-cart' style="color:#ff626c"></i></a>
                                     </td>
+                                    <td class="product-quantity" style="padding-left:2%">
+                                        <a class="selectable" ><i
+                                                class='bx bxs-heart' style="color:#ff626c"></i></a>
+                                    </td>
+                                    <el-dialog title="加入购物车" :visible.sync="dialogVisibleForCart" width="30%">
+                                        <div class="adder">
+                                            <span class="quantity-label">数量</span>
+                                            <el-input-number v-model="cnt" :min=1 :max="max"
+                                                             size="small"></el-input-number>
+                                            <span class="stock-label"> 件（库存 {{max}} 件）</span>
+                                        </div>
+                                        <span slot="footer" class="dialog-footer">
+                                        <el-button @click="dialogVisibleForCart = false">取 消</el-button>
+                                        <el-button type="primary" @click="addToCart">确 定</el-button>
+                                        </span>
+                                    </el-dialog>
                                 </tr>
                                 <!--                                <tr>-->
                                 <!--                                    <td class="product-thumbnail">-->
