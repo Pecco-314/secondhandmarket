@@ -79,6 +79,9 @@ let wishList = new Vue({
                                 this.$set(this.wishes[i], 'name', response.data.name);
                                 this.$set(this.wishes[i], 'quantity', response.data.quantity);
                                 this.$set(this.wishes[i], 'price', response.data.price);
+                                if (response.data.coverPath === null)
+                                    this.$set(this.wishes[i], 'imageUrl', `../img/null2.png`);
+                                else
                                 this.$set(this.wishes[i], 'imageUrl', `http://1.15.220.157:8088/requests/image/${response.data.coverPath}`);
                                 this.$set(this.wishes[i], 'url', `${url}/item?id=${this.wishes[i].itemId}`);
                             })
