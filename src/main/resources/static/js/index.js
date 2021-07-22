@@ -56,12 +56,12 @@ let indexForm = new Vue({
 
         openCollectionDialog(item) {
             this.dialogVisibleForCollection = true;
-            this.currentId = item.id;
+            this.currentItem = item.id;
         },
 
         openCancelCollectionDialog(item) {
             this.dialogVisibleForCancelCollection = true;
-            this.currentId = item.id;
+            this.currentItem = item.id;
         },
 
         addToCart() {
@@ -90,14 +90,14 @@ let indexForm = new Vue({
         },
         
         addToCollection() {
-            modifyCollection(this.currentId, true, response => {
+            modifyCollection(this.currentItem, true, response => {
                 this.dialogVisibleForCollection = false;
                 this.updateCollectionState();
             });
         },
 
         cancelCollection() {
-            modifyCollection(this.currentId, false, response => {
+            modifyCollection(this.currentItem, false, response => {
                 this.dialogVisibleForCancelCollection = false;
                 this.updateCollectionState();
             });
@@ -105,7 +105,7 @@ let indexForm = new Vue({
 
         updateCollectionState() {
             for (let i = 0; i < this.items.length; i++) {
-                if (this.items[i].id === this.currentId) {
+                if (this.items[i].id === this.currentItem) {
                     this.items[i].isCollected = this.items[i].isCollected ? false : true;
                 }
             }
