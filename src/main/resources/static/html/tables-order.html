@@ -325,6 +325,8 @@
                                                         <el-form-item label="订单状态">
                                                             <span v-if="props.row.state === 'FINISHED'">已完成</span>
                                                             <span v-if="props.row.state === 'UNFINISHED'">待收货</span>
+                                                            <span v-if="props.row.state === 'UNSENT'">待发货</span>
+                                                            <span v-if="props.row.state === 'UNPAYED'">待付款</span>
                                                         </el-form-item>
                                                     </el-form>
                                                 </template>
