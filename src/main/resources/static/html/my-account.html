@@ -216,16 +216,26 @@
                             </div>
                         </div>
 
-                        <div class="tabs_item">
+                        <div class="tabs_item" id="myOrders">
                             <div class="account-tab-item">
                                 <div class="checkout-order">
-                                    <h2>我的订单</h2>
+                                    <div>
+                                        <h2 style="display: inline-block">我的订单</h2>
+                                        <div class="form-group" style="display: inline-block; margin-left: 50%">
+                                            <el-select v-model="selectedType" style="padding: 0 0">
+                                                <el-option v-for="option in options"
+                                                       :value="option.value" :key="option.key"
+                                                       :label="option.text">
+                                                </el-option>
+                                            </el-select>
+                                        </div>
+                                    </div>
                                     <h3 class="title-item"><span style="margin-left: 100px">商品名称</span>
                                         <span style="margin-left: 70px">数量</span><span
                                                 style="margin-left: 75px">金额</span>
                                         <span style="margin-left: 68px">订单状态</span>
                                         <span style="margin-left: 90px">操作</span></h3>
-                                    <ul class="checkout-product" id="myOrders">
+                                    <ul class="checkout-product">
                                         <li v-for="order in orders" :key="order.orderInfo.id">
                                             <img :src=order.imageurl alt="Images">
                                             <div class="price-tag" style="left: 12%">
