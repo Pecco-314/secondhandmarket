@@ -53,6 +53,8 @@ public class ItemController {
             System.out.println(JSONMapper.writeValueAsString(result));
             return result.toString();
         } catch (Exception e) {
+            e.printStackTrace();
+
             return new Result(Status.ERROR, "文件传输失败", null).toString();
         }
     }
@@ -80,6 +82,8 @@ public class ItemController {
         try {
             courseFile = new File("").getCanonicalPath();
         } catch (Exception e) {
+            e.printStackTrace();
+
             return null;
         }
 
@@ -90,6 +94,8 @@ public class ItemController {
             inputStream.read(bytes, 0, inputStream.available());
             return bytes;
         } catch (Exception e) {
+            e.printStackTrace();
+
             return null;
         }
     }
@@ -101,6 +107,8 @@ public class ItemController {
         try {
             filter.setKeyword(URLDecoder.decode(filter.getKeyword(), "UTF-8"));
         } catch (Exception e) {
+            e.printStackTrace();
+
             return null;
         }
         Result result = ItemModule.getItemsByFilter(itemService, itemImageService, tagsService, filter);

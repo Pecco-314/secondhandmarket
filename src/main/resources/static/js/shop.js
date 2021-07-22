@@ -43,19 +43,31 @@ let shopApp = new Vue({
     },
     methods: {
         openCartDialog(item) {
-            this.dialogVisibleForCart = true;
-            this.currentId = item.id;
-            this.max = item.quantity;
+            if ($.cookie('id')) {
+                this.dialogVisibleForCart = true;
+                this.currentId = item.id;
+                this.max = item.quantity;
+            } else {
+                window.open("../login", "_self");
+            }
         },
 
         openCollectionDialog(item) {
-            this.dialogVisibleForCollection = true;
-            this.currentId = item.id;
+            if ($.cookie('id')) {
+                this.dialogVisibleForCollection = true;
+                this.currentId = item.id;
+            } else {
+                window.open("../login", "_self");
+            }
         },
 
         openCancelCollectionDialog(item) {
-            this.dialogVisibleForCancelCollection = true;
-            this.currentId = item.id;
+            if ($.cookie('id')) {
+                this.dialogVisibleForCancelCollection = true;
+                this.currentId = item.id;
+            } else {
+                window.open("../login", "_self");
+            }
         },
 
         addToCart() {
@@ -77,60 +89,69 @@ let shopApp = new Vue({
                     // });
                     if (response.status === 60200) {
                         this.dialogVisibleForCart = false;
-                        confirm("加入购物车成功");
+                        elAlert(this, "加入购物车成功", '', () => {
+                        });
                     }
                 }
             })
         },
 
         addToCollection() {
-            let data = {
-                userID: parseInt($.cookie('id')),
-                token: $.cookie('token'),
-                itemID: this.currentId,
-                isAdding: true,
-            };
-            $.ajax({
-                url: `${url}/requests/user/wishlist/modify`,
-                method: 'post',
-                data: JSON.stringify(data),
-                contentType: "application/json;charset=utf-8",
-                success: (responseStr) => {
-                    let response = JSON.parse(responseStr);
-                    if (response.status === 10200) {
-                        this.dialogVisibleForCollection = false;
-                        this.updateCollectionState();
-                        confirm("收藏成功");
-                    } else {
-                        alert("收藏失败");
-                    }
-                }
-            })
+            modifyCollection(this.currentId, true, response => {
+                this.dialogVisibleForCollection = false;
+                this.updateCollectionState();
+            });
+            // let data = {
+            //     userID: parseInt($.cookie('id')),
+            //     token: $.cookie('token'),
+            //     itemID: this.currentId,
+            //     isAdding: true,
+            // };
+            // $.ajax({
+            //     url: `${url}/requests/user/wishlist/modify`,
+            //     method: 'post',
+            //     data: JSON.stringify(data),
+            //     contentType: "application/json;charset=utf-8",
+            //     success: (responseStr) => {
+            //         let response = JSON.parse(responseStr);
+            //         if (response.status === 10200) {
+            //             this.dialogVisibleForCollection = false;
+            //             this.updateCollectionState();
+            //             confirm("收藏成功");
+            //         } else {
+            //             alert("收藏失败");
+            //         }
+            //     }
+            // })
         },
 
         cancelCollection() {
-            let data = {
-                userID: parseInt($.cookie('id')),
-                token: $.cookie('token'),
-                itemID: this.currentId,
-                isAdding: false,
-            };
-            $.ajax({
-                url: `${url}/requests/user/wishlist/modify`,
-                method: 'post',
-                data: JSON.stringify(data),
-                contentType: "application/json;charset=utf-8",
-                success: (responseStr) => {
-                    let response = JSON.parse(responseStr);
-                    if (response.status === 10200) {
-                        this.dialogVisibleForCancelCollection = false;
-                        this.updateCollectionState();
-                        confirm("取消成功");
-                    } else {
-                        alert("取消失败");
-                    }
-                }
-            })
+            modifyCollection(this.currentId, false, response => {
+                this.dialogVisibleForCancelCollection = false;
+                this.updateCollectionState();
+            });
+            // let data = {
+            //     userID: parseInt($.cookie('id')),
+            //     token: $.cookie('token'),
+            //     itemID: this.currentId,
+            //     isAdding: false,
+            // };
+            // $.ajax({
+            //     url: `${url}/requests/user/wishlist/modify`,
+            //     method: 'post',
+            //     data: JSON.stringify(data),
+            //     contentType: "application/json;charset=utf-8",
+            //     success: (responseStr) => {
+            //         let response = JSON.parse(responseStr);
+            //         if (response.status === 10200) {
+            //             this.dialogVisibleForCancelCollection = false;
+            //             this.updateCollectionState();
+            //             confirm("取消成功");
+            //         } else {
+            //             alert("取消失败");
+            //         }
+            //     }
+            // })
         },
 
         updateCollectionState() {
@@ -164,7 +185,8 @@ let shopApp = new Vue({
                                 this.wishList = response.data;
                             });
                             for (let i = 0; i < this.items.length; i++) {
-                                if(this.items[i].coverPath==null)this.items[i].imageurl=`../img/null2.png`;
+                                if (this.items[i].coverPath === null)
+                                    this.items[i].imageurl = `../img/null2.jpg`;
                                 else
                                     this.items[i].imageurl = `http://1.15.220.157:8088/requests/image/${this.items[i].coverPath}`;
                                 this.items[i].url = `${url}/item?id=${this.items[i].id}`;

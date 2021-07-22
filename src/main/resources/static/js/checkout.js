@@ -97,6 +97,8 @@ let checkoutConfirm = new Vue({
         return {
             totalPrice: 0,
             ids: null,
+            isConfirming: false,
+            orders: [],
         }
     },
     mounted() {
@@ -132,10 +134,39 @@ let checkoutConfirm = new Vue({
                 })
             }
         },
+        onConfirm() {
+            checkoutForm.$refs.form.validate(async valid => {
+                if (valid) {
+                    checkoutForm.cntSuccess = 0;
+                    if (!this.isConfirming) {
+                        this.isConfirming = true;
+                        let promises = [];
+                        this.orders = [];
+                        for (let i = 0; i < checkoutConfirm.ids.length; ++i) {
+                            promises.push(handleCheckoutItem(checkoutConfirm.$refs[i][0], this.orders));
+                        }
+                        await Promise.all(promises);
+                        this.isConfirming = false;
+                        if (checkoutForm.cntSuccess === checkoutConfirm.ids.length) {
+                            clearCart(() => {
+                            });
+                            elAlert(this, '订单已提交！', '', () => {
+                                switchToTab(2);
+                            })
+                        } else {
+                            elAlert(this, `交易中发生异常（${checkoutForm.cntSuccess}项成功，${checkoutConfirm.ids.length - checkoutForm.cntSuccess}项失败）`, '', () => {
+                            });
+                        }
+                    }
+                } else {
+                    switchToTab(0);
+                }
+            })
+        }
     }
 })
 
-async function handleCheckoutItem(checkoutItem) {
+async function handleCheckoutItem(checkoutItem, orders) {
     let orderData = {
         buyer: $.cookie("id"),
         token: $.cookie("token"),
@@ -156,8 +187,10 @@ async function handleCheckoutItem(checkoutItem) {
         contentType: "application/json;charset=utf-8",
         success: (responseStr) => {
             let response = JSON.parse(responseStr);
+            console.log(response);
             if (response.status === 40200) {
                 checkoutForm.cntSuccess++;
+                orders.push(response.data);
             } else {
                 alert(`${response.message}（状态码：${response.status}）`);
             }
@@ -167,37 +200,41 @@ async function handleCheckoutItem(checkoutItem) {
 
 let paidButton = new Vue({
     el: '#paid-button',
-    data: {
-        paying: false
-    },
     methods: {
-        onPay() {
-            checkoutForm.$refs.form.validate(async valid => {
-                if (valid) {
-                    checkoutForm.cntSuccess = 0;
-                    if (!this.paying) {
-                        this.paying = true;
-                        let promises = [];
-                        for (let i = 0; i < checkoutConfirm.ids.length; ++i) {
-                            promises.push(handleCheckoutItem(checkoutConfirm.$refs[i][0]));
-                        }
-                        await Promise.all(promises);
-                        this.paying = false;
-                        if (checkoutForm.cntSuccess === checkoutConfirm.ids.length) {
-                            clearCart(() => {});
-                            elAlert(this, '交易成功！', '', () => window.open("../", "_self"));
-                        } else {
-                            elAlert(this, `交易中发生异常（${checkoutForm.cntSuccess}项成功，${checkoutConfirm.ids.length - checkoutForm.cntSuccess}项失败）`, '', () => {
-                            });
-                        }
-                    }
-                } else {
-                    switchToTab(0);
-                }
-            })
+        async onPay() {
+            let promises = [];
+            for (const order of checkoutConfirm.orders) {
+                promises.push(changeOrderState(order, 'UNDELIVERED'));
+            }
+            await Promise.all(promises);
+            elAlert(this, '已确认付款！', '', ()=>{
+               window.open('../', '_self');
+            });
         }
     }
 });
+
+function changeOrderState(order, state) {
+    let orderData = {
+        userId: $.cookie('id'),
+        token: $.cookie('token'),
+        orderId: order,
+        state: state,
+    };
+    return $.ajax({
+        url: `${url}/requests/user/orderChecked`,
+        method: 'post',
+        data: JSON.stringify(orderData),
+        contentType: "application/json;charset=utf-8",
+        success: (responseStr) => {
+            let response = JSON.parse(responseStr);
+            if (response.status === 40200) {
+            } else {
+                alert(`${response.message}（状态码：${response.status}）`);
+            }
+        }
+    })
+}
 
 $(() => {
         getUserInfo((response) => {

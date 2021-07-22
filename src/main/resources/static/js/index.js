@@ -1,9 +1,12 @@
 let indexForm = new Vue({
     el: '#NewProducts',
     data: {
+        wishList: [],
         items: [],
         loading: true,
         dialogVisibleForCart: false,
+        dialogVisibleForCollection: false,
+        dialogVisibleForCancelCollection: false,
         cnt: 1,
         max: 1,
         currentItem: ''
@@ -11,18 +14,31 @@ let indexForm = new Vue({
     methods: {
         getIndexItems() {
             $.ajax({
-                url: `${url}/index/items`, 
+                url: `${url}/index/items`,
                 method: 'get',
                 contentType: "application/json;charset=utf-8",
                 success: (responseStr) => {
                     let response = JSON.parse(responseStr);
                     if (response.status === 30200) {
                         this.items = response.data;
+                        //获取用户的收藏情况
+                        getWishList(response => {
+                            this.wishList = response.data;
+                        });
                         for (let i = 0; i < this.items.length; i++) {
-                            if(this.items[i].coverPath==null)this.items[i].imageurl=`../img/null2.png`;
+                            if (this.items[i].coverPath == null)
+                                this.items[i].imageurl = `../img/null2.jpg`;
                             else
-                            this.items[i].imageurl = `http://1.15.220.157:8088/requests/image/${this.items[i].coverPath}`;
+                                this.items[i].imageurl = `http://1.15.220.157:8088/requests/image/${this.items[i].coverPath}`;
                             this.items[i].url = `${url}/item?id=${this.items[i].id}`;
+                            //添加是否收藏的信息
+                            if ((this.wishList.find(element => {
+                                return element.itemId == this.items[i].id
+                            })) !== undefined) {
+                                this.items[i].isCollected = true;
+                            } else {
+                                this.items[i].isCollected = false;
+                            }
                         }
                         this.loading = false;
                     } else {
@@ -33,9 +49,31 @@ let indexForm = new Vue({
         },
 
         openCartDialog(item) {
-            this.dialogVisibleForCart = true;
-            this.currentItem = item.id;
-            this.max = item.quantity;
+            if ($.cookie('id')) {
+                this.dialogVisibleForCart = true;
+                this.currentItem = item.id;
+                this.max = item.quantity;
+            } else {
+                window.open("../login", "_self");
+            }
+        },
+
+        openCollectionDialog(item) {
+            if ($.cookie('id')) {
+                this.dialogVisibleForCollection = true;
+                this.currentItem = item.id;
+            } else {
+                window.open("../login", "_self");
+            }
+        },
+
+        openCancelCollectionDialog(item) {
+            if ($.cookie('id')) {
+                this.dialogVisibleForCancelCollection = true;
+                this.currentItem = item.id;
+            } else {
+                window.open("../login", "_self");
+            }
         },
 
         addToCart() {
@@ -55,13 +93,35 @@ let indexForm = new Vue({
                     let response = JSON.parse(responseStr);
                     // elAlert(this, response.message, '', () => {
                     // });
-                    if(response.status === 60200) {
+                    if (response.status === 60200) {
                         this.dialogVisibleForCart = false;
                         confirm("加入购物车成功");
                     }
                 }
             })
-        }
+        },
+
+        addToCollection() {
+            modifyCollection(this.currentItem, true, response => {
+                this.dialogVisibleForCollection = false;
+                this.updateCollectionState();
+            });
+        },
+
+        cancelCollection() {
+            modifyCollection(this.currentItem, false, response => {
+                this.dialogVisibleForCancelCollection = false;
+                this.updateCollectionState();
+            });
+        },
+
+        updateCollectionState() {
+            for (let i = 0; i < this.items.length; i++) {
+                if (this.items[i].id === this.currentItem) {
+                    this.items[i].isCollected = this.items[i].isCollected ? false : true;
+                }
+            }
+        },
     }
 })
 

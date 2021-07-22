@@ -1,7 +1,8 @@
 package com.zerone.secondhandmarket.enums;
 
 public enum OrderState {
-    UNFINISHED,
+    UNPAID,
+    UNDELIVERED,
+    UNRECEIVED,
     FINISHED,
-    UNPAID
 }

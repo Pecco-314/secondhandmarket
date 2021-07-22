@@ -4,26 +4,59 @@ let itemApp = new Vue({
         buy() {
             window.open(`../checkout?id=${this.item.id}&cnt=${this.cnt}&type=single`)
         },
+
         addToCart() {
-            let purchaseData = {
-                userID: parseInt($.cookie('id')),
-                token: $.cookie('token'),
-                itemID: parseInt(getURLVariable('id')),
-                quantity: this.cnt
-            };
-            console.log(purchaseData);
-            $.ajax({
-                url: `${url}/requests/cart/modifyCart`,
-                method: 'post',
-                data: JSON.stringify(purchaseData),
-                contentType: "application/json;charset=utf-8",
-                success: (responseStr) => {
-                    let response = JSON.parse(responseStr);
-                    elAlert(this, response.message, '', () => {
-                    });
-                }
+            if ($.cookie('id')) {
+                let purchaseData = {
+                    userID: parseInt($.cookie('id')),
+                    token: $.cookie('token'),
+                    itemID: parseInt(getURLVariable('id')),
+                    quantity: this.cnt
+                };
+                console.log(purchaseData);
+                $.ajax({
+                    url: `${url}/requests/cart/modifyCart`,
+                    method: 'post',
+                    data: JSON.stringify(purchaseData),
+                    contentType: "application/json;charset=utf-8",
+                    success: (responseStr) => {
+                        let response = JSON.parse(responseStr);
+                        elAlert(this, response.message, '', () => {
+                        });
+                    }
+                })
+            } else {
+                window.open("../login", "_self");
+            }
+        },
+
+        openCollectionDialog() {
+            if ($.cookie('id')) {
+                this.dialogVisibleForCollection = true;
+            } else {
+                window.open("../login", "_self");
+            }
+        },
+
+        addToCollection() {
+            modifyCollection(this.item.id, true, response => {
+                this.dialogVisibleForCollection = false;
+                this.updateCollectionState();
+                location.reload();
             })
-        }
+        },
+
+        cancelCollection() {
+            modifyCollection(this.item.id, false, response => {
+                this.dialogVisibleForCancelCollection = false;
+                this.updateCollectionState();
+            })
+        },
+
+        updateCollectionState() {
+            this.isCollected = this.isCollected ? false : true;
+        },
+
     },
     data: {
         cnt: 1,
@@ -43,7 +76,10 @@ let itemApp = new Vue({
             itemTags: [],
             itemImages: [],
         },
+        isCollected: false,
         imageList: [],
+        dialogVisibleForCollection: false,
+        dialogVisibleForCancelCollection: false,
     },
 });
 
@@ -67,6 +103,10 @@ $(function () {
                     url: `http://1.15.220.157:8088/requests/image/${image}`
                 });
             }
-        })
+        });
+        getItemCollectedInfo(getURLVariable("id"), response => {
+            itemApp.isCollected = response.data;
+        });
+        console.log(itemApp);
     }
 )
