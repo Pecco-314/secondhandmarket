@@ -58,7 +58,7 @@ $(function () {
             }
             if (itemApp.item.itemImages.length === 0) {
                 itemApp.imageList.push({
-                    url: `../img/null.jpg`
+                    url: `../img/null2.png`
                 })
             }
             for (let image of itemApp.item.itemImages) {

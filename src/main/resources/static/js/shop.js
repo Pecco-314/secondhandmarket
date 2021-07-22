@@ -164,7 +164,9 @@ let shopApp = new Vue({
                                 this.wishList = response.data;
                             });
                             for (let i = 0; i < this.items.length; i++) {
-                                this.items[i].imageurl = `http://1.15.220.157:8088/requests/image/${this.items[i].coverPath}`;
+                                if(this.items[i].coverPath==null)this.items[i].imageurl=`../img/null2.png`;
+                                else
+                                    this.items[i].imageurl = `http://1.15.220.157:8088/requests/image/${this.items[i].coverPath}`;
                                 this.items[i].url = `${url}/item?id=${this.items[i].id}`;
                                 //添加是否收藏的信息
                                 if ((this.wishList.find(element => {
