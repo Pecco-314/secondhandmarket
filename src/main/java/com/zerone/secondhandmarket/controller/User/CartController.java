@@ -33,7 +33,7 @@ public class CartController {
 
             return result.toString();
         } else {
-            return new Result(Status.ERROR, "ID与Token不符", null).toString();
+            return new Result(Status.CART_ERROR, "ID与Token不符", null).toString();
         }
     }
 
@@ -49,7 +49,7 @@ public class CartController {
             return result.toString();
 
         } else {
-            return new Result(Status.ERROR, "ID与Token不符", null).toString();
+            return new Result(Status.CART_ERROR, "ID与Token不符", null).toString();
         }
     }
 
@@ -61,7 +61,7 @@ public class CartController {
 
             return result.toString();
         } else {
-            return new Result(Status.ERROR, "ID与Token不符", null).toString();
+            return new Result(Status.CART_ERROR, "ID与Token不符", null).toString();
         }
     }
 }
