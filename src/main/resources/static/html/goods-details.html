@@ -49,11 +49,38 @@
                 <div class="product-desc">
                     <div>
                         <h3>{{ item.name }}
-                            <div class="icon__class" style="margin-right: 40px;float: right;"><a class="selectable"><i
-                                    class="bx bx-heart"></i></a></div>
+                            <div class="icon__class" style="margin-right: 40px;float: right;">
+                                <a v-if="isCollected" class="selectable"
+                                   @click="dialogVisibleForCancelCollection=true">
+                                    <i class="bx bxs-heart"></i>
+                                </a>
+                                <a v-else class="selectable"
+                                   @click="dialogVisibleForCollection=true">
+                                    <i class='bx bx-heart'></i>
+                                </a>
+                            </div>
                         </h3>
                     </div>
 
+                    <el-dialog title="加入收藏" :visible.sync="dialogVisibleForCollection" width="30%">
+                        是否确定要加入收藏？
+                        <span slot="footer" class="dialog-footer">
+                                                        <el-button
+                                                                @click="dialogVisibleForCollection = false">取 消</el-button>
+                                                        <el-button type="primary"
+                                                                   @click="addToCollection">确 定</el-button>
+                                                    </span>
+                    </el-dialog>
+                    <el-dialog title="取消收藏" :visible.sync="dialogVisibleForCancelCollection"
+                               width="30%">
+                        是否确定要取消收藏？
+                        <span slot="footer" class="dialog-footer">
+                                                        <el-button
+                                                                @click="dialogVisibleForCancelCollection = false">取 消</el-button>
+                                                        <el-button type="primary"
+                                                                   @click="cancelCollection">确 定</el-button>
+                                                    </span>
+                    </el-dialog>
 
                     <div class="price">
                         <span class="new-price">￥{{ item.price }}</span>
