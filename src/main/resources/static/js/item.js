@@ -4,6 +4,7 @@ let itemApp = new Vue({
         buy() {
             window.open(`../checkout?id=${this.item.id}&cnt=${this.cnt}&type=single`)
         },
+
         addToCart() {
             let purchaseData = {
                 userID: parseInt($.cookie('id')),
@@ -23,7 +24,70 @@ let itemApp = new Vue({
                     });
                 }
             })
-        }
+        },
+
+        addToCollection() {
+            modifyCollection(this.item.id, true, response => {
+                this.dialogVisibleForCollection = false;
+                this.updateCollectionState();
+            })
+            // let data = {
+            //     userID: parseInt($.cookie('id')),
+            //     token: $.cookie('token'),
+            //     itemID: this.item.id,
+            //     isAdding: true,
+            // };
+            // $.ajax({
+            //     url: `${url}/requests/user/wishlist/modify`,
+            //     method: 'post',
+            //     data: JSON.stringify(data),
+            //     contentType: "application/json;charset=utf-8",
+            //     success: (responseStr) => {
+            //         let response = JSON.parse(responseStr);
+            //         if (response.status === 10200) {
+            //             this.dialogVisibleForCollection = false;
+            //             this.updateCollectionState();
+            //             confirm("收藏成功");
+            //         } else {
+            //             alert("收藏失败");
+            //         }
+            //     }
+            // })
+        },
+
+        cancelCollection() {
+            modifyCollection(this.item.id, false, response => {
+                this.dialogVisibleForCancelCollection = false;
+                this.updateCollectionState();
+            })
+            // let data = {
+            //     userID: parseInt($.cookie('id')),
+            //     token: $.cookie('token'),
+            //     itemID: this.item.id,
+            //     isAdding: false,
+            // };
+            // $.ajax({
+            //     url: `${url}/requests/user/wishlist/modify`,
+            //     method: 'post',
+            //     data: JSON.stringify(data),
+            //     contentType: "application/json;charset=utf-8",
+            //     success: (responseStr) => {
+            //         let response = JSON.parse(responseStr);
+            //         if (response.status === 10200) {
+            //             this.dialogVisibleForCancelCollection = false;
+            //             this.updateCollectionState();
+            //             confirm("取消成功");
+            //         } else {
+            //             alert("取消失败");
+            //         }
+            //     }
+            // })
+        },
+
+        updateCollectionState() {
+            this.isCollected = this.isCollected ? false : true;
+        },
+
     },
     data: {
         cnt: 1,
@@ -43,7 +107,10 @@ let itemApp = new Vue({
             itemTags: [],
             itemImages: [],
         },
+        isCollected: false,
         imageList: [],
+        dialogVisibleForCollection: false,
+        dialogVisibleForCancelCollection: false,
     },
 });
 
@@ -67,6 +134,10 @@ $(function () {
                     url: `http://1.15.220.157:8088/requests/image/${image}`
                 });
             }
-        })
+        });
+        getItemCollectedInfo(getURLVariable("id"), response => {
+            itemApp.isCollected = response.data;
+        });
+        console.log(itemApp);
     }
 )

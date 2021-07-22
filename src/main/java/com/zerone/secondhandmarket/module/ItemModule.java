@@ -139,6 +139,8 @@ public class ItemModule {
 
             return new Result(Status.ITEM_OK, "物品发布成功", item);
         } catch (Exception e) {
+            e.printStackTrace();
+
             return new Result(Status.ITEM_ERROR, "物品发布失败", item);
         }
     }
@@ -149,6 +151,8 @@ public class ItemModule {
             itemService.updateItem(item);
             return new Result(Status.ITEM_OK, "更新物品成功", null);
         } catch (Exception e) {
+            e.printStackTrace();
+
             return new Result(Status.ITEM_ERROR, "更新物品失败", null);
         }
     }
@@ -159,6 +163,8 @@ public class ItemModule {
 
             return new Result(Status.ITEM_OK, "删除物品成功", null);
         } catch (Exception e) {
+            e.printStackTrace();
+
             return new Result(Status.ITEM_ERROR, "", null);
         }
     }

@@ -54,7 +54,7 @@ public class OrderModule {
 
             return new Result(Status.ORDER_OK, "生成订单成功", orderId);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
 
             return new Result(Status.GENERATE_ORDER_ERROR, "生成订单失败", null);
         }
@@ -65,6 +65,8 @@ public class OrderModule {
             orderService.updateOrder(order);
             return new Result(Status.ORDER_OK, "订单更新成功", null);
         } catch (Exception e) {
+            e.printStackTrace();
+
             return new Result(Status.NO_QUALIFIED_ORDERS, "订单更新失败", null);
         }
     }
@@ -81,6 +83,8 @@ public class OrderModule {
 
             return new Result(Status.OK, "", null);
         } catch (Exception e) {
+            e.printStackTrace();
+
             return new Result(Status.ERROR, "", null);
         }
     }

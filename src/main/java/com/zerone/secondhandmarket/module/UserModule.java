@@ -52,6 +52,8 @@ public class UserModule {
 
             return new Result(Status.USER_OK, "插入成功", null);
         } catch (Exception e) {
+            e.printStackTrace();
+
             return new Result(Status.USER_ERROR, "插入失败", null);
         }
     }
@@ -62,6 +64,8 @@ public class UserModule {
 
             return new Result(Status.USER_OK, "更新成功", null);
         } catch (Exception e) {
+            e.printStackTrace();
+
             return new Result(Status.USER_ERROR, "更新失败", null);
         }
     }
@@ -71,6 +75,8 @@ public class UserModule {
             userService.deleteUser(userId);
             return new Result(Status.USER_OK, "删除成功", null);
         } catch (Exception e) {
+            e.printStackTrace();
+
             return new Result(Status.USER_ERROR, "删除失败", null);
         }
     }

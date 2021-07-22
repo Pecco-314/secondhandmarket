@@ -186,6 +186,49 @@ function getWishList(callback) {
     });
 }
 
+function getItemCollectedInfo(itemId, callback) {
+    let identification = {
+        userId: $.cookie("id"),
+        token: $.cookie("token"),
+        itemId: itemId,
+    };
+    $.ajax({
+        url: `${url}/requests/user/wishlist/exists`,
+        method: 'post',
+        data: JSON.stringify(identification),
+        contentType: "application/json;charset=utf-8",
+        async: false,//同步
+        success: (responseStr) => {
+            let response = JSON.parse(responseStr);
+            callback(response);
+        }
+    });
+}
+
+function modifyCollection(itemId, state, callback) {
+    let data = {
+        userID: parseInt($.cookie('id')),
+        token: $.cookie('token'),
+        itemID: itemId,
+        isAdding: state,
+    };
+    $.ajax({
+        url: `${url}/requests/user/wishlist/modify`,
+        method: 'post',
+        data: JSON.stringify(data),
+        contentType: "application/json;charset=utf-8",
+        success: (responseStr) => {
+            let response = JSON.parse(responseStr);
+            if (response.status === 10200) {
+                confirm("操作成功");
+                callback(response);
+            } else {
+                alert("操作失败");
+            }
+        }
+    })
+}
+
 function elAlert(component, content, title, callback) {
     component.$alert(content, title, {
         confirmButtonText: '确定',
