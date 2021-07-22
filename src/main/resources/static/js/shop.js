@@ -43,19 +43,31 @@ let shopApp = new Vue({
     },
     methods: {
         openCartDialog(item) {
-            this.dialogVisibleForCart = true;
-            this.currentId = item.id;
-            this.max = item.quantity;
+            if ($.cookie('id')) {
+                this.dialogVisibleForCart = true;
+                this.currentId = item.id;
+                this.max = item.quantity;
+            } else {
+                window.open("../login", "_self");
+            }
         },
 
         openCollectionDialog(item) {
-            this.dialogVisibleForCollection = true;
-            this.currentId = item.id;
+            if ($.cookie('id')) {
+                this.dialogVisibleForCollection = true;
+                this.currentId = item.id;
+            } else {
+                window.open("../login", "_self");
+            }
         },
 
         openCancelCollectionDialog(item) {
-            this.dialogVisibleForCancelCollection = true;
-            this.currentId = item.id;
+            if ($.cookie('id')) {
+                this.dialogVisibleForCancelCollection = true;
+                this.currentId = item.id;
+            } else {
+                window.open("../login", "_self");
+            }
         },
 
         addToCart() {
@@ -77,7 +89,8 @@ let shopApp = new Vue({
                     // });
                     if (response.status === 60200) {
                         this.dialogVisibleForCart = false;
-                        elAlert(this, "加入购物车成功", '', ()=>{});
+                        elAlert(this, "加入购物车成功", '', () => {
+                        });
                     }
                 }
             })
