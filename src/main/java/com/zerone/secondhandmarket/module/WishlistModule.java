@@ -27,6 +27,8 @@ public class WishlistModule {
             return new Result(Status.OK, "", null);
 
         } catch (Exception e) {
+            e.printStackTrace();
+
             return new Result(Status.ERROR, "", null);
         }
     }
