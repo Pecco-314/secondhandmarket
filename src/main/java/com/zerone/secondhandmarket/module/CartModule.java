@@ -27,6 +27,8 @@ public class CartModule {
             return new Result(Status.CART_OK, "加入购物车成功", null);
 
         } catch (Exception e) {
+            e.printStackTrace();
+
             return new Result(Status.CART_ERROR, "加入购物车失败", null);
         }
     }
@@ -38,6 +40,9 @@ public class CartModule {
             return new Result(Status.CART_OK, "", null);
         } catch (Exception e) {
             return new Result(Status.CART_ERROR, "", null);
+            e.printStackTrace();
+
+            return new Result(Status.ERROR, "", null);
         }
     }
 }
