@@ -207,6 +207,9 @@ let paidButton = new Vue({
                 promises.push(changeOrderState(order, 'UNDELIVERED'));
             }
             await Promise.all(promises);
+            elAlert(this, '已确认付款！', '', ()=>{
+               window.open('../', '_self');
+            });
         }
     }
 });
@@ -226,7 +229,6 @@ function changeOrderState(order, state) {
         success: (responseStr) => {
             let response = JSON.parse(responseStr);
             if (response.status === 40200) {
-                // ...
             } else {
                 alert(`${response.message}（状态码：${response.status}）`);
             }

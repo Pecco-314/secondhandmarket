@@ -6,53 +6,44 @@ let itemApp = new Vue({
         },
 
         addToCart() {
-            let purchaseData = {
-                userID: parseInt($.cookie('id')),
-                token: $.cookie('token'),
-                itemID: parseInt(getURLVariable('id')),
-                quantity: this.cnt
-            };
-            console.log(purchaseData);
-            $.ajax({
-                url: `${url}/requests/cart/modifyCart`,
-                method: 'post',
-                data: JSON.stringify(purchaseData),
-                contentType: "application/json;charset=utf-8",
-                success: (responseStr) => {
-                    let response = JSON.parse(responseStr);
-                    elAlert(this, response.message, '', () => {
-                    });
-                }
-            })
+            if ($.cookie('id')) {
+                let purchaseData = {
+                    userID: parseInt($.cookie('id')),
+                    token: $.cookie('token'),
+                    itemID: parseInt(getURLVariable('id')),
+                    quantity: this.cnt
+                };
+                console.log(purchaseData);
+                $.ajax({
+                    url: `${url}/requests/cart/modifyCart`,
+                    method: 'post',
+                    data: JSON.stringify(purchaseData),
+                    contentType: "application/json;charset=utf-8",
+                    success: (responseStr) => {
+                        let response = JSON.parse(responseStr);
+                        elAlert(this, response.message, '', () => {
+                        });
+                    }
+                })
+            } else {
+                window.open("../login", "_self");
+            }
+        },
+
+        openCollectionDialog() {
+            if ($.cookie('id')) {
+                this.dialogVisibleForCollection = true;
+            } else {
+                window.open("../login", "_self");
+            }
         },
 
         addToCollection() {
             modifyCollection(this.item.id, true, response => {
                 this.dialogVisibleForCollection = false;
                 this.updateCollectionState();
+                location.reload();
             })
-            // let data = {
-            //     userID: parseInt($.cookie('id')),
-            //     token: $.cookie('token'),
-            //     itemID: this.item.id,
-            //     isAdding: true,
-            // };
-            // $.ajax({
-            //     url: `${url}/requests/user/wishlist/modify`,
-            //     method: 'post',
-            //     data: JSON.stringify(data),
-            //     contentType: "application/json;charset=utf-8",
-            //     success: (responseStr) => {
-            //         let response = JSON.parse(responseStr);
-            //         if (response.status === 10200) {
-            //             this.dialogVisibleForCollection = false;
-            //             this.updateCollectionState();
-            //             confirm("收藏成功");
-            //         } else {
-            //             alert("收藏失败");
-            //         }
-            //     }
-            // })
         },
 
         cancelCollection() {
@@ -60,28 +51,6 @@ let itemApp = new Vue({
                 this.dialogVisibleForCancelCollection = false;
                 this.updateCollectionState();
             })
-            // let data = {
-            //     userID: parseInt($.cookie('id')),
-            //     token: $.cookie('token'),
-            //     itemID: this.item.id,
-            //     isAdding: false,
-            // };
-            // $.ajax({
-            //     url: `${url}/requests/user/wishlist/modify`,
-            //     method: 'post',
-            //     data: JSON.stringify(data),
-            //     contentType: "application/json;charset=utf-8",
-            //     success: (responseStr) => {
-            //         let response = JSON.parse(responseStr);
-            //         if (response.status === 10200) {
-            //             this.dialogVisibleForCancelCollection = false;
-            //             this.updateCollectionState();
-            //             confirm("取消成功");
-            //         } else {
-            //             alert("取消失败");
-            //         }
-            //     }
-            // })
         },
 
         updateCollectionState() {

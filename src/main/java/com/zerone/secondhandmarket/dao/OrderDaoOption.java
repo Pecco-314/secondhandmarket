@@ -65,7 +65,7 @@ public class OrderDaoOption {
         param.put("phoneNumber", order.getPhoneNumber());
         param.put("campus", order.getCampus());
         param.put("dorm", order.getDorm());
-        param.put("state", order.getState());
+        param.put("state", order.getState().toString());
         param.put("detailed_address", order.getDetailedAddress());
         return jdbcTemplate.update(sql, param);
     }

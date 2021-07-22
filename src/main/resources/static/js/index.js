@@ -49,19 +49,31 @@ let indexForm = new Vue({
         },
 
         openCartDialog(item) {
-            this.dialogVisibleForCart = true;
-            this.currentItem = item.id;
-            this.max = item.quantity;
+            if ($.cookie('id')) {
+                this.dialogVisibleForCart = true;
+                this.currentItem = item.id;
+                this.max = item.quantity;
+            } else {
+                window.open("../login", "_self");
+            }
         },
 
         openCollectionDialog(item) {
-            this.dialogVisibleForCollection = true;
-            this.currentItem = item.id;
+            if ($.cookie('id')) {
+                this.dialogVisibleForCollection = true;
+                this.currentItem = item.id;
+            } else {
+                window.open("../login", "_self");
+            }
         },
 
         openCancelCollectionDialog(item) {
-            this.dialogVisibleForCancelCollection = true;
-            this.currentItem = item.id;
+            if ($.cookie('id')) {
+                this.dialogVisibleForCancelCollection = true;
+                this.currentItem = item.id;
+            } else {
+                window.open("../login", "_self");
+            }
         },
 
         addToCart() {
@@ -88,7 +100,7 @@ let indexForm = new Vue({
                 }
             })
         },
-        
+
         addToCollection() {
             modifyCollection(this.currentItem, true, response => {
                 this.dialogVisibleForCollection = false;
