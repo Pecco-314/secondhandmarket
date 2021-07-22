@@ -63,7 +63,8 @@
                     </div>
 
                     <div class="content">
-                        <h3><a :href=item.url class="ellipsis-type" style="text-overflow: ellipsis">{{item.name}}</a></h3>
+                        <h3><a :href=item.url class="ellipsis-type" style="text-overflow: ellipsis">{{item.name}}</a>
+                        </h3>
                         <div class="arrival-tag">
                             <el-tag style="margin-right: 15px" v-for="tag in item.itemTags" :key="tag">{{ tag }}
                             </el-tag>
@@ -80,8 +81,14 @@
 
                         <ul class="products-action">
                             <li>
-                                <a href="#" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i
-                                        class="bx bx-heart"></i></a>
+                                <a v-if="item.isCollected" @click="openCancelCollectionDialog(item)"
+                                   data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i
+                                        class="bx bxs-heart"></i>
+                                </a>
+                                <a v-else @click="openCollectionDialog(item)" data-tooltip="tooltip"
+                                   data-placement="top" title="Add to Wishlist"><i
+                                        class="bx bx-heart"></i>
+                                </a>
                             </li>
                             <li>
                                 <a href="#" data-tooltip="tooltip" data-placement="top" title="Quick View"
@@ -103,6 +110,25 @@
                     <el-button @click="dialogVisibleForCart = false">取 消</el-button>
                     <el-button type="primary" @click="addToCart">确 定</el-button>
                 </span>
+            </el-dialog>
+            <el-dialog title="加入收藏" :visible.sync="dialogVisibleForCollection" width="30%">
+                是否确定要加入收藏？
+                <span slot="footer" class="dialog-footer">
+                                                        <el-button
+                                                                @click="dialogVisibleForCollection = false">取 消</el-button>
+                                                        <el-button type="primary"
+                                                                   @click="addToCollection">确 定</el-button>
+                                                    </span>
+            </el-dialog>
+            <el-dialog title="取消收藏" :visible.sync="dialogVisibleForCancelCollection"
+                       width="30%">
+                是否确定要取消收藏？
+                <span slot="footer" class="dialog-footer">
+                                                        <el-button
+                                                                @click="dialogVisibleForCancelCollection = false">取 消</el-button>
+                                                        <el-button type="primary"
+                                                                   @click="cancelCollection">确 定</el-button>
+                                                    </span>
             </el-dialog>
         </div>
     </div>
