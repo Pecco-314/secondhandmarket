@@ -77,7 +77,7 @@ let shopApp = new Vue({
                     // });
                     if (response.status === 60200) {
                         this.dialogVisibleForCart = false;
-                        confirm("加入购物车成功");
+                        elAlert(this, "加入购物车成功", '', ()=>{});
                     }
                 }
             })
@@ -197,7 +197,6 @@ let shopApp = new Vue({
     },
     mounted() {
         this.select(this.itemFilter.type);
-        // $('select').niceSelect();
     },
     computed: {
         title: () => hasURLVariables() ? '搜索结果' : '全部商品',

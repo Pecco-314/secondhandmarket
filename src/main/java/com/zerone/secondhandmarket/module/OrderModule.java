@@ -65,6 +65,7 @@ public class OrderModule {
             orderService.updateOrder(order);
             return new Result(Status.ORDER_OK, "订单更新成功", null);
         } catch (Exception e) {
+            e.printStackTrace();
             return new Result(Status.NO_QUALIFIED_ORDERS, "订单更新失败", null);
         }
     }
