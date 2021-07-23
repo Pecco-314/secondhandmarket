@@ -97,7 +97,7 @@ let shopApp = new Vue({
         },
 
         addToCollection() {
-            modifyCollection(this.currentId, true, response => {
+            modifyCollection(this, this.currentId, true, response => {
                 this.dialogVisibleForCollection = false;
                 this.updateCollectionState();
             });
@@ -126,7 +126,7 @@ let shopApp = new Vue({
         },
 
         cancelCollection() {
-            modifyCollection(this.currentId, false, response => {
+            modifyCollection(this, this.currentId, false, response => {
                 this.dialogVisibleForCancelCollection = false;
                 this.updateCollectionState();
             });

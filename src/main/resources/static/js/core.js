@@ -205,7 +205,7 @@ function getItemCollectedInfo(itemId, callback) {
     });
 }
 
-function modifyCollection(itemId, state, callback) {
+function modifyCollection(th, itemId, state, callback) {
     let data = {
         userID: parseInt($.cookie('id')),
         token: $.cookie('token'),
@@ -220,10 +220,13 @@ function modifyCollection(itemId, state, callback) {
         success: (responseStr) => {
             let response = JSON.parse(responseStr);
             if (response.status === 10200) {
-                confirm("操作成功");
+                th.$message({
+                    message: '操作成功',
+                    type: 'success'
+                });
                 callback(response);
             } else {
-                alert("操作失败");
+                th.$message.error('操作失败');
             }
         }
     })

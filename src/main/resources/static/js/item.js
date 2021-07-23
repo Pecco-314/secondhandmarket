@@ -39,15 +39,15 @@ let itemApp = new Vue({
         },
 
         addToCollection() {
-            modifyCollection(this.item.id, true, response => {
+            modifyCollection(this, this.item.id, true, response => {
                 this.dialogVisibleForCollection = false;
                 this.updateCollectionState();
-                location.reload();
+                //location.reload();
             })
         },
 
         cancelCollection() {
-            modifyCollection(this.item.id, false, response => {
+            modifyCollection(this, this.item.id, false, response => {
                 this.dialogVisibleForCancelCollection = false;
                 this.updateCollectionState();
             })
