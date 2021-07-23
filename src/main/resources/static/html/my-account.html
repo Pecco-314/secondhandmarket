@@ -173,7 +173,7 @@
                                             </div>
                                             <br>
                                         </li>
-                                        <el-dialog title="修改物品" :visible.sync="dialogVisibleForUpdate" width="30%">
+                                        <el-dialog title="修改物品" :visible.sync="dialogVisibleForUpdate" width="60%">
                                             <el-form ref="form" :model="form" label-width="80px">
                                                 <el-form-item label="物品名称">
                                                     <el-input v-model="form.name"></el-input>
@@ -191,6 +191,22 @@
                                                               placeholder="请输入内容"
                                                               v-model="form.introduction">
                                                     </el-input>
+                                                </el-form-item>
+                                                <el-form-item label="图片上传">
+                                                    <el-upload
+                                                            name="multipartfiles"
+                                                            action="http://localhost:8088/requests/upload/image"
+                                                            :on-success="onPostImageSuccessfully"
+                                                            :on-remove="onRemoveImage"
+                                                            list-type="picture-card"
+                                                            :show-file-list="true"
+                                                            :file-list="form.imageList"
+                                                            multiple>
+                                                        <i class="el-icon-upload"></i>
+                                                        <!--                                                        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>-->
+                                                        <!--                                                        <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb-->
+                                                        <!--                                                        </div>-->
+                                                    </el-upload>
                                                 </el-form-item>
                                             </el-form>
                                             <span slot="footer" class="dialog-footer">
@@ -224,8 +240,8 @@
                                         <div class="form-group" style="display: inline-block; margin-left: 50%">
                                             <el-select v-model="selectedType" style="padding: 0 0">
                                                 <el-option v-for="option in options"
-                                                       :value="option.value" :key="option.key"
-                                                       :label="option.text">
+                                                           :value="option.value" :key="option.key"
+                                                           :label="option.text">
                                                 </el-option>
                                             </el-select>
                                         </div>
@@ -302,7 +318,7 @@
                                             </el-select>
                                         </div>
                                     </div>
-<!--                                    <h2>我的售出</h2>-->
+                                    <!--                                    <h2>我的售出</h2>-->
                                     <h3 class="title-item"><span style="margin-left: 100px">商品名称</span><span
                                             style="margin-left: 70px">数量</span><span style="margin-left: 75px">金额</span>
                                         <span style="margin-left: 68px">订单状态</span><span

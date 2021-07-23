@@ -44,7 +44,7 @@ public class ItemController {
         Item item = itemService.getItemById(message.getItemId());
         item.setCheckCondition(message.getCheckCondition());
 
-        Result result = ItemModule.modifyUserItem(itemService, itemImageService, tagsService, item);
+        Result result = ItemModule.modifyUserItem(itemService, itemImageService, tagsService, item, null);
 
         return result.toString();
     }

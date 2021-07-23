@@ -212,10 +212,19 @@ let itemsForm = new Vue({
             quantity: 0,
             price: 0.0,
             introduction: '',
+            imageList: [],
         },
         currentId: '',
     },
     methods: {
+        onPostImageSuccessfully(response, file) {
+            this.form.imageList.push(file);
+            console.log(this.form.imageList);
+        },
+        onRemoveImage(file) {
+            this.form.imageList = removeIf(this.form.imageList, f => f.uid === file.uid);
+            console.log(this.form.imageList);
+        },
         getItemList() {
             let userId = $.cookie("id");
             $.ajax({
@@ -223,7 +232,6 @@ let itemsForm = new Vue({
                 method: 'get',
                 contentType: "application/json;charset=utf-8",
                 success: (responseStr) => {
-
                     let response = JSON.parse(responseStr);
                     if (response.status === 30200) {
                         this.items = response.data;
@@ -242,13 +250,25 @@ let itemsForm = new Vue({
             })
         },
         openUpdateDialog(item) {
-
             this.dialogVisibleForUpdate = true;
             this.currentId = item.id;
             this.form.name = item.name;
             this.form.quantity = item.quantity;
             this.form.price = item.price;
             this.form.introduction = item.introduction;
+            this.form.imageList = [];
+            //插入已有图片
+            for (let i = 0; i < item.itemImages.length; i++) {
+                let newFile = {
+                    url: getImageOrPlaceholder(item.itemImages[i]),
+                    //与上传的图片格式保持一致，方便解析
+                    response: {
+                        data: [item.itemImages[i]]
+                    }
+                }
+                this.form.imageList.push(newFile);
+            }
+            console.log(this.form.imageList);
             console.log(this.currentId);
         },
         openDeleteDialog(id) {
@@ -257,12 +277,18 @@ let itemsForm = new Vue({
             this.dialogVisibleForDelete = true;
         },
         updateItem() {
+            //获取当前文件信息
+            let images = [];
+            for (const file of this.form.imageList) {
+                images.push(file.response.data[0]);
+            }
             let identification = {
                 itemID: this.currentId,
                 name: this.form.name,
                 quantity: this.form.quantity,
                 price: this.form.price,
-                introduction: this.form.introduction
+                introduction: this.form.introduction,
+                images: images,
             }
             $.ajax({
                 url: `${url}/requests/user/modifyItem`,
@@ -303,6 +329,7 @@ let itemsForm = new Vue({
         },
         clear() {
             this.$refs.form.resetFields();
+            this.form.imageList = [];
             this.dialogVisibleForUpdate = false;
             this.dialogVisibleForDelete = false;
         }

@@ -55,6 +55,7 @@ public class ItemModule {
 
         getItemTagsAndImages(itemImageService, tagsService, list, filter.isImagesNeeded(), filter.isTagsNeeded());
 
+
         return new Result(Status.ITEM_OK, "获得所需物品", list);
     }
 
@@ -151,9 +152,24 @@ public class ItemModule {
     }
 
 
-    public static Result modifyUserItem(ItemService itemService, ItemImageService itemImageService, TagsService tagsService, Item item) {
+    public static Result modifyUserItem(ItemService itemService, ItemImageService itemImageService, TagsService tagsService, Item item, List<String> updateImages) {
         try {
             itemService.updateItem(item);
+            if (updateImages != null) {
+                List<String> originalImages = itemImageService.getImagesByItemId(item.getId());
+                /**更新图片信息**/
+                //删除更新后去掉的照片
+                for (String image : originalImages) {
+                    if (!updateImages.contains(image))
+                        itemImageService.deleteItemImage(item.getId(), image);
+                }
+                //增加新增的图片
+                for (String image : updateImages) {
+                    if (!originalImages.contains(image))
+                        itemImageService.insertItemImage(item.getId(), image);
+                }
+            }
+
             return new Result(Status.ITEM_OK, "更新物品成功", null);
         } catch (Exception e) {
             e.printStackTrace();

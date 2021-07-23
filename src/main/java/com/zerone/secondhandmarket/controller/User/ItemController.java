@@ -3,7 +3,6 @@ package com.zerone.secondhandmarket.controller.User;
 import com.zerone.secondhandmarket.entity.Item;
 import com.zerone.secondhandmarket.enums.Status;
 import com.zerone.secondhandmarket.message.ItemFilter;
-import com.zerone.secondhandmarket.message.SearchMessage;
 import com.zerone.secondhandmarket.message.SellingItemMessage;
 import com.zerone.secondhandmarket.message.SellingItemModificationMessage;
 import com.zerone.secondhandmarket.module.ItemModule;
@@ -21,8 +20,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller("OrdinaryItem")
@@ -163,8 +162,12 @@ public class ItemController {
         item.setPrice(sellingItemModificationMessage.getPrice());
 //        item.setOriginalPrice(sellingItemModificationMessage.getOriginalPrice());
         item.setIntroduction(sellingItemModificationMessage.getIntroduction());
+        if (sellingItemModificationMessage.getImages().length != 0)
+            item.setCoverPath(sellingItemModificationMessage.getImages()[0]);
+        else
+            item.setCoverPath(null);
 
-        Result result = ItemModule.modifyUserItem(itemService, itemImageService, tagsService, item);
+        Result result = ItemModule.modifyUserItem(itemService, itemImageService, tagsService, item, Arrays.asList(sellingItemModificationMessage.getImages()));
 
         return result.toString();
     }
@@ -184,6 +187,7 @@ public class ItemController {
     public String getUserItems(@PathVariable("userId") int userId) {
         ItemFilter itemFilter = new ItemFilter();
         itemFilter.setSeller(userId);
+        itemFilter.setImagesNeeded(true);
 
         Result result = ItemModule.getItemsByFilter(itemService, itemImageService, tagsService, itemFilter);
 
