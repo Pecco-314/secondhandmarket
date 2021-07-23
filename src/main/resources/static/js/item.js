@@ -42,7 +42,6 @@ let itemApp = new Vue({
             modifyCollection(this, this.item.id, true, response => {
                 this.dialogVisibleForCollection = false;
                 this.updateCollectionState();
-                //location.reload();
             })
         },
 
