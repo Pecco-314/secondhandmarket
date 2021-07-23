@@ -1,15 +1,3 @@
-function delCookie() {
-    var keys = document.cookie.match(/[^ =;]+(?==)/g)
-    if (keys) {
-        for (var i = keys.length; i--;) {
-            document.cookie = keys[i] + '=0;path=/;expires=' + new Date(0).toUTCString() // 清除当前域名下的,例如：m.ratingdog.cn
-            document.cookie = keys[i] + '=0;path=/;domain=' + document.domain + ';expires=' + new Date(0).toUTCString() // 清除当前域名下的，例如 .m.ratingdog.cn
-            document.cookie = keys[i] + '=0;path=/;domain=ratingdog.cn;expires=' + new Date(0).toUTCString() // 清除一级域名下的或指定的，例如 .ratingdog.cn
-        }
-    }
-}
-
-
 let userinfoForm = new Vue({
     el: "#userinfo-form",
     data: {
@@ -247,10 +235,7 @@ let itemsForm = new Vue({
                             else
                                 this.items[i].checkCondition = '审核中';
                             this.items[i].url = `${url}/item?id=${this.items[i].id}`
-                            if (this.items[i].coverPath === null)
-                                this.items[i].imageurl = `../img/null2.png`;
-                            else
-                                this.items[i].imageurl = `http://1.15.220.157:8088/requests/image/${this.items[i].coverPath}`;
+                            this.items[i].imageurl = getImageOrPlaceholder(this.items[i].coverPath);
                         }
                     }
                 }
@@ -329,12 +314,13 @@ let ordersForm = new Vue({
     data() {
         return {
             options: [
-                {text: "待付款", value: 'UNPAYED'},
+                {text: "全部", value: 'ALL'},
+                {text: "待付款", value: 'UNPAID'},
                 {text: "待发货", value: 'UNSENT'},
                 {text: "待收货", value: 'UNFINISHED'},
                 {text: "已完成", value: 'FINISHED'},
             ],
-            selectedType: 'UNPAYED',
+            selectedType: 'ALL',
             orders: [],
             orderId: '',
             dialogVisibleForConfirm: false,
@@ -342,26 +328,7 @@ let ordersForm = new Vue({
     },
     methods: {
         getOrderList() {
-            let userId = $.cookie("id");
-            console.log(userId);
-            $.ajax({
-                url: `${url}/requests/user/orderList/buyer/${userId}`,
-                method: 'get',
-                contentType: "application/json;charset=utf-8",
-                success: (responseStr) => {
-                    let response = JSON.parse(responseStr);
-                    if (response.status === 40200) {
-                        this.orders = response.data;
-                        for (let i = 0; i < this.orders.length; i++) {
-                            this.orders[i].url = `${url}/item?id=${this.orders[i].orderInfo.item}`
-                            this.orders[i].imageurl = `http://1.15.220.157:8088/requests/image/${this.orders[i].itemInfo.coverPath}`;
-                        }
-                        console.log(this.orders);
-                    } else {
-                        console.log(this.orders);
-                    }
-                }
-            })
+            setOrderList(this, 'buyer');
         },
         confirmPressed(id) {
             this.dialogVisibleForConfirm = true;
@@ -385,40 +352,26 @@ let ordersForm = new Vue({
             })
             this.dialogVisibleForConfirm = false;
         },
-        test() {
-            console.log(this.orders);
-        }
     }
 })
 let sellsForm = new Vue({
     el: '#mySells',
-    data: {
-        orders: [],
-        orderId: '',
-        dialogVisibleForConfirm: false,
+    data() {
+        return {
+            options: [
+                {text: "待发货", value: 'UNSENT'},
+                {text: "待收货", value: 'UNFINISHED'},
+                {text: "已完成", value: 'FINISHED'},
+            ],
+            selectedType: 'UNSENT',
+            orders: [],
+            orderId: '',
+            dialogVisibleForConfirm: false,
+        }
     },
     methods: {
         getOrderList() {
-            let userId = $.cookie("id");
-            console.log(userId);
-            $.ajax({
-                url: `${url}/requests/user/orderList/seller/${userId}`,
-                method: 'get',
-                contentType: "application/json;charset=utf-8",
-                success: (responseStr) => {
-                    let response = JSON.parse(responseStr);
-                    if (response.status === 40200) {
-                        this.orders = response.data;
-                        for (let i = 0; i < this.orders.length; i++) {
-                            this.orders[i].url = `${url}/item?id=${this.orders[i].orderInfo.item}`
-                            this.orders[i].imageurl = `http://1.15.220.157:8088/requests/image/${this.orders[i].itemInfo.coverPath}`;
-                        }
-                        console.log(this.orders);
-                    } else {
-                        console.log(this.orders);
-                    }
-                }
-            })
+            setOrderList(this, 'seller');
         },
         confirmPressed(id) {
             this.dialogVisibleForConfirm = true;
@@ -451,3 +404,47 @@ $(userinfoForm.getUserInfo);
 $(itemsForm.getItemList);
 $(ordersForm.getOrderList);
 $(sellsForm.getOrderList);
+
+function setOrderList(form, role) {
+    let userId = $.cookie("id");
+    $.ajax({
+        url: `${url}/requests/user/orderList/${role}/${userId}`,
+        method: 'get',
+        contentType: "application/json;charset=utf-8",
+        success: (responseStr) => {
+            let response = JSON.parse(responseStr);
+            if (response.status === 40200) {
+                form.orders = response.data;
+                for (let i = 0; i < form.orders.length; i++) {
+                    form.orders[i].state = {
+                        value: form.orders[i].state,
+                        text: getStateText(form.orders[i].state)
+                    };
+                    getItemInfo(form.orders[i].item, (response) => {
+                        form.orders[i].imageurl = getImageOrPlaceholder(response.data.coverPath);
+                        form.orders[i].price = response.data.price;
+                        form.orders[i].name = response.data.name;
+                        form.$forceUpdate();
+                    });
+                }
+            } else if (response.status === 40400) {
+                // pass
+            } else {
+                alert(`${response.message}（状态码：${response.status}）`);
+            }
+        }
+    })
+}
+
+function getStateText(state) {
+    switch (state) {
+        case 'UNPAID':
+            return '待付款';
+        case 'UNDELIVERED':
+            return '待发货';
+        case 'UNRECEIVED':
+            return '待收货';
+        case 'FINISHED':
+            return '已完成';
+    }
+}
