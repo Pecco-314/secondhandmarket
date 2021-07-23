@@ -3,27 +3,21 @@ let wishList = new Vue({
     data: {
         wishes: [],
         dialogVisibleForCart: false,
-        dialogVisibleForCollection: false,
         dialogVisibleForCancelCollection: false,
         cnt: 1,
         max: 1,
         currentId: '',
     },
     methods: {
-        openCartDialog(item) {
+        openCartDialog(wish) {
             this.dialogVisibleForCart = true;
-            this.currentId = item.id;
-            this.max = item.quantity;
+            this.currentId = wish.itemId;
+            this.max = wish.quantity;
         },
 
-        openCollectionDialog(item) {
-            this.dialogVisibleForCollection = true;
-            this.currentId = item.id;
-        },
-
-        openCancelCollectionDialog(item) {
+        openCancelCollectionDialog(wish) {
             this.dialogVisibleForCancelCollection = true;
-            this.currentId = item.id;
+            this.currentId = wish.itemId;
         },
 
         addToCart() {
@@ -51,54 +45,19 @@ let wishList = new Vue({
             })
         },
 
-        addToCollection() {
-            let data = {
-                userID: parseInt($.cookie('id')),
-                token: $.cookie('token'),
-                itemID: this.currentId,
-                isAdding: true,
-            };
-            $.ajax({
-                url: `${url}/requests/user/wishlist/modify`,
-                method: 'post',
-                data: JSON.stringify(data),
-                contentType: "application/json;charset=utf-8",
-                success: (responseStr) => {
-                    let response = JSON.parse(responseStr);
-                    if (response.status === 10200) {
-                        this.dialogVisibleForCollection = false;
-                        this.updateCollectionState();
-                        confirm("收藏成功");
-                    } else {
-                        alert("收藏失败");
-                    }
-                }
-            })
+        cancelCollection() {
+            modifyCollection(this.currentId, false, response => {
+                this.dialogVisibleForCancelCollection = false;
+                this.updateCollectionState();
+            });
         },
 
-        cancelCollection() {
-            let data = {
-                userID: parseInt($.cookie('id')),
-                token: $.cookie('token'),
-                itemID: this.currentId,
-                isAdding: false,
-            };
-            $.ajax({
-                url: `${url}/requests/user/wishlist/modify`,
-                method: 'post',
-                data: JSON.stringify(data),
-                contentType: "application/json;charset=utf-8",
-                success: (responseStr) => {
-                    let response = JSON.parse(responseStr);
-                    if (response.status === 10200) {
-                        this.dialogVisibleForCancelCollection = false;
-                        this.updateCollectionState();
-                        confirm("取消成功");
-                    } else {
-                        alert("取消失败");
-                    }
+        updateCollectionState() {
+            for (let i = 0; i < this.wishes.length; i++) {
+                if (this.wishes[i].itemId === this.currentId) {
+                    this.wishes.splice(i, 1);
                 }
-            })
+            }
         },
 
         getWishList() {
@@ -118,9 +77,13 @@ let wishList = new Vue({
                         for (let i = 0; i < this.wishes.length; i++) {
                             getItemInfo(this.wishes[i].itemId, response => {
                                 this.$set(this.wishes[i], 'name', response.data.name);
+                                this.$set(this.wishes[i], 'quantity', response.data.quantity);
                                 this.$set(this.wishes[i], 'price', response.data.price);
+                                if (response.data.coverPath === null)
+                                    this.$set(this.wishes[i], 'imageUrl', `../img/null2.png`);
+                                else
                                 this.$set(this.wishes[i], 'imageUrl', `http://1.15.220.157:8088/requests/image/${response.data.coverPath}`);
-                                this.$set(this.wishes[i], 'url', `${url}/item?id=${this.carts[i].itemId}`);
+                                this.$set(this.wishes[i], 'url', `${url}/item?id=${this.wishes[i].itemId}`);
                             })
                         }
                     }

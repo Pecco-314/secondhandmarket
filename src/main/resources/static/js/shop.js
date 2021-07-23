@@ -184,9 +184,14 @@ let shopApp = new Vue({
                             getWishList(response => {
                                 this.wishList = response.data;
                             });
-                            for (let i = 0; i < this.items.length; i++) {
+                            for (let i = this.items.length - 1; i >= 0; i--) {
+                                //先判断数量是否为0
+                                if (this.items[i].quantity === 0) {
+                                    this.items.splice(i, 1);
+                                    continue;
+                                }
                                 if (this.items[i].coverPath === null)
-                                    this.items[i].imageurl = `../img/null2.jpg`;
+                                    this.items[i].imageurl = `../img/null2.png`;
                                 else
                                     this.items[i].imageurl = `http://1.15.220.157:8088/requests/image/${this.items[i].coverPath}`;
                                 this.items[i].url = `${url}/item?id=${this.items[i].id}`;
