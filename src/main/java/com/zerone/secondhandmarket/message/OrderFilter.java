@@ -1,5 +1,6 @@
 package com.zerone.secondhandmarket.message;
 
+import com.zerone.secondhandmarket.enums.OrderState;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,4 +13,5 @@ public class OrderFilter {
     private Integer buyer = null;
     private Integer seller = null;
     private Integer Item = null;
+    private OrderState state = null;
 }

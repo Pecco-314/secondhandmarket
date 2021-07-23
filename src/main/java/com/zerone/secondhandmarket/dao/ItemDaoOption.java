@@ -4,9 +4,11 @@ import com.zerone.secondhandmarket.entity.Item;
 import com.zerone.secondhandmarket.entity.SimplifiedItem;
 import com.zerone.secondhandmarket.enums.ItemType;
 import com.zerone.secondhandmarket.enums.Ordering;
+import com.zerone.secondhandmarket.mapper.CountRowMapper;
 import com.zerone.secondhandmarket.mapper.ItemRowMapper;
 import com.zerone.secondhandmarket.mapper.SimplifiedItemRowMapper;
 import com.zerone.secondhandmarket.message.ItemFilter;
+import com.zerone.secondhandmarket.tools.IndexGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -68,19 +70,6 @@ public class ItemDaoOption {
         return jdbcTemplate.update(sql, param);
     }
 
-
-    /*// 通过类型查询商品
-    public List<Item> getItemByType(ItemType itemtype) {
-        String sql = "select * from item where item_type=:item_type";
-        Map<String, Object> param = new HashMap<>();
-        param.put("item_type", itemtype.toString());
-        try {
-            return jdbcTemplate.query(sql, param, new ItemRowMapper());
-        } catch (Exception e) {
-            return null;
-        }
-    }*/
-
     // 通过id查询商品
     public Item getItemById(int itemId) {
         String sql = "select * from item where item_id=:id";
@@ -104,53 +93,48 @@ public class ItemDaoOption {
         }
     }
 
-    /*//按价格排序获取商品列表
-    public List<Item> getItemListOrderByPrice(Ordering ordering) {
-        String sql;
-        switch(ordering) {
-            case ASC:
-                sql = "select * from item order by price_now ASC";
-                break;
-            case DESC:
-                sql = "select * from item order by price_now DESC";
-                break;
-            default:
-                sql = "select * from item";
-                break;
-        }
-        try {
-            return jdbcTemplate.query(sql, new ItemRowMapper());
-        } catch (Exception e) {
-            return null;
-        }
-    }*/
+    public Integer howMany(ItemFilter filter) {
+        StringBuilder sql = new StringBuilder(500);
 
-    /*// 通过类似商品名（关键字）查询商品
-    public List<Item> getItemByKeyword(String keyword) {
-        String sql = "select * from item where item_name LIKE :item_name";
         Map<String, Object> param = new HashMap<>();
-        String str = "%" + keyword + "%";
-        param.put("item_name", str);
+
+        if(filter.getTags() == null)
+            sql.append("select COUNT(*) _count from item ");
+        else
+            sql.append("select COUNT(distinct item_id) _count from item natural join keywords");
+
+        generateExpression(filter, sql, param);
+
         try {
-            return jdbcTemplate.query(sql, param, new ItemRowMapper());
+            return jdbcTemplate.query(sql.toString(), param, new CountRowMapper()).get(0);
         } catch (Exception e) {
             return null;
         }
-    }*/
+    }
 
     public List<Item> getItemListByFilter(ItemFilter filter) {
         StringBuilder sql = new StringBuilder(500);
-        boolean hasOrder = false;
-        boolean has_where = false;
-        String keyword = filter.getKeyword();
 
         Map<String, Object> param = new HashMap<>();
 
         if(filter.getTags() == null)
             sql.append("select * from item ");
         else
-            sql.append("select * from item natural join keywords");
+            sql.append("select distinct item.* from item natural join keywords");
 
+        generateExpression(filter, sql, param);
+
+        try {
+            return jdbcTemplate.query(sql.toString(), param, new ItemRowMapper());
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    private static void generateExpression(ItemFilter filter, StringBuilder sql, Map<String, Object> param) {
+        boolean hasOrder = false;
+        boolean has_where = false;
+        String keyword = filter.getKeyword();
 
         if (filter.getSeller() != null) {
             sql.append(" where seller_id=:seller_id");
@@ -235,72 +219,8 @@ public class ItemDaoOption {
                     break;
             }
 
-        try {
-            return jdbcTemplate.query(sql.toString(), param, new ItemRowMapper())
-                    .stream()
-                    .distinct()
-                    .collect(Collectors.toList());
-        } catch (Exception e) {
-            return null;
+        if(filter.getPage() != null) {
+            sql.append(String.format(" limit %d,%d", IndexGenerator.generateStartIndex(filter.getPage()), IndexGenerator.countPerPage));
         }
     }
-
-    //按filter获取商品列表
-    /*public List<SimplifiedItem> getSimplifiedItemByFilter(ItemFilter itemFilter) {
-        String sql = "select item_id,item_name,price_now,coverPath from item";
-        Map<String, Object> param = new HashMap<>();
-        boolean has_where = false;
-        if (itemFilter.getSeller() != null) {
-            if (!has_where) {
-                sql += " where";
-                has_where = true;
-                sql += " seller_id=:seller_id";
-            } else {
-                sql += " and seller_id=:seller_id";
-            }
-
-            param.put("seller_id", itemFilter.getSeller());
-        }
-        if (itemFilter.getType() != null) {
-            if (!has_where) {
-                sql += " where";
-                has_where = true;
-                sql += " item_type=:item_type";
-            } else {
-                sql += " and item_type=:item_type";
-            }
-            param.put("item_type", itemFilter.getType().toString());
-        }
-        if (itemFilter.getTags() != null) {
-            if (!has_where) {
-                sql += " where";
-                has_where = true;
-                sql += " item_name LIKE :item_name";
-            } else {
-                sql += " and item_name LIKE :item_name";
-            }
-            String str = "%" + itemFilter.getTags() + "%";
-            param.put("item_name", str);
-        }
-        if (itemFilter.getCheckCondition() != null) {
-            if (!has_where) {
-                sql += " where";
-                has_where = true;
-                sql += " checked=:checked";
-            } else {
-                sql += " and checked=:checked";
-            }
-            param.put("checked", itemFilter.getCheckCondition().toString());
-        }
-        if (itemFilter.getPriceOrdering() == Ordering.ASC)
-            sql += " order by price_now ASC";
-        if (itemFilter.getPriceOrdering() == Ordering.DESC)
-            sql += " order by price_now DESC";
-        List<SimplifiedItem> items;
-        try {
-            return jdbcTemplate.query(sql, param, new SimplifiedItemRowMapper());
-        } catch (Exception e) {
-            return null;
-        }
-    }*/
 }
