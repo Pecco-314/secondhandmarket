@@ -35,18 +35,22 @@ let wishList = new Vue({
                 contentType: "application/json;charset=utf-8",
                 success: (responseStr) => {
                     let response = JSON.parse(responseStr);
-                    // elAlert(this, response.message, '', () => {
-                    // });
                     if (response.status === 60200) {
-                        this.dialogVisibleForCart = false;
-                        confirm("加入购物车成功");
+                        this.dialogVisibleForCart = false
+                        this.$message({
+                            message: '加入购物车成功',
+                            type: 'success'
+                        });
+                        callback(response);
+                    } else {
+                        this.$message.error('操作失败');
                     }
                 }
             })
         },
 
         cancelCollection() {
-            modifyCollection(this.currentId, false, response => {
+            modifyCollection(this,this.currentId, false, response => {
                 this.dialogVisibleForCancelCollection = false;
                 this.updateCollectionState();
             });
