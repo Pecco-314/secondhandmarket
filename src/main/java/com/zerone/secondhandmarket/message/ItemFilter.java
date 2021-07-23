@@ -22,4 +22,5 @@ public class ItemFilter {
     private ItemCheckCondition checkCondition = null;
     private boolean imagesNeeded = false;
     private boolean tagsNeeded = false;
+    private Integer page = null;
 }
