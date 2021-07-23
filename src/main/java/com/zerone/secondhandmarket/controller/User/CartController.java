@@ -37,6 +37,18 @@ public class CartController {
         }
     }
 
+    @ResponseBody
+    @PostMapping("/requests/cart/count")
+    public String getCartCount(@RequestBody UserTokenMessage token) {
+        if (CodeProcessor.validateIdToken(token.getUserID(), token.getToken())) {
+            Result result = CartModule.getCartCount(cartService, token.getUserID());
+
+            return result.toString();
+        } else {
+            return new Result(Status.CART_ERROR, "ID与Token不符", null).toString();
+        }
+    }
+
     //添加、更改和删除都通过该方法
     @ResponseBody
     @PostMapping("/requests/cart/modifyCart")

@@ -196,7 +196,8 @@ Vue.component('page-header', {
                                     <div class="language-list">
                                         <div class="dropdown language-list-dropdown">
                                         <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <img :src="imageUrl">
+                                                <img v-if="imageUrl" :src="imageUrl">
+                                                <img v-else src="../img/defaulthead.png">
                                                 <i class='bx bx-chevron-down'></i>
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

@@ -41,7 +41,7 @@ public class OrderController {
     }
 
     @ResponseBody
-    @GetMapping("/requests/user/orderList/search")
+    @PostMapping("/requests/user/orderList/search")
     public String searchOrder(@RequestBody OrderFilter filter) {
         Result result = OrderModule.getOrderListByFilter(orderService, filter);
 

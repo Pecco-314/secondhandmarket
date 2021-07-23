@@ -21,15 +21,22 @@ let itemApp = new Vue({
                     contentType: "application/json;charset=utf-8",
                     success: (responseStr) => {
                         let response = JSON.parse(responseStr);
-                        elAlert(this, response.message, '', () => {
-                        });
+                        if (response.status === 60200) {
+                            this.dialogVisibleForCart = false
+                            this.$message({
+                                message: '加入购物车成功',
+                                type: 'success'
+                            });
+                            callback(response);
+                        } else {
+                            this.$message.error('操作失败');
+                        }
                     }
                 })
             } else {
                 window.open("../login", "_self");
             }
         },
-
         openCollectionDialog() {
             if ($.cookie('id')) {
                 this.dialogVisibleForCollection = true;
@@ -38,6 +45,32 @@ let itemApp = new Vue({
             }
         },
 
+        openContactDialog(item) {
+            if ($.cookie('id')) {
+                this. dialogVisibleForContact = true;
+                getUserInfoByAdmin(this.item.seller, response => {
+
+                    this.sellerEmail=response.data.emailAddress;
+                    if(response.data.phoneNumber===null)this.sellerPhone='暂无电话信息';
+                    else
+                    this.sellerPhone=response.data.phoneNumber;
+                    this.sellerName=response.data.nickname;
+
+                })
+
+            } else {
+                window.open("../login", "_self");
+            }
+        },
+        openCartDialog(item) {
+            if ($.cookie('id')) {
+                this.dialogVisibleForCart = true;
+                this.currentItem = item.id;
+                this.max = item.quantity;
+            } else {
+                window.open("../login", "_self");
+            }
+        },
         addToCollection() {
             modifyCollection(this, this.item.id, true, response => {
                 this.dialogVisibleForCollection = false;
@@ -75,10 +108,14 @@ let itemApp = new Vue({
             itemTags: [],
             itemImages: [],
         },
+        sellerName:'',
+        sellerPhone:'暂无电话信息',
+        sellerEmail:'',
         isCollected: false,
         imageList: [],
         dialogVisibleForCollection: false,
         dialogVisibleForCancelCollection: false,
+        dialogVisibleForContact: false,
     },
 });
 
@@ -106,6 +143,7 @@ $(function () {
         getItemCollectedInfo(getURLVariable("id"), response => {
             itemApp.isCollected = response.data;
         });
+
         console.log(itemApp);
     }
 )

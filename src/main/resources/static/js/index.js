@@ -91,11 +91,15 @@ let indexForm = new Vue({
                 contentType: "application/json;charset=utf-8",
                 success: (responseStr) => {
                     let response = JSON.parse(responseStr);
-                    // elAlert(this, response.message, '', () => {
-                    // });
                     if (response.status === 60200) {
-                        this.dialogVisibleForCart = false;
-                        confirm("加入购物车成功");
+                        this.dialogVisibleForCart = false
+                        this.$message({
+                            message: '加入购物车成功',
+                            type: 'success'
+                        });
+                        callback(response);
+                    } else {
+                        this.$message.error('操作失败');
                     }
                 }
             })

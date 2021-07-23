@@ -115,6 +115,21 @@ public class ItemController {
         return result.toString();
     }
 
+    @ResponseBody
+    @PostMapping("/requests/product/count")
+    public String getItemCount(@RequestBody ItemFilter filter) {
+        try {
+            filter.setKeyword(URLDecoder.decode(filter.getKeyword(), "UTF-8"));
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return null;
+        }
+        Result result = ItemModule.getItemCount(itemService, filter);
+
+        return result.toString();
+    }
+
     /*//筛选物品
     @ResponseBody
     @PostMapping("/requests/product/filter")
