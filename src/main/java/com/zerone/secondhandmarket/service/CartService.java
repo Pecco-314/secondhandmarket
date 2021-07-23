@@ -46,6 +46,11 @@ public class CartService implements CartDao {
     }
 
     @Override
+    public Integer getCartCount(int userId) {
+        return daoOption.getCartCount(userId);
+    }
+
+    @Override
     //查询用户购物车信息
     public List<Cart> getCartListByUserId(int userId) {
         return daoOption.getCartListByUserId(userId);

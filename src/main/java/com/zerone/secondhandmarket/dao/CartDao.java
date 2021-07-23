@@ -19,4 +19,6 @@ public interface CartDao {
     int modifyItemQuantity(Cart cart);
     //查询用户购物车信息
     List<Cart> getCartListByUserId(int userId);
+
+    Integer getCartCount(int userId);
 }

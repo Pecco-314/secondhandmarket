@@ -236,36 +236,36 @@
                                         <span style="margin-left: 68px">订单状态</span>
                                         <span style="margin-left: 90px">操作</span></h3>
                                     <ul class="checkout-product">
-                                        <li v-for="order in orders" :key="order.orderInfo.id">
+                                        <li v-for="order in orders" :key="order.id">
                                             <img :src=order.imageurl alt="Images">
                                             <div class="price-tag" style="left: 12%">
                                                 <h3><a :href=order.url class="ellipsis-type"
-                                                       style="text-overflow: ellipsis">{{order.itemInfo.name}}</a></h3>
+                                                       style="text-overflow: ellipsis">{{order.name}}</a></h3>
                                             </div>
                                             <br>
                                             <div class="price-tag" style="left: 31.5%;top:40%">
-                                                {{order.orderInfo.quantity}}
+                                                {{order.quantity}}
                                             </div>
-                                            <div class="price-tag" style="left: 44%;top:40%">￥{{order.itemInfo.price}}
+                                            <div class="price-tag" style="left: 44%;top:40%">￥{{order.price}}
                                             </div>
-                                            <div class="price-tag" style="left: 59%;top:40%">{{order.orderInfo.state}}
+                                            <div class="price-tag" style="left: 59%;top:40%">{{order.state.text}}
                                             </div>
-                                            <div v-if="order.orderInfo.state==='已完成'" class="price-tag"
+                                            <div v-if="order.state==='已完成'" class="price-tag"
                                                  style="left: 75%;top:35%">
                                                 <el-button type="text">
                                                     填写评价
                                                 </el-button>
                                             </div>
-                                            <div v-if="order.orderInfo.state==='已完成'" class="price-tag"
+                                            <div v-if="order.state==='已完成'" class="price-tag"
                                                  style="left: 85%;top:35%">
                                                 <el-button type="text">
                                                     删除订单
                                                 </el-button>
                                             </div>
-                                            <div v-if="order.orderInfo.state==='待收货'" class="price-tag"
+                                            <div v-if="order.state==='待收货'" class="price-tag"
                                                  style="left: 75%;top:35%">
                                                 <el-button
-                                                        @click="confirmPressed(order.orderInfo.id)" type="text">
+                                                        @click="confirmPressed(order.id)" type="text">
                                                     确认收货
                                                 </el-button>
                                             </div>
@@ -288,49 +288,60 @@
                             </div>
                         </div>
 
-                        <div class="tabs_item">
+                        <div class="tabs_item" id="mySells">
                             <div class="account-tab-item">
                                 <div class="checkout-order">
-                                    <h2>我的售出</h2>
+                                    <div>
+                                        <h2 style="display: inline-block">我的售出</h2>
+                                        <div class="form-group" style="display: inline-block; margin-left: 50%">
+                                            <el-select v-model="selectedType" style="padding: 0 0">
+                                                <el-option v-for="option in options"
+                                                           :value="option.value" :key="option.key"
+                                                           :label="option.text">
+                                                </el-option>
+                                            </el-select>
+                                        </div>
+                                    </div>
+<!--                                    <h2>我的售出</h2>-->
                                     <h3 class="title-item"><span style="margin-left: 100px">商品名称</span><span
                                             style="margin-left: 70px">数量</span><span style="margin-left: 75px">金额</span>
                                         <span style="margin-left: 68px">订单状态</span><span
                                                 style="margin-left: 90px">操作</span></h3>
-                                    <ul class="checkout-product" id="mySells">
-                                        <li v-for="order in orders" :key="order.orderInfo.id">
+                                    <ul class="checkout-product">
+                                        <li v-for="order in orders" :key="order.id">
                                             <img :src=order.imageurl alt="Images">
                                             <div class="price-tag" style="left: 12%">
                                                 <h3><a :href=order.url class="ellipsis-type"
-                                                       style="text-overflow: ellipsis">{{order.itemInfo.name}}</a></h3>
+                                                       style="text-overflow: ellipsis">{{order.name}}</a></h3>
                                             </div>
                                             <br>
                                             <div class="price-tag" style="left: 31.5%;top:40%">
-                                                {{order.orderInfo.quantity}}
+                                                {{order.quantity}}
                                             </div>
-                                            <div class="price-tag" style="left: 44%;top:40%">￥{{order.itemInfo.price}}
+                                            <div class="price-tag" style="left: 44%;top:40%">￥{{order.price}}
                                             </div>
-                                            <div v-if="order.orderInfo.state==='FINISHED'" class="price-tag"
+                                            <div v-if="order.state==='FINISHED'" class="price-tag"
                                                  style="left: 59%;top:40%">
                                                 已完成
                                             </div>
-                                            <div v-if="order.orderInfo.state==='UNFINISHED'" class="price-tag"
+                                            <div v-if="order.state==='UNFINISHED'" class="price-tag"
                                                  style="left: 59%;top:40%">
                                                 待收货
                                             </div>
-                                            <!--                                            <div class="price-tag" style="left: 59%;top:40%">{{order.orderInfo.state}}-->
+                                            <!--                                            <div class="price-tag" style="left: 59%;top:40%">{{order.state}}-->
                                             <!--                                            </div>-->
                                             <div class="price-tag" style="left: 78.4%;top:35%">
-                                                <el-button type="text" :disabled="order.orderInfo.state==='UNFINISHED'">
+                                                <el-button type="text" :disabled="order.state==='UNFINISHED'">
                                                     提现
                                                 </el-button>
                                             </div>
-                                            <!--                                            <div v-if="order.orderInfo.state==='FINISHED'" class="price-tag"-->
+                                            <!--                                            <div v-if="order.state==='FINISHED'" class="price-tag"-->
                                             <!--                                                 style="left: 75%;top:35%">-->
                                             <!--                                                <el-button type="text">-->
                                             <!--                                                    提现-->
                                             <!--                                                </el-button>-->
                                             <!--                                            </div>-->
-                                            <!--                                            <div v-if="order.orderInfo.state==='FINISHED'" class="price-tag"-->
+                                            <!--                                            <div v-if="order.state==='FINISHED'" class="price-tag"-->
                                             <!--                                                 style="left: 82%;top:35%">-->
                                             <!--                                                <el-button type="text">-->
                                             <!--                                                    删除订单-->

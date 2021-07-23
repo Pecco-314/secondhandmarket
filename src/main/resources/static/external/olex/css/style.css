@@ -116,6 +116,14 @@ img {
     padding-top: 100px;
 }
 
+.pt-150 {
+    padding-top: 150px;
+}
+
+.pt-200 {
+    padding-top: 200px;
+}
+
 .ptb-70 {
     padding-top: 70px;
     padding-bottom: 70px;
@@ -2628,6 +2636,22 @@ Contact Area
 }
 
 .contact-card i {
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    background-color: #ffffff;
+    font-size: 24px;
+    color: #E8B43F;
+    border-radius: 50px;
+    border: 1px solid #E2E2E2;
+    position: relative;
+    top: -35px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+
+.contact-card img {
     width: 60px;
     height: 60px;
     line-height: 60px;

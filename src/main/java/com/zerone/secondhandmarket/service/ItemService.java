@@ -64,6 +64,12 @@ public class ItemService implements ItemDao {
         return daoOption.getItemListOrderByPrice(ordering);
     }
 */
+
+    @Override
+    public Integer getItemCount(ItemFilter filter) {
+        return daoOption.getItemCount(filter);
+    }
+
     @Override
     public List<Item> getItemListByFilter(ItemFilter itemFilter) {
         return daoOption.getItemListByFilter(itemFilter);

@@ -102,14 +102,14 @@ let indexForm = new Vue({
         },
 
         addToCollection() {
-            modifyCollection(this.currentItem, true, response => {
+            modifyCollection(this, this.currentItem, true, response => {
                 this.dialogVisibleForCollection = false;
                 this.updateCollectionState();
-            });
+            })
         },
 
         cancelCollection() {
-            modifyCollection(this.currentItem, false, response => {
+            modifyCollection(this, this.currentItem, false, response => {
                 this.dialogVisibleForCancelCollection = false;
                 this.updateCollectionState();
             });

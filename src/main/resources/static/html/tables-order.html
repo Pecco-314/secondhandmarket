@@ -207,15 +207,16 @@
                                aria-haspopup="false" aria-expanded="false">
                                 <img src="../img/admin_profile.png" alt="user" class="rounded-circle">
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
-                                <a class="dropdown-item" href="#"><i
-                                        class="mdi mdi-account-circle m-r-5 text-muted"></i> Profile</a>
-                                <a class="dropdown-item" href="#"><span
-                                        class="badge badge-success pull-right">5</span><i
-                                        class="mdi mdi-settings m-r-5 text-muted"></i> Settings</a>
-                                <a class="dropdown-item" href="#"><i
-                                        class="mdi mdi-lock-open-outline m-r-5 text-muted"></i> Lock screen</a>
-                                <a class="dropdown-item" href="#"><i class="mdi mdi-logout m-r-5 text-muted"></i> Logout</a>
+                            <div class="dropdown-menu dropdown-menu-right profile-dropdown " id="admin-menu">
+                                <!--                                <a class="dropdown-item" href="#"><i-->
+                                <!--                                        class="mdi mdi-account-circle m-r-5 text-muted"></i> Profile</a>-->
+                                <!--                                <a class="dropdown-item" href="#"><span-->
+                                <!--                                        class="badge badge-success pull-right">5</span><i-->
+                                <!--                                        class="mdi mdi-settings m-r-5 text-muted"></i> Settings</a>-->
+                                <!--                                <a class="dropdown-item" href="#"><i-->
+                                <!--                                        class="mdi mdi-lock-open-outline m-r-5 text-muted"></i> Lock screen</a>-->
+                                <a class="dropdown-item" @click="logout"><i class="mdi mdi-logout m-r-5 text-muted"></i>
+                                    退出登录</a>
                             </div>
                         </li>
 
@@ -257,7 +258,8 @@
 
                                                         <div class="col-lg-2 col-md-2">
                                                             <div class="form-group">
-                                                                <el-select class="form-control" v-model="selectedType" style="padding: 0 0">
+                                                                <el-select class="form-control" v-model="selectedType"
+                                                                           style="padding: 0 0">
                                                                     <el-option v-for="option in options"
                                                                                :value="option.value" :key="option.key"
                                                                                :label="option.text">
@@ -462,6 +464,7 @@
 
 <script src="../js/core.js"></script>
 <script src="../js/admin-order.js"></script>
+<script src="../js/adminMenu.js"></script>
 
 </body>
 </html>

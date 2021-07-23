@@ -17,6 +17,15 @@ public class CartModule {
         return new Result(Status.CART_OK, "", list);
     }
 
+    public static Result getCartCount(CartService service, int userId) {
+        Integer count = service.getCartCount(userId);
+
+        if(count == null)
+            return new Result(Status.CART_ERROR, "", null);
+
+        return new Result(Status.CART_OK, "", count);
+    }
+
     public static Result modifyItemQuantity(CartService service, Cart cart) {
         try {
             if (cart.getQuantity() == 0) {

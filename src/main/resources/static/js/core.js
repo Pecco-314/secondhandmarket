@@ -205,7 +205,7 @@ function getItemCollectedInfo(itemId, callback) {
     });
 }
 
-function modifyCollection(itemId, state, callback) {
+function modifyCollection(th, itemId, state, callback) {
     let data = {
         userID: parseInt($.cookie('id')),
         token: $.cookie('token'),
@@ -220,10 +220,13 @@ function modifyCollection(itemId, state, callback) {
         success: (responseStr) => {
             let response = JSON.parse(responseStr);
             if (response.status === 10200) {
-                confirm("操作成功");
+                th.$message({
+                    message: '操作成功',
+                    type: 'success'
+                });
                 callback(response);
             } else {
-                alert("操作失败");
+                th.$message.error('操作失败');
             }
         }
     })
@@ -234,4 +237,22 @@ function elAlert(component, content, title, callback) {
         confirmButtonText: '确定',
         callback: callback
     });
+}
+
+function getImageOrPlaceholder(path) {
+    if (path === null)
+        return `../img/null2.png`;
+    else
+        return `http://1.15.220.157:8088/requests/image/${path}`;
+}
+
+function delCookie() {
+    let keys = document.cookie.match(/[^ =;]+(?==)/g)
+    if (keys) {
+        for (let i = keys.length; i--;) {
+            document.cookie = keys[i] + '=0;path=/;expires=' + new Date(0).toUTCString() // 清除当前域名下的,例如：m.ratingdog.cn
+            document.cookie = keys[i] + '=0;path=/;domain=' + document.domain + ';expires=' + new Date(0).toUTCString() // 清除当前域名下的，例如 .m.ratingdog.cn
+            document.cookie = keys[i] + '=0;path=/;domain=ratingdog.cn;expires=' + new Date(0).toUTCString() // 清除一级域名下的或指定的，例如 .ratingdog.cn
+        }
+    }
 }

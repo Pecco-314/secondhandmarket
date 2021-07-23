@@ -97,7 +97,7 @@ let shopApp = new Vue({
         },
 
         addToCollection() {
-            modifyCollection(this.currentId, true, response => {
+            modifyCollection(this, this.currentId, true, response => {
                 this.dialogVisibleForCollection = false;
                 this.updateCollectionState();
             });
@@ -126,7 +126,7 @@ let shopApp = new Vue({
         },
 
         cancelCollection() {
-            modifyCollection(this.currentId, false, response => {
+            modifyCollection(this, this.currentId, false, response => {
                 this.dialogVisibleForCancelCollection = false;
                 this.updateCollectionState();
             });
@@ -184,7 +184,12 @@ let shopApp = new Vue({
                             getWishList(response => {
                                 this.wishList = response.data;
                             });
-                            for (let i = 0; i < this.items.length; i++) {
+                            for (let i = this.items.length - 1; i >= 0; i--) {
+                                //先判断数量是否为0
+                                if (this.items[i].quantity === 0) {
+                                    this.items.splice(i, 1);
+                                    continue;
+                                }
                                 if (this.items[i].coverPath === null)
                                     this.items[i].imageurl = `../img/null2.png`;
                                 else
