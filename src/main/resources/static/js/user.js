@@ -316,8 +316,8 @@ let ordersForm = new Vue({
             options: [
                 {text: "全部", value: 'ALL'},
                 {text: "待付款", value: 'UNPAID'},
-                {text: "待发货", value: 'UNSENT'},
-                {text: "待收货", value: 'UNFINISHED'},
+                {text: "待发货", value: 'UNDELIVERED'},
+                {text: "待收货", value: 'UNRECEIVED'},
                 {text: "已完成", value: 'FINISHED'},
             ],
             selectedType: 'ALL',
@@ -328,12 +328,12 @@ let ordersForm = new Vue({
     },
     methods: {
         getOrderList() {
-            setOrderList(this, 'buyer');
+            console.log(this.selectedType);
+            setOrderList(this, 'buyer', this.selectedType);
         },
         confirmPressed(id) {
             this.dialogVisibleForConfirm = true;
             this.orderId = id;
-            console.log(this.orderId);
         },
         confirm() {
             $.ajax({
@@ -359,11 +359,13 @@ let sellsForm = new Vue({
     data() {
         return {
             options: [
-                {text: "待发货", value: 'UNSENT'},
-                {text: "待收货", value: 'UNFINISHED'},
+                {text: "全部", value: 'ALL'},
+                {text: "待付款", value: 'UNPAID'},
+                {text: "待发货", value: 'UNDELIVERED'},
+                {text: "待收货", value: 'UNRECEIVED'},
                 {text: "已完成", value: 'FINISHED'},
             ],
-            selectedType: 'UNSENT',
+            selectedType: 'ALL',
             orders: [],
             orderId: '',
             dialogVisibleForConfirm: false,
@@ -371,7 +373,7 @@ let sellsForm = new Vue({
     },
     methods: {
         getOrderList() {
-            setOrderList(this, 'seller');
+            setOrderList(this, 'seller', this.selectedType);
         },
         confirmPressed(id) {
             this.dialogVisibleForConfirm = true;
@@ -405,14 +407,23 @@ $(itemsForm.getItemList);
 $(ordersForm.getOrderList);
 $(sellsForm.getOrderList);
 
-function setOrderList(form, role) {
+function setOrderList(form, role, state) {
     let userId = $.cookie("id");
+    let orderFilter = {
+        buyer: role === 'buyer' ? userId : null,
+        seller: role === 'seller' ? userId : null,
+        item: null,
+        state: state === 'ALL' ? null : state,
+    };
     $.ajax({
-        url: `${url}/requests/user/orderList/${role}/${userId}`,
-        method: 'get',
+        url: `${url}/requests/user/orderList/search`,
+        method: 'post',
+        data: JSON.stringify(orderFilter),
         contentType: "application/json;charset=utf-8",
         success: (responseStr) => {
             let response = JSON.parse(responseStr);
+            console.log(orderFilter);
+            console.log(response);
             if (response.status === 40200) {
                 form.orders = response.data;
                 for (let i = 0; i < form.orders.length; i++) {
@@ -428,7 +439,8 @@ function setOrderList(form, role) {
                     });
                 }
             } else if (response.status === 40400) {
-                // pass
+                form.orders = [];
+                form.$forceUpdate();
             } else {
                 alert(`${response.message}（状态码：${response.status}）`);
             }

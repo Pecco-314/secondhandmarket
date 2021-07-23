@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 public class OrderFilter {
     private Integer buyer = null;
     private Integer seller = null;
-    private Integer Item = null;
+    private Integer item = null;
     private OrderState state = null;
 }

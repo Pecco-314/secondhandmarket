@@ -1,8 +1,6 @@
 package com.zerone.secondhandmarket.dao;
 
-import com.zerone.secondhandmarket.entity.Item;
 import com.zerone.secondhandmarket.entity.Order;
-import com.zerone.secondhandmarket.mapper.ItemRowMapper;
 import com.zerone.secondhandmarket.mapper.OrderRowMapper;
 import com.zerone.secondhandmarket.message.OrderFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +14,6 @@ import org.springframework.stereotype.Repository;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Repository
 public class OrderDaoOption {
