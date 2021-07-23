@@ -58,6 +58,15 @@ public class ItemModule {
         return new Result(Status.ITEM_OK, "获得所需物品", list);
     }
 
+    public static Result getItemCount(ItemService itemService, ItemFilter filter) {
+        Integer count = itemService.getItemCount(filter);
+
+        if(count == null)
+            return new Result(Status.ITEM_ERROR, "", null);
+
+        return new Result(Status.ITEM_OK, "", count);
+    }
+
     public static Result getItemListByIDs(ItemService service, List<Integer> ids) {
         List<Item> list = ids
                 .parallelStream()
