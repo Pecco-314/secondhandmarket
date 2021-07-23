@@ -10,7 +10,6 @@ import com.zerone.secondhandmarket.service.ItemService;
 import com.zerone.secondhandmarket.service.TagsService;
 import com.zerone.secondhandmarket.tools.DateFormatter;
 import com.zerone.secondhandmarket.viewobject.Result;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collections;
 import java.util.Date;
@@ -24,6 +23,12 @@ public class ItemModule {
     public static Result getItemListForHomepage(ItemService itemService, ItemImageService itemImageService, TagsService tagsService) {
         List<Item> itemList = itemService.getItemList();
 
+        //筛选掉数量为0的物品
+        for (int i = itemList.size() - 1; i >= 0; i--) {
+            if (itemList.get(i).getQuantity() <= 0) {
+                itemList.remove(i);
+            }
+        }
         int size = itemList.size();
         itemList = itemList.subList(Math.max(size - itemsInHomepage, 0), size);
         Collections.reverse(itemList);
@@ -170,17 +175,17 @@ public class ItemModule {
     }
 
     private static void getItemTagsAndImages(ItemImageService itemImageService, TagsService tagsService, Item item, boolean imagesNeeded, boolean tagsNeeded) {
-        if(imagesNeeded)
+        if (imagesNeeded)
             item.setItemImages(itemImageService.getImagesByItemId(item.getId()));
-        if(tagsNeeded)
+        if (tagsNeeded)
             item.setItemTags(tagsService.getTagsByItemId(item.getId()));
     }
 
     private static void getItemTagsAndImages(ItemImageService itemImageService, TagsService tagsService, List<Item> items, boolean imagesNeeded, boolean tagsNeeded) {
         items.parallelStream().forEach(item -> {
-            if(imagesNeeded)
+            if (imagesNeeded)
                 item.setItemImages(itemImageService.getImagesByItemId(item.getId()));
-            if(tagsNeeded)
+            if (tagsNeeded)
                 item.setItemTags(tagsService.getTagsByItemId(item.getId()));
         });
     }

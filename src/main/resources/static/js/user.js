@@ -356,10 +356,18 @@ let ordersForm = new Vue({
 })
 let sellsForm = new Vue({
     el: '#mySells',
-    data: {
-        orders: [],
-        orderId: '',
-        dialogVisibleForConfirm: false,
+    data() {
+        return {
+            options: [
+                {text: "待发货", value: 'UNSENT'},
+                {text: "待收货", value: 'UNFINISHED'},
+                {text: "已完成", value: 'FINISHED'},
+            ],
+            selectedType: 'UNSENT',
+            orders: [],
+            orderId: '',
+            dialogVisibleForConfirm: false,
+        }
     },
     methods: {
         getOrderList() {
