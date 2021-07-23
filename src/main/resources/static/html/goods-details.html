@@ -112,10 +112,45 @@
                         <button type="submit" class="default-btn btn-bg-three selectable" @click="buy">
                             <i class="fas fa-cart-plus"></i> 立即购买
                         </button>
-                        <button type="submit" class="default-btn btn-bg-three selectable">
+                        <button type="submit" class="default-btn btn-bg-three selectable"
+                                @click="openContactDialog(item)">
                             <i class="fas fa-cart-plus"></i> 联系商家
                         </button>
+                        <el-dialog title="商家信息" :visible.sync="dialogVisibleForContact" width="30%">
+                            <el-form>
+                                <el-form-item label-width="120px">
+                                    <span slot="label">
+                                        <span class="span-box">
+                                            <span>昵称：</span>
+                                            <i class="el-icon-user ico-pre"></i>
+                                        </span>
+                                    </span>
+                                    {{sellerName}}
+                                </el-form-item>
+                                <el-form-item label-width="120px">
+                                    <span slot="label">
+                                        <span class="span-box">
+                                            <span>电话：</span>
+                                            <i class="el-icon-phone ico-pre"></i>
+                                        </span>
+                                    </span>
+                                    {{sellerPhone}}
+                                </el-form-item>
+                                <el-form-item label-width="120px">
+                                    <span slot="label">
+                                        <span class="span-box">
+                                            <span>邮箱：</span>
+                                            <i class="el-icon-message ico-pre"></i>
+                                        </span>
+                                    </span>
+                                    {{sellerEmail}}
+                                </el-form-item>
 
+                            </el-form>
+                            <span slot="footer" class="dialog-footer">
+                                <el-button @click="dialogVisibleForContact = false">确 定</el-button>
+                            </span>
+                        </el-dialog>
                     </div>
                 </div>
             </div>
