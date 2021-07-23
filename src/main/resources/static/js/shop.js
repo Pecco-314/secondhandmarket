@@ -88,9 +88,14 @@ let shopApp = new Vue({
                     // elAlert(this, response.message, '', () => {
                     // });
                     if (response.status === 60200) {
-                        this.dialogVisibleForCart = false;
-                        elAlert(this, "加入购物车成功", '', () => {
+                        this.dialogVisibleForCart = false
+                        this.$message({
+                            message: '加入购物车成功',
+                            type: 'success'
                         });
+                        callback(response);
+                    } else {
+                        this.$message.error('操作失败');
                     }
                 }
             })
