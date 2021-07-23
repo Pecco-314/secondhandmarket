@@ -112,6 +112,10 @@ img {
     padding-bottom: 100px;
 }
 
+.pt-100 {
+    padding-top: 100px;
+}
+
 .pt-150 {
     padding-top: 150px;
 }

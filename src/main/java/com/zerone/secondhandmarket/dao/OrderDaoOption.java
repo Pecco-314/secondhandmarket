@@ -136,11 +136,20 @@ public class OrderDaoOption {
         if(filter.getItem() != null) {
             if(!has_where) {
                 sql.append(" where item_id=:item_id");
-                //has_where = true;
+                has_where = true;
             } else {
                 sql.append(" and item_id=:item_id");
             }
             param.put("item_id", filter.getItem());
+        }
+
+        if(filter.getState() != null) {
+            if(!has_where) {
+                sql.append(" where state=:state");
+            } else {
+                sql.append(" and state=:state");
+            }
+            param.put("state", filter.getState().toString());
         }
 
         try {
@@ -148,6 +157,10 @@ public class OrderDaoOption {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    private static void generateExpression(OrderFilter filter, StringBuilder sql, Map<String, Object> param) {
+
     }
 
 }

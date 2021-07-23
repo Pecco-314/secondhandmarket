@@ -1,6 +1,7 @@
 package com.zerone.secondhandmarket.dao;
 
 import com.zerone.secondhandmarket.entity.Cart;
+import com.zerone.secondhandmarket.mapper.CountRowMapper;
 import com.zerone.secondhandmarket.mapper.ShoppingCartRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -79,6 +80,17 @@ public class CartDaoOption {
         param.put("user_id", userId);
         try {
             return jdbcTemplate.query(sql, param, new ShoppingCartRowMapper());
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public Integer getCartCount(int userId) {
+        String sql = "select COUNT(*) from shoppingcart where user_id=:user_id";
+        Map<String, Object> param = new HashMap<>();
+        param.put("user_id", userId);
+        try {
+            return jdbcTemplate.query(sql, param, new CountRowMapper()).get(0);
         } catch (Exception e) {
             return null;
         }
