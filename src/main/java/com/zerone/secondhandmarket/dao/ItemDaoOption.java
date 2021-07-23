@@ -93,7 +93,7 @@ public class ItemDaoOption {
         }
     }
 
-    public Integer howMany(ItemFilter filter) {
+    public Integer getItemCount(ItemFilter filter) {
         StringBuilder sql = new StringBuilder(500);
 
         Map<String, Object> param = new HashMap<>();
