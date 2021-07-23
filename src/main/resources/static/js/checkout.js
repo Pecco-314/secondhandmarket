@@ -77,6 +77,10 @@ Vue.component('checkout-item', {
             return this.price * this.quantity;
         },
         imageSrc() {
+            console.log(this.imagePath)
+            if (this.imagePath === undefined)
+                return `../img/null2.png`;
+            else
             return `http://1.15.220.157:8088/requests/image/${this.imagePath}`
         }
     },

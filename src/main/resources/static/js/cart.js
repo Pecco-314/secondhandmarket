@@ -18,6 +18,9 @@ let MyCartForm = new Vue({
                         this.$set(this.carts[i], 'max', response.data.quantity);
                         this.$set(this.carts[i], 'itemName', response.data.name);
                         this.$set(this.carts[i], 'price', response.data.price);
+                        if (response.data.coverPath === null)
+                            this.$set(this.carts[i], 'imageUrl', `../img/null2.png`);
+                        else
                         this.$set(this.carts[i], 'imageUrl', `http://1.15.220.157:8088/requests/image/${response.data.coverPath}`);
                         this.$set(this.carts[i], 'url', `${url}/item?id=${this.carts[i].itemId}`);
                         this.$set(this.carts[i], 'total', this.carts[i].price * this.carts[i].quantity);

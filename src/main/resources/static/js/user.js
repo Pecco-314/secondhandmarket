@@ -248,7 +248,7 @@ let itemsForm = new Vue({
                                 this.items[i].checkCondition = '审核中';
                             this.items[i].url = `${url}/item?id=${this.items[i].id}`
                             if (this.items[i].coverPath === null)
-                                this.items[i].imageurl = `../img/null.jpg`;
+                                this.items[i].imageurl = `../img/null2.png`;
                             else
                                 this.items[i].imageurl = `http://1.15.220.157:8088/requests/image/${this.items[i].coverPath}`;
                         }
