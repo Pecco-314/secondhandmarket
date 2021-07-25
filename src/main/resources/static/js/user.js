@@ -459,6 +459,7 @@ function setOrderList(form, role, state) {
                         text: getStateText(form.orders[i].state)
                     };
                     getItemInfo(form.orders[i].item, (response) => {
+                        form.orders[i].url = `${url}/item?id=${response.data.id}`;
                         form.orders[i].imageurl = getImageOrPlaceholder(response.data.coverPath);
                         form.orders[i].price = response.data.price;
                         form.orders[i].name = response.data.name;
