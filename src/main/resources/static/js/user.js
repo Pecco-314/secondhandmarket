@@ -218,7 +218,7 @@ let itemsForm = new Vue({
     },
     methods: {
         onPostImageSuccessfully(response, file) {
-            this.form.imageList.push(file);
+            setTimeout("this.form.imageList.push(file)", 1000);
             console.log(this.form.imageList);
         },
         onRemoveImage(file) {
@@ -250,13 +250,14 @@ let itemsForm = new Vue({
             })
         },
         openUpdateDialog(item) {
+            this.form.imageList = [];
             this.dialogVisibleForUpdate = true;
             this.currentId = item.id;
             this.form.name = item.name;
             this.form.quantity = item.quantity;
             this.form.price = item.price;
             this.form.introduction = item.introduction;
-            this.form.imageList = [];
+
             //插入已有图片
             for (let i = 0; i < item.itemImages.length; i++) {
                 let newFile = {
@@ -328,7 +329,6 @@ let itemsForm = new Vue({
             })
         },
         clear() {
-            this.$refs.form.resetFields();
             this.form.imageList = [];
             this.dialogVisibleForUpdate = false;
             this.dialogVisibleForDelete = false;
