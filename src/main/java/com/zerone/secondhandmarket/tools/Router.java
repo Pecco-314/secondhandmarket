@@ -7,7 +7,6 @@ public class Router {
     public static String routerForAdmin(HttpServletRequest request, String des) {
         Cookie[] cookies = request.getCookies();
         for (int i = 0; i < cookies.length; i++) {
-            System.out.println(cookies[i].getValue());
             if (cookies[i].getName().equals("userType") && cookies[i].getValue().equals("admin")) {
                 return des;
             }

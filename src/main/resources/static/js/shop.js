@@ -106,28 +106,6 @@ let shopApp = new Vue({
                 this.dialogVisibleForCollection = false;
                 this.updateCollectionState();
             });
-            // let data = {
-            //     userID: parseInt($.cookie('id')),
-            //     token: $.cookie('token'),
-            //     itemID: this.currentId,
-            //     isAdding: true,
-            // };
-            // $.ajax({
-            //     url: `${url}/requests/user/wishlist/modify`,
-            //     method: 'post',
-            //     data: JSON.stringify(data),
-            //     contentType: "application/json;charset=utf-8",
-            //     success: (responseStr) => {
-            //         let response = JSON.parse(responseStr);
-            //         if (response.status === 10200) {
-            //             this.dialogVisibleForCollection = false;
-            //             this.updateCollectionState();
-            //             confirm("收藏成功");
-            //         } else {
-            //             alert("收藏失败");
-            //         }
-            //     }
-            // })
         },
 
         cancelCollection() {
@@ -135,28 +113,6 @@ let shopApp = new Vue({
                 this.dialogVisibleForCancelCollection = false;
                 this.updateCollectionState();
             });
-            // let data = {
-            //     userID: parseInt($.cookie('id')),
-            //     token: $.cookie('token'),
-            //     itemID: this.currentId,
-            //     isAdding: false,
-            // };
-            // $.ajax({
-            //     url: `${url}/requests/user/wishlist/modify`,
-            //     method: 'post',
-            //     data: JSON.stringify(data),
-            //     contentType: "application/json;charset=utf-8",
-            //     success: (responseStr) => {
-            //         let response = JSON.parse(responseStr);
-            //         if (response.status === 10200) {
-            //             this.dialogVisibleForCancelCollection = false;
-            //             this.updateCollectionState();
-            //             confirm("取消成功");
-            //         } else {
-            //             alert("取消失败");
-            //         }
-            //     }
-            // })
         },
 
         updateCollectionState() {
@@ -173,6 +129,7 @@ let shopApp = new Vue({
             this.itemFilter.checkCondition = 'TRUE';
             this.getSearchResult();
         },
+
         getSearchResult() {
             this.loading = true;
             $.ajax({
