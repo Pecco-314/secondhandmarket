@@ -8,6 +8,7 @@ let goodsTable = new Vue({
             currentId: 0,
             currentPage: 1,
             pageSize: 20,
+            loading: true,
         }
     },
     methods: {
@@ -28,6 +29,8 @@ let goodsTable = new Vue({
             return row[property] === value;
         },
         getGoodsList() {
+            this.loading = true;
+
             $.ajax({
                 url: `${url}/requests/admin/items`,
                 method: 'get',
@@ -52,6 +55,7 @@ let goodsTable = new Vue({
                     } else {
                         alert(`${response.message}（状态码：${response.status}）`);
                     }
+                    this.loading = false;
                 }
             });
         },
@@ -81,10 +85,14 @@ let goodsTable = new Vue({
                     let response = JSON.parse(responseStr);
                     if (response.status === 30200) {
                         this.dialogVisibleForIllegal = false;
-                        confirm("更新成功");
+                        this.$message({
+                            message: '操作成功',
+                            duration: 600,
+                            type: 'success'
+                        });
                         goodsTable.getGoodsList();
                     } else {
-                        alert(`${response.message}（状态码：${response.status}）`);
+                        this.$message.error('操作失败');
                     }
                 }
             })
@@ -104,10 +112,14 @@ let goodsTable = new Vue({
                     let response = JSON.parse(responseStr);
                     if (response.status === 30200) {
                         this.dialogVisibleForPass = false;
-                        confirm("通过审核成功");
+                        this.$message({
+                            message: '操作成功',
+                            duration: 600,
+                            type: 'success'
+                        });
                         goodsTable.getGoodsList();
                     } else {
-                        alert(`${response.message}（状态码：${response.status}）`);
+                        this.$message.error('操作失败');
                     }
                 }
             })

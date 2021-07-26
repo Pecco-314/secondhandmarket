@@ -17,6 +17,7 @@ let ordersTable = new Vue({
             currentId: 0,
             currentPage: 1,
             pageSize: 20,
+            loading: true,
         }
     },
     methods: {
@@ -27,6 +28,7 @@ let ordersTable = new Vue({
         //     this.$refs.goodsTable.clearFilter();
         // },
         dateSearch() {
+            this.loading = true;
             this.tableDataTime = [];
             for (let i = 0; i < this.tableDataAll.length; i++) {
                 if (this.tableDataAll[i].time >= this.selectDatetime[0] && this.tableDataAll[i].time <= this.selectDatetime[1]) {
@@ -34,8 +36,10 @@ let ordersTable = new Vue({
                 }
             }
             this.unionSearch();
+            this.loading = false;
         },
         onSearch() {
+            this.loading = true;
             if (this.searchContent === '') {
                 this.tableDataSelected = this.tableDataAll;
             } else if (this.selectedType === 'orderID') {
@@ -59,6 +63,7 @@ let ordersTable = new Vue({
             }
 
             this.unionSearch();
+            this.loading = false;
         },
         unionSearch() {
             this.tableDataResult = [];
@@ -82,6 +87,7 @@ let ordersTable = new Vue({
             return row[property] === value;
         },
         getOrdersList() {
+            this.loading = true;
             $.ajax({
                 url: `${url}/requests/admin/order`,
                 method: 'get',
@@ -102,10 +108,10 @@ let ordersTable = new Vue({
                             this.tableDataTime = this.tableDataAll;
                             this.tableDataSelected = this.tableDataAll;
                         }
-
                     } else {
                         console.log(response);
                     }
+                    this.loading = false;
                 }
             })
         },

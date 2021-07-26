@@ -283,7 +283,7 @@
 
                                         <el-table
                                                 :data="tableData.slice((currentPage - 1) * pageSize, currentPage * pageSize)"
-                                                style="width: 100%" class="table table-bordered">
+                                                style="width: 100%" class="table table-bordered" v-loading="loading">
                                             <el-table-column type="expand">
                                                 <template slot-scope="props">
                                                     <el-form label-position="left" inline class="demo-table-expand">

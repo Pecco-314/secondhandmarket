@@ -221,6 +221,7 @@ function modifyCollection(th, itemId, state, callback) {
             let response = JSON.parse(responseStr);
             if (response.status === 10200) {
                 th.$message({
+                    duration: 600,
                     message: '操作成功',
                     type: 'success'
                 });

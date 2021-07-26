@@ -170,6 +170,7 @@ let shopApp = new Vue({
         select(selection) {
             this.options.forEach(e => e.selectState = (e.value === selection ? 'active' : ''))
             this.itemFilter.type = selection;
+            this.itemFilter.checkCondition = 'TRUE';
             this.getSearchResult();
         },
         getSearchResult() {

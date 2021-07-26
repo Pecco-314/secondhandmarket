@@ -291,7 +291,7 @@
                                     <div id="userTable">
                                         <el-table
                                                 :data="tableData.slice((currentPage - 1) * pageSize, currentPage * pageSize)"
-                                                style="width: 100%" class="table table-bordered">
+                                                style="width: 100%" class="table table-bordered" v-loading="loading">
                                             <el-table-column label="序号" width="80px">
                                                 <template slot-scope="scope">
                                                     {{ scope.$index + (currentPage - 1) * pageSize + 1 }}

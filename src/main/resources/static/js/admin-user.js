@@ -94,22 +94,24 @@ let userTableForm = new Vue({
             currentId: '',
             currentPage: 1,
             pageSize: 20,
+            loading: true,
         },
 
         methods: {
             getUserList() {
+                this.loading = true;
                 $.ajax({
                     url: `${url}/requests/admin/users`,
                     method: 'get',
                     contentType: "application/json;charset=utf-8",
                     success: (responseStr) => {
-                        console.log(responseStr);
                         let response = JSON.parse(responseStr);
                         if (response.status === 50200) {
                             this.tableData = response.data;
                         } else {
                             alert(`${response.message}（状态码：${response.status}）`);
                         }
+                        this.loading = false;
                     }
                 });
             },
@@ -136,10 +138,14 @@ let userTableForm = new Vue({
                         let response = JSON.parse(responseStr);
                         if (response.status === 50200) {
                             this.clear();
-                            confirm("更新成功");
+                            this.$message({
+                                message: '操作成功',
+                                duration: 600,
+                                type: 'success'
+                            });
                             userTableForm.getUserList();
                         } else {
-                            alert(`${response.message}（状态码：${response.status}）`);
+                            this.$message.error('操作失败');
                         }
                     }
                 })
@@ -157,10 +163,14 @@ let userTableForm = new Vue({
                         let response = JSON.parse(responseStr);
                         if (response.status === 50200) {
                             this.dialogVisibleForDelete = false;
-                            confirm("删除成功");
+                            this.$message({
+                                message: '操作成功',
+                                duration: 600,
+                                type: 'success'
+                            })
                             userTableForm.getUserList();
                         } else {
-                            alert(`${response.message}（状态码：${response.status}）`);
+                            this.$message.error('操作失败');
                         }
                     }
                 })
