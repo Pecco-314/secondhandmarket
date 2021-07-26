@@ -27,7 +27,7 @@ public class OrderDaoOption {
                 "values(:buyer_id, :seller_id, :item_id, :quantity, :ordering_time, :receiverName, :phoneNumber, :campus, :dorm, :detailed_address,:state)";
         Map<String, Object> param = new HashMap<>();
         SqlParameterSource parameters = new MapSqlParameterSource().addValue("item_id", order.getItem()).addValue("buyer_id", order.getBuyer())
-                .addValue("seller_id", order.getSeller()).addValue( "ordering_time", order.getTime())
+                .addValue("seller_id", order.getSeller()).addValue("ordering_time", order.getTime())
                 .addValue("quantity", order.getQuantity()).addValue("phoneNumber", order.getPhoneNumber())
                 .addValue("receiverName", order.getReceiverName()).addValue("dorm", order.getDorm())
                 .addValue("campus", order.getCampus()).addValue("detailed_address", order.getDetailedAddress())
@@ -113,40 +113,47 @@ public class OrderDaoOption {
 
         sql.append("select * from orders");
 
-        if(filter.getBuyer() != null) {
-            sql.append(" where buyer_id=:buyer_id");
+        if (filter.getOrderId() != null) {
+            sql.append(" where order_id=:order_id");
             has_where = true;
 
-            param.put("buyer_id", filter.getBuyer());
-        }
-
-        if (filter.getSeller() != null) {
-            if(!has_where) {
-                sql.append(" where seller_id=:seller_id");
+            param.put("order_id", filter.getOrderId());
+        } else {
+            if (filter.getBuyer() != null) {
+                sql.append(" where buyer_id=:buyer_id");
                 has_where = true;
-            } else {
-                sql.append(" and seller_id=:seller_id");
-            }
-            param.put("seller_id", filter.getSeller());
-        }
 
-        if(filter.getItem() != null) {
-            if(!has_where) {
-                sql.append(" where item_id=:item_id");
-                has_where = true;
-            } else {
-                sql.append(" and item_id=:item_id");
+                param.put("buyer_id", filter.getBuyer());
             }
-            param.put("item_id", filter.getItem());
-        }
 
-        if(filter.getState() != null) {
-            if(!has_where) {
-                sql.append(" where state=:state");
-            } else {
-                sql.append(" and state=:state");
+            if (filter.getSeller() != null) {
+                if (!has_where) {
+                    sql.append(" where seller_id=:seller_id");
+                    has_where = true;
+                } else {
+                    sql.append(" and seller_id=:seller_id");
+                }
+                param.put("seller_id", filter.getSeller());
             }
-            param.put("state", filter.getState().toString());
+
+            if (filter.getItem() != null) {
+                if (!has_where) {
+                    sql.append(" where item_id=:item_id");
+                    has_where = true;
+                } else {
+                    sql.append(" and item_id=:item_id");
+                }
+                param.put("item_id", filter.getItem());
+            }
+
+            if (filter.getState() != null) {
+                if (!has_where) {
+                    sql.append(" where state=:state");
+                } else {
+                    sql.append(" and state=:state");
+                }
+                param.put("state", filter.getState().toString());
+            }
         }
 
         try {

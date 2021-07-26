@@ -218,28 +218,6 @@ let paidButton = new Vue({
     }
 });
 
-function changeOrderState(order, state) {
-    let orderData = {
-        userId: $.cookie('id'),
-        token: $.cookie('token'),
-        orderId: order,
-        state: state,
-    };
-    return $.ajax({
-        url: `${url}/requests/user/orderChecked`,
-        method: 'post',
-        data: JSON.stringify(orderData),
-        contentType: "application/json;charset=utf-8",
-        success: (responseStr) => {
-            let response = JSON.parse(responseStr);
-            if (response.status === 40200) {
-            } else {
-                alert(`${response.message}（状态码：${response.status}）`);
-            }
-        }
-    })
-}
-
 $(() => {
         getUserInfo((response) => {
             checkoutForm.form.phoneNumber = response.data.phoneNumber;
