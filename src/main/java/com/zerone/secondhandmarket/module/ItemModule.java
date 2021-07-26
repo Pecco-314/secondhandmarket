@@ -62,7 +62,7 @@ public class ItemModule {
     public static Result getItemCount(ItemService itemService, ItemFilter filter) {
         Integer count = itemService.getItemCount(filter);
 
-        if(count == null)
+        if (count == null)
             return new Result(Status.ITEM_ERROR, "", null);
 
         return new Result(Status.ITEM_OK, "", count);
@@ -125,8 +125,7 @@ public class ItemModule {
             item.setQuantity(sellingItemMessage.getQuantity());
             item.setPrice(sellingItemMessage.getPrice());
             item.setReleaseTime(DateFormatter.dateToString(new Date()));
-            //TODO：暂时使其审核通过，有了审核功能再改
-            item.setCheckCondition(ItemCheckCondition.TRUE);
+            item.setCheckCondition(ItemCheckCondition.UNCHECKED);
 
             if (sellingItemMessage.getOriginalPrice() != null)
                 item.setOriginalPrice(sellingItemMessage.getOriginalPrice());
