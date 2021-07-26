@@ -212,18 +212,24 @@ let itemsForm = new Vue({
             quantity: 0,
             price: 0.0,
             introduction: '',
-            imageList: [],
+            imagesForPost: [],   //用于传送
+            imageList: [],      //用于显示
         },
         currentId: '',
     },
     methods: {
-        onPostImageSuccessfully(response, file) {
-            setTimeout("this.form.imageList.push(file)", 1000);
-            console.log(this.form.imageList);
+        onPostImageSuccessfully(response, file, fileList) {
+            // let that = this;
+            // setTimeout("this.pushImage(file);", 1);
+            this.form.imagesForPost.push(file);
+            // console.log(this.form.imagesForPost);
+            // console.log(this.form.imageList);
         },
         onRemoveImage(file) {
-            this.form.imageList = removeIf(this.form.imageList, f => f.uid === file.uid);
-            console.log(this.form.imageList);
+            // let that = this;
+            // setTimeout("this.removeImage(file)", 1);
+            this.form.imagesForPost = removeIf(this.form.imagesForPost, f => f.uid === file.uid);
+            // console.log(this.form.imagesForPost);
         },
         getItemList() {
             let userId = $.cookie("id");
@@ -251,6 +257,7 @@ let itemsForm = new Vue({
         },
         openUpdateDialog(item) {
             this.form.imageList = [];
+            this.form.imagesForPost = [];
             this.dialogVisibleForUpdate = true;
             this.currentId = item.id;
             this.form.name = item.name;
@@ -268,6 +275,7 @@ let itemsForm = new Vue({
                     }
                 }
                 this.form.imageList.push(newFile);
+                this.form.imagesForPost.push(newFile);
             }
             console.log(this.form.imageList);
             console.log(this.currentId);
@@ -280,7 +288,7 @@ let itemsForm = new Vue({
         updateItem() {
             //获取当前文件信息
             let images = [];
-            for (const file of this.form.imageList) {
+            for (const file of this.form.imagesForPost) {
                 images.push(file.response.data[0]);
             }
             let identification = {
