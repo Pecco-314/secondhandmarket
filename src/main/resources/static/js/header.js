@@ -37,7 +37,7 @@ Vue.component('page-header', {
 
     mounted() {
         $.ajax({
-            url: `${url}/requests/cart/info`,
+            url: `${url}/requests/cart/count`,
             method: 'post',
             data: JSON.stringify({
                 userID: $.cookie('id'),
@@ -46,8 +46,7 @@ Vue.component('page-header', {
             contentType: "application/json;charset=utf-8",
             success: (responseStr) => {
                 let response = JSON.parse(responseStr);
-                console.log(response)
-                this.countCart = response.data.length;
+                this.countCart = response.data;
             }
         })
     },

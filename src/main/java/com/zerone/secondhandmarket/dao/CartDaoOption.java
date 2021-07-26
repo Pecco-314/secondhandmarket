@@ -86,12 +86,13 @@ public class CartDaoOption {
     }
 
     public Integer getCartCount(int userId) {
-        String sql = "select COUNT(*) from shoppingcart where user_id=:user_id";
+        String sql = "select COUNT(*) _count from shoppingcart where user_id=:user_id";
         Map<String, Object> param = new HashMap<>();
         param.put("user_id", userId);
         try {
             return jdbcTemplate.query(sql, param, new CountRowMapper()).get(0);
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
