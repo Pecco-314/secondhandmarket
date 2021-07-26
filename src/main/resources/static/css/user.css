@@ -13,11 +13,11 @@
     border-radius: 6px;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-     width: 100%;
     height: 148px;
     margin: 10px 8px 8px 0;
     display: inline-block;
 }
+
 .el-upload--picture-card {
     background-color: #fbfdff;
     border: 1px dashed #c0ccda;
@@ -57,4 +57,19 @@
 }
 .el-select .el-input__inner:focus {
     border-color: #e8b43f;
+}
+.checkout-order .checkout-product .modify-item li {
+    position: relative;
+    padding: 30px;
+    padding-left: 100px;
+    margin-bottom: 0;
+}
+
+.checkout-order .checkout-product .modify-item li img{
+    /*width: 80px;*/
+    /*height: 80px;*/
+    background-color: #F6F6F6;
+    position: absolute;
+    left: 0;
+    top: 0px;
 }
