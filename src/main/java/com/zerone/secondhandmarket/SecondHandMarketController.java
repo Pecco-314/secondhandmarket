@@ -1,9 +1,12 @@
 package com.zerone.secondhandmarket;
 
 import com.zerone.secondhandmarket.service.*;
+import com.zerone.secondhandmarket.tools.Router;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class SecondHandMarketController {
@@ -25,7 +28,7 @@ public class SecondHandMarketController {
     WishlistService wishlistService = new WishlistService();
 
     @RequestMapping("/")
-    public String run() {
+    public String run(HttpServletRequest request) {
 //        Wishlist wishlist=new Wishlist(100004,88);
 //        wishlistService.insertWishlist(wishlist);
 //        wishlistService.getWishlistByUserId(100004);
@@ -108,7 +111,7 @@ public class SecondHandMarketController {
 //        for (Order cart0 : orders)
 //            System.out.println(cart0);
 //        System.out.println(CodeProcessor.decode("4e5c4f484d55"));
-        return "index";
+        return Router.routerForUserAndVistor(request, "index");
     }
 
 }
