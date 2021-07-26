@@ -74,7 +74,7 @@ public class OrderModule {
     public static Result cancelOrder(OrderService service, OrderFilter filter) {
         try {
             List<Order> list = service.getOrderListByFilter(filter);
-            System.out.println(list);
+
             if (list == null || list.size() != 1) {
                 return new Result(Status.ORDER_NOT_UNIQUE, "符合条件的订单不存在或不唯一", null);
             }
