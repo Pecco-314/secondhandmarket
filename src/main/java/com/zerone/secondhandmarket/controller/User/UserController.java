@@ -11,12 +11,14 @@ import com.zerone.secondhandmarket.module.UserModule;
 import com.zerone.secondhandmarket.service.UserService;
 import com.zerone.secondhandmarket.tools.CodeProcessor;
 import com.zerone.secondhandmarket.tools.JSONMapper;
+import com.zerone.secondhandmarket.tools.Router;
 import com.zerone.secondhandmarket.viewobject.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.List;
@@ -27,16 +29,18 @@ public class UserController {
     private UserService userService = new UserService();
 
     @RequestMapping("/wishlist")
-    public String openWishlistPage() { return "wishlist"; }
+    public String openWishlistPage(HttpServletRequest request) {
+        return Router.routerForUser(request, "wishlist");
+    }
 
     @RequestMapping("/user")
-    public String openUserPage() {
-        return "my-account";
+    public String openUserPage(HttpServletRequest request) {
+        return Router.routerForUser(request, "my-account");
     }
 
     @RequestMapping("/checkout")
-    public String openCheckoutPage() {
-        return "checkout";
+    public String openCheckoutPage(HttpServletRequest request) {
+        return Router.routerForUser(request, "checkout");
     }
 
     //获取用户信息
@@ -85,7 +89,7 @@ public class UserController {
         Result result;
         if (CodeProcessor.validateIdToken(userHeadModificationMessage.getUserID(), userHeadModificationMessage.getToken())) {
             User user = userService.getUserById(userHeadModificationMessage.getUserID());
-            
+
             //根据更改信息设置用户的信息
             user.setImagePath(userHeadModificationMessage.getImageUrl());
 

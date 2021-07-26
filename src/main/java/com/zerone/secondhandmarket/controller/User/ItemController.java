@@ -12,12 +12,14 @@ import com.zerone.secondhandmarket.service.ItemService;
 import com.zerone.secondhandmarket.service.TagsService;
 import com.zerone.secondhandmarket.tools.CodeProcessor;
 import com.zerone.secondhandmarket.tools.JSONMapper;
+import com.zerone.secondhandmarket.tools.Router;
 import com.zerone.secondhandmarket.viewobject.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileInputStream;
 import java.net.URLDecoder;
@@ -34,8 +36,8 @@ public class ItemController {
     private ItemImageService itemImageService = new ItemImageService();
 
     @RequestMapping("/post")
-    public String openPostPage() {
-        return "post";
+    public String openPostPage(HttpServletRequest request) {
+        return Router.routerForUser(request, "post");
     }
 
     @RequestMapping("/item")

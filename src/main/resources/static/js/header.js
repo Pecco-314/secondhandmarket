@@ -36,19 +36,21 @@ Vue.component('page-header', {
     },
 
     mounted() {
-        $.ajax({
-            url: `${url}/requests/cart/count`,
-            method: 'post',
-            data: JSON.stringify({
-                userID: $.cookie('id'),
-                token: $.cookie('token'),
-            }),
-            contentType: "application/json;charset=utf-8",
-            success: (responseStr) => {
-                let response = JSON.parse(responseStr);
-                this.countCart = response.data;
-            }
-        })
+        if (this.isLogin) {
+            $.ajax({
+                url: `${url}/requests/cart/count`,
+                method: 'post',
+                data: JSON.stringify({
+                    userID: $.cookie('id'),
+                    token: $.cookie('token'),
+                }),
+                contentType: "application/json;charset=utf-8",
+                success: (responseStr) => {
+                    let response = JSON.parse(responseStr);
+                    this.countCart = response.data;
+                }
+            })
+        }
     },
 
     methods: {

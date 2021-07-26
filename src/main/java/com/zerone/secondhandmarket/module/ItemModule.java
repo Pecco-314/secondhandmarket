@@ -29,6 +29,13 @@ public class ItemModule {
                 itemList.remove(i);
             }
         }
+        //筛选出审核通过的物品
+        for (int i = itemList.size() - 1; i >= 0; i--) {
+            if (!(itemList.get(i).getCheckCondition() == ItemCheckCondition.TRUE)) {
+                itemList.remove(i);
+            }
+        }
+
         int size = itemList.size();
         itemList = itemList.subList(Math.max(size - itemsInHomepage, 0), size);
         Collections.reverse(itemList);

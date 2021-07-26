@@ -4,10 +4,13 @@ import com.zerone.secondhandmarket.entity.User;
 import com.zerone.secondhandmarket.message.UserModificationByAdministratorMessage;
 import com.zerone.secondhandmarket.module.UserModule;
 import com.zerone.secondhandmarket.service.UserService;
+import com.zerone.secondhandmarket.tools.Router;
 import com.zerone.secondhandmarket.viewobject.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller("AdminUser")
 public class UserController {
@@ -15,8 +18,8 @@ public class UserController {
     private UserService userService = new UserService();
 
     @RequestMapping("/admin-user")
-    public String openAdminUserPage() {
-        return "tables-user";
+    public String openAdminUserPage(HttpServletRequest request) {
+        return Router.routerForAdmin(request, "tables-user");
     }
 
     //获取所有用户列表

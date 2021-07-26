@@ -58,3 +58,7 @@
 .el-select .el-input__inner:focus {
     border-color: #e8b43f;
 }
+.status-icon {
+    display:inline-block;
+    margin-left: 2px
+}

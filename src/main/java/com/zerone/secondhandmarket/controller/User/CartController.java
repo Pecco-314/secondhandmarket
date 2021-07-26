@@ -7,6 +7,7 @@ import com.zerone.secondhandmarket.message.UserTokenMessage;
 import com.zerone.secondhandmarket.module.CartModule;
 import com.zerone.secondhandmarket.service.CartService;
 import com.zerone.secondhandmarket.tools.CodeProcessor;
+import com.zerone.secondhandmarket.tools.Router;
 import com.zerone.secondhandmarket.viewobject.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,14 +16,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller("OrdinaryShoppingCart")
 public class CartController {
     @Autowired
     private CartService cartService = new CartService();
 
     @RequestMapping("/cart")
-    public String openCartPage() {
-        return "cart";
+    public String openCartPage(HttpServletRequest request) {
+        return Router.routerForUser(request, "cart");
     }
 
     @ResponseBody
