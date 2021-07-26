@@ -151,7 +151,7 @@
                                     <ul class="checkout-product" id="myItems">
                                         <li v-for="item in items" :key="item.itemId">
 
-                                            <img :src=item.imageurl alt="Images">
+                                            <img :src=item.imageurl alt="Images" style="width: 80px;height: 80px;background-color: #F6F6F6;position: absolute;left: 0;top: 20px;">
                                             <div class="price-tag" style="left: 12%">
                                                 <h3><a :href=item.url class="ellipsis-type"
                                                        style="text-overflow: ellipsis">{{item.name}}</a></h3>
@@ -183,7 +183,7 @@
                                             <br>
                                         </li>
                                         <el-dialog title="修改物品" :before-close="clear"
-                                                   :visible.sync="dialogVisibleForUpdate" width="60%">
+                                                   :visible.sync="dialogVisibleForUpdate" width="50%">
                                             <el-form ref="form" :model="form" label-width="80px">
                                                 <el-form-item label="物品名称">
                                                     <el-input v-model="form.name"></el-input>
@@ -203,6 +203,7 @@
                                                     </el-input>
                                                 </el-form-item>
                                                 <el-form-item label="图片上传">
+
                                                     <el-upload
                                                             name="multipartfiles"
                                                             action="http://localhost:8088/requests/upload/image"
@@ -233,9 +234,11 @@
                                                     </span>
                                         </el-dialog>
                                     </ul>
+
                                     <div class="col-lg-12 col-md-12 text-center">
                                     </div>
                                 </div>
+
                             </div>
                         </div>
 
@@ -261,7 +264,7 @@
                                         <span style="margin-left: 84px">操作</span></h3>
                                     <ul class="checkout-product" v-show="orders.length">
                                         <li v-for="order in orders" :key="order.id">
-                                            <img :src=order.imageurl alt="Images">
+                                            <img :src=order.imageurl alt="Images" style="width: 80px;height: 80px;background-color: #F6F6F6;position: absolute;left: 0;top: 20px;">
                                             <div class="price-tag" style="left: 12%">
                                                 <h3><a :href=order.url class="ellipsis-type"
                                                        style="text-overflow: ellipsis">{{order.name}}</a></h3>
@@ -361,8 +364,8 @@
                                         <span style="margin-left: 84px">操作</span></h3>
                                     <ul v-show="orders.length" class="checkout-product">
                                         <li v-for="order in orders" :key="order.id">
-                                            <img :src=order.imageurl alt="Images">
-                                            <div class="price-tag" style="left: 12%;top:45%">
+                                            <img :src=order.imageurl alt="Images" style="width: 80px;height: 80px;background-color: #F6F6F6;position: absolute;left: 0;top: 20px;">
+                                            <div class="price-tag" style="left: 12%">
                                                 <h3><a :href=order.url class="ellipsis-type"
                                                        style="text-overflow: ellipsis">{{order.name}}</a></h3>
                                             </div>
