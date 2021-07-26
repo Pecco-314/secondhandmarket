@@ -7,10 +7,13 @@ import com.zerone.secondhandmarket.module.ItemModule;
 import com.zerone.secondhandmarket.service.ItemImageService;
 import com.zerone.secondhandmarket.service.ItemService;
 import com.zerone.secondhandmarket.service.TagsService;
+import com.zerone.secondhandmarket.tools.Router;
 import com.zerone.secondhandmarket.viewobject.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 @Controller("AdminItem")
@@ -23,10 +26,9 @@ public class ItemController {
     private TagsService tagsService = new TagsService();
 
     @RequestMapping("/admin-item")
-    public String openAdminItemPage() {
-        return "tables-goods";
+    public String openAdminItemPage(HttpServletRequest request) {
+        return Router.routerForAdmin(request, "tables-goods");
     }
-
 
     @ResponseBody
     @GetMapping("/requests/admin/items")

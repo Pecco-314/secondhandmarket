@@ -3169,7 +3169,8 @@
 }
 
 .bxs-truck:before {
-    content: "\ebad"
+    content: "\ebad";
+    color: rgb(31,110,169);
 }
 
 .bxs-t-shirt:before {
@@ -4009,7 +4010,8 @@
 }
 
 .bx-check-circle:before {
-    content: "\ec7f"
+    content: "\ec7f";
+    color: green;
 }
 
 .bx-check-double:before {
@@ -5405,7 +5407,8 @@
 }
 
 .bx-package:before {
-    content: "\eddc"
+    content: "\eddc";
+    color: brown;
 }
 
 .bx-paint:before {
@@ -6213,7 +6216,8 @@
 }
 
 .bx-wallet-alt:before {
-    content: "\eea6"
+    content: "\eea6";
+    color: lightslategray;
 }
 
 .bx-water:before {
@@ -6297,7 +6301,8 @@
 }
 
 .bx-x-circle:before {
-    content: "\eebb"
+    content: "\eebb";
+    color: darkred;
 }
 
 .bx-yen:before {

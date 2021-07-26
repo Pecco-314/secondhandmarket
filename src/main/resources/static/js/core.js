@@ -88,24 +88,26 @@ function getUserInfoByAdmin(buyer, callback) {
 }
 
 function getUserInfo(callback) {
-    let identification = {
-        userID: $.cookie("id"),
-        token: $.cookie("token")
-    };
-    $.ajax({
-        url: `${url}/requests/user/info`,
-        method: 'post',
-        data: JSON.stringify(identification),
-        contentType: "application/json;charset=utf-8",
-        success: (responseStr) => {
-            let response = JSON.parse(responseStr);
-            if (response.status === 50200) {
-                callback(response);
-            } else {
-                alert(`${response.message}（状态码：${response.status}）`);
+    if ($.cookie("id")) {
+        let identification = {
+            userID: $.cookie("id"),
+            token: $.cookie("token")
+        };
+        $.ajax({
+            url: `${url}/requests/user/info`,
+            method: 'post',
+            data: JSON.stringify(identification),
+            contentType: "application/json;charset=utf-8",
+            success: (responseStr) => {
+                let response = JSON.parse(responseStr);
+                if (response.status === 50200) {
+                    callback(response);
+                } else {
+                    alert(`${response.message}（状态码：${response.status}）`);
+                }
             }
-        }
-    })
+        })
+    }
 }
 
 function getItemInfo(id, callback) {
@@ -167,42 +169,46 @@ function clearCart(callback) {
 }
 
 function getWishList(callback) {
-    let identification = {
-        userID: $.cookie("id"),
-        token: $.cookie("token"),
-    };
-    $.ajax({
-        url: `${url}/requests/user/wishlist`,
-        method: 'post',
-        data: JSON.stringify(identification),
-        contentType: "application/json;charset=utf-8",
-        async: false,//同步
-        success: (responseStr) => {
-            let response = JSON.parse(responseStr);
-            if (response.status === 10200) {
-                callback(response);
+    if ($.cookie("id")) {
+        let identification = {
+            userID: $.cookie("id"),
+            token: $.cookie("token"),
+        };
+        $.ajax({
+            url: `${url}/requests/user/wishlist`,
+            method: 'post',
+            data: JSON.stringify(identification),
+            contentType: "application/json;charset=utf-8",
+            async: false,//同步
+            success: (responseStr) => {
+                let response = JSON.parse(responseStr);
+                if (response.status === 10200) {
+                    callback(response);
+                }
             }
-        }
-    });
+        });
+    }
 }
 
 function getItemCollectedInfo(itemId, callback) {
-    let identification = {
-        userId: $.cookie("id"),
-        token: $.cookie("token"),
-        itemId: itemId,
-    };
-    $.ajax({
-        url: `${url}/requests/user/wishlist/exists`,
-        method: 'post',
-        data: JSON.stringify(identification),
-        contentType: "application/json;charset=utf-8",
-        async: false,//同步
-        success: (responseStr) => {
-            let response = JSON.parse(responseStr);
-            callback(response);
-        }
-    });
+    if ($.cookie("id")) {
+        let identification = {
+            userId: $.cookie("id"),
+            token: $.cookie("token"),
+            itemId: itemId,
+        };
+        $.ajax({
+            url: `${url}/requests/user/wishlist/exists`,
+            method: 'post',
+            data: JSON.stringify(identification),
+            contentType: "application/json;charset=utf-8",
+            async: false,//同步
+            success: (responseStr) => {
+                let response = JSON.parse(responseStr);
+                callback(response);
+            }
+        });
+    }
 }
 
 function modifyCollection(th, itemId, state, callback) {

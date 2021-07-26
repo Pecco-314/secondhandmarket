@@ -58,6 +58,10 @@
 .el-select .el-input__inner:focus {
     border-color: #e8b43f;
 }
+.status-icon {
+    display:inline-block;
+    margin-left: 2px
+}
 .checkout-order .checkout-product .modify-item li {
     position: relative;
     padding: 30px;

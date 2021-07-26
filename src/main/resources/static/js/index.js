@@ -25,6 +25,7 @@ let indexForm = new Vue({
                         getWishList(response => {
                             this.wishList = response.data;
                         });
+
                         for (let i = 0; i < this.items.length; i++) {
                             if (this.items[i].coverPath == null)
                                 this.items[i].imageurl = `../img/null2.png`;
@@ -40,6 +41,7 @@ let indexForm = new Vue({
                                 this.items[i].isCollected = false;
                             }
                         }
+
                         this.loading = false;
                     } else {
                         alert(`${response.message}（状态码：${response.status}）`);

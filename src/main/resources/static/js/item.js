@@ -46,21 +46,16 @@ let itemApp = new Vue({
         },
 
         openContactDialog(item) {
-            if ($.cookie('id')) {
-                this. dialogVisibleForContact = true;
-                getUserInfoByAdmin(this.item.seller, response => {
+            this.dialogVisibleForContact = true;
+            getUserInfoByAdmin(this.item.seller, response => {
 
-                    this.sellerEmail=response.data.emailAddress;
-                    if(response.data.phoneNumber===null)this.sellerPhone='暂无电话信息';
-                    else
-                    this.sellerPhone=response.data.phoneNumber;
-                    this.sellerName=response.data.nickname;
+                this.sellerEmail = response.data.emailAddress;
+                if (response.data.phoneNumber === null) this.sellerPhone = '暂无电话信息';
+                else
+                    this.sellerPhone = response.data.phoneNumber;
+                this.sellerName = response.data.nickname;
 
-                })
-
-            } else {
-                window.open("../login", "_self");
-            }
+            })
         },
         openCartDialog(item) {
             if ($.cookie('id')) {
@@ -108,9 +103,9 @@ let itemApp = new Vue({
             itemTags: [],
             itemImages: [],
         },
-        sellerName:'',
-        sellerPhone:'暂无电话信息',
-        sellerEmail:'',
+        sellerName: '',
+        sellerPhone: '暂无电话信息',
+        sellerEmail: '',
         isCollected: false,
         imageList: [],
         dialogVisibleForCollection: false,
