@@ -33,11 +33,16 @@ public class ItemDaoOption {
         String sql = "insert into item(seller_id, item_name, item_type, quantity, price_now, price_original,introduction, coverPath, checked,release_time)" +
                 "values(:seller_id,:item_name,:item_type,:quantity,:price_now,:price_original,:introduction,:coverPath,:checked,:release_time)";
 
-        SqlParameterSource parameters = new MapSqlParameterSource().addValue("seller_id", item.getSeller())
-                .addValue("item_name", item.getName()).addValue("item_type", item.getType().toString())
-                .addValue("quantity", item.getQuantity()).addValue("price_now", item.getPrice())
-                .addValue("price_original", item.getOriginalPrice()).addValue("introduction", item.getIntroduction())
-                .addValue("coverPath", item.getCoverPath()).addValue("checked", item.getCheckCondition().toString())
+        SqlParameterSource parameters = new MapSqlParameterSource()
+                .addValue("seller_id", item.getSeller())
+                .addValue("item_name", item.getName())
+                .addValue("item_type", item.getType().toString())
+                .addValue("quantity", item.getQuantity())
+                .addValue("price_now", item.getPrice())
+                .addValue("price_original", item.getOriginalPrice())
+                .addValue("introduction", item.getIntroduction())
+                .addValue("coverPath", item.getCoverPath())
+                .addValue("checked", item.getCheckCondition().toString())
                 .addValue("release_time", item.getReleaseTime());
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(sql, parameters, keyHolder, new String[]{"item_id"});
@@ -135,6 +140,7 @@ public class ItemDaoOption {
         boolean hasOrder = false;
         boolean has_where = false;
         String keyword = filter.getKeyword();
+        boolean hasKeyword = keyword != null && !keyword.isEmpty();
 
         if (filter.getSeller() != null) {
             sql.append(" where seller_id=:seller_id");
@@ -177,7 +183,7 @@ public class ItemDaoOption {
             }
             param.put("checked", filter.getCheckCondition().toString());
         }
-        if(keyword != null && !keyword.isEmpty()) {
+        if(hasKeyword) {
             if(!has_where) {
                 sql.append(" where match_ratio(item_name,:item_name)>=49");
             } else {
@@ -206,18 +212,28 @@ public class ItemDaoOption {
                 case ASC:
                     if(hasOrder)
                         sql.append(" ,quantity ASC");
-                    else
+                    else {
                         sql.append(" order by quantity ASC");
+                        hasOrder = true;
+                    }
                     break;
                 case DESC:
                     if(hasOrder)
                         sql.append(" ,quantity DESC");
-                    else
+                    else {
                         sql.append(" order by quantity DESC");
+                        hasOrder = true;
+                    }
                     break;
                 default:
                     break;
             }
+
+        if(hasKeyword)
+            if(hasOrder)
+                sql.append(" ,match_ratio(item_name,:item_name) desc");
+            else
+                sql.append(" order by match_ratio(item_name,:item_name) desc");
 
         if(filter.getPage() != null) {
             sql.append(String.format(" limit %d,%d", IndexGenerator.generateStartIndex(filter.getPage()), IndexGenerator.countPerPage));

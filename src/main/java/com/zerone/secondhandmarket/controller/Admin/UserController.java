@@ -1,6 +1,7 @@
 package com.zerone.secondhandmarket.controller.Admin;
 
 import com.zerone.secondhandmarket.entity.User;
+import com.zerone.secondhandmarket.enums.Status;
 import com.zerone.secondhandmarket.message.UserModificationByAdministratorMessage;
 import com.zerone.secondhandmarket.module.UserModule;
 import com.zerone.secondhandmarket.service.UserService;
@@ -67,6 +68,10 @@ public class UserController {
     public String modifyUser(@RequestBody UserModificationByAdministratorMessage userModificationByAdministratorMessage) {
         //获取id对应的当前用户信息
         User user = userService.getUserById(userModificationByAdministratorMessage.getUserID());
+
+        if(user == null)
+            return new Result(Status.USER_ERROR, "无法获取用户", null).toString();
+
         //设置用户的昵称信息
         user.setNickname(userModificationByAdministratorMessage.getNickName());
 

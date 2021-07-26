@@ -1,5 +1,6 @@
 package com.zerone.secondhandmarket.controller.User;
 
+import com.zerone.secondhandmarket.entity.Item;
 import com.zerone.secondhandmarket.entity.Order;
 import com.zerone.secondhandmarket.enums.OrderState;
 import com.zerone.secondhandmarket.enums.Status;
@@ -53,7 +54,10 @@ public class OrderController {
     @PostMapping("/requests/user/insertOrder")
     public String generateSingleOrder(@RequestBody OrderMessage order) {
         if (CodeProcessor.validateIdToken(order.getBuyer(), order.getToken())) {
-            int seller = itemService.getItemById(order.getItemID()).getSeller();
+            Item item = itemService.getItemById(order.getItemID());
+            if(item == null)
+                return new Result(Status.ORDER_ERROR, "无法获取物品", null).toString();
+            int seller = item.getSeller();
 
             Order newOrder = new Order(0, order.getBuyer(), seller, order.getItemID(), order.getQuantity(), null,
                     order.getReceiverName(), order.getPhoneNumber(),
@@ -73,14 +77,14 @@ public class OrderController {
     @PostMapping("requests/user/orderChecked")
     public String updateOrderState(@RequestBody OrderStateModificationMessage modification) {
         if(CodeProcessor.validateIdToken(modification.getUserId(), modification.getToken())) {
-            Order newOrder = orderService.getOrderByOrderId(modification.getOrderId());
+            Order order = orderService.getOrderByOrderId(modification.getOrderId());
 
-            if(newOrder == null)
+            if(order == null)
                 return new Result(Status.ERROR, "无法获取订单", null).toString();
 
-            newOrder.setState(modification.getState());
+            order.setState(modification.getState());
 
-            Result result = OrderModule.updateOrder(orderService, newOrder);
+            Result result = OrderModule.updateOrder(orderService, order);
 
             return result.toString();
         }

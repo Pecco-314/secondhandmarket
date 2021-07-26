@@ -112,7 +112,7 @@ public class ItemController {
         } catch (Exception e) {
             e.printStackTrace();
 
-            return null;
+            return new Result(Status.ITEM_ERROR, "关键字解析失败", null).toString();
         }
         Result result = ItemModule.getItemsByFilter(itemService, itemImageService, tagsService, filter);
 
@@ -127,7 +127,7 @@ public class ItemController {
         } catch (Exception e) {
             e.printStackTrace();
 
-            return null;
+            return new Result(Status.ITEM_ERROR, "关键字解析失败", null).toString();
         }
         Result result = ItemModule.getItemCount(itemService, filter);
 
@@ -174,6 +174,10 @@ public class ItemController {
     @PostMapping("requests/user/modifyItem")
     public String modifyUserItem(@RequestBody SellingItemModificationMessage sellingItemModificationMessage) {
         Item item = itemService.getItemById(sellingItemModificationMessage.getItemID());
+
+        if(item == null)
+            return new Result(Status.ITEM_ERROR, "获取物品失败", null).toString();
+
         //设置物品信息
         item.setName(sellingItemModificationMessage.getName());
 //        item.setType(sellingItemModificationMessage.getType());
