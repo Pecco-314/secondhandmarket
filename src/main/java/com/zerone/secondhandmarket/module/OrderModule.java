@@ -74,18 +74,18 @@ public class OrderModule {
     public static Result cancelOrder(OrderService service, OrderFilter filter) {
         try {
             List<Order> list = service.getOrderListByFilter(filter);
-
+            System.out.println(list);
             if (list == null || list.size() != 1) {
-                return new Result(Status.ERROR, "", null);
+                return new Result(Status.ERROR, "符合条件的订单不存在或不唯一", null);
             }
 
             service.deleteOrder(list.get(0).getId());
 
-            return new Result(Status.OK, "", null);
+            return new Result(Status.OK, "取消订单成功", null);
         } catch (Exception e) {
             e.printStackTrace();
 
-            return new Result(Status.ERROR, "", null);
+            return new Result(Status.ERROR, "取消订单时发生未知错误", null);
         }
     }
 }

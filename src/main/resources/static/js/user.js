@@ -351,6 +351,7 @@ let ordersForm = new Vue({
             orders: [],
             orderId: '',
             dialogVisibleForConfirm: false,
+            dialogVisibleForCancel: false,
         }
     },
     methods: {
@@ -358,27 +359,34 @@ let ordersForm = new Vue({
             console.log(this.selectedType);
             setOrderList(this, 'buyer', this.selectedType);
         },
-        confirmPressed(id) {
+        onReceive(id) {
             this.dialogVisibleForConfirm = true;
             this.orderId = id;
         },
-        confirm() {
-            $.ajax({
-                url: `${url}/requests/user/orderChecked/${this.orderId}`,
-                method: 'get',
-                contentType: "application/json;charset=utf-8",
-                success: (responseStr) => {
-                    let response = JSON.parse(responseStr);
-                    if (response.status === 40200) {
-                        confirm("更新成功");
-                        this.getOrderList();
-                    } else {
-                        alert(`${response.message}（状态码：${response.status}）`);
-                    }
-                }
-            })
-            this.dialogVisibleForConfirm = false;
+        async confirm() {
+            await changeOrderState(this.orderId, 'FINISHED', ()=>{
+                this.$message({
+                    message: '操作成功',
+                    type: 'success'
+                });
+                this.dialogVisibleForConfirm = false;
+                location.reload();
+            });
         },
+        async confirmCancel() {
+            cancelOrder(this.orderId, ()=>{
+                this.$message({
+                    message: '操作成功',
+                    type: 'success'
+                });
+                this.dialogVisibleForCancel = false;
+                location.reload();
+            });
+        },
+        onCancel(orderId) {
+            this.dialogVisibleForCancel = true;
+            this.orderId = orderId;
+        }
     }
 })
 let sellsForm = new Vue({
@@ -402,31 +410,20 @@ let sellsForm = new Vue({
         getOrderList() {
             setOrderList(this, 'seller', this.selectedType);
         },
-        confirmPressed(id) {
-            this.dialogVisibleForConfirm = true;
-            this.orderId = id;
-            console.log(this.orderId);
-        },
         confirm() {
-            $.ajax({
-                url: `${url}/requests/user/orderChecked/${this.orderId}`,
-                method: 'get',
-                contentType: "application/json;charset=utf-8",
-                success: (responseStr) => {
-                    let response = JSON.parse(responseStr);
-                    if (response.status === 40200) {
-                        confirm("更新成功");
-                        this.getOrderList();
-                    } else {
-                        alert(`${response.message}（状态码：${response.status}）`);
-                    }
-                }
-            })
-            this.dialogVisibleForConfirm = false;
+            changeOrderState(this.orderId, 'UNRECEIVED', ()=>{
+                this.$message({
+                    message: '操作成功',
+                    type: 'success'
+                });
+                this.dialogVisibleForConfirm = false;
+                location.reload();
+            });
         },
-        test() {
-            console.log(this.orders);
-        }
+        onDeliver(orderId) {
+            this.dialogVisibleForConfirm = true;
+            this.orderId = orderId;
+        },
     }
 })
 $(userinfoForm.getUserInfo);
