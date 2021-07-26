@@ -4,12 +4,15 @@ import com.zerone.secondhandmarket.module.ItemModule;
 import com.zerone.secondhandmarket.service.ItemImageService;
 import com.zerone.secondhandmarket.service.ItemService;
 import com.zerone.secondhandmarket.service.TagsService;
+import com.zerone.secondhandmarket.tools.Router;
 import com.zerone.secondhandmarket.viewobject.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller("VisitorItem")
 public class ItemController {
@@ -21,8 +24,8 @@ public class ItemController {
     private TagsService tagsService = new TagsService();
 
     @RequestMapping("/shop")
-    public String userLogin() {
-        return "shop";
+    public String openShopPage(HttpServletRequest request) {
+        return Router.routerForUserAndVistor(request, "shop");
     }
 
     @ResponseBody
