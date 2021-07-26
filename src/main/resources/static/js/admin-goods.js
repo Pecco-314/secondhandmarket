@@ -40,6 +40,10 @@ let goodsTable = new Vue({
                     if (response.status === 30200) {
                         this.tableData = response.data;
                         for (let i = 0; i < this.tableData.length; i++) {
+                            if (this.tableData[i].coverPath === null)
+                                this.tableData[i].imageUrl = `../img/null2.png`;
+                            else
+                                this.tableData[i].imageUrl = `http://1.15.220.157:8088/requests/image/${this.tableData[i].coverPath}`
                             if (this.tableData[i].checkCondition === 'UNCHECKED') {
                                 this.tableData[i].btnIllegalDisabled = false;
                                 this.tableData[i].btnPassDisabled = false;
