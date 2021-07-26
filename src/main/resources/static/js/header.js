@@ -54,6 +54,21 @@ Vue.component('page-header', {
     },
 
     methods: {
+        updateCart() {
+            $.ajax({
+                url: `${url}/requests/cart/count`,
+                method: 'post',
+                data: JSON.stringify({
+                    userID: $.cookie('id'),
+                    token: $.cookie('token'),
+                }),
+                contentType: "application/json;charset=utf-8",
+                success: (responseStr) => {
+                    let response = JSON.parse(responseStr);
+                    this.countCart = response.data;
+                }
+            })
+        },
         getUserInfo() {
             getUserInfo((response) => {
                 if (response.data.imagePath !== null) {

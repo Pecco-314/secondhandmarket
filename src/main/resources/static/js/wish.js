@@ -41,7 +41,7 @@ let wishList = new Vue({
                             message: '加入购物车成功',
                             type: 'success'
                         });
-                        callback(response);
+                        pageHeader.updateCart();
                     } else {
                         this.$message.error('操作失败');
                     }
@@ -50,7 +50,7 @@ let wishList = new Vue({
         },
 
         cancelCollection() {
-            modifyCollection(this,this.currentId, false, response => {
+            modifyCollection(this, this.currentId, false, response => {
                 this.dialogVisibleForCancelCollection = false;
                 this.updateCollectionState();
             });
@@ -86,7 +86,7 @@ let wishList = new Vue({
                                 if (response.data.coverPath === null)
                                     this.$set(this.wishes[i], 'imageUrl', `../img/null2.png`);
                                 else
-                                this.$set(this.wishes[i], 'imageUrl', `http://1.15.220.157:8088/requests/image/${response.data.coverPath}`);
+                                    this.$set(this.wishes[i], 'imageUrl', `http://1.15.220.157:8088/requests/image/${response.data.coverPath}`);
                                 this.$set(this.wishes[i], 'url', `${url}/item?id=${this.wishes[i].itemId}`);
                             })
                         }

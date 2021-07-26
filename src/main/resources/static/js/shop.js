@@ -93,7 +93,7 @@ let shopApp = new Vue({
                             message: '加入购物车成功',
                             type: 'success'
                         });
-                        callback(response);
+                        pageHeader.updateCart();
                     } else {
                         this.$message.error('操作失败');
                     }

@@ -30,17 +30,23 @@ public class UserController {
 
     @RequestMapping("/wishlist")
     public String openWishlistPage(HttpServletRequest request) {
-        return Router.routerForUser(request, "wishlist");
+        String res = Router.routerForUser(request, "wishlist");
+        System.out.println(res);
+        return res;
     }
 
     @RequestMapping("/user")
     public String openUserPage(HttpServletRequest request) {
-        return Router.routerForUser(request, "my-account");
+        String res = Router.routerForUser(request, "my-account");
+        System.out.println(res);
+        return res;
     }
 
     @RequestMapping("/checkout")
     public String openCheckoutPage(HttpServletRequest request) {
-        return Router.routerForUser(request, "checkout");
+        String res = Router.routerForUser(request, "checkout");
+        System.out.println(res);
+        return res;
     }
 
     //获取用户信息

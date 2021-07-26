@@ -19,7 +19,9 @@ public class UserController {
 
     @RequestMapping("/admin-user")
     public String openAdminUserPage(HttpServletRequest request) {
-        return Router.routerForAdmin(request, "tables-user");
+        String res = Router.routerForAdmin(request, "tables-user");
+        System.out.println(res);
+        return res;
     }
 
     //获取所有用户列表

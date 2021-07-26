@@ -37,7 +37,9 @@ public class ItemController {
 
     @RequestMapping("/post")
     public String openPostPage(HttpServletRequest request) {
-        return Router.routerForUser(request, "post");
+        String res = Router.routerForUser(request, "post");
+        System.out.println(res);
+        return res;
     }
 
     @RequestMapping("/item")

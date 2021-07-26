@@ -27,7 +27,9 @@ public class ItemController {
 
     @RequestMapping("/admin-item")
     public String openAdminItemPage(HttpServletRequest request) {
-        return Router.routerForAdmin(request, "tables-goods");
+        String res = Router.routerForAdmin(request, "tables-goods");
+        System.out.println(res);
+        return res;
     }
 
     @ResponseBody
