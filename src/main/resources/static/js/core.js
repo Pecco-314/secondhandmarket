@@ -282,16 +282,18 @@ function changeOrderState(order, state, callback) {
 }
 
 function cancelOrder(order, callback) {
-    let orderData = {
+    let orderFilter = {
+        orderId: order,
         userId: $.cookie('id'),
         token: $.cookie('token'),
-        orderId: order,
+        itemId: null,
         state: null,
     };
+    console.log(orderFilter);
     return $.ajax({
         url: `${url}/requests/user/cancelOrder`,
         method: 'post',
-        data: JSON.stringify(orderData),
+        data: JSON.stringify(orderFilter),
         contentType: "application/json;charset=utf-8",
         success: (responseStr) => {
             let response = JSON.parse(responseStr);

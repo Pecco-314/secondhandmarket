@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor  //无参构造函数
 //select
 public class OrderFilter {
+    private Integer orderId = null;
     private Integer buyer = null;
     private Integer seller = null;
     private Integer item = null;

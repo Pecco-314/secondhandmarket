@@ -381,7 +381,7 @@ let ordersForm = new Vue({
                 location.reload();
             });
         },
-        async confirmCancel() {
+        confirmCancel() {
             cancelOrder(this.orderId, ()=>{
                 this.$message({
                     message: '操作成功',
@@ -442,6 +442,7 @@ $(sellsForm.getOrderList);
 function setOrderList(form, role, state) {
     let userId = $.cookie("id");
     let orderFilter = {
+        orderId: null,
         buyer: role === 'buyer' ? userId : null,
         seller: role === 'seller' ? userId : null,
         item: null,
