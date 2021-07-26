@@ -159,7 +159,10 @@
                                             <br>
                                             <div class="price-tag" style="left: 33%;top:40%">{{item.quantity}}</div>
                                             <div class="price-tag" style="left: 44%;top:40%">￥{{item.price}}</div>
-                                            <div class="price-tag" style="left: 59%;top:40%">{{item.checkCondition}}
+                                            <div class="price-tag" style="left: 57%;top:40%">
+                                                <i v-if="item.checkCondition === '审核未通过'" class="bx bx-x-circle"><div class="status-icon">{{item.checkCondition}}</div></i>
+                                                <i v-if="item.checkCondition === '审核中'" class="bx bx-revision"><div class="status-icon">{{item.checkCondition}}</div></i>
+                                                <i v-if="item.checkCondition === '审核通过'" class="bx bx-check-circle"><div class="status-icon">{{item.checkCondition}}</div></i>
                                             </div>
                                             <div class="price-tag" style="left: 75%;top:35%">
                                                 <el-button type="text" @click="openUpdateDialog(item)">
@@ -249,8 +252,8 @@
                                     <h3 class="title-item"><span style="margin-left: 100px">商品名称</span>
                                         <span style="margin-left: 70px">数量</span><span
                                                 style="margin-left: 75px">金额</span>
-                                        <span style="margin-left: 68px">订单状态</span>
-                                        <span style="margin-left: 90px">操作</span></h3>
+                                        <span style="margin-left: 76px">订单状态</span>
+                                        <span style="margin-left: 84px">操作</span></h3>
                                     <ul class="checkout-product" v-show="orders.length">
                                         <li v-for="order in orders" :key="order.id">
                                             <img :src=order.imageurl alt="Images">
@@ -264,28 +267,32 @@
                                             </div>
                                             <div class="price-tag" style="left: 44%;top:40%">￥{{order.price}}
                                             </div>
-                                            <div class="price-tag" style="left: 59%;top:40%">{{order.state.text}}
+                                            <div class="price-tag" style="left: 59%;top:40%">
+                                                <i v-if="order.state.value === 'UNPAID'" class="bx bx-wallet-alt"><div class="status-icon">{{order.state.text}}</div></i>
+                                                <i v-if="order.state.value === 'UNDELIVERED'" class="bx bx-package"><div class="status-icon">{{order.state.text}}</div></i>
+                                                <i v-if="order.state.value === 'UNRECEIVED'" class="bx bxs-truck"><div class="status-icon">{{order.state.text}}</div></i>
+                                                <i v-if="order.state.value === 'FINISHED'" class="bx bx-check-circle"><div class="status-icon">{{order.state.text}}</div></i>
                                             </div>
                                             <div v-show="order.state.value === 'UNPAID'" class="price-tag"
-                                                 style="left: 75%;top:35%">
+                                                 style="left: 77%;top:35%">
                                                 <el-button type="text">
                                                     付款
                                                 </el-button>
                                             </div>
                                             <div v-show="order.state.value === 'UNDELIVERED'" class="price-tag"
-                                                 style="left: 75%;top:35%">
+                                                 style="left: 77%;top:35%">
                                                 <el-button type="text" @click="onCancel(order.id)">
                                                     取消订单
                                                 </el-button>
                                             </div>
                                             <div v-show="order.state.value === 'UNRECEIVED'" class="price-tag"
-                                                 style="left: 75%;top:35%">
+                                                 style="left: 77%;top:35%">
                                                 <el-button type="text" @click="onReceive(order.id)">
                                                     确认收货
                                                 </el-button>
                                             </div>
                                             <div v-show="order.state.value === 'FINISHED'" class="price-tag"
-                                                 style="left: 75%;top:35%">
+                                                 style="left: 77%;top:35%">
                                                 <el-button type="text">
                                                     填写评价
                                                 </el-button>
@@ -337,12 +344,12 @@
                                     <!--                                    <h2>我的售出</h2>-->
                                     <h3 class="title-item"><span style="margin-left: 100px">商品名称</span><span
                                             style="margin-left: 70px">数量</span><span style="margin-left: 75px">金额</span>
-                                        <span style="margin-left: 68px">订单状态</span><span
-                                                style="margin-left: 90px">操作</span></h3>
+                                        <span style="margin-left: 74px">订单状态</span>
+                                        <span style="margin-left: 84px">操作</span></h3>
                                     <ul v-show="orders.length" class="checkout-product">
                                         <li v-for="order in orders" :key="order.id">
                                             <img :src=order.imageurl alt="Images">
-                                            <div class="price-tag" style="left: 12%">
+                                            <div class="price-tag" style="left: 12%;top:45%">
                                                 <h3><a :href=order.url class="ellipsis-type"
                                                        style="text-overflow: ellipsis">{{order.name}}</a></h3>
                                             </div>
@@ -353,12 +360,15 @@
                                             <div class="price-tag" style="left: 44%;top:40%">￥{{order.price}}
                                             </div>
                                             <div class="price-tag"
-                                                 style="left: 59%;top:40%">
-                                                {{ order.state.text }}
+                                                 style="left: 58.5%;top:40%">
+                                                <i v-if="order.state.value === 'UNPAID'" class="bx bx-wallet-alt"><div class="status-icon">{{order.state.text}}</div></i>
+                                                <i v-if="order.state.value === 'UNDELIVERED'" class="bx bx-package"><div class="status-icon">{{order.state.text}}</div></i>
+                                                <i v-if="order.state.value === 'UNRECEIVED'" class="bx bxs-truck"><div class="status-icon">{{order.state.text}}</div></i>
+                                                <i v-if="order.state.value === 'FINISHED'" class="bx bx-check-circle"><div class="status-icon">{{order.state.text}}</div></i>
                                             </div>
                                             <div v-show="order.state.value === 'UNDELIVERED'"
                                                  class="price-tag"
-                                                 style="left: 75%;top:35%">
+                                                 style="left: 76%;top:35%">
                                                 <el-button type="text" @click="onDeliver(order.id)">
                                                     我已发货
                                                 </el-button>
