@@ -55,7 +55,7 @@ let userinfoForm = new Vue({
                         nickname: this.form.nickname
                     };
                     $.ajax({
-                        url: `${url}/requests/user/head/update`,
+                        url: `${url}/requests/user/info/update`,
                         method: 'post',
                         data: JSON.stringify(identification),
                         contentType: "application/json;charset=utf-8",
@@ -372,7 +372,7 @@ let ordersForm = new Vue({
             this.orderId = id;
         },
         async confirm() {
-            await changeOrderState(this.orderId, 'FINISHED', ()=>{
+            await changeOrderState(this.orderId, 'FINISHED', () => {
                 this.$message({
                     message: '操作成功',
                     type: 'success'
@@ -382,7 +382,7 @@ let ordersForm = new Vue({
             });
         },
         confirmCancel() {
-            cancelOrder(this.orderId, ()=>{
+            cancelOrder(this.orderId, () => {
                 this.$message({
                     message: '操作成功',
                     type: 'success'
@@ -419,7 +419,7 @@ let sellsForm = new Vue({
             setOrderList(this, 'seller', this.selectedType);
         },
         confirm() {
-            changeOrderState(this.orderId, 'UNRECEIVED', ()=>{
+            changeOrderState(this.orderId, 'UNRECEIVED', () => {
                 this.$message({
                     message: '操作成功',
                     type: 'success'
