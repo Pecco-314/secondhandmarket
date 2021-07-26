@@ -115,6 +115,7 @@ function getItemInfo(id, callback) {
         url: `${url}/requests/item/${id}`,
         method: 'get',
         contentType: "application/json;charset=utf-8",
+        async: false,//同步
         success: (responseStr) => {
             let response = JSON.parse(responseStr);
             if (response.status === 30200) {
