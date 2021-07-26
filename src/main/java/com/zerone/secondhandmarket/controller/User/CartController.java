@@ -45,7 +45,7 @@ public class CartController {
     public String getCartCount(@RequestBody UserTokenMessage token) {
         if (CodeProcessor.validateIdToken(token.getUserID(), token.getToken())) {
             Result result = CartModule.getCartCount(cartService, token.getUserID());
-
+            System.out.println(result);
             return result.toString();
         } else {
             return new Result(Status.CART_ERROR, "ID与Token不符", null).toString();

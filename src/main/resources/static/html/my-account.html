@@ -274,13 +274,13 @@
                                             </div>
                                             <div v-show="order.state.value === 'UNDELIVERED'" class="price-tag"
                                                  style="left: 75%;top:35%">
-                                                <el-button type="text">
+                                                <el-button type="text" @click="onCancel(order.id)">
                                                     取消订单
                                                 </el-button>
                                             </div>
                                             <div v-show="order.state.value === 'UNRECEIVED'" class="price-tag"
                                                  style="left: 75%;top:35%">
-                                                <el-button type="text">
+                                                <el-button type="text" @click="onReceive(order.id)">
                                                     确认收货
                                                 </el-button>
                                             </div>
@@ -292,6 +292,15 @@
                                             </div>
                                             <br>
                                         </li>
+                                        <el-dialog title="取消订单" :visible.sync="dialogVisibleForCancel" width="30%">
+                                            是否确定取消订单？
+                                            <span slot="footer" class="dialog-footer">
+                                                <el-button
+                                                        type="primary"
+                                                        @click="confirmCancel">确 定
+                                                </el-button>
+                                            </span>
+                                        </el-dialog>
                                         <el-dialog title="确认收货" :visible.sync="dialogVisibleForConfirm" width="30%">
                                             是否确定已收货？
                                             <span slot="footer" class="dialog-footer">
@@ -347,16 +356,16 @@
                                                  style="left: 59%;top:40%">
                                                 {{ order.state.text }}
                                             </div>
-                                            <div v-show="order.options && order.options.value === 'UNDELIVERED'"
+                                            <div v-show="order.state.value === 'UNDELIVERED'"
                                                  class="price-tag"
                                                  style="left: 75%;top:35%">
-                                                <el-button type="text">
+                                                <el-button type="text" @click="onDeliver(order.id)">
                                                     我已发货
                                                 </el-button>
                                             </div>
                                         </li>
-                                        <el-dialog title="确认收货" :visible.sync="dialogVisibleForConfirm" width="30%">
-                                            是否确定已收货？
+                                        <el-dialog title="确认发货" :visible.sync="dialogVisibleForConfirm" width="30%">
+                                            是否确定已发货？
                                             <span slot="footer" class="dialog-footer">
                                                 <el-button
                                                         @click="dialogVisibleForConfirm = false">取 消
@@ -366,8 +375,7 @@
                                                         @click="confirm">确 定
                                                 </el-button>
                                             </span>
-                                        </el-dialog>
-                                    </ul>
+                                        </el-dialog>                                    </ul>
                                     <el-empty v-show="orders.length === 0" description="暂无订单"></el-empty>
 
                                     <div class="col-lg-12 col-md-12 text-center">

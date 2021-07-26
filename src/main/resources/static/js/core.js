@@ -263,3 +263,51 @@ function delCookie() {
         }
     }
 }
+
+function changeOrderState(order, state, callback) {
+    let orderData = {
+        userId: $.cookie('id'),
+        token: $.cookie('token'),
+        orderId: order,
+        state: state,
+    };
+    return $.ajax({
+        url: `${url}/requests/user/orderChecked`,
+        method: 'post',
+        data: JSON.stringify(orderData),
+        contentType: "application/json;charset=utf-8",
+        success: (responseStr) => {
+            let response = JSON.parse(responseStr);
+            if (response.status === 40200) {
+                callback(response);
+            } else {
+                alert(`${response.message}（状态码：${response.status}）`);
+            }
+        }
+    })
+}
+
+function cancelOrder(order, callback) {
+    let orderFilter = {
+        orderId: order,
+        userId: $.cookie('id'),
+        token: $.cookie('token'),
+        itemId: null,
+        state: null,
+    };
+    console.log(orderFilter);
+    return $.ajax({
+        url: `${url}/requests/user/cancelOrder`,
+        method: 'post',
+        data: JSON.stringify(orderFilter),
+        contentType: "application/json;charset=utf-8",
+        success: (responseStr) => {
+            let response = JSON.parse(responseStr);
+            if (response.status === 40200) {
+                callback(response);
+            } else {
+                alert(`${response.message}（状态码：${response.status}）`);
+            }
+        }
+    })
+}

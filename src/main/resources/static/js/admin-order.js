@@ -100,6 +100,10 @@ let ordersTable = new Vue({
                             getItemInfo(this.tableDataAll[i].item, response => {
                                 this.$set(this.tableDataAll[i], 'money', response.data.price * this.tableDataAll[i].quantity);
                                 this.$set(this.tableDataAll[i], 'name', response.data.name);
+                                if (response.data.coverPath === null)
+                                    this.$set(this.tableDataAll[i], 'imageUrl',`../img/null2.png`);
+                                else
+                                this.$set(this.tableDataAll[i], 'imageUrl',`http://1.15.220.157:8088/requests/image/${response.data.coverPath}`);
                             })
                             getUserInfoByAdmin(this.tableDataAll[i].buyer, response => {
                                 this.$set(this.tableDataAll[i], 'email', response.data.emailAddress);

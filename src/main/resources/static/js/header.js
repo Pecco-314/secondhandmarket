@@ -38,7 +38,7 @@ Vue.component('page-header', {
     mounted() {
         if (this.isLogin) {
             $.ajax({
-                url: `${url}/requests/cart/info`,
+                url: `${url}/requests/cart/count`,
                 method: 'post',
                 data: JSON.stringify({
                     userID: $.cookie('id'),
@@ -47,8 +47,7 @@ Vue.component('page-header', {
                 contentType: "application/json;charset=utf-8",
                 success: (responseStr) => {
                     let response = JSON.parse(responseStr);
-                    console.log(response)
-                    this.countCart = response.data.length;
+                    this.countCart = response.data;
                 }
             })
         }
@@ -62,8 +61,7 @@ Vue.component('page-header', {
                     console.log(this.imageUrl);
                 }
             })
-        }
-        ,
+        },
         onSearch() {
             window.open(`../shop?type=${this.selectedType}&keyword=${this.searchContent}`, "_self")
         },
@@ -76,8 +74,7 @@ Vue.component('page-header', {
         }
     },
 
-    template:
-        `
+    template: `
 <div>
     <header v-if="isMainPage" class="top-header top-header-bg">
         <div class="container">
