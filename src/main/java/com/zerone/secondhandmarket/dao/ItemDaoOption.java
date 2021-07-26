@@ -179,11 +179,11 @@ public class ItemDaoOption {
         }
         if(keyword != null && !keyword.isEmpty()) {
             if(!has_where) {
-                sql.append(" where item_name LIKE :item_name");
+                sql.append(" where levenshtein_ratio(item_name,:item_name)>=49");
             } else {
-                sql.append(" and item_name LIKE :item_name");
+                sql.append(" and levenshtein_ratio(item_name,:item_name)>=49");
             }
-            param.put("item_name", String.format("%%%s%%", keyword));
+            param.put("item_name", String.format("%s", keyword));
         }
 
         if(filter.getPriceOrdering() != null) {
