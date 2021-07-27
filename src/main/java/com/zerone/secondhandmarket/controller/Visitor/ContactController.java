@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 public class ContactController {
     @RequestMapping("/contact")
     public String openContactPage(HttpServletRequest request) {
-        return Router.routerForUserAndVistor(request, "contact");
+        String res = Router.routerForUserAndVistor(request, "contact");
+        System.out.println(res);
+        return res;
+
     }
 }

@@ -2,6 +2,8 @@ let MyCartForm = new Vue({
     el: '#myCart',
     data: {
         carts: [],
+        dialogVisibleForCancel: false,
+        currentId: '',
     },
     methods: {
         returnToShop() {
@@ -21,7 +23,7 @@ let MyCartForm = new Vue({
                         if (response.data.coverPath === null)
                             this.$set(this.carts[i], 'imageUrl', `../img/null2.png`);
                         else
-                        this.$set(this.carts[i], 'imageUrl', `http://1.15.220.157:8088/requests/image/${response.data.coverPath}`);
+                            this.$set(this.carts[i], 'imageUrl', `http://1.15.220.157:8088/requests/image/${response.data.coverPath}`);
                         this.$set(this.carts[i], 'url', `${url}/item?id=${this.carts[i].itemId}`);
                         this.$set(this.carts[i], 'total', this.carts[i].price * this.carts[i].quantity);
                         // this.carts[i].max = response.data.quantity;
@@ -33,6 +35,10 @@ let MyCartForm = new Vue({
                     })
                 }
             });
+        },
+        openCancelDialog(itemID) {
+            this.currentId = itemID;
+            this.dialogVisibleForCancel = true;
         },
         changeQuantity(itemID, quantity) {
             let identification = {
@@ -62,9 +68,15 @@ let MyCartForm = new Vue({
                 }
             })
         },
-        removeCartItem(itemID) {
-            this.changeQuantity(itemID, 0);
-            location.reload();
+        removeCartItem() {
+            this.changeQuantity(this.currentId, 0);
+            this.dialogVisibleForCancel = false;
+            for (let i = 0; i < this.carts.length; i++) {
+                if (this.carts[i].itemId === this.currentId) {
+                    this.carts.splice(i, 1);
+                    break;
+                }
+            }
         }
     }
 })

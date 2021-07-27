@@ -25,7 +25,9 @@ public class ItemController {
 
     @RequestMapping("/shop")
     public String openShopPage(HttpServletRequest request) {
-        return Router.routerForUserAndVistor(request, "shop");
+        String res = Router.routerForUserAndVistor(request, "shop");
+        System.out.println(res);
+        return res;
     }
 
     @ResponseBody

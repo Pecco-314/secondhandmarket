@@ -111,7 +111,9 @@ public class SecondHandMarketController {
 //        for (Order cart0 : orders)
 //            System.out.println(cart0);
 //        System.out.println(CodeProcessor.decode("4e5c4f484d55"));
-        return Router.routerForUserAndVistor(request, "index");
+        String res = Router.routerForUserAndVistor(request, "index");
+        System.out.println(res);
+        return res;
     }
 
 }

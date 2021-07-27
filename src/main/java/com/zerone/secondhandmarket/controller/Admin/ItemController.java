@@ -1,6 +1,7 @@
 package com.zerone.secondhandmarket.controller.Admin;
 
 import com.zerone.secondhandmarket.entity.Item;
+import com.zerone.secondhandmarket.enums.Status;
 import com.zerone.secondhandmarket.message.ItemCheckMessage;
 import com.zerone.secondhandmarket.message.ItemFilter;
 import com.zerone.secondhandmarket.module.ItemModule;
@@ -27,7 +28,9 @@ public class ItemController {
 
     @RequestMapping("/admin-item")
     public String openAdminItemPage(HttpServletRequest request) {
-        return Router.routerForAdmin(request, "tables-goods");
+        String res = Router.routerForAdmin(request, "tables-goods");
+        System.out.println(res);
+        return res;
     }
 
     @ResponseBody
@@ -44,6 +47,10 @@ public class ItemController {
     @PostMapping("/requests/admin/checkItem")
     public String checkItem(@RequestBody ItemCheckMessage message) {
         Item item = itemService.getItemById(message.getItemId());
+
+        if(item == null)
+            return new Result(Status.ITEM_ERROR, "无法获取物品", null).toString();
+
         item.setCheckCondition(message.getCheckCondition());
 
         Result result = ItemModule.modifyUserItem(itemService, itemImageService, tagsService, item, null);

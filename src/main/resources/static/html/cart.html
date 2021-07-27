@@ -138,9 +138,19 @@
                                     <td class="product-subtotal">
                                         <span class="subtotal-amount">￥{{cart.total}}</span>
 
-                                        <a class="remove selectable" @click="removeCartItem(cart.itemId)">
+                                        <a class="remove selectable" @click="openCancelDialog(cart.itemId)">
                                             <i class='bx bx-trash'></i>
                                         </a>
+                                        <el-dialog title="删除" :visible.sync="dialogVisibleForCancel"
+                                                   width="30%">
+                                            是否确定要从购物车中删除该物品 ？
+                                            <span slot="footer" class="dialog-footer">
+                                            <el-button
+                                                    @click="dialogVisibleForCancel = false">取 消</el-button>
+                                            <el-button type="primary"
+                                                       @click="removeCartItem">确 定</el-button>
+                                        </span>
+                                        </el-dialog>
                                     </td>
                                 </tr>
                                 </tbody>

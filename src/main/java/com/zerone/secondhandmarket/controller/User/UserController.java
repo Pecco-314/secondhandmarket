@@ -30,17 +30,23 @@ public class UserController {
 
     @RequestMapping("/wishlist")
     public String openWishlistPage(HttpServletRequest request) {
-        return Router.routerForUser(request, "wishlist");
+        String res = Router.routerForUser(request, "wishlist");
+        System.out.println(res);
+        return res;
     }
 
     @RequestMapping("/user")
     public String openUserPage(HttpServletRequest request) {
-        return Router.routerForUser(request, "my-account");
+        String res = Router.routerForUser(request, "my-account");
+        System.out.println(res);
+        return res;
     }
 
     @RequestMapping("/checkout")
     public String openCheckoutPage(HttpServletRequest request) {
-        return Router.routerForUser(request, "checkout");
+        String res = Router.routerForUser(request, "checkout");
+        System.out.println(res);
+        return res;
     }
 
     //获取用户信息
@@ -70,6 +76,9 @@ public class UserController {
         if (CodeProcessor.validateIdToken(userModificationByUserMessage.getUserID(), userModificationByUserMessage.getToken())) {
             User user = userService.getUserById(userModificationByUserMessage.getUserID());
 
+            if(user == null)
+                return new Result(Status.USER_ERROR, "无法获取用户", null).toString();
+
             //根据更改信息设置用户的信息
             user.setPhoneNumber(userModificationByUserMessage.getTelephone());
             user.setEmailAddress(userModificationByUserMessage.getEmailAddress());
@@ -90,6 +99,9 @@ public class UserController {
         if (CodeProcessor.validateIdToken(userHeadModificationMessage.getUserID(), userHeadModificationMessage.getToken())) {
             User user = userService.getUserById(userHeadModificationMessage.getUserID());
 
+            if(user == null)
+                return new Result(Status.USER_ERROR, "无法获取用户", null).toString();
+
             //根据更改信息设置用户的信息
             user.setImagePath(userHeadModificationMessage.getImageUrl());
 
@@ -108,6 +120,8 @@ public class UserController {
 
         if (CodeProcessor.validateIdToken(passwordModificationMessage.getUserID(), passwordModificationMessage.getToken())) {
             User user = userService.getUserById(passwordModificationMessage.getUserID());
+            if(user == null)
+                return new Result(Status.USER_ERROR, "无法获取用户", null).toString();
             //根据信息修改密码
             if (CodeProcessor.validatePassword(passwordModificationMessage.getOldPassword(), user.getPassword())) {
                 user.setPassword(CodeProcessor.encode(passwordModificationMessage.getNewPassword()));
