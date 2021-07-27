@@ -69,10 +69,10 @@
 
             <div id="sidebar-menu">
                 <ul>
-                    <li>
-                        <a href="index.html" class="waves-effect"><i class="ti-home"></i>
-                            <span>主页</span></a>
-                    </li>
+<!--                    <li>-->
+<!--                        <a href="index.html" class="waves-effect"><i class="ti-home"></i>-->
+<!--                            <span>主页</span></a>-->
+<!--                    </li>-->
 
                     <li>
                         <a href="../admin-user" class="waves-effect"><i class="ion-person-stalker"></i>
@@ -89,10 +89,10 @@
                             <span>订单管理</span> </span></a>
                     </li>
 
-                    <li>
-                        <a href="tables-basic.html" class="waves-effect"><i class="ion-person"></i>
-                            <span>管理员信息</span> <span class="badge badge-success pull-right">8</span></a>
-                    </li>
+<!--                    <li>-->
+<!--                        <a href="tables-basic.html" class="waves-effect"><i class="ion-person"></i>-->
+<!--                            <span>管理员信息</span> <span class="badge badge-success pull-right">8</span></a>-->
+<!--                    </li>-->
 
                 </ul>
             </div>
@@ -208,13 +208,6 @@
                                 <img src="../img/admin_profile.png" alt="user" class="rounded-circle">
                             </a>
                             <div class="dropdown-menu dropdown-menu-right profile-dropdown " id="admin-menu">
-                                <!--                                <a class="dropdown-item" href="#"><i-->
-                                <!--                                        class="mdi mdi-account-circle m-r-5 text-muted"></i> Profile</a>-->
-                                <!--                                <a class="dropdown-item" href="#"><span-->
-                                <!--                                        class="badge badge-success pull-right">5</span><i-->
-                                <!--                                        class="mdi mdi-settings m-r-5 text-muted"></i> Settings</a>-->
-                                <!--                                <a class="dropdown-item" href="#"><i-->
-                                <!--                                        class="mdi mdi-lock-open-outline m-r-5 text-muted"></i> Lock screen</a>-->
                                 <a class="dropdown-item" @click="logout"><i class="mdi mdi-logout m-r-5 text-muted"></i>
                                     退出登录</a>
                             </div>
@@ -362,42 +355,8 @@
                                                 layout="total, sizes, prev, pager, next, jumper"
                                                 :total="tableDataSelected.length">
                                         </el-pagination>
-                                        <!--                                        <el-dialog title="删除" :visible.sync="dialogVisibleForDelete" width="30%">-->
-                                        <!--                                            是否将该订单删除？-->
-                                        <!--                                            <span slot="footer" class="dialog-footer">-->
-                                        <!--                                                <el-button @click="dialogVisibleForDelete = false">取 消</el-button>-->
-                                        <!--                                                <el-button type="primary" @click="deleteOrder">确 定</el-button>-->
-                                        <!--                                            </span>-->
-                                        <!--                                        </el-dialog>-->
                                     </div>
 
-
-                                    <!--                                        <div class="row align-items-center" style="padding-left: 15px">-->
-                                    <!--                                            <div class="col-lg-7 col-md-7">-->
-                                    <!--                                                <div class="top-header-form">-->
-                                    <!--                                                    <form>-->
-                                    <!--                                                        <div class="row">-->
-                                    <!--                                                            <div class="col-lg-4">-->
-                                    <!--                                                                <div class="form-group">-->
-                                    <!--                                                                    <select class="form-control">-->
-                                    <!--                                                                        <option>订单号</option>-->
-                                    <!--                                                                        <option>买家编号</option>-->
-                                    <!--                                                                        <option>买家邮箱</option>-->
-                                    <!--                                                                    </select>-->
-                                    <!--                                                                </div>-->
-                                    <!--                                                            </div>-->
-
-                                    <!--                                                            <div class="col-lg-8 pl-0">-->
-                                    <!--                                                                <div class="form-group search-form">-->
-                                    <!--                                                                    <input type="search" class="form-control"-->
-                                    <!--                                                                           placeholder="Search">-->
-                                    <!--                                                                </div>-->
-                                    <!--                                                            </div>-->
-                                    <!--                                                        </div>-->
-                                    <!--                                                    </form>-->
-                                    <!--                                                </div>-->
-                                    <!--                                            </div>-->
-                                    <!--                                        </div>-->
                                 </div>
                             </div>
                         </div> <!-- end col -->
@@ -419,7 +378,6 @@
 
 </div>
 <!-- END wrapper -->
-
 
 <!-- jQuery  -->
 <script src="../external/vue/js/vue.js"></script>
