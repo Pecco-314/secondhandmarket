@@ -29,7 +29,7 @@
     vertical-align: top;
     margin: 10px 8px 8px 0;
 }
-.el-input__inner {
+.el-select .el-input__inner{
     -webkit-appearance: none;
     background-color: #f1f1f1;
     background-image: none;
@@ -40,7 +40,7 @@
     color: #606266;
     display: inline-block;
     font-size: inherit;
-    height: 50px;
+    height: 36px;
     line-height: 40px;
     outline: 0;
     padding: 0 15px;
@@ -72,4 +72,11 @@
 }
 .el-upload-list li {
     display: inline-block!important;
+}
+.checkout-order .checkout-product li span {
+    text-decoration: underline;
+    text-underline-offset: 2.5px;
+    font-weight: bold;
+    color: #E8B43F;
+    font-size: 16px;
 }
