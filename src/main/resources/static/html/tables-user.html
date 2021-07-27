@@ -252,7 +252,7 @@
                                     <h4 class="mt-0 header-title">用户信息</h4>
 
                                     <div id="addUser" align="right">
-                                        <el-button type="button" @click="dialogVisibleForAdd = true"
+                                        <el-button type="button" @click="dialogVisibleForAdd = true" style="height: 40px; font-size: 14px; width: 80px;"
                                                    class="btn-small btn-primary waves-effect waves-light btn-sm">添加用户
                                         </el-button>
                                         <el-dialog title="添加用户" :visible.sync="dialogVisibleForAdd" width="30%"
@@ -306,14 +306,14 @@
                                                     <div style="float:left">
                                                         <el-button type="button"
                                                                    @click="openUpdateDialog(scope.row)"
-                                                                   class="btn-sm btn-primary waves-effect waves-light">
+                                                                   class="btn-sm btn-primary waves-effect waves-light" style="height: 30px; font-size: 12px; width: 50px;">
                                                             修改
                                                         </el-button>
                                                     </div>
                                                     <div style="display: flex; justify-content: center">
                                                         <el-button type="button"
                                                                    @click="openDeleteDialog(scope.row.id)"
-                                                                   class="btn-sm btn-danger waves-effect waves-light">
+                                                                   class="btn-sm btn-danger waves-effect waves-light" style="height: 30px; font-size: 12px; width: 50px;">
                                                             删除
                                                         </el-button>
                                                     </div>

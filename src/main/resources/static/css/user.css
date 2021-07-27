@@ -62,24 +62,14 @@
     display:inline-block;
     margin-left: 2px
 }
-.checkout-order .checkout-product .modify-item li {
-    position: relative;
-    padding: 30px;
-    padding-left: 100px;
-    margin-bottom: 0;
-}
 
-.checkout-order .checkout-product .modify-item li img{
-    /*width: 80px;*/
-    /*height: 80px;*/
-    background-color: #F6F6F6;
-    position: absolute;
-    left: 0;
-    top: 0px;
-}
+
 
 .el-upload-list__item img {
     width: auto!important;
     height: auto!important;
     top: 0px!important;
+}
+.el-upload-list li {
+    display: inline-block!important;
 }
