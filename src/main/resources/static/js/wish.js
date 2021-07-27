@@ -70,7 +70,7 @@ let wishList = new Vue({
             this.loading = true;
             this.cntSuccess = 0;
             let identification = {
-                userID: $.cookie("id"),
+                userId: $.cookie("id"),
                 token: $.cookie("token"),
             };
             $.ajax({

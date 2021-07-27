@@ -145,7 +145,7 @@ async function getItemInfo(id, callback) {
 
 function getCartList(callback) {
     let identification = {
-        userID: $.cookie("id"),
+        userId: $.cookie("id"),
         token: $.cookie("token"),
     };
     return $.ajax({
@@ -188,7 +188,7 @@ function clearCart(callback) {
 function getWishList(callback) {
     if ($.cookie("id")) {
         let identification = {
-            userID: $.cookie("id"),
+            userId: $.cookie("id"),
             token: $.cookie("token"),
         };
         $.ajax({
