@@ -253,6 +253,21 @@
                                                 <el-option v-for="option in options"
                                                            :value="option.value" :key="option.key"
                                                            :label="option.text">
+                                                    <i v-if="option.value === 'ALL'" class="bx bx-box">
+                                                        <div class="status-icon">{{option.text}}</div>
+                                                    </i>
+                                                    <i v-if="option.value === 'UNPAID'" class="bx bx-wallet-alt">
+                                                        <div class="status-icon">{{option.text}}</div>
+                                                    </i>
+                                                    <i v-if="option.value === 'UNDELIVERED'" class="bx bx-package">
+                                                        <div class="status-icon">{{option.text}}</div>
+                                                    </i>
+                                                    <i v-if="option.value === 'UNRECEIVED'" class="bx bxs-truck">
+                                                        <div class="status-icon">{{option.text}}</div>
+                                                    </i>
+                                                    <i v-if="option.value === 'FINISHED'" class="bx bx-check-circle">
+                                                        <div class="status-icon">{{option.text}}</div>
+                                                    </i>
                                                 </el-option>
                                             </el-select>
                                         </div>
@@ -353,6 +368,21 @@
                                                 <el-option v-for="option in options"
                                                            :value="option.value" :key="option.key"
                                                            :label="option.text">
+                                                    <i v-if="option.value === 'ALL'" class="bx bx-box">
+                                                        <div class="status-icon">{{option.text}}</div>
+                                                    </i>
+                                                    <i v-if="option.value === 'UNPAID'" class="bx bx-wallet-alt">
+                                                        <div class="status-icon">{{option.text}}</div>
+                                                    </i>
+                                                    <i v-if="option.value === 'UNDELIVERED'" class="bx bx-package">
+                                                        <div class="status-icon">{{option.text}}</div>
+                                                    </i>
+                                                    <i v-if="option.value === 'UNRECEIVED'" class="bx bxs-truck">
+                                                        <div class="status-icon">{{option.text}}</div>
+                                                    </i>
+                                                    <i v-if="option.value === 'FINISHED'" class="bx bx-check-circle">
+                                                        <div class="status-icon">{{option.text}}</div>
+                                                    </i>
                                                 </el-option>
                                             </el-select>
                                         </div>
