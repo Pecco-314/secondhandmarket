@@ -8,8 +8,8 @@ import com.zerone.secondhandmarket.viewobject.Result;
 import java.util.List;
 
 public class CartModule {
-    public static Result getItemsInCart(CartService service, int userId) {
-        List<Cart> list = service.getCartListByUserId(userId);
+    public static Result getItemsInCart(CartService service, int userId, Integer page) {
+        List<Cart> list = service.getCartListByUserId(userId, page);
 
         if (list == null)
             return new Result(Status.CART_ERROR, "", null);

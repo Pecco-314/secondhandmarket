@@ -81,7 +81,7 @@ Vue.component('checkout-item', {
             if (this.imagePath === undefined)
                 return `../img/null2.png`;
             else
-            return `http://1.15.220.157:8088/requests/image/${this.imagePath}`
+                return `http://1.15.220.157:8088/requests/image/${this.imagePath}`
         }
     },
     template: `
@@ -118,6 +118,7 @@ let checkoutConfirm = new Vue({
         },
         updateIds() {
             let type = getURLVariable('type');
+            console.log(type);
             if (type === 'single') {
                 this.ids = [{
                     id: getURLVariable('id'),
@@ -136,10 +137,44 @@ let checkoutConfirm = new Vue({
                     }
                     this.ids = res;
                 })
+            } else if (type === 'by_id') {
+                let orderFilter = {
+                    orderId: getURLVariable('order'),
+                    buyer: null,
+                    seller: null,
+                    itemId: null,
+                    state: null,
+                };
+                return $.ajax({
+                    url: `${url}/requests/user/orderList/search`,
+                    method: 'post',
+                    data: JSON.stringify(orderFilter),
+                    contentType: "application/json;charset=utf-8",
+                    success: (responseStr) => {
+                        let response = JSON.parse(responseStr);
+                        if (response.status === 40200) {
+                            let order = response.data[0];
+                            this.ids = [{
+                                id: order.item,
+                                quantity: order.quantity,
+                                index: 0
+                            }];
+                            checkoutForm.form.receiverName = order.receiverName;
+                            checkoutForm.form.phoneNumber = order.phoneNumber;
+                            checkoutForm.form.campus = order.campus;
+                            checkoutForm.form.dorm = order.dorm;
+                            checkoutForm.form.detailedAddress = order.detailedAddress;
+                            checkoutConfirm.orders.push(order.id);
+                            switchToTab(2);
+                        } else {
+                            alert(`${response.message}（状态码：${response.status}）`);
+                        }
+                    }
+                })
             }
         },
         onConfirm() {
-            checkoutForm.$refs.form.validate(async valid => {
+             checkoutForm.$refs.form.validate(async valid => {
                 if (valid) {
                     checkoutForm.cntSuccess = 0;
                     if (!this.isConfirming) {
@@ -166,7 +201,7 @@ let checkoutConfirm = new Vue({
                     switchToTab(0);
                 }
             })
-        }
+        },
     }
 })
 
@@ -210,9 +245,10 @@ let paidButton = new Vue({
             for (const order of checkoutConfirm.orders) {
                 promises.push(changeOrderState(order, 'UNDELIVERED'));
             }
+            console.log(checkoutConfirm.orders);
             await Promise.all(promises);
-            elAlert(this, '已确认付款！', '', ()=>{
-               window.open('../', '_self');
+            elAlert(this, '已确认付款！', '', () => {
+                window.open('../', '_self');
             });
         }
     }

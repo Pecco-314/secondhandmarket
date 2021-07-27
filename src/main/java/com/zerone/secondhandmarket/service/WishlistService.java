@@ -43,8 +43,13 @@ public class WishlistService implements WishlistDao {
 
     @Override
     //查询用户收藏夹信息
-    public List<Wishlist> getWishlistByUserId(int userId) {
-        return daoOption.getWishlistByUserId(userId);
+    public List<Wishlist> getWishlistByUserId(int userId, Integer page) {
+        return daoOption.getWishlistByUserId(userId, page);
+    }
+
+    @Override
+    public Integer getWishlistCount(int userId) {
+        return daoOption.getWishlistCount(userId);
     }
 }
 

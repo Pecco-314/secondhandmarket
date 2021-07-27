@@ -22,16 +22,6 @@ public class OrderModule {
             return new Result(Status.NO_QUALIFIED_ORDERS, "没有合适的订单", null);
         }
 
-        /*List<SimplifiedOrder> simplifiedOrderList = list
-                .stream()
-                .map(order -> new SimplifiedOrder(order, itemService.getItemById(order.getItem())))
-                .collect(Collectors.toList());*/
-
-        /*List<SimplifiedOrder> simplifiedOrderList = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++) {
-            simplifiedOrderList.add(new SimplifiedOrder(list.get(i), itemService.getItemById(list.get(i).getItem())));
-        }*/
-
         return new Result(Status.ORDER_OK, "获取订单列表成功", list);
     }
 
@@ -43,6 +33,15 @@ public class OrderModule {
         }
 
         return new Result(Status.ORDER_OK, "获取订单列表成功", list);
+    }
+
+    public static Result getOrderListCount(OrderService service, OrderFilter filter) {
+        Integer count = service.getOrderCount(filter);
+
+        if(count == null)
+            return new Result(Status.ORDER_ERROR, "", null);
+
+        return new Result(Status.ORDER_OK, "", count);
     }
 
     public static Result generateOrder(OrderService service, Order order) {
@@ -74,7 +73,7 @@ public class OrderModule {
     public static Result cancelOrder(OrderService service, OrderFilter filter) {
         try {
             List<Order> list = service.getOrderListByFilter(filter);
-            System.out.println(list);
+
             if (list == null || list.size() != 1) {
                 return new Result(Status.ORDER_NOT_UNIQUE, "符合条件的订单不存在或不唯一", null);
             }

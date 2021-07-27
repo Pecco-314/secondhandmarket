@@ -151,8 +151,7 @@
                                     <ul class="checkout-product" id="myItems">
                                         <li v-for="item in items" :key="item.itemId">
 
-                                            <img :src=item.imageurl alt="Images"
-                                                 style="width: 80px;height: 80px;background-color: #F6F6F6;position: absolute;left: 0;top: 20px;">
+                                            <img :src=item.imageurl alt="Images" style="width: 80px;height: 80px;background-color: #F6F6F6;position: absolute;left: 0;top: 20px;">
                                             <div class="price-tag" style="left: 12%">
                                                 <h3><a :href=item.url class="ellipsis-type"
                                                        style="text-overflow: ellipsis">{{item.name}}</a></h3>
@@ -254,6 +253,21 @@
                                                 <el-option v-for="option in options"
                                                            :value="option.value" :key="option.key"
                                                            :label="option.text">
+                                                    <i v-if="option.value === 'ALL'" class="bx bx-box">
+                                                        <div class="status-icon">{{option.text}}</div>
+                                                    </i>
+                                                    <i v-if="option.value === 'UNPAID'" class="bx bx-wallet-alt">
+                                                        <div class="status-icon">{{option.text}}</div>
+                                                    </i>
+                                                    <i v-if="option.value === 'UNDELIVERED'" class="bx bx-package">
+                                                        <div class="status-icon">{{option.text}}</div>
+                                                    </i>
+                                                    <i v-if="option.value === 'UNRECEIVED'" class="bx bxs-truck">
+                                                        <div class="status-icon">{{option.text}}</div>
+                                                    </i>
+                                                    <i v-if="option.value === 'FINISHED'" class="bx bx-check-circle">
+                                                        <div class="status-icon">{{option.text}}</div>
+                                                    </i>
                                                 </el-option>
                                             </el-select>
                                         </div>

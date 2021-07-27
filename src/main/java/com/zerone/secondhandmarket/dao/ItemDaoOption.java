@@ -113,6 +113,7 @@ public class ItemDaoOption {
         try {
             return jdbcTemplate.query(sql.toString(), param, new CountRowMapper()).get(0);
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
@@ -128,6 +129,12 @@ public class ItemDaoOption {
             sql.append("select distinct item.* from item natural join keywords");
 
         generateExpression(filter, sql, param);
+
+        if(filter.getPage() != null) {
+            sql.append(" limit :start,:count");
+            param.put("start", IndexGenerator.generateStartIndex(filter.getPage(), true));
+            param.put("count", IndexGenerator.countPerPageInShop);
+        }
 
         try {
             return jdbcTemplate.query(sql.toString(), param, new ItemRowMapper());
@@ -234,9 +241,5 @@ public class ItemDaoOption {
                 sql.append(" ,match_ratio(item_name,:item_name) desc");
             else
                 sql.append(" order by match_ratio(item_name,:item_name) desc");
-
-        if(filter.getPage() != null) {
-            sql.append(String.format(" limit %d,%d", IndexGenerator.generateStartIndex(filter.getPage()), IndexGenerator.countPerPage));
-        }
     }
 }

@@ -66,12 +66,12 @@
 
             <div id="sidebar-menu">
                 <ul>
-                    <li>
-                        <a href="index.html" class="waves-effect"><i class="ti-home"></i>
-                            <span>主页
-                                <!--                                        <span class="badge badge-primary pull-right">3</span>-->
-                                    </span></a>
-                    </li>
+<!--                    <li>-->
+<!--                        <a href="index.html" class="waves-effect"><i class="ti-home"></i>-->
+<!--                            <span>主页-->
+<!--                                &lt;!&ndash;                                        <span class="badge badge-primary pull-right">3</span>&ndash;&gt;-->
+<!--                                    </span></a>-->
+<!--                    </li>-->
 
                     <li>
                         <a href="../admin-user" class="waves-effect"><i class="ion-person-stalker"></i>
@@ -88,10 +88,10 @@
                             <span>订单管理</span> </span></a>
                     </li>
 
-                    <li>
-                        <a href="tables-basic.html" class="waves-effect"><i class="ion-person"></i>
-                            <span>管理员信息</span> <span class="badge badge-success pull-right">8</span></a>
-                    </li>
+<!--                    <li>-->
+<!--                        <a href="tables-basic.html" class="waves-effect"><i class="ion-person"></i>-->
+<!--                            <span>管理员信息</span> <span class="badge badge-success pull-right">8</span></a>-->
+<!--                    </li>-->
 
                 </ul>
             </div>
@@ -209,13 +209,6 @@
                                 <img src="../img/admin_profile.png" alt="user" class="rounded-circle">
                             </a>
                             <div class="dropdown-menu dropdown-menu-right profile-dropdown " id="admin-menu">
-                                <!--                                <a class="dropdown-item" href="#"><i-->
-                                <!--                                        class="mdi mdi-account-circle m-r-5 text-muted"></i> Profile</a>-->
-                                <!--                                <a class="dropdown-item" href="#"><span-->
-                                <!--                                        class="badge badge-success pull-right">5</span><i-->
-                                <!--                                        class="mdi mdi-settings m-r-5 text-muted"></i> Settings</a>-->
-                                <!--                                <a class="dropdown-item" href="#"><i-->
-                                <!--                                        class="mdi mdi-lock-open-outline m-r-5 text-muted"></i> Lock screen</a>-->
                                 <a class="dropdown-item" @click="logout"><i class="mdi mdi-logout m-r-5 text-muted"></i>
                                     退出登录</a>
                             </div>
@@ -252,7 +245,7 @@
                                     <h4 class="mt-0 header-title">用户信息</h4>
 
                                     <div id="addUser" align="right">
-                                        <el-button type="button" @click="dialogVisibleForAdd = true"
+                                        <el-button type="button" @click="dialogVisibleForAdd = true" style="height: 40px; font-size: 14px; width: 80px;"
                                                    class="btn-small btn-primary waves-effect waves-light btn-sm">添加用户
                                         </el-button>
                                         <el-dialog title="添加用户" :visible.sync="dialogVisibleForAdd" width="30%"
@@ -306,14 +299,14 @@
                                                     <div style="float:left">
                                                         <el-button type="button"
                                                                    @click="openUpdateDialog(scope.row)"
-                                                                   class="btn-sm btn-primary waves-effect waves-light">
+                                                                   class="btn-sm btn-primary waves-effect waves-light" style="height: 30px; font-size: 12px; width: 50px;">
                                                             修改
                                                         </el-button>
                                                     </div>
                                                     <div style="display: flex; justify-content: center">
                                                         <el-button type="button"
                                                                    @click="openDeleteDialog(scope.row.id)"
-                                                                   class="btn-sm btn-danger waves-effect waves-light">
+                                                                   class="btn-sm btn-danger waves-effect waves-light" style="height: 30px; font-size: 12px; width: 50px;">
                                                             删除
                                                         </el-button>
                                                     </div>
