@@ -24,4 +24,6 @@ public interface OrderDao {
     List<Order> getOrderByUserId(int userId, boolean isBuyer);
 
     List<Order> getOrderListByFilter(OrderFilter filter);
+
+    Integer getOrderCount(OrderFilter filter);
 }

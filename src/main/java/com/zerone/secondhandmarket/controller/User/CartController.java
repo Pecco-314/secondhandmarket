@@ -4,6 +4,7 @@ import com.zerone.secondhandmarket.entity.Cart;
 import com.zerone.secondhandmarket.enums.Status;
 import com.zerone.secondhandmarket.message.CartModificationMessage;
 import com.zerone.secondhandmarket.message.UserTokenMessage;
+import com.zerone.secondhandmarket.message.UserTokenWithPageMessage;
 import com.zerone.secondhandmarket.module.CartModule;
 import com.zerone.secondhandmarket.service.CartService;
 import com.zerone.secondhandmarket.tools.CodeProcessor;
@@ -32,9 +33,9 @@ public class CartController {
 
     @ResponseBody
     @PostMapping("/requests/cart/info")
-    public String getCarts(@RequestBody UserTokenMessage token) {
-        if (CodeProcessor.validateIdToken(token.getUserID(), token.getToken())) {
-            Result result = CartModule.getItemsInCart(cartService, token.getUserID());
+    public String getCarts(@RequestBody UserTokenWithPageMessage token) {
+        if (CodeProcessor.validateIdToken(token.getUserId(), token.getToken())) {
+            Result result = CartModule.getItemsInCart(cartService, token.getUserId(), token.getPage());
 
             return result.toString();
         } else {
