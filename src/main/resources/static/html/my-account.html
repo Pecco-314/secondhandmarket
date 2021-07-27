@@ -306,7 +306,7 @@
                                             </div>
                                             <div v-show="order.state.value === 'UNPAID'" class="price-tag"
                                                  style="left: 77%;top:35%">
-                                                <el-button type="text">
+                                                <el-button type="text" @click="onPay(order.id)>
                                                     付款
                                                 </el-button>
                                             </div>

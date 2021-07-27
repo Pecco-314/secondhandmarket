@@ -394,6 +394,9 @@ let ordersForm = new Vue({
         onCancel(orderId) {
             this.dialogVisibleForCancel = true;
             this.orderId = orderId;
+        },
+        onPay(orderId) {
+            window.open(`../checkout?type=by_id&order=${orderId}`)
         }
     }
 })
