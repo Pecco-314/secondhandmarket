@@ -7,7 +7,10 @@ import com.zerone.secondhandmarket.enums.Status;
 import com.zerone.secondhandmarket.message.OrderFilter;
 import com.zerone.secondhandmarket.message.OrderMessage;
 import com.zerone.secondhandmarket.message.OrderStateModificationMessage;
+import com.zerone.secondhandmarket.message.UserTokenMessage;
+import com.zerone.secondhandmarket.module.ItemModule;
 import com.zerone.secondhandmarket.module.OrderModule;
+import com.zerone.secondhandmarket.module.WishlistModule;
 import com.zerone.secondhandmarket.service.ItemService;
 import com.zerone.secondhandmarket.service.OrderService;
 import com.zerone.secondhandmarket.tools.CodeProcessor;
@@ -45,6 +48,14 @@ public class OrderController {
     @PostMapping("/requests/user/orderList/search")
     public String searchOrder(@RequestBody OrderFilter filter) {
         Result result = OrderModule.getOrderListByFilter(orderService, filter);
+
+        return result.toString();
+    }
+
+    @ResponseBody
+    @PostMapping("/requests/user/orderList/count")
+    public String getOrderListCount(@RequestBody OrderFilter filter) {
+        Result result = OrderModule.getOrderListCount(orderService, filter);
 
         return result.toString();
     }

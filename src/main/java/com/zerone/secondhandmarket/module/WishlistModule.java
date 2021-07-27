@@ -8,13 +8,22 @@ import com.zerone.secondhandmarket.viewobject.Result;
 import java.util.List;
 
 public class WishlistModule {
-    public static Result getWishlist(WishlistService service, int userId) {
-        List<Wishlist> list = service.getWishlistByUserId(userId);
+    public static Result getWishlist(WishlistService service, int userId, Integer page) {
+        List<Wishlist> list = service.getWishlistByUserId(userId, page);
 
         if (list == null || list.isEmpty())
             return new Result(Status.ERROR, "", null);
 
         return new Result(Status.OK, "", list);
+    }
+
+    public static Result getWishlistCount(WishlistService service, int userId) {
+        Integer count = service.getWishlistCount(userId);
+
+        if(count == null)
+            return new Result(Status.ERROR, "", null);
+
+        return new Result(Status.OK, "", count);
     }
 
     public static Result modifyWishlist(WishlistService service, int userId, int itemId, boolean isAdding) {

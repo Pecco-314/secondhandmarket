@@ -15,4 +15,5 @@ public class OrderFilter {
     private Integer seller = null;
     private Integer item = null;
     private OrderState state = null;
+    private Integer page = null;
 }

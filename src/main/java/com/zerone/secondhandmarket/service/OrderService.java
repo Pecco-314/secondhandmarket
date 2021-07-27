@@ -52,7 +52,13 @@ public class OrderService implements OrderDao {
         return daoOption.getOrderByUserId(userId, isBuyer);
     }
 
+    @Override
     public List<Order> getOrderListByFilter(OrderFilter filter) {
         return daoOption.getOrderListByFilter(filter);
+    }
+
+    @Override
+    public Integer getOrderCount(OrderFilter filter) {
+        return daoOption.getOrderCount(filter);
     }
 }

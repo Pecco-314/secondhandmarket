@@ -13,5 +13,7 @@ public interface WishlistDao {
     int clearWishlist(int userId);
     Wishlist getWishlistByKey(int userId,int itemId);
     //查询用户收藏夹信息
-    List<Wishlist> getWishlistByUserId(int userId);
+    List<Wishlist> getWishlistByUserId(int userId, Integer page);
+
+    Integer getWishlistCount(int userId);
 }

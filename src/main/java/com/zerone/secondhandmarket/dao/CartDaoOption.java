@@ -3,6 +3,8 @@ package com.zerone.secondhandmarket.dao;
 import com.zerone.secondhandmarket.entity.Cart;
 import com.zerone.secondhandmarket.mapper.CountRowMapper;
 import com.zerone.secondhandmarket.mapper.ShoppingCartRowMapper;
+import com.zerone.secondhandmarket.mapper.WishlistRowMapper;
+import com.zerone.secondhandmarket.tools.IndexGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -74,12 +76,21 @@ public class CartDaoOption {
     }
 
     //查询用户购物车信息
-    public List<Cart> getCartListByUserId(int userId) {
-        String sql = "select * from shoppingcart where user_id=:user_id";
+    public List<Cart> getCartListByUserId(int userId, Integer page) {
+        StringBuilder sql = new StringBuilder(100);
+        sql.append("select * from shoppingcart where user_id=:user_id limit :start,:count");
+
         Map<String, Object> param = new HashMap<>();
         param.put("user_id", userId);
+
+        if(page != null) {
+            sql.append(" limit :start,:count");
+            param.put("start", IndexGenerator.generateStartIndex(page, false));
+            param.put("count", IndexGenerator.countPerPage);
+        }
+
         try {
-            return jdbcTemplate.query(sql, param, new ShoppingCartRowMapper());
+            return jdbcTemplate.query(sql.toString(), param, new ShoppingCartRowMapper());
         } catch (Exception e) {
             return null;
         }

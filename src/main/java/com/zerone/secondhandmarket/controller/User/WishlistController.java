@@ -3,7 +3,9 @@ package com.zerone.secondhandmarket.controller.User;
 import com.zerone.secondhandmarket.enums.Status;
 import com.zerone.secondhandmarket.message.CheckItemExistenceMessage;
 import com.zerone.secondhandmarket.message.UserTokenMessage;
+import com.zerone.secondhandmarket.message.UserTokenWithPageMessage;
 import com.zerone.secondhandmarket.message.WishlistModificationMessage;
+import com.zerone.secondhandmarket.module.CartModule;
 import com.zerone.secondhandmarket.module.WishlistModule;
 import com.zerone.secondhandmarket.service.WishlistService;
 import com.zerone.secondhandmarket.tools.CodeProcessor;
@@ -21,12 +23,24 @@ public class WishlistController {
 
     @ResponseBody
     @PostMapping("/requests/user/wishlist")
-    public String getWishlist(@RequestBody UserTokenMessage token) {
-        if (CodeProcessor.validateIdToken(token.getUserID(), token.getToken())) {
-            Result result = WishlistModule.getWishlist(wishlistService, token.getUserID());
+    public String getWishlist(@RequestBody UserTokenWithPageMessage token) {
+        if (CodeProcessor.validateIdToken(token.getUserId(), token.getToken())) {
+            Result result = WishlistModule.getWishlist(wishlistService, token.getUserId(), token.getPage());
             return result.toString();
         } else {
             return new Result(Status.ERROR, "ID与Token不符", null).toString();
+        }
+    }
+
+    @ResponseBody
+    @PostMapping("/requests/wishlist/count")
+    public String getWishlistCount(@RequestBody UserTokenMessage token) {
+        if (CodeProcessor.validateIdToken(token.getUserID(), token.getToken())) {
+            Result result = WishlistModule.getWishlistCount(wishlistService, token.getUserID());
+            System.out.println(result);
+            return result.toString();
+        } else {
+            return new Result(Status.CART_ERROR, "ID与Token不符", null).toString();
         }
     }
 
