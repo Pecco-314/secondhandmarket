@@ -3,6 +3,7 @@ let shopApp = new Vue({
     data: {
         wishList: [],
         items: [],
+        countItem: 0,
         loading: true,
         notFound: false,
         dialogVisibleForCart: false,
@@ -12,13 +13,14 @@ let shopApp = new Vue({
         max: 1,
         currentId: '',
         itemFilter: {
+            page: 1,
             seller: toNull(getURLVariable('seller')),
             keyword: toEmptyString(getURLVariable('keyword')),
             type: toNull(getURLVariable('type')),
             tags: null, // TODO
             priceOrdering: 'DEFAULT',
             quantityOrdering: 'DEFAULT', // TODO
-            checkCondition: null, // TODO
+            checkCondition: null,
             imageNeeded: true,
             tagsNeeded: true,
         },
@@ -130,8 +132,9 @@ let shopApp = new Vue({
             this.getSearchResult();
         },
 
-        getSearchResult() {
+        getSearchResult(pageChanged) {
             this.loading = true;
+            if (!pageChanged) this.itemFilter.page = 1;
             $.ajax({
                 url: `${url}/requests/product/search`,
                 method: 'post',
@@ -168,7 +171,7 @@ let shopApp = new Vue({
                                 }
                             }
                             this.notFound = false;
-                            console.log(this.items);
+                            this.updateCountItem();
                         } else if (response.status === 30400) {
                             this.notFound = true;
                         } else {
@@ -186,10 +189,26 @@ let shopApp = new Vue({
             this.itemFilter.priceOrdering = ordering;
             this.search();
         },
+        updateCountItem() {
+            $.ajax({
+                url: `${url}/requests/product/count`,
+                method: 'post',
+                data: JSON.stringify(this.itemFilter),
+                contentType: "application/json;charset=utf-8",
+                success: (responseStr) => {
+                    let response = JSON.parse(responseStr);
+                    console.log(response);
+                    if (response.status === 30200) {
+                        this.countItem = response.data;
+                    } else {
+                        alert(`${response.message}（状态码：${response.status}）`);
+                    }
+                }
+            });
+        }
     },
     mounted() {
         this.select(this.itemFilter.type);
-        // $('select').niceSelect();
     },
     computed: {
         title: () => hasURLVariables() ? '搜索结果' : '全部商品',

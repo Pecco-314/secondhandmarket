@@ -113,6 +113,7 @@ public class ItemDaoOption {
         try {
             return jdbcTemplate.query(sql.toString(), param, new CountRowMapper()).get(0);
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }

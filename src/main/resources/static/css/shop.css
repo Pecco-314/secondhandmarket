@@ -34,3 +34,8 @@
 .el-select-dropdown__list .selected {
     color: black !important;
 }
+
+.el-pagination {
+    transform: scale(1.25);
+    margin-top: 20px;
+}

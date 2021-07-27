@@ -360,6 +360,15 @@ dress-form-item-content {
     justify-content: center;
 }
 
+.el-pager li:hover,
+.el-pagination button:hover {
+    color: rgb(232, 180, 63)!important;
+}
+
+.el-pagination.is-background .el-pager li:not(.disabled).active {
+    background-color: rgb(232, 180, 63)!important;
+}
+
 /*.el-select input:focus {*/
 /*    border-color: rgb(232, 180, 63) !important;*/
 /*}*/
