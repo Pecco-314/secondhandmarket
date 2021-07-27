@@ -78,7 +78,7 @@ public class CartDaoOption {
     //查询用户购物车信息
     public List<Cart> getCartListByUserId(int userId, Integer page) {
         StringBuilder sql = new StringBuilder(100);
-        sql.append("select * from shoppingcart where user_id=:user_id limit :start,:count");
+        sql.append("select * from shoppingcart where user_id=:user_id");
 
         Map<String, Object> param = new HashMap<>();
         param.put("user_id", userId);
