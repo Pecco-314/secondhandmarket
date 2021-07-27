@@ -360,13 +360,17 @@ let ordersForm = new Vue({
             orderId: '',
             dialogVisibleForConfirm: false,
             dialogVisibleForCancel: false,
+            loading: true,
+            cntSuccess: 0,
         }
     },
     methods: {
         getOrderList() {
-            console.log(this.selectedType);
+            this.cntSuccess = 0;
             setOrderList(this, 'buyer', this.selectedType);
+            console.log(this.cntSuccess);
         },
+
         onReceive(id) {
             this.dialogVisibleForConfirm = true;
             this.orderId = id;
@@ -378,7 +382,9 @@ let ordersForm = new Vue({
                     type: 'success'
                 });
                 this.dialogVisibleForConfirm = false;
-                location.reload();
+                // this.updateState();
+                this.getOrderList();
+                sellsForm.getOrderList();
             });
         },
         confirmCancel() {
@@ -388,9 +394,27 @@ let ordersForm = new Vue({
                     type: 'success'
                 });
                 this.dialogVisibleForCancel = false;
-                location.reload();
+                // this.deleteFromList();
+                this.getOrderList();
+                sellsForm.getOrderList();
             });
         },
+        // deleteFromList() {
+        //     for (let i = 0; i < this.orders.length; i++) {
+        //         if (this.orders[i].id == this.orderId) {
+        //             this.orders.splice(i, 1);
+        //             break;
+        //         }
+        //     }
+        // },
+        // updateState() {
+        //     for (let i = 0; i < this.orders.length; i++) {
+        //         if (this.orders[i].id == this.orderId) {
+        //             this.orders[i].state = this.options[4];
+        //             break;
+        //         }
+        //     }
+        // },
         onCancel(orderId) {
             this.dialogVisibleForCancel = true;
             this.orderId = orderId;
@@ -408,14 +432,17 @@ let sellsForm = new Vue({
                 {text: "待收货", value: 'UNRECEIVED'},
                 {text: "已完成", value: 'FINISHED'},
             ],
+            loading: true,
             selectedType: 'ALL',
             orders: [],
             orderId: '',
             dialogVisibleForConfirm: false,
+            cntSuccess: 0,
         }
     },
     methods: {
         getOrderList() {
+            this.cntSuccess = 0;
             setOrderList(this, 'seller', this.selectedType);
         },
         confirm() {
@@ -425,7 +452,8 @@ let sellsForm = new Vue({
                     type: 'success'
                 });
                 this.dialogVisibleForConfirm = false;
-                location.reload();
+                this.getOrderList();
+                ordersForm.getOrderList();
             });
         },
         onDeliver(orderId) {
@@ -439,7 +467,8 @@ $(itemsForm.getItemList);
 $(ordersForm.getOrderList);
 $(sellsForm.getOrderList);
 
-function setOrderList(form, role, state) {
+async function setOrderList(form, role, state) {
+    form.loading = true;
     let userId = $.cookie("id");
     let orderFilter = {
         orderId: null,
@@ -453,24 +482,23 @@ function setOrderList(form, role, state) {
         method: 'post',
         data: JSON.stringify(orderFilter),
         contentType: "application/json;charset=utf-8",
-        success: (responseStr) => {
+        success: async (responseStr) => {
             let response = JSON.parse(responseStr);
             console.log(orderFilter);
             console.log(response);
             if (response.status === 40200) {
                 form.orders = response.data;
+                let promises = [];
                 for (let i = 0; i < form.orders.length; i++) {
                     form.orders[i].state = {
                         value: form.orders[i].state,
                         text: getStateText(form.orders[i].state)
                     };
-                    getItemInfo(form.orders[i].item, (response) => {
-                        form.orders[i].url = `${url}/item?id=${response.data.id}`;
-                        form.orders[i].imageurl = getImageOrPlaceholder(response.data.coverPath);
-                        form.orders[i].price = response.data.price;
-                        form.orders[i].name = response.data.name;
-                        form.$forceUpdate();
-                    });
+                    promises.push(handleItemInfo(form, i));
+                }
+                await Promise.all(promises);
+                if (form.cntSuccess === form.orders.length) {
+                    form.loading = false;
                 }
             } else if (response.status === 40400) {
                 form.orders = [];
@@ -480,6 +508,18 @@ function setOrderList(form, role, state) {
             }
         }
     })
+}
+
+async function handleItemInfo(form, i) {
+    await getItemInfo(form.orders[i].item, (response) => {
+        form.orders[i].url = `${url}/item?id=${response.data.id}`;
+        form.orders[i].imageurl = getImageOrPlaceholder(response.data.coverPath);
+        form.orders[i].price = response.data.price;
+        form.orders[i].name = response.data.name;
+        form.$forceUpdate();
+
+        form.cntSuccess++;
+    });
 }
 
 function getStateText(state) {

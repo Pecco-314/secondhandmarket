@@ -7,6 +7,8 @@ let wishList = new Vue({
         cnt: 1,
         max: 1,
         currentId: '',
+        loading: true,
+        cntSuccess: 0,
     },
     methods: {
         openCartDialog(wish) {
@@ -65,6 +67,8 @@ let wishList = new Vue({
         },
 
         getWishList() {
+            this.loading = true;
+            this.cntSuccess = 0;
             let identification = {
                 userID: $.cookie("id"),
                 token: $.cookie("token"),
@@ -74,27 +78,41 @@ let wishList = new Vue({
                 method: 'post',
                 data: JSON.stringify(identification),
                 contentType: "application/json;charset=utf-8",
-                success: (responseStr) => {
+                success: async (responseStr) => {
                     let response = JSON.parse(responseStr);
                     if (response.status === 10200) {
                         this.wishes = response.data;
+                        let promises = [];
                         for (let i = 0; i < this.wishes.length; i++) {
-                            getItemInfo(this.wishes[i].itemId, response => {
-                                this.$set(this.wishes[i], 'name', response.data.name);
-                                this.$set(this.wishes[i], 'quantity', response.data.quantity);
-                                this.$set(this.wishes[i], 'price', response.data.price);
-                                if (response.data.coverPath === null)
-                                    this.$set(this.wishes[i], 'imageUrl', `../img/null2.png`);
-                                else
-                                    this.$set(this.wishes[i], 'imageUrl', `http://1.15.220.157:8088/requests/image/${response.data.coverPath}`);
-                                this.$set(this.wishes[i], 'url', `${url}/item?id=${this.wishes[i].itemId}`);
-                            })
+                            promises.push(handleItemInfo(this, i));
                         }
+                        await Promise.all(promises);
+                        if (this.cntSuccess === this.wishes.length) {
+                            this.loading = false;
+                        }
+                    } else {
+                        this.loading = false;
                     }
                 }
             })
         }
     }
 })
+
+async function handleItemInfo(th, i) {
+
+    await getItemInfo(th.wishes[i].itemId, response => {
+        th.$set(th.wishes[i], 'name', response.data.name);
+        th.$set(th.wishes[i], 'quantity', response.data.quantity);
+        th.$set(th.wishes[i], 'price', response.data.price);
+        if (response.data.coverPath === null)
+            th.$set(th.wishes[i], 'imageUrl', `../img/null2.png`);
+        else
+            th.$set(th.wishes[i], 'imageUrl', `http://1.15.220.157:8088/requests/image/${response.data.coverPath}`);
+        th.$set(th.wishes[i], 'url', `${url}/item?id=${th.wishes[i].itemId}`);
+
+        th.cntSuccess++;
+    })
+}
 
 $(wishList.getWishList);

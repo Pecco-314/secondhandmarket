@@ -85,91 +85,100 @@
         <div class="row" id="myCart">
             <div class="col-lg-12 col-md-12">
                 <el-empty v-show="carts.length===0" description="购物车空空如也"></el-empty>
+
                 <form>
-                    <div class="cart-wraps">
-                        <div class="cart-table table-responsive">
-                            <table class="table table-bordered" v-show="carts.length">
-                                <thead>
-                                <tr>
-                                    <th scope="col" width="20%">商品</th>
-                                    <th scope="col" width="20%">名称</th>
-                                    <th scope="col" width="20%">单价</th>
-                                    <th scope="col" style="padding-left: 45px" width="30%">数量</th>
-                                    <th scope="col">总价</th>
-                                </tr>
-                                </thead>
+                    <el-skeleton :loading="loading" animated>
+                        <div class="cart-wraps">
+                            <div class="cart-table table-responsive">
 
+                                <table class="table table-bordered" v-show="carts.length">
 
-                                <tbody>
-                                <tr v-for="cart in carts" :key="cart.itemId">
-                                    <td class="product-thumbnail">
-                                        <a :href=cart.url>
-                                            <img :src=cart.imageUrl alt="Image">
-                                        </a>
-                                    </td>
+                                    <thead>
+                                    <tr>
+                                        <th scope="col" width="20%">商品</th>
+                                        <th scope="col" width="20%">名称</th>
+                                        <th scope="col" width="20%">单价</th>
+                                        <th scope="col" style="padding-left: 45px" width="30%">数量</th>
+                                        <th scope="col">总价</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
 
-                                    <td class="product-name">
-                                        <a :href=cart.url class="item__name" style="text-overflow: ellipsis;">{{cart.itemName}}</a>
-                                    </td>
+                                    <tr v-for="cart in carts" :key="cart.itemId">
 
-                                    <td class="product-price">
-                                        <span class="unit-amount">￥{{cart.price}}</span>
-                                    </td>
+                                        <td class="product-thumbnail">
+                                            <a :href=cart.url>
+                                                <img :src=cart.imageUrl alt="Image">
+                                            </a>
+                                        </td>
 
-                                    <td class="product-quantity">
-                                        <div class="adder">
-                                            <span class="quantity-label"></span>
-                                            <el-input-number v-model=cart.quantity :min=1 :max=cart.max
-                                                             size="small"
-                                                             @change="changeQuantity(cart.itemId,cart.quantity)"></el-input-number>
-                                            <span class="stock-label"> 件（库存 {{cart.max}} 件）</span>
-                                        </div>
-                                        <!--                                        <div class="input-counter">-->
-                                        <!--                                            <span class="minus-btn">-->
-                                        <!--                                                <i class='bx bx-minus'></i>-->
-                                        <!--                                            </span>-->
-                                        <!--                                            <input type="text" v-model=cart.quantity>-->
-                                        <!--                                            <span class="plus-btn">-->
-                                        <!--                                                <i class='bx bx-plus'></i>-->
-                                        <!--                                            </span>-->
-                                        <!--                                        </div>-->
-                                    </td>
+                                        <td class="product-name">
+                                            <a :href=cart.url class="item__name" style="text-overflow: ellipsis;">{{cart.itemName}}</a>
+                                        </td>
 
-                                    <td class="product-subtotal">
-                                        <span class="subtotal-amount">￥{{cart.total}}</span>
+                                        <td class="product-price">
+                                            <span class="unit-amount">￥{{cart.price}}</span>
+                                        </td>
 
-                                        <a class="remove selectable" @click="openCancelDialog(cart.itemId)">
-                                            <i class='bx bx-trash'></i>
-                                        </a>
-                                        <el-dialog title="删除" :visible.sync="dialogVisibleForCancel"
-                                                   width="30%">
-                                            是否确定要从购物车中删除该物品 ？
-                                            <span slot="footer" class="dialog-footer">
+                                        <td class="product-quantity">
+                                            <div class="adder">
+                                                <span class="quantity-label"></span>
+                                                <el-input-number v-model=cart.quantity :min=1 :max=cart.max
+                                                                 size="small"
+                                                                 @change="changeQuantity(cart.itemId,cart.quantity)"></el-input-number>
+                                                <span class="stock-label"> 件（库存 {{cart.max}} 件）</span>
+                                            </div>
+                                            <!--                                        <div class="input-counter">-->
+                                            <!--                                            <span class="minus-btn">-->
+                                            <!--                                                <i class='bx bx-minus'></i>-->
+                                            <!--                                            </span>-->
+                                            <!--                                            <input type="text" v-model=cart.quantity>-->
+                                            <!--                                            <span class="plus-btn">-->
+                                            <!--                                                <i class='bx bx-plus'></i>-->
+                                            <!--                                            </span>-->
+                                            <!--                                        </div>-->
+                                        </td>
+
+                                        <td class="product-subtotal">
+                                            <span class="subtotal-amount">￥{{cart.total}}</span>
+
+                                            <a class="remove selectable" @click="openCancelDialog(cart.itemId)">
+                                                <i class='bx bx-trash'></i>
+                                            </a>
+                                            <el-dialog title="删除" :visible.sync="dialogVisibleForCancel"
+                                                       width="30%">
+                                                是否确定要从购物车中删除该物品 ？
+                                                <span slot="footer" class="dialog-footer">
                                             <el-button
                                                     @click="dialogVisibleForCancel = false">取 消</el-button>
                                             <el-button type="primary"
                                                        @click="removeCartItem">确 定</el-button>
                                         </span>
-                                        </el-dialog>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                                            </el-dialog>
+                                        </td>
 
-                        <div class="cart-buttons">
-                            <div class="row align-items-center">
-                                <div class="col-lg-12 col-sm-12 col-md-12 text-right">
-                                    <a class="default-btn btn-bg-three selectable" @click="returnToShop">
-                                        继续购物
-                                    </a>
-                                    <a class="default-btn btn-bg-three selectable" @click="checkout">
-                                        立即结算
-                                    </a>
+                                    </tr>
+
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                            <div class="cart-buttons">
+                                <div class="row align-items-center">
+                                    <div class="col-lg-12 col-sm-12 col-md-12 text-right">
+                                        <a class="default-btn btn-bg-three selectable" @click="returnToShop">
+                                            继续购物
+                                        </a>
+                                        <a class="default-btn btn-bg-three selectable" @click="checkout">
+                                            立即结算
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </el-skeleton>
+
                 </form>
             </div>
         </div>

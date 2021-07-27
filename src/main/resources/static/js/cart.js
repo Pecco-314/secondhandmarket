@@ -4,6 +4,8 @@ let MyCartForm = new Vue({
         carts: [],
         dialogVisibleForCancel: false,
         currentId: '',
+        cntSuccess: 0,
+        loading: false,
     },
     methods: {
         returnToShop() {
@@ -13,26 +15,18 @@ let MyCartForm = new Vue({
             window.open('../checkout?type=cart', '_self')
         },
         getCartList() {
-            getCartList(response => {
+            this.cntSuccess = 0;
+            getCartList(async response => {
                 this.carts = response.data;
+                this.loading = true;
+                let promises = [];
                 for (let i = 0; i < this.carts.length; i++) {
-                    getItemInfo(this.carts[i].itemId, response => {
-                        this.$set(this.carts[i], 'max', response.data.quantity);
-                        this.$set(this.carts[i], 'itemName', response.data.name);
-                        this.$set(this.carts[i], 'price', response.data.price);
-                        if (response.data.coverPath === null)
-                            this.$set(this.carts[i], 'imageUrl', `../img/null2.png`);
-                        else
-                            this.$set(this.carts[i], 'imageUrl', `http://1.15.220.157:8088/requests/image/${response.data.coverPath}`);
-                        this.$set(this.carts[i], 'url', `${url}/item?id=${this.carts[i].itemId}`);
-                        this.$set(this.carts[i], 'total', this.carts[i].price * this.carts[i].quantity);
-                        // this.carts[i].max = response.data.quantity;
-                        // this.carts[i].itemName = response.data.name;
-                        // this.carts[i].price = response.data.price;
-                        // this.carts[i].imageUrl = `http://1.15.220.157:8088/requests/image/${response.data.coverPath}`;
-                        // this.carts[i].url = `${url}/item?id=${this.carts[i].itemId}`;
-                        // this.carts[i].total = this.carts[i].price * this.carts[i].quantity;
-                    })
+                    promises.push(handleItemInfo(this, i));
+
+                }
+                await Promise.all(promises);
+                if (this.cntSuccess === this.carts.length) {
+                    this.loading = false;
                 }
             });
         },
@@ -77,8 +71,25 @@ let MyCartForm = new Vue({
                     break;
                 }
             }
+            setTimeout(pageHeader.updateCart, 500);
         }
     }
 })
+
+async function handleItemInfo(th, i) {
+    await getItemInfo(th.carts[i].itemId, response => {
+        th.$set(th.carts[i], 'max', response.data.quantity);
+        th.$set(th.carts[i], 'itemName', response.data.name);
+        th.$set(th.carts[i], 'price', response.data.price);
+        if (response.data.coverPath === null)
+            th.$set(th.carts[i], 'imageUrl', `../img/null2.png`);
+        else
+            th.$set(th.carts[i], 'imageUrl', `http://1.15.220.157:8088/requests/image/${response.data.coverPath}`);
+        th.$set(th.carts[i], 'url', `${url}/item?id=${th.carts[i].itemId}`);
+        th.$set(th.carts[i], 'total', th.carts[i].price * th.carts[i].quantity);
+
+        th.cntSuccess++;
+    })
+}
 
 $(MyCartForm.getCartList());

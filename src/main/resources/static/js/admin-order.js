@@ -17,6 +17,7 @@ let ordersTable = new Vue({
             currentId: 0,
             currentPage: 1,
             pageSize: 20,
+            cntSuccess: 0,
             loading: true,
         }
     },
@@ -88,34 +89,38 @@ let ordersTable = new Vue({
         },
         getOrdersList() {
             this.loading = true;
+            this.cntSuccess = 0;
+            let identification = {
+                adminID: $.cookie("id"),
+                token: $.cookie("token"),
+            };
             $.ajax({
                 url: `${url}/requests/admin/order`,
-                method: 'get',
+                method: 'post',
+                data: JSON.stringify(identification),
                 contentType: "application/json;charset=utf-8",
                 success: (responseStr) => {
                     let response = JSON.parse(responseStr);
+                    console.log(response);
                     if (response.status === 40200) {
+                        console.log(response.data);
                         this.tableDataAll = response.data;
+                        let promises = [];
                         for (let i = 0; i < this.tableDataAll.length; i++) {
-                            getItemInfo(this.tableDataAll[i].item, response => {
-                                this.$set(this.tableDataAll[i], 'money', response.data.price * this.tableDataAll[i].quantity);
-                                this.$set(this.tableDataAll[i], 'name', response.data.name);
-                                if (response.data.coverPath === null)
-                                    this.$set(this.tableDataAll[i], 'imageUrl',`../img/null2.png`);
-                                else
-                                this.$set(this.tableDataAll[i], 'imageUrl',`http://1.15.220.157:8088/requests/image/${response.data.coverPath}`);
-                            })
+                            promises.push(handleItemInfo(this, i));
                             getUserInfoByAdmin(this.tableDataAll[i].buyer, response => {
                                 this.$set(this.tableDataAll[i], 'email', response.data.emailAddress);
                             })
-                            this.tableDataResult = this.tableDataAll;
-                            this.tableDataTime = this.tableDataAll;
-                            this.tableDataSelected = this.tableDataAll;
                         }
+
+                        this.tableDataResult = this.tableDataAll;
+                        this.tableDataTime = this.tableDataAll;
+                        this.tableDataSelected = this.tableDataAll;
+
                     } else {
+                        this.loading = false;
                         console.log(response);
                     }
-                    this.loading = false;
                 }
             })
         },
@@ -157,6 +162,20 @@ let adminInfoForm = new Vue({
     }
 })
 
+async function handleItemInfo(th, i) {
+    await getItemInfo(th.tableDataAll[i].item, response => {
+        th.$set(th.tableDataAll[i], 'money', response.data.price * th.tableDataAll[i].quantity);
+        th.$set(th.tableDataAll[i], 'name', response.data.name);
+        if (response.data.coverPath === null)
+            th.$set(th.tableDataAll[i], 'imageUrl', `../img/null2.png`);
+        else
+            th.$set(th.tableDataAll[i], 'imageUrl', `http://1.15.220.157:8088/requests/image/${response.data.coverPath}`);
+        th.cntSuccess++;
+        if (th.cntSuccess === th.tableDataAll.length)
+            th.loading = false;
+    })
+}
 
-$(ordersTable.getOrdersList);
+
 $(adminInfoForm.getAdminInfo);
+$(ordersTable.getOrdersList);

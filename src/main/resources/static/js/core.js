@@ -110,12 +110,12 @@ function getUserInfo(callback) {
     }
 }
 
-function getItemInfo(id, callback) {
-    $.ajax({
+async function getItemInfo(id, callback) {
+    return $.ajax({
         url: `${url}/requests/item/${id}`,
         method: 'get',
         contentType: "application/json;charset=utf-8",
-        async: false,//同步
+        //async: false,//同步
         success: (responseStr) => {
             let response = JSON.parse(responseStr);
             if (response.status === 30200) {
@@ -126,6 +126,22 @@ function getItemInfo(id, callback) {
         }
     });
 }
+
+// function getItemInfoAsync(id, callback) {
+//     $.ajax({
+//         url: `${url}/requests/item/${id}`,
+//         method: 'get',
+//         contentType: "application/json;charset=utf-8",
+//         success: (responseStr) => {
+//             let response = JSON.parse(responseStr);
+//             if (response.status === 30200) {
+//                 callback(response);
+//             } else {
+//                 alert(`${response.message}（状态码：${response.status}）`);
+//             }
+//         }
+//     });
+// }
 
 function getCartList(callback) {
     let identification = {

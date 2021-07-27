@@ -1,9 +1,12 @@
 package com.zerone.secondhandmarket.controller.Admin;
 
+import com.zerone.secondhandmarket.enums.Status;
+import com.zerone.secondhandmarket.message.AdminTokenMessage;
 import com.zerone.secondhandmarket.message.OrderFilter;
 import com.zerone.secondhandmarket.module.OrderModule;
 import com.zerone.secondhandmarket.service.ItemService;
 import com.zerone.secondhandmarket.service.OrderService;
+import com.zerone.secondhandmarket.tools.CodeProcessor;
 import com.zerone.secondhandmarket.tools.JSONMapper;
 import com.zerone.secondhandmarket.tools.Router;
 import com.zerone.secondhandmarket.viewobject.Result;
@@ -28,12 +31,16 @@ public class OrderController {
     }
 
     @ResponseBody
-    @GetMapping("/requests/admin/order")
-    public String getAllOrders() {
-        OrderFilter orderFilter = new OrderFilter();
-        Result result = OrderModule.getOrderListByFilter(orderService, orderFilter);
-
-        return JSONMapper.writeValueAsString(result);
+    @PostMapping("/requests/admin/order")
+    public String getAllOrders(@RequestBody AdminTokenMessage token) {
+        Result result;
+        if (CodeProcessor.validateIdToken(token.getAdminID(), token.getToken())) {
+            OrderFilter orderFilter = new OrderFilter();
+            result = OrderModule.getOrderListByFilter(orderService, orderFilter);
+        } else {
+            result = new Result(Status.ORDER_ERROR, "ID与Token不符", null);
+        }
+        return result.toString();
     }
 
     @ResponseBody
