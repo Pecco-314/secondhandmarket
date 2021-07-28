@@ -5,6 +5,8 @@ let myCartForm = new Vue({
         countItem: 0,
         page: 1,
         dialogVisibleForCancel: false,
+        dialogVisibleForCart: false,
+        cnt: 1,
         currentId: '',
         cntSuccess: 0,
         loading: false,
@@ -21,6 +23,35 @@ let myCartForm = new Vue({
         checkout() {
             window.open('../checkout?type=cart', '_self')
         },
+        addToCart() {
+            let purchaseData = {
+                userID: parseInt($.cookie('id')),
+                token: $.cookie('token'),
+                itemID: this.currentId,
+                quantity: this.cnt
+            };
+            console.log(purchaseData);
+            $.ajax({
+                url: `${url}/requests/cart/modifyCart`,
+                method: 'post',
+                data: JSON.stringify(purchaseData),
+                contentType: "application/json;charset=utf-8",
+                success: (responseStr) => {
+                    let response = JSON.parse(responseStr);
+                    if (response.status === 60200) {
+                        this.dialogVisibleForCart = false
+                        this.$message({
+                            message: '加入购物车成功',
+                            type: 'success'
+                        });
+                        this.getCartList();
+                        //setTimeout(pageHeader.updateCart, 500);
+                    } else {
+                        this.$message.error('操作失败');
+                    }
+                }
+            })
+        },
         getCartList() {
             this.cntSuccess = 0;
             getCartList(this.page, async response => {
@@ -36,6 +67,11 @@ let myCartForm = new Vue({
                     this.loading = false;
                 }
             });
+        },
+        openCartDialog(itemID) {
+            this.cnt = 1;
+            this.currentId = itemID;
+            this.dialogVisibleForCart = true;
         },
         openCancelDialog(itemID) {
             this.currentId = itemID;
