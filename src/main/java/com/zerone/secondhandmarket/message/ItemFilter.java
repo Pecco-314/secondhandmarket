@@ -21,7 +21,7 @@ public class ItemFilter {
     private Ordering quantityOrdering = Ordering.DEFAULT;
     private ItemCheckCondition checkCondition = null;
     private boolean notEmpty = false;
-    private boolean isInShop = false;
+    private boolean inShop = false;
     private boolean imagesNeeded = false;
     private boolean tagsNeeded = false;
     private Integer page = null;
