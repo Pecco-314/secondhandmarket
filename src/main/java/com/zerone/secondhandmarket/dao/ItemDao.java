@@ -30,6 +30,8 @@ public interface ItemDao {
     // 用于查询所有商品列表
     List<Item> getItemList();
 
+    List<Item> getItemListForHomepage();
+
     Integer getItemCount(ItemFilter filter);
 
     List<Item> getItemListByFilter(ItemFilter itemFilter);
