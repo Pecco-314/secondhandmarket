@@ -77,7 +77,6 @@ Vue.component('checkout-item', {
             return this.price * this.quantity;
         },
         imageSrc() {
-            console.log(this.imagePath)
             if (this.imagePath === undefined)
                 return `../img/null2.png`;
             else
@@ -125,7 +124,7 @@ let checkoutConfirm = new Vue({
                     index: 0
                 }];
             } else if (type === 'cart') {
-                getCartList(response => {
+                getCartList(null, response => {
                     let res = [];
                     for (let i = 0; i < response.data.length; ++i) {
                         res.push({
@@ -225,7 +224,6 @@ async function handleCheckoutItem(checkoutItem, orders) {
         contentType: "application/json;charset=utf-8",
         success: (responseStr) => {
             let response = JSON.parse(responseStr);
-            console.log(response);
             if (response.status === 40200) {
                 checkoutForm.cntSuccess++;
                 orders.push(response.data);
@@ -244,7 +242,6 @@ let paidButton = new Vue({
             for (const order of checkoutConfirm.orders) {
                 promises.push(changeOrderState(order, 'UNDELIVERED'));
             }
-            console.log(checkoutConfirm.orders);
             await Promise.all(promises);
             elAlert(this, '已确认付款！', '', () => {
                 window.open('../', '_self');
