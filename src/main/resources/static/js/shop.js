@@ -23,6 +23,7 @@ let shopApp = new Vue({
             checkCondition: null,
             imageNeeded: true,
             tagsNeeded: true,
+            notEmpty: true,
         },
         options: [
             {text: "所有商品", value: null, selectState: ''},
