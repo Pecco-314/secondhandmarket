@@ -29,7 +29,7 @@ public class ItemController {
     @RequestMapping("/admin-item")
     public String openAdminItemPage(HttpServletRequest request) {
         String res = Router.routerForAdmin(request, "tables-goods");
-        System.out.println(res);
+        //System.out.println(res);
         return res;
     }
 
@@ -48,7 +48,7 @@ public class ItemController {
     public String checkItem(@RequestBody ItemCheckMessage message) {
         Item item = itemService.getItemById(message.getItemId());
 
-        if(item == null)
+        if (item == null)
             return new Result(Status.ITEM_ERROR, "无法获取物品", null).toString();
 
         item.setCheckCondition(message.getCheckCondition());

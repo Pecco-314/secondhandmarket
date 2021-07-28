@@ -11,7 +11,7 @@ public class ContactController {
     @RequestMapping("/contact")
     public String openContactPage(HttpServletRequest request) {
         String res = Router.routerForUserAndVistor(request, "contact");
-        System.out.println(res);
+        //System.out.println(res);
         return res;
 
     }

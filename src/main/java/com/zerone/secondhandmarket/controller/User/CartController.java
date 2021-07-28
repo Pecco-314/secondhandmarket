@@ -27,7 +27,7 @@ public class CartController {
     @RequestMapping("/cart")
     public String openCartPage(HttpServletRequest request) {
         String res = Router.routerForUser(request, "cart");
-        System.out.println(res);
+        //System.out.println(res);
         return res;
     }
 

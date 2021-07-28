@@ -21,7 +21,7 @@ public class UserController {
     @RequestMapping("/admin-user")
     public String openAdminUserPage(HttpServletRequest request) {
         String res = Router.routerForAdmin(request, "tables-user");
-        System.out.println(res);
+        //System.out.println(res);
         return res;
     }
 
@@ -69,7 +69,7 @@ public class UserController {
         //获取id对应的当前用户信息
         User user = userService.getUserById(userModificationByAdministratorMessage.getUserID());
 
-        if(user == null)
+        if (user == null)
             return new Result(Status.USER_ERROR, "无法获取用户", null).toString();
 
         //设置用户的昵称信息

@@ -38,7 +38,7 @@ public class ItemController {
     @RequestMapping("/post")
     public String openPostPage(HttpServletRequest request) {
         String res = Router.routerForUser(request, "post");
-        System.out.println(res);
+        //System.out.println(res);
         return res;
     }
 
@@ -175,7 +175,7 @@ public class ItemController {
     public String modifyUserItem(@RequestBody SellingItemModificationMessage sellingItemModificationMessage) {
         Item item = itemService.getItemById(sellingItemModificationMessage.getItemID());
 
-        if(item == null)
+        if (item == null)
             return new Result(Status.ITEM_ERROR, "获取物品失败", null).toString();
 
         //设置物品信息

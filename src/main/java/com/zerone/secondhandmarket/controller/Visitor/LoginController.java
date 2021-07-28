@@ -6,10 +6,13 @@ import com.zerone.secondhandmarket.message.UserLoginMessage;
 import com.zerone.secondhandmarket.module.LoginModule;
 import com.zerone.secondhandmarket.service.AdminService;
 import com.zerone.secondhandmarket.service.UserService;
+import com.zerone.secondhandmarket.tools.Router;
 import com.zerone.secondhandmarket.viewobject.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller("VisitorLogin")
 public class LoginController {
@@ -19,10 +22,10 @@ public class LoginController {
     private AdminService adminService = new AdminService();
 
     @RequestMapping("/login")
-    public String userLogin() {
-        return "login";
+    public String userLogin(HttpServletRequest request) {
+        return Router.routerForUserAndVistor(request, "login");
     }
-    
+
     @ResponseBody
     @PostMapping("/requests/login/user")
     public String userLogin(@RequestBody UserLoginMessage data) {

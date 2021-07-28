@@ -60,12 +60,17 @@ let addUserForm = new Vue({
                             let response = JSON.parse(responseStr);
                             if (response.status === 10200) {
                                 this.clear();
-                                confirm("添加成功");
+                                this.$message({
+                                    message: '添加成功',
+                                    duration: 600,
+                                    type: 'success'
+                                });
                                 userTableForm.getUserList();
                             } else if (response.status === 10402) {
                                 showErrorInForm(addUserForm, "form", "email", "rules", response.message);
                             } else {
-                                alert(`${response.message}（状态码：${response.status}）`);
+                                this.$message.error('添加失败');
+                                //alert(`${response.message}（状态码：${response.status}）`);
                             }
 
                         }

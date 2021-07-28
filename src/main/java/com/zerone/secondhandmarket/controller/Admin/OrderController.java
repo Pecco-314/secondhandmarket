@@ -26,7 +26,7 @@ public class OrderController {
     @RequestMapping("/admin-order")
     public String openAdminOrderPage(HttpServletRequest request) {
         String res = Router.routerForAdmin(request, "tables-order");
-        System.out.println(res);
+        //System.out.println(res);
         return res;
     }
 
