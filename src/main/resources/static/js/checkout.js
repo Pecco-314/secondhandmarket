@@ -257,6 +257,6 @@ $(() => {
         getUserInfo((response) => {
             checkoutForm.form.phoneNumber = response.data.phoneNumber;
         })
-
+        $(".checkout-tab ul li a").unbind();
     }
 );
