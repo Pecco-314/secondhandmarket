@@ -69,10 +69,10 @@
 
             <div id="sidebar-menu">
                 <ul>
-<!--                    <li>-->
-<!--                        <a href="index.html" class="waves-effect"><i class="ti-home"></i>-->
-<!--                            <span>主页</span></a>-->
-<!--                    </li>-->
+                    <!--                    <li>-->
+                    <!--                        <a href="index.html" class="waves-effect"><i class="ti-home"></i>-->
+                    <!--                            <span>主页</span></a>-->
+                    <!--                    </li>-->
 
                     <li>
                         <a href="../admin-user" class="waves-effect"><i class="ion-person-stalker"></i>
@@ -89,10 +89,10 @@
                             <span>订单管理</span> </span></a>
                     </li>
 
-<!--                    <li>-->
-<!--                        <a href="tables-basic.html" class="waves-effect"><i class="ion-person"></i>-->
-<!--                            <span>管理员信息</span> <span class="badge badge-success pull-right">8</span></a>-->
-<!--                    </li>-->
+                    <!--                    <li>-->
+                    <!--                        <a href="tables-basic.html" class="waves-effect"><i class="ion-person"></i>-->
+                    <!--                            <span>管理员信息</span> <span class="badge badge-success pull-right">8</span></a>-->
+                    <!--                    </li>-->
 
                 </ul>
             </div>
@@ -318,10 +318,11 @@
                                                             <span>{{props.row.time}}</span>
                                                         </el-form-item>
                                                         <el-form-item label="订单状态">
+                                                            <!--                                                            <span>{{props.row.state}}</span>-->
                                                             <span v-if="props.row.state === 'FINISHED'">已完成</span>
-                                                            <span v-if="props.row.state === 'UNFINISHED'">待收货</span>
-                                                            <span v-if="props.row.state === 'UNSENT'">待发货</span>
-                                                            <span v-if="props.row.state === 'UNPAYED'">待付款</span>
+                                                            <span v-if="props.row.state === 'UNRECEIVED'">待收货</span>
+                                                            <span v-if="props.row.state === 'UNDELIVERED'">待发货</span>
+                                                            <span v-if="props.row.state === 'UNPAID'">待付款</span>
                                                         </el-form-item>
                                                     </el-form>
                                                 </template>
@@ -331,7 +332,11 @@
                                                     {{ scope.$index + (currentPage - 1) * pageSize + 1 }}
                                                 </template>
                                             </el-table-column>
-                                            <el-table-column  prop="imageUrl" label="商品图片" width="120px" style="text-align: center;">   <template slot-scope="scope"><img :src=scope.row.imageUrl  width="60px" height="60px"/> </template></el-table-column>
+                                            <el-table-column prop="imageUrl" label="商品图片" width="120px"
+                                                             style="text-align: center;">
+                                                <template slot-scope="scope"><img :src=scope.row.imageUrl width="60px"
+                                                                                  height="60px"/></template>
+                                            </el-table-column>
                                             <el-table-column prop="id" label="订单号"></el-table-column>
                                             <el-table-column prop="buyer" label="买家编号"></el-table-column>
                                             <el-table-column prop="email" label="买家邮箱"></el-table-column>
@@ -339,9 +344,11 @@
                                             <el-table-column prop="state" label="订单状态" column-key="state"
                                                              :filters="[{text: '待收货', value: 'UNFINISHED'},{text: '已完成', value: 'FINISHED'}]"
                                                              :filter-method="filterHandler">
-                                                <template slot-scope="scope">
-                                                    <span v-if="scope.row.state === 'UNFINISHED'">待收货</span>
-                                                    <span v-if="scope.row.state === 'FINISHED'">已完成</span>
+                                                <template slot-scope="props">
+                                                    <span v-if="props.row.state === 'FINISHED'">已完成</span>
+                                                    <span v-if="props.row.state === 'UNRECEIVED'">待收货</span>
+                                                    <span v-if="props.row.state === 'UNDELIVERED'">待发货</span>
+                                                    <span v-if="props.row.state === 'UNPAID'">待付款</span>
                                                 </template>
                                             </el-table-column>
 

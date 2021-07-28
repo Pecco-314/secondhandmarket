@@ -21,8 +21,9 @@ let shopApp = new Vue({
             priceOrdering: 'DEFAULT',
             quantityOrdering: 'DEFAULT', // TODO
             checkCondition: null,
-            imageNeeded: true,
-            tagsNeeded: true,
+            inShop: true,
+            imagesNeeded: false,
+            tagsNeeded: false,
             notEmpty: true,
         },
         options: [
@@ -131,6 +132,7 @@ let shopApp = new Vue({
             this.options.forEach(e => e.selectState = (e.value === selection ? 'active' : ''))
             this.itemFilter.type = selection;
             this.itemFilter.checkCondition = 'TRUE';
+            console.log(this.itemFilter);
             this.getSearchResult();
         },
 

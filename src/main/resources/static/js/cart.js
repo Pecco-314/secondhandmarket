@@ -25,11 +25,11 @@ let myCartForm = new Vue({
             this.cntSuccess = 0;
             getCartList(this.page, async response => {
                 this.carts = response.data;
+                console.log(this.carts);
                 this.loading = true;
                 let promises = [];
                 for (let i = 0; i < this.carts.length; i++) {
                     promises.push(handleItemInfo(this, i));
-
                 }
                 await Promise.all(promises);
                 if (this.cntSuccess === this.carts.length) {
@@ -57,13 +57,20 @@ let myCartForm = new Vue({
                 success: (responseStr) => {
                     let response = JSON.parse(responseStr);
                     if (response.status === 60200) {
-                        if (this.carts)
+                        if (quantity != 0) {
                             for (let i = 0; i < this.carts.length; i++) {
                                 if (this.carts[i].itemId === itemID) {
                                     this.carts[i].total = this.carts[i].price * quantity;
                                     break;
                                 }
                             }
+                        } else {
+                            if (this.carts.length == 1 && this.page != 1) {
+                                this.page--;
+                            }
+                            this.getCartList();
+                            pageHeader.updateCart();
+                        }
                     }
                 }
             })
@@ -71,13 +78,17 @@ let myCartForm = new Vue({
         removeCartItem() {
             this.changeQuantity(this.currentId, 0);
             this.dialogVisibleForCancel = false;
-            for (let i = 0; i < this.carts.length; i++) {
-                if (this.carts[i].itemId === this.currentId) {
-                    this.carts.splice(i, 1);
-                    break;
-                }
-            }
-            setTimeout(pageHeader.updateCart, 500);
+            // for (let i = 0; i < this.carts.length; i++) {
+            //     if (this.carts[i].itemId === this.currentId) {
+            //         this.carts.splice(i, 1);
+            //         break;
+            //     }
+            // }
+            // if (this.carts.length == 1 && this.page != 1) {
+            //     this.page--;
+            // }
+            // setTimeout(this.getCartList(), 1000);
+            // setTimeout(pageHeader.updateCart, 500);
         }
     }
 })

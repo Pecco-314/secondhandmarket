@@ -9,7 +9,7 @@ let wishList = new Vue({
         cnt: 1,
         max: 1,
         currentId: '',
-        loading: true,
+        loading: false,
         cntSuccess: 0,
         countWish: 0,
     },
@@ -82,20 +82,24 @@ let wishList = new Vue({
         cancelCollection() {
             modifyCollection(this, this.currentId, false, response => {
                 this.dialogVisibleForCancelCollection = false;
-                this.updateCollectionState();
+                this.countWish--;
+                if (this.wishes.length == 1 && this.page != 1) {
+                    this.page--;
+                }
+                console.log(this);
+                this.getWishList();
             });
         },
 
-        updateCollectionState() {
-            for (let i = 0; i < this.wishes.length; i++) {
-                if (this.wishes[i].itemId === this.currentId) {
-                    this.wishes.splice(i, 1);
-                }
-            }
-        },
+        // updateCollectionState() {
+        //     for (let i = 0; i < this.wishes.length; i++) {
+        //         if (this.wishes[i].itemId === this.currentId) {
+        //             this.wishes.splice(i, 1);
+        //         }
+        //     }
+        // },
 
         getWishList() {
-            this.loading = true;
             this.cntSuccess = 0;
             let identification = {
                 userId: $.cookie("id"),
@@ -109,7 +113,9 @@ let wishList = new Vue({
                 contentType: "application/json;charset=utf-8",
                 success: async (responseStr) => {
                     let response = JSON.parse(responseStr);
+                    console.log(response);
                     if (response.status === 10200) {
+                        this.loading = true;
                         this.wishes = response.data;
                         let promises = [];
                         for (let i = 0; i < this.wishes.length; i++) {
@@ -120,6 +126,7 @@ let wishList = new Vue({
                             this.loading = false;
                         }
                     } else {
+                        this.wishes = [];
                         this.loading = false;
                     }
                 }
