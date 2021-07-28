@@ -25,3 +25,7 @@
 .el-select .el-input__inner:focus {
     border-color: #E8B43F;
 }
+
+.checkout-tab ul li a {
+    cursor: initial;
+}
