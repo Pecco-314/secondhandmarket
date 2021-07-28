@@ -127,11 +127,16 @@ let checkoutConfirm = new Vue({
                 getCartList(null, response => {
                     let res = [];
                     for (let i = 0; i < response.data.length; ++i) {
-                        res.push({
-                            id: response.data[i].itemId,
-                            quantity: response.data[i].quantity,
-                            index: i,
-                        });
+                        getItemInfoById(response.data[i].itemId, innerResponse => {
+                            if (innerResponse.data.quantity >= response.data[i].quantity) {
+                                res.push({
+                                    id: response.data[i].itemId,
+                                    quantity: response.data[i].quantity,
+                                    index: i,
+                                })
+                            }
+                        })
+                        ;
                     }
                     this.ids = res;
                 })
