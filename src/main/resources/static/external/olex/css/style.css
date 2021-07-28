@@ -4656,7 +4656,7 @@ Checkout Area
 }
 
 .checkout-tab .tabs li a:focus {
-    color: #E8B43F;
+    /*color: #E8B43F;*/
 }
 
 .checkout-tab .tabs li.active a {

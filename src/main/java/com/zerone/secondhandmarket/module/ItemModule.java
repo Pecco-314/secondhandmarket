@@ -21,14 +21,16 @@ public class ItemModule {
 
     //获取主页物品
     public static Result getItemListForHomepage(ItemService itemService, ItemImageService itemImageService, TagsService tagsService) {
-        List<Item> itemList = itemService.getItemList()
+        /*List<Item> itemList = itemService.getItemList()
                 .stream()
                 .filter(item -> item.getQuantity() > 0 && item.getCheckCondition() == ItemCheckCondition.TRUE)
                 .collect(Collectors.toList());
 
         int size = itemList.size();
         itemList = itemList.subList(Math.max(size - itemsInHomepage, 0), size);
-        Collections.reverse(itemList);
+        Collections.reverse(itemList);*/
+
+        List<Item> itemList = itemService.getItemListForHomepage();
 
         getItemTagsAndImages(itemImageService, tagsService, itemList, false, true);
 

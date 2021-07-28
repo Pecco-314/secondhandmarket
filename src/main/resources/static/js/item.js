@@ -116,8 +116,8 @@ let itemApp = new Vue({
     },
 });
 
-$(function () {
-        getItemInfo(getURLVariable("id"), response => {
+$(async function () {
+        await getItemInfoById(getURLVariable("id"), response => {
             itemApp.item = response.data;
             itemApp.max = response.data.quantity;
             if (itemApp.max === 0) {

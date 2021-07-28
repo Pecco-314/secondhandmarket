@@ -163,7 +163,7 @@ let adminInfoForm = new Vue({
 })
 
 async function handleItemInfo(th, i) {
-    await getItemInfo(th.tableDataAll[i].item, response => {
+    await getItemInfoById(th.tableDataAll[i].item, response => {
         th.$set(th.tableDataAll[i], 'money', response.data.price * th.tableDataAll[i].quantity);
         th.$set(th.tableDataAll[i], 'name', response.data.name);
         if (response.data.coverPath === null)
