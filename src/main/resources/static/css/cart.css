@@ -8,3 +8,19 @@
 .cart-buttons a {
     margin-right: 30px
 }
+.add-cart-btn
+{
+    background-color: #E8B43F;
+    border-radius: 2px;
+    padding: 4px 20px;
+    color: #ffffff;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    display: inline-flex;
+}
+.add-btn a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}

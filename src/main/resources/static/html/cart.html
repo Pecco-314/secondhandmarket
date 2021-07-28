@@ -129,7 +129,8 @@
                                                 <span class="stock-label"> 件（库存 {{cart.max}} 件）</span>
                                             </div>
                                             <div class="add-btn" v-else-if="cart.max > 0">
-                                                请重新选择商品数量<a class="add-cart-btn selectable"
+                                                <span class="stock-label" style="padding-right: 10px;color: gray;">请重新选择商品数量</span>
+                                                <a class="add-cart-btn selectable"
                                                             @click="openCartDialog(cart.itemId)">重选</a>
                                                 <el-dialog title="加入购物车" :visible.sync="dialogVisibleForCart"
                                                            width="30%">
@@ -146,7 +147,7 @@
                                                 </el-dialog>
                                             </div>
                                             <div class="add-btn" v-else="cart.max == 0">
-                                                <a class="add-cart-btn selectable">待补货</a>
+                                                <span class="stock-label" style="color: gray;">商品库存不足</span>
                                             </div>
                                             <!--                                        <div class="input-counter">-->
                                             <!--                                            <span class="minus-btn">-->
