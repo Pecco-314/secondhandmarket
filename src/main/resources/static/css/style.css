@@ -376,3 +376,8 @@ dress-form-item-content {
 /*.el-select-dropdown__list .selected {*/
 /*    color: black !important;*/
 /*}*/
+
+.my-pagination {
+    transform: scale(1.25);
+    margin-top: 20px;
+}

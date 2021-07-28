@@ -163,7 +163,17 @@
 
                                 </table>
                             </div>
-
+                            <div class="flex-center">
+                                <el-pagination
+                                        background
+                                        layout="prev, pager, next"
+                                        :page-size="6"
+                                        :current-page.sync="page"
+                                        :total="countCart"
+                                        @current-change="getCartList"
+                                        class="my-pagination">
+                                </el-pagination>
+                            </div>
                             <div class="cart-buttons">
                                 <div class="row align-items-center">
                                     <div class="col-lg-12 col-sm-12 col-md-12 text-right">

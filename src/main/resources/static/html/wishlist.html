@@ -106,6 +106,14 @@
                                         <el-button type="primary" @click="addToCart">确 定</el-button>
                                         </span>
                                         </el-dialog>
+                                        <el-dialog title="提示" :visible.sync="dialogVisibleForZero"
+                                                   width="30%">
+                                            库存为0，等待补货
+                                            <span slot="footer" class="dialog-footer">
+                                            <el-button type="primary"
+                                                       @click="dialogVisibleForZero=false">确 定</el-button>
+                                        </span>
+                                        </el-dialog>
                                         <el-dialog title="取消收藏" :visible.sync="dialogVisibleForCancelCollection"
                                                    width="30%">
                                             是否确定要取消收藏？

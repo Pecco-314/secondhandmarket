@@ -4,6 +4,7 @@ let wishList = new Vue({
         wishes: [],
         dialogVisibleForCart: false,
         dialogVisibleForCancelCollection: false,
+        dialogVisibleForZero: false,
         cnt: 1,
         max: 1,
         currentId: '',
@@ -12,9 +13,14 @@ let wishList = new Vue({
     },
     methods: {
         openCartDialog(wish) {
-            this.dialogVisibleForCart = true;
-            this.currentId = wish.itemId;
-            this.max = wish.quantity;
+            if (wish.quantity > 0) {
+                this.cnt = 1;
+                this.dialogVisibleForCart = true;
+                this.currentId = wish.itemId;
+                this.max = wish.quantity;
+            } else {
+                this.dialogVisibleForZero = true;
+            }
         },
 
         openCancelCollectionDialog(wish) {

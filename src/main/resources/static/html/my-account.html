@@ -291,7 +291,7 @@
                                                 <div class="price-tag" style="left: 31.5%;top:40%">
                                                     {{order.quantity}}
                                                 </div>
-                                                <div class="price-tag" style="left: 44%;top:40%">￥{{order.price}}
+                                                <div class="price-tag" style="left: 44%;top:40%">￥{{order.total}}
                                                 </div>
                                                 <div class="price-tag" style="left: 59%;top:40%">
                                                     <i v-if="order.state.value === 'UNPAID'"
@@ -413,7 +413,7 @@
                                                 <div class="price-tag" style="left: 31.5%;top:40%">
                                                     {{order.quantity}}
                                                 </div>
-                                                <div class="price-tag" style="left: 44%;top:40%">￥{{order.price}}
+                                                <div class="price-tag" style="left: 44%;top:40%">￥{{order.total}}
                                                 </div>
                                                 <div class="price-tag"
                                                      style="left: 58.5%;top:40%">

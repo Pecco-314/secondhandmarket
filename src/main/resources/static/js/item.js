@@ -57,6 +57,7 @@ let itemApp = new Vue({
 
             })
         },
+
         openCartDialog(item) {
             if ($.cookie('id')) {
                 this.dialogVisibleForCart = true;
@@ -66,6 +67,7 @@ let itemApp = new Vue({
                 window.open("../login", "_self");
             }
         },
+
         addToCollection() {
             modifyCollection(this, this.item.id, true, response => {
                 this.dialogVisibleForCollection = false;
@@ -118,6 +120,10 @@ $(function () {
         getItemInfo(getURLVariable("id"), response => {
             itemApp.item = response.data;
             itemApp.max = response.data.quantity;
+            if (itemApp.max === 0) {
+                itemApp.min = 0;
+                itemApp.cnt = 0;
+            }
             let date = new Date(itemApp.item.releaseTime);
             itemApp.item.releaseDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
             if (itemApp.item.introduction === null) {
