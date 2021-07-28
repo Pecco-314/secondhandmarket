@@ -312,7 +312,7 @@
                                                     </i>
                                                 </div>
                                                 <div v-show="order.state.value === 'UNPAID'" class="price-tag"
-                                                     style="left: 77%;top:35%">
+                                                     style="left: 78%;top:35%">
                                                     <el-button type="text" @click="onPay(order.id)">
                                                         付款
                                                     </el-button>
@@ -435,7 +435,7 @@
                                                      class="price-tag"
                                                      style="left: 76%;top:35%">
                                                     <el-button type="text" @click="onDeliver(order.id)">
-                                                        我已发货
+                                                        确认发货
                                                     </el-button>
                                                 </div>
                                                 <br>
@@ -617,9 +617,9 @@
         cursor: pointer;
     }
 
-    .ellipsis-type:hover {
-        text-overflow: inherit;
-        overflow: visible;
-    }
+    /*.ellipsis-type:hover {*/
+    /*    text-overflow: inherit;*/
+    /*    overflow: visible;*/
+    /*}*/
 </style>
 </html>
