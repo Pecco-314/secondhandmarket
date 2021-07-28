@@ -37,7 +37,6 @@ public class WishlistController {
     public String getWishlistCount(@RequestBody UserTokenMessage token) {
         if (CodeProcessor.validateIdToken(token.getUserID(), token.getToken())) {
             Result result = WishlistModule.getWishlistCount(wishlistService, token.getUserID());
-            System.out.println(result);
             return result.toString();
         } else {
             return new Result(Status.CART_ERROR, "ID与Token不符", null).toString();
