@@ -313,6 +313,22 @@ function cancelOrder(order, callback) {
     })
 }
 
+async function getItemInfoById(id, callback) {
+    return $.ajax({
+        url: `${url}/requests/item/${id}`,
+        method: 'get',
+        contentType: "application/json;charset=utf-8",
+        success: (responseStr) => {
+            let response = JSON.parse(responseStr);
+            if (response.status === 30200) {
+                callback(response);
+            } else {
+                alert(`${response.message}（状态码：${response.status}）`);
+            }
+        }
+    })
+}
+
 async function getItemInfoByFilter(type, filter, callback) {
     let defaultFilter = {
         seller: null,
@@ -345,14 +361,24 @@ async function getItemInfoByFilter(type, filter, callback) {
     })
 }
 
-async function getItemInfoById(id, callback) {
+async function getOrderInfoByFilter(type, filter, callback){
+    let defaultFilter = {
+        orderId: null,
+        buyer: null,
+        seller: null,
+        item: null,
+        state: null,
+        page: null,
+    };
+    let itemFilter = Object.assign(defaultFilter, filter);
     return $.ajax({
-        url: `${url}/requests/item/${id}`,
-        method: 'get',
+        url: `${url}/requests/user/orderList/${type}`,
+        method: 'post',
+        data: JSON.stringify(itemFilter),
         contentType: "application/json;charset=utf-8",
         success: (responseStr) => {
             let response = JSON.parse(responseStr);
-            if (response.status === 30200) {
+            if (response.status === 40200) {
                 callback(response);
             } else {
                 alert(`${response.message}（状态码：${response.status}）`);
