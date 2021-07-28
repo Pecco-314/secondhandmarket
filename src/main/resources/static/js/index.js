@@ -52,6 +52,7 @@ let indexForm = new Vue({
 
         openCartDialog(item) {
             if ($.cookie('id')) {
+                this.cnt = 1;
                 this.dialogVisibleForCart = true;
                 this.currentItem = item.id;
                 this.max = item.quantity;

@@ -106,10 +106,18 @@
                     </div>
 
                     <div class="product-add-btn">
-                        <button type="submit" class="default-btn btn-bg-three selectable" @click="addToCart">
+                        <button v-if="item.quantity != 0" type="submit" class="default-btn btn-bg-three selectable"
+                                @click="addToCart">
                             <i class="fas fa-cart-plus"></i> 加入购物车
                         </button>
-                        <button type="submit" class="default-btn btn-bg-three selectable" @click="buy">
+                        <button v-else type="submit" class="default-btn btn-bg-three selectable disabled-button">
+                            <i class="fas fa-cart-plus"></i> 加入购物车
+                        </button>
+                        <button v-if="item.quantity != 0" type="submit" class="default-btn btn-bg-three selectable"
+                                @click="buy">
+                            <i class="fas fa-cart-plus"></i> 立即购买
+                        </button>
+                        <button v-else type="submit" class="default-btn btn-bg-three selectable disabled-button">
                             <i class="fas fa-cart-plus"></i> 立即购买
                         </button>
                         <button type="submit" class="default-btn btn-bg-three selectable"

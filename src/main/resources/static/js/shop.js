@@ -46,6 +46,7 @@ let shopApp = new Vue({
     methods: {
         openCartDialog(item) {
             if ($.cookie('id')) {
+                this.cnt = 1;
                 this.dialogVisibleForCart = true;
                 this.currentId = item.id;
                 this.max = item.quantity;
