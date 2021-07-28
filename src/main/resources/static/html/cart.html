@@ -163,33 +163,34 @@
 
                                 </table>
                             </div>
-                            <div class="flex-center">
-                                <el-pagination
-                                        background
-                                        layout="prev, pager, next"
-                                        :page-size="6"
-                                        :current-page.sync="page"
-                                        :total="countCart"
-                                        @current-change="getCartList"
-                                        class="my-pagination">
-                                </el-pagination>
-                            </div>
-                            <div class="cart-buttons">
-                                <div class="row align-items-center">
-                                    <div class="col-lg-12 col-sm-12 col-md-12 text-right">
-                                        <a class="default-btn btn-bg-three selectable" @click="returnToShop">
-                                            继续购物
-                                        </a>
-                                        <a class="default-btn btn-bg-three selectable" @click="checkout">
-                                            立即结算
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                     </el-skeleton>
 
                 </form>
+                <div class="flex-center">
+                    <el-pagination
+                            background
+                            layout="prev, pager, next"
+                            :page-size="6"
+                            :current-page.sync="page"
+                            :total="countCart"
+                            @current-change="getCartList"
+                            class="my-pagination">
+                    </el-pagination>
+                </div>
+                <div class="cart-buttons">
+                    <div class="row align-items-center">
+                        <div class="col-lg-12 col-sm-12 col-md-12 text-right">
+                            <a class="default-btn btn-bg-three selectable" @click="returnToShop">
+                                继续购物
+                            </a>
+                            <a class="default-btn btn-bg-three selectable" @click="checkout">
+                                立即结算
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

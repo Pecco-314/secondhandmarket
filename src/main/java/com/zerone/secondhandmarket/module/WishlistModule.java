@@ -21,9 +21,9 @@ public class WishlistModule {
         Integer count = service.getWishlistCount(userId);
 
         if(count == null)
-            return new Result(Status.ERROR, "", null);
+            return new Result(Status.ERROR, "获取收藏夹数目失败", null);
 
-        return new Result(Status.OK, "", count);
+        return new Result(Status.OK, "获取收藏夹数目成功", count);
     }
 
     public static Result modifyWishlist(WishlistService service, int userId, int itemId, boolean isAdding) {

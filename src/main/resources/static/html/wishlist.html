@@ -167,6 +167,17 @@
                         </div>
                     </el-skeleton>
                 </form>
+                <div class="flex-center">
+                    <el-pagination
+                            background
+                            layout="prev, pager, next"
+                            :page-size="6"
+                            :current-page.sync="page"
+                            :total="countWish"
+                            @current-change="getWishList"
+                            class="my-pagination">
+                    </el-pagination>
+                </div>
             </div>
         </div>
     </div>

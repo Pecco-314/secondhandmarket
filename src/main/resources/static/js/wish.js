@@ -2,6 +2,7 @@ let wishList = new Vue({
     el: '#myWishes',
     data: {
         wishes: [],
+        page: 1,
         dialogVisibleForCart: false,
         dialogVisibleForCancelCollection: false,
         dialogVisibleForZero: false,
@@ -10,6 +11,27 @@ let wishList = new Vue({
         currentId: '',
         loading: true,
         cntSuccess: 0,
+        countWish: 0,
+    },
+    mounted() {
+        let identification = {
+            userID: $.cookie("id"),
+            token: $.cookie("token"),
+        };
+        $.ajax({
+            url: `${url}/requests/wishlist/count`,
+            method: 'post',
+            data: JSON.stringify(identification),
+            contentType: "application/json;charset=utf-8",
+            success: (responseStr) => {
+                let response = JSON.parse(responseStr);
+                if (response.status === 10200) {
+                    this.countWish = response.data;
+                } else {
+                    alert(`${response.message}（状态码：${response.status}）`);
+                }
+            }
+        })
     },
     methods: {
         openCartDialog(wish) {
@@ -78,6 +100,7 @@ let wishList = new Vue({
             let identification = {
                 userId: $.cookie("id"),
                 token: $.cookie("token"),
+                page: this.page,
             };
             $.ajax({
                 url: `${url}/requests/user/wishlist`,
