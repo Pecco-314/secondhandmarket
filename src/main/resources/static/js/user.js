@@ -502,6 +502,7 @@ async function setOrderList(form, role, state) {
                 await Promise.all(promises);
                 if (form.cntSuccess === form.orders.length) {
                     form.loading = false;
+                    console.log(form.orders);
                 }
             } else if (response.status === 40400) {
                 form.orders = [];
@@ -519,6 +520,7 @@ async function handleItemInfo(form, i) {
         form.orders[i].imageurl = getImageOrPlaceholder(response.data.coverPath);
         form.orders[i].price = response.data.price;
         form.orders[i].name = response.data.name;
+        form.$set(form.orders[i], 'total', form.orders[i].price * form.orders[i].quantity);
         form.$forceUpdate();
 
         form.cntSuccess++;

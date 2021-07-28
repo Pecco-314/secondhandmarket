@@ -23,6 +23,7 @@ let shopApp = new Vue({
             checkCondition: null,
             imageNeeded: true,
             tagsNeeded: true,
+            notEmpty: true,
         },
         options: [
             {text: "所有商品", value: null, selectState: ''},
@@ -46,6 +47,7 @@ let shopApp = new Vue({
     methods: {
         openCartDialog(item) {
             if ($.cookie('id')) {
+                this.cnt = 1;
                 this.dialogVisibleForCart = true;
                 this.currentId = item.id;
                 this.max = item.quantity;

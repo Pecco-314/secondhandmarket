@@ -30,8 +30,8 @@
     flex-wrap: wrap;
     margin-right: 15px;
 }
-.icon__class
-{
+
+.icon__class {
     display: block;
     background-color: #ffffff;
     text-align: center;
@@ -41,24 +41,28 @@
     -webkit-transition: 0.5s;
     transition: 0.5s;
 }
-.icon__class a i
-{
+
+.icon__class a i {
     color: #ff626c;
 }
-.ico-pre{
-    position:absolute;
-    left:-21px;
-    top:12px;
+
+.ico-pre {
+    position: absolute;
+    left: -21px;
+    top: 12px;
 }
-.span-box{
-    display:inline-block;
-    position:relative;
+
+.span-box {
+    display: inline-block;
+    position: relative;
 }
+
 .el-form-item__content {
     line-height: 40px;
     position: relative;
     font-size: 16px
 }
+
 .el-form-item__label {
     text-align: right;
     vertical-align: middle;
@@ -69,4 +73,9 @@
     padding: 0 12px 0 0;
     -webkit-box-sizing: border-box;
     box-sizing: border-box
+}
+
+.disabled-button {
+    background-color: darkgrey;
+    cursor: not-allowed !important;
 }
