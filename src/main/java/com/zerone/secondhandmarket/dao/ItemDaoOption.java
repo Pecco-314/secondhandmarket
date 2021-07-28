@@ -132,8 +132,13 @@ public class ItemDaoOption {
 
         if(filter.getPage() != null) {
             sql.append(" limit :start,:count");
-            param.put("start", IndexGenerator.generateStartIndex(filter.getPage(), true));
-            param.put("count", IndexGenerator.countPerPageInShop);
+            if(filter.isInShop()) {
+                param.put("start", IndexGenerator.generateStartIndex(filter.getPage(), true));
+                param.put("count", IndexGenerator.countPerPageInShop);
+            } else {
+                param.put("start", IndexGenerator.generateStartIndex(filter.getPage(), false));
+                param.put("count", IndexGenerator.countPerPage);
+            }
         }
 
         try {
