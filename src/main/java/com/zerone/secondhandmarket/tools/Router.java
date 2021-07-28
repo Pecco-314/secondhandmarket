@@ -6,9 +6,13 @@ import javax.servlet.http.HttpServletRequest;
 public class Router {
     public static String routerForAdmin(HttpServletRequest request, String des) {
         Cookie[] cookies = request.getCookies();
-        for (int i = 0; i < cookies.length; i++) {
+
+        if(cookies == null)
+            return "redirect:/";
+
+        for (Cookie cookie : cookies) {
             //System.out.println(cookies[i].getName() + ": " + cookies[i].getValue());
-            if (cookies[i].getName().equals("userType") && cookies[i].getValue().equals("admin")) {
+            if (cookie.getName().equals("userType") && cookie.getValue().equals("admin")) {
                 return des;
             }
         }
@@ -17,12 +21,16 @@ public class Router {
 
     public static String routerForUser(HttpServletRequest request, String des) {
         Cookie[] cookies = request.getCookies();
-        for (int i = 0; i < cookies.length; i++) {
+
+        if(cookies == null)
+            return "redirect:/login";
+
+        for (Cookie cookie : cookies) {
             //System.out.println(cookies[i].getName() + ": " + cookies[i].getValue());
-            if (cookies[i].getName().equals("userType")) {
-                if (cookies[i].getValue().equals("user"))
+            if (cookie.getName().equals("userType")) {
+                if (cookie.getValue().equals("user"))
                     return des;
-                if (cookies[i].getValue().equals("admin"))
+                if (cookie.getValue().equals("admin"))
                     return "redirect:/admin-user";
             }
         }
@@ -31,13 +39,17 @@ public class Router {
 
     public static String routerForUserAndVistor(HttpServletRequest request, String des) {
         Cookie[] cookies = request.getCookies();
+
+        if(cookies == null)
+            return des;
+
         //System.out.println(cookies.length);
-        for (int i = 0; i < cookies.length; i++) {
+        for (Cookie cookie : cookies) {
             //System.out.println(cookies[i].getName() + ": " + cookies[i].getValue());
-            if (cookies[i].getName().equals("userType")) {
-                if (cookies[i].getValue().equals("user"))
+            if (cookie.getName().equals("userType")) {
+                if (cookie.getValue().equals("user"))
                     return des;
-                if (cookies[i].getValue().equals("admin"))
+                if (cookie.getValue().equals("admin"))
                     return "redirect:/admin-user";
             }
         }
