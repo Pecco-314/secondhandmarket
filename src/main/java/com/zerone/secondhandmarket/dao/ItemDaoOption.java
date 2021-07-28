@@ -190,6 +190,14 @@ public class ItemDaoOption {
             }
             param.put("checked", filter.getCheckCondition().toString());
         }
+        if(filter.isNotEmpty()) {
+            if(!has_where) {
+                sql.append(" where quantity>0");
+                has_where = true;
+            } else {
+                sql.append(" and quantity>0");
+            }
+        }
         if(hasKeyword) {
             if(!has_where) {
                 sql.append(" where match_ratio(item_name,:item_name)>=49");

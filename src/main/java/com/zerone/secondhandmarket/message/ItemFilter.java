@@ -20,6 +20,7 @@ public class ItemFilter {
     private Ordering priceOrdering = Ordering.DEFAULT;
     private Ordering quantityOrdering = Ordering.DEFAULT;
     private ItemCheckCondition checkCondition = null;
+    private boolean notEmpty = false;
     private boolean imagesNeeded = false;
     private boolean tagsNeeded = false;
     private Integer page = null;
