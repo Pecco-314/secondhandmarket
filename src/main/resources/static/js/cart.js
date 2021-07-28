@@ -1,11 +1,18 @@
-let MyCartForm = new Vue({
+let myCartForm = new Vue({
     el: '#myCart',
     data: {
         carts: [],
+        countItem: 0,
+        page: 1,
         dialogVisibleForCancel: false,
         currentId: '',
         cntSuccess: 0,
         loading: false,
+    },
+    computed: {
+        countCart() {
+            return pageHeader.countCart;
+        }
     },
     methods: {
         returnToShop() {
@@ -16,7 +23,7 @@ let MyCartForm = new Vue({
         },
         getCartList() {
             this.cntSuccess = 0;
-            getCartList(async response => {
+            getCartList(this.page, async response => {
                 this.carts = response.data;
                 this.loading = true;
                 let promises = [];
@@ -91,4 +98,4 @@ async function handleItemInfo(th, i) {
     })
 }
 
-$(MyCartForm.getCartList());
+$(myCartForm.getCartList);

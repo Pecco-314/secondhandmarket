@@ -143,10 +143,11 @@ async function getItemInfo(id, callback) {
 //     });
 // }
 
-function getCartList(callback) {
+function getCartList(page, callback) {
     let identification = {
         userId: $.cookie("id"),
         token: $.cookie("token"),
+        page: page,
     };
     return $.ajax({
         url: `${url}/requests/cart/info`,
