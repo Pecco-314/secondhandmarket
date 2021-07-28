@@ -76,7 +76,7 @@
 .checkout-order .checkout-product li span {
     text-decoration: underline;
     text-underline-offset: 2.5px;
-    font-weight: bold;
+    /*font-weight: bold;*/
     color: #E8B43F;
     font-size: 16px;
 }
