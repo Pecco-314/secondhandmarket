@@ -118,7 +118,6 @@ let checkoutConfirm = new Vue({
         },
         updateIds() {
             let type = getURLVariable('type');
-            console.log(type);
             if (type === 'single') {
                 this.ids = [{
                     id: getURLVariable('id'),
@@ -187,8 +186,8 @@ let checkoutConfirm = new Vue({
                         await Promise.all(promises);
                         this.isConfirming = false;
                         if (checkoutForm.cntSuccess === checkoutConfirm.ids.length) {
-                            clearCart(() => {
-                            });
+                            if (getURLVariable('type') === 'cart')
+                                clearCart(() => {});
                             elAlert(this, '订单已提交！', '', () => {
                                 switchToTab(2);
                             })

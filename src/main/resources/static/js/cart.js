@@ -42,7 +42,6 @@ let MyCartForm = new Vue({
                 itemID: itemID,
                 quantity: quantity
             };
-            console.log(identification);
             $.ajax({
                 url: `${url}/requests/cart/modifyCart`,
                 method: 'post',
