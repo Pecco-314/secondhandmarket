@@ -94,7 +94,7 @@ let myCartForm = new Vue({
 })
 
 async function handleItemInfo(th, i) {
-    await getItemInfo(th.carts[i].itemId, response => {
+    await getItemInfoById(th.carts[i].itemId, response => {
         th.$set(th.carts[i], 'max', response.data.quantity);
         th.$set(th.carts[i], 'itemName', response.data.name);
         th.$set(th.carts[i], 'price', response.data.price);

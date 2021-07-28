@@ -102,7 +102,7 @@ let userinfoForm = new Vue({
                     }
                 }
             })
-            // console.log(res.data[0]);
+            // 
         },
         // // 上传前格式和图片大小限制
         // beforeAvatarUpload(file) {
@@ -116,7 +116,6 @@ let userinfoForm = new Vue({
         //     }
         //     return type && isLt2M
         // }
-
     }
 })
 let passwordForm = new Vue({
@@ -125,7 +124,6 @@ let passwordForm = new Vue({
         form: {
             userID: "",
             token: "",
-
             oldPassword: "",
             newPassword: "",
             newPassword1: "",
@@ -216,44 +214,39 @@ let itemsForm = new Vue({
             imageList: [],      //用于显示
         },
         currentId: '',
+        page: 1,
+        countItem: 0,
+    },
+    async mounted() {
+        await getItemInfoByFilter('count', {seller: $.cookie('id')}, response => {
+            this.countItem = response.data;
+        });
     },
     methods: {
         onPostImageSuccessfully(response, file, fileList) {
-            // let that = this;
-            // setTimeout("this.pushImage(file);", 1);
             this.form.imagesForPost.push(file);
-            // console.log(this.form.imagesForPost);
-            // console.log(this.form.imageList);
         },
         onRemoveImage(file) {
-            // let that = this;
-            // setTimeout("this.removeImage(file)", 1);
             this.form.imagesForPost = removeIf(this.form.imagesForPost, f => f.uid === file.uid);
-            // console.log(this.form.imagesForPost);
         },
-        getItemList() {
-            let userId = $.cookie("id");
-            $.ajax({
-                url: `${url}/requests/user/items/${userId}`,
-                method: 'get',
-                contentType: "application/json;charset=utf-8",
-                success: (responseStr) => {
-                    let response = JSON.parse(responseStr);
-                    if (response.status === 30200) {
-                        this.items = response.data;
-                        for (let i = 0; i < this.items.length; i++) {
-                            if (this.items[i].checkCondition === 'TRUE')
-                                this.items[i].checkCondition = '审核通过';
-                            else if (this.items[i].checkCondition === 'FALSE')
-                                this.items[i].checkCondition = '审核未通过';
-                            else
-                                this.items[i].checkCondition = '审核中';
-                            this.items[i].url = `${url}/item?id=${this.items[i].id}`
-                            this.items[i].imageurl = getImageOrPlaceholder(this.items[i].coverPath);
-                        }
+        async getItemList() {
+            await getItemInfoByFilter('search', {seller: $.cookie('id'), page: this.page}, response => {
+                if (response.status === 30200) {
+                    this.items = response.data;
+                    for (let i = 0; i < this.items.length; i++) {
+                        if (this.items[i].checkCondition === 'TRUE')
+                            this.items[i].checkCondition = '审核通过';
+                        else if (this.items[i].checkCondition === 'FALSE')
+                            this.items[i].checkCondition = '审核未通过';
+                        else
+                            this.items[i].checkCondition = '审核中';
+                        this.items[i].url = `${url}/item?id=${this.items[i].id}`
+                        this.items[i].imageurl = getImageOrPlaceholder(this.items[i].coverPath);
                     }
+                } else {
+                    alert(`${response.message}（状态码：${response.status}）`);
                 }
-            })
+            });
         },
         openUpdateDialog(item) {
             this.form.imageList = [];
@@ -264,7 +257,6 @@ let itemsForm = new Vue({
             this.form.quantity = item.quantity;
             this.form.price = item.price;
             this.form.introduction = item.introduction;
-
             //插入已有图片
             for (let i = 0; i < item.itemImages.length; i++) {
                 let newFile = {
@@ -277,14 +269,14 @@ let itemsForm = new Vue({
                 this.form.imageList.push(newFile);
                 this.form.imagesForPost.push(newFile);
             }
-            console.log(this.form.imageList);
-            console.log(this.currentId);
-        },
+
+        }
+        ,
         openDeleteDialog(id) {
-            console.log(id);
             this.currentId = id;
             this.dialogVisibleForDelete = true;
-        },
+        }
+        ,
         updateItem() {
             //获取当前文件信息
             let images = [];
@@ -365,12 +357,10 @@ let ordersForm = new Vue({
         }
     },
     methods: {
-        getOrderList() {
+        async getOrderList() {
             this.cntSuccess = 0;
-            setOrderList(this, 'buyer', this.selectedType);
-            console.log(this.cntSuccess);
+            await setOrderList(this, 'buyer', this.selectedType);
         },
-
         onReceive(id) {
             this.dialogVisibleForConfirm = true;
             this.orderId = id;
@@ -382,7 +372,6 @@ let ordersForm = new Vue({
                     type: 'success'
                 });
                 this.dialogVisibleForConfirm = false;
-                // this.updateState();
                 this.getOrderList();
                 sellsForm.getOrderList();
             });
@@ -399,22 +388,6 @@ let ordersForm = new Vue({
                 sellsForm.getOrderList();
             });
         },
-        // deleteFromList() {
-        //     for (let i = 0; i < this.orders.length; i++) {
-        //         if (this.orders[i].id == this.orderId) {
-        //             this.orders.splice(i, 1);
-        //             break;
-        //         }
-        //     }
-        // },
-        // updateState() {
-        //     for (let i = 0; i < this.orders.length; i++) {
-        //         if (this.orders[i].id == this.orderId) {
-        //             this.orders[i].state = this.options[4];
-        //             break;
-        //         }
-        //     }
-        // },
         onCancel(orderId) {
             this.dialogVisibleForCancel = true;
             this.orderId = orderId;
@@ -444,9 +417,9 @@ let sellsForm = new Vue({
         }
     },
     methods: {
-        getOrderList() {
+        async getOrderList() {
             this.cntSuccess = 0;
-            setOrderList(this, 'seller', this.selectedType);
+            await setOrderList(this, 'seller', this.selectedType);
         },
         confirm() {
             changeOrderState(this.orderId, 'UNRECEIVED', () => {
@@ -487,8 +460,6 @@ async function setOrderList(form, role, state) {
         contentType: "application/json;charset=utf-8",
         success: async (responseStr) => {
             let response = JSON.parse(responseStr);
-            console.log(orderFilter);
-            console.log(response);
             if (response.status === 40200) {
                 form.orders = response.data;
                 let promises = [];
@@ -502,7 +473,6 @@ async function setOrderList(form, role, state) {
                 await Promise.all(promises);
                 if (form.cntSuccess === form.orders.length) {
                     form.loading = false;
-                    console.log(form.orders);
                 }
             } else if (response.status === 40400) {
                 form.orders = [];
@@ -515,14 +485,13 @@ async function setOrderList(form, role, state) {
 }
 
 async function handleItemInfo(form, i) {
-    await getItemInfo(form.orders[i].item, (response) => {
+    await getItemInfoById(form.orders[i].item, (response) => {
         form.orders[i].url = `${url}/item?id=${response.data.id}`;
         form.orders[i].imageurl = getImageOrPlaceholder(response.data.coverPath);
         form.orders[i].price = response.data.price;
         form.orders[i].name = response.data.name;
         form.$set(form.orders[i], 'total', form.orders[i].price * form.orders[i].quantity);
         form.$forceUpdate();
-
         form.cntSuccess++;
     });
 }

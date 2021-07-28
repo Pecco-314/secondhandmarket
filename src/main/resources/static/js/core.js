@@ -110,23 +110,6 @@ function getUserInfo(callback) {
     }
 }
 
-async function getItemInfo(id, callback) {
-    return $.ajax({
-        url: `${url}/requests/item/${id}`,
-        method: 'get',
-        contentType: "application/json;charset=utf-8",
-        //async: false,//同步
-        success: (responseStr) => {
-            let response = JSON.parse(responseStr);
-            if (response.status === 30200) {
-                callback(response);
-            } else {
-                alert(`${response.message}（状态码：${response.status}）`);
-            }
-        }
-    });
-}
-
 // function getItemInfoAsync(id, callback) {
 //     $.ajax({
 //         url: `${url}/requests/item/${id}`,
@@ -322,6 +305,54 @@ function cancelOrder(order, callback) {
         success: (responseStr) => {
             let response = JSON.parse(responseStr);
             if (response.status === 40200) {
+                callback(response);
+            } else {
+                alert(`${response.message}（状态码：${response.status}）`);
+            }
+        }
+    })
+}
+
+async function getItemInfoByFilter(type, filter, callback) {
+    let defaultFilter = {
+        seller: null,
+        keyword: '',
+        type: null,
+        tags: null,
+        priceOrdering: 'DEFAULT',
+        quantityOrdering: 'DEFAULT',
+        checkCondition: null,
+        notEmpty: false,
+        inShop: false,
+        imagesNeeded: false,
+        tagsNeeded: false,
+        page: null,
+    };
+    let itemFilter = Object.assign(defaultFilter, filter);
+    return $.ajax({
+        url: `${url}/requests/product/${type}`,
+        method: 'post',
+        data: JSON.stringify(itemFilter),
+        contentType: "application/json;charset=utf-8",
+        success: (responseStr) => {
+            let response = JSON.parse(responseStr);
+            if (response.status === 30200) {
+                callback(response);
+            } else {
+                alert(`${response.message}（状态码：${response.status}）`);
+            }
+        }
+    })
+}
+
+async function getItemInfoById(id, callback) {
+    return $.ajax({
+        url: `${url}/requests/item/${id}`,
+        method: 'get',
+        contentType: "application/json;charset=utf-8",
+        success: (responseStr) => {
+            let response = JSON.parse(responseStr);
+            if (response.status === 30200) {
                 callback(response);
             } else {
                 alert(`${response.message}（状态码：${response.status}）`);

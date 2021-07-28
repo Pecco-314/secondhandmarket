@@ -137,7 +137,7 @@ let wishList = new Vue({
 
 async function handleItemInfo(th, i) {
 
-    await getItemInfo(th.wishes[i].itemId, response => {
+    await getItemInfoByFilter('search', {id:th.wishes[i].itemId}, response => {
         th.$set(th.wishes[i], 'name', response.data.name);
         th.$set(th.wishes[i], 'quantity', response.data.quantity);
         th.$set(th.wishes[i], 'price', response.data.price);

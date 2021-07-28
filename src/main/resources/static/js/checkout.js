@@ -53,8 +53,8 @@ let checkoutForm = new Vue({
 Vue.component('checkout-item', {
     props: ["itemId", "quantity"],
     methods: {
-        setCheckoutItemData(id) {
-            getItemInfo(id, response => {
+        async setCheckoutItemData(id) {
+            await getItemInfoById(id, response => {
                 this.imagePath = response.data.itemImages[0];
                 this.name = response.data.name;
                 this.price = response.data.price;
@@ -172,7 +172,7 @@ let checkoutConfirm = new Vue({
             }
         },
         onConfirm() {
-             checkoutForm.$refs.form.validate(async valid => {
+            checkoutForm.$refs.form.validate(async valid => {
                 if (valid) {
                     checkoutForm.cntSuccess = 0;
                     if (!this.isConfirming) {
@@ -186,7 +186,8 @@ let checkoutConfirm = new Vue({
                         this.isConfirming = false;
                         if (checkoutForm.cntSuccess === checkoutConfirm.ids.length) {
                             if (getURLVariable('type') === 'cart')
-                                clearCart(() => {});
+                                clearCart(() => {
+                                });
                             elAlert(this, '订单已提交！', '', () => {
                                 switchToTab(2);
                             })
