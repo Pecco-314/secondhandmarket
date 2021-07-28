@@ -21,35 +21,19 @@ public class ItemModule {
 
     //获取主页物品
     public static Result getItemListForHomepage(ItemService itemService, ItemImageService itemImageService, TagsService tagsService) {
-        List<Item> itemList = itemService.getItemList();
-
-        //筛选掉数量为0的物品
-        for (int i = itemList.size() - 1; i >= 0; i--) {
-            if (itemList.get(i).getQuantity() <= 0) {
-                itemList.remove(i);
-            }
-        }
-        //筛选出审核通过的物品
-        for (int i = itemList.size() - 1; i >= 0; i--) {
-            if (!(itemList.get(i).getCheckCondition() == ItemCheckCondition.TRUE)) {
-                itemList.remove(i);
-            }
-        }
+        List<Item> itemList = itemService.getItemList()
+                .stream()
+                .filter(item -> item.getQuantity() > 0 && item.getCheckCondition() == ItemCheckCondition.TRUE)
+                .collect(Collectors.toList());
 
         int size = itemList.size();
         itemList = itemList.subList(Math.max(size - itemsInHomepage, 0), size);
         Collections.reverse(itemList);
 
         getItemTagsAndImages(itemImageService, tagsService, itemList, false, true);
+
         return new Result(Status.ITEM_OK, "获取全部物品成功", itemList);
     }
-
-    /*//获取所有物品（对于管理员来说），用于审核用户发布的物品
-    public static Result getItemList(ItemService itemService, ItemImageService itemImageService, TagsService tagsService) {
-        List<Item> itemList = itemService.getItemList();
-        getItemTagsAndImages(itemImageService, tagsService, itemList, true, true);
-        return new Result(Status.ITEM_OK, "获取全部物品成功", itemList);
-    }*/
 
     //根据类型筛选
     public static Result getItemsByFilter(ItemService service, ItemImageService itemImageService, TagsService tagsService, ItemFilter filter) {
@@ -61,7 +45,6 @@ public class ItemModule {
         }
 
         getItemTagsAndImages(itemImageService, tagsService, list, filter.isImagesNeeded(), filter.isTagsNeeded());
-
 
         return new Result(Status.ITEM_OK, "获得所需物品", list);
     }
@@ -83,32 +66,6 @@ public class ItemModule {
 
         return new Result(Status.OK, "", list);
     }
-
-    /*//搜索物品
-    public static Result searchItems(ItemService itemService, ItemImageService itemImageService, TagsService tagsService, ItemFilter itemFilter) {
-        List<Item> list = itemService.getItemListByFilterAndKeyword(itemFilter, keyword);
-
-        if (list == null || list.isEmpty()) {
-            return new Result(Status.ITEM_ERROR, "无符合条件物品", null);
-        }
-        //获取Item的图片和标签
-//        getItemTagsAndImages(itemImageService, tagsService, list);
-
-        return new Result(Status.ITEM_OK, "获得所需物品", list);
-    }*/
-
-    /*//根据关键词筛选
-    public static Result getCheckedItemsByKeyWords(ItemService service, ItemImageService itemImageService, TagsService tagsService, String keyword) {
-        //按关键词获得符合条件的物品
-        List<Item> list = service.getItemByKeyword(keyword)
-                .stream()
-                .filter(item -> item.getCheckCondition() == ItemCheckCondition.TRUE)
-                .collect(Collectors.toList());
-        //获得Item的图片和标签
-        getItemTagsAndImages(itemImageService, tagsService, list);
-
-        return new Result(Status.ITEM_OK, "搜索成功", list);
-    }*/
 
     //获取物品详情
     public static Result getItemInfo(ItemService itemService, ItemImageService itemImageService, TagsService tagsService, int itemId) {
@@ -172,7 +129,7 @@ public class ItemModule {
             itemService.updateItem(item);
             if (updateImages != null) {
                 List<String> originalImages = itemImageService.getImagesByItemId(item.getId());
-                /**更新图片信息**/
+                /*更新图片信息*/
                 //删除更新后去掉的照片
                 for (String image : originalImages) {
                     if (!updateImages.contains(image))
