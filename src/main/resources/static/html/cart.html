@@ -121,12 +121,32 @@
                                         </td>
 
                                         <td class="product-quantity">
-                                            <div class="adder">
+                                            <div class="adder" v-if="cart.max >= cart.quantity">
                                                 <span class="quantity-label"></span>
                                                 <el-input-number v-model=cart.quantity :min=1 :max=cart.max
                                                                  size="small"
                                                                  @change="changeQuantity(cart.itemId,cart.quantity)"></el-input-number>
                                                 <span class="stock-label"> 件（库存 {{cart.max}} 件）</span>
+                                            </div>
+                                            <div class="add-btn" v-else-if="cart.max > 0">
+                                                请重新选择商品数量<a class="add-cart-btn selectable"
+                                                            @click="openCartDialog(cart.itemId)">重选</a>
+                                                <el-dialog title="加入购物车" :visible.sync="dialogVisibleForCart"
+                                                           width="30%">
+                                                    <div class="adder">
+                                                        <span class="quantity-label">数量</span>
+                                                        <el-input-number v-model="cnt" :min=1 :max="cart.max"
+                                                                         size="small"></el-input-number>
+                                                        <span class="stock-label"> 件（库存 {{cart.max}} 件）</span>
+                                                    </div>
+                                                    <span slot="footer" class="dialog-footer">
+                                                        <el-button @click="dialogVisibleForCart = false">取 消</el-button>
+                                                        <el-button type="primary" @click="addToCart">确 定</el-button>
+                                                    </span>
+                                                </el-dialog>
+                                            </div>
+                                            <div class="add-btn" v-else="cart.max == 0">
+                                                <a class="add-cart-btn selectable">待补货</a>
                                             </div>
                                             <!--                                        <div class="input-counter">-->
                                             <!--                                            <span class="minus-btn">-->
@@ -140,7 +160,8 @@
                                         </td>
 
                                         <td class="product-subtotal">
-                                            <span class="subtotal-amount">￥{{cart.total}}</span>
+                                            <span class="subtotal-amount"
+                                                  v-if="cart.max >= cart.quantity">￥{{cart.total}}</span>
 
                                             <a class="remove selectable" @click="openCancelDialog(cart.itemId)">
                                                 <i class='bx bx-trash'></i>
