@@ -58,6 +58,11 @@ public class ItemService implements ItemDao {
         return daoOption.getItemList();
     }
 
+    @Override
+    public List<Item> getItemListForHomepage() {
+        return daoOption.getItemListForHomepage();
+    }
+
     /*//按价格升序或降序获得商品列表，输入ordering
     @Override
     public List<Item> getItemListOrderByPrice(Ordering ordering) {

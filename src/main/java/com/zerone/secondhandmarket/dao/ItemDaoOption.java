@@ -98,6 +98,16 @@ public class ItemDaoOption {
         }
     }
 
+    public List<Item> getItemListForHomepage() {
+        String sql = "select * from LATEST_ITEMS";
+
+        try {
+            return jdbcTemplate.query(sql, new ItemRowMapper());
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public Integer getItemCount(ItemFilter filter) {
         StringBuilder sql = new StringBuilder(500);
 
