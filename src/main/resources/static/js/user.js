@@ -216,6 +216,7 @@ let itemsForm = new Vue({
         currentId: '',
         page: 1,
         countItem: 0,
+        loading: true,
     },
     async mounted() {
         await getItemInfoByFilter('count', {seller: $.cookie('id')}, response => {
@@ -230,6 +231,7 @@ let itemsForm = new Vue({
             this.form.imagesForPost = removeIf(this.form.imagesForPost, f => f.uid === file.uid);
         },
         async getItemList() {
+            this.loading = true;
             await getItemInfoByFilter('search', {seller: $.cookie('id'), page: this.page}, response => {
                 if (response.status === 30200) {
                     this.items = response.data;
@@ -243,6 +245,7 @@ let itemsForm = new Vue({
                         this.items[i].url = `${url}/item?id=${this.items[i].id}`
                         this.items[i].imageurl = getImageOrPlaceholder(this.items[i].coverPath);
                     }
+                    this.loading = false;
                 } else {
                     alert(`${response.message}（状态码：${response.status}）`);
                 }
@@ -354,12 +357,19 @@ let ordersForm = new Vue({
             dialogVisibleForCancel: false,
             loading: true,
             cntSuccess: 0,
+            page: 1,
+            countOrder: 0,
         }
+    },
+    async mounted() {
+        await getOrderInfoByFilter('count', {buyer: $.cookie('id')}, response => {
+            this.countOrder = response.data;
+        })
     },
     methods: {
         async getOrderList() {
             this.cntSuccess = 0;
-            await setOrderList(this, 'buyer', this.selectedType);
+            await setOrderList(this, 'buyer', this.selectedType, this.page);
         },
         onReceive(id) {
             this.dialogVisibleForConfirm = true;
@@ -414,12 +424,19 @@ let sellsForm = new Vue({
             orderId: '',
             dialogVisibleForConfirm: false,
             cntSuccess: 0,
+            page: 1,
+            countOrder: 0,
         }
+    },
+    async mounted() {
+        await getOrderInfoByFilter('count', {seller: $.cookie('id')}, response => {
+            this.countOrder = response.data;
+        })
     },
     methods: {
         async getOrderList() {
             this.cntSuccess = 0;
-            await setOrderList(this, 'seller', this.selectedType);
+            await setOrderList(this, 'seller', this.selectedType, this.page);
         },
         confirm() {
             changeOrderState(this.orderId, 'UNRECEIVED', () => {
@@ -443,7 +460,7 @@ $(itemsForm.getItemList);
 $(ordersForm.getOrderList);
 $(sellsForm.getOrderList);
 
-async function setOrderList(form, role, state) {
+async function setOrderList(form, role, state, page) {
     form.loading = true;
     let userId = $.cookie("id");
     let orderFilter = {
@@ -452,6 +469,7 @@ async function setOrderList(form, role, state) {
         seller: role === 'seller' ? userId : null,
         item: null,
         state: state === 'ALL' ? null : state,
+        page: page,
     };
     $.ajax({
         url: `${url}/requests/user/orderList/search`,
