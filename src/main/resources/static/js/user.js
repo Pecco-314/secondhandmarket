@@ -332,7 +332,7 @@ let itemsForm = new Vue({
                         this.page = 1;
                         this.countItem--;
                     } else {
-                        alert(`${response.message}（状态码：${response.status}）`);
+                        this.$message.error('删除失败，有相关订单未完成');
                     }
                 }
             })
