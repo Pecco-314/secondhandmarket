@@ -42,3 +42,19 @@
     background-color:  #868e96;
     border-color:  #868e96;
 }
+.el-table__column-filter-trigger {
+    display: inline-block;
+    line-height: inherit;
+    cursor: pointer;
+}
+.el-table th > .cell {
+    display: inline-block;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    position: relative;
+    vertical-align: middle;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 6px;
+    width: 100%;
+}
