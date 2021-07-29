@@ -172,7 +172,14 @@ let userTableForm = new Vue({
                                 message: '操作成功',
                                 duration: 600,
                                 type: 'success'
-                            })
+                            });
+                            console.log(this.tableData.length % this.pageSize)
+                            console.log(this.tableData.length / this.pageSize + 1)
+                            console.log(this.currentPage)
+                            if (this.tableData.length % this.pageSize === 1
+                                && this.currentPage === Math.floor(this.tableData.length / this.pageSize) + 1
+                                && this.currentPage !== 1)
+                                this.currentPage--;
                             userTableForm.getUserList();
                         } else {
                             this.$message.error('操作失败');
