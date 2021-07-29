@@ -140,6 +140,11 @@ let checkoutConfirm = new Vue({
                         })
                         ;
                     }
+                    if (res.length == 0) {
+                        elAlert(checkoutConfirm, '订单中无符合要求的商品', '', () => {
+                            window.open('../cart', '_self');
+                        })
+                    }
                     this.ids = res;
                 })
             } else if (type === 'by_id') {
