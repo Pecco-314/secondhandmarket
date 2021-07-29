@@ -91,7 +91,7 @@ public class OrderController {
             Order order = orderService.getOrderByOrderId(modification.getOrderId());
 
             if(order == null)
-                return new Result(Status.ERROR, "无法获取订单", null).toString();
+                return new Result(Status.ORDER_ERROR, "无法获取订单", null).toString();
 
             order.setState(modification.getState());
 
