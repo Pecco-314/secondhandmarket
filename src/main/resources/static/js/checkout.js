@@ -203,7 +203,6 @@ let checkoutConfirm = new Vue({
                                                 quantity: 0,
                                                 accumulate: false,
                                             }
-                                            console.log(purchaseData);
                                             addToCart(purchaseData, function () {
                                             });
                                         }

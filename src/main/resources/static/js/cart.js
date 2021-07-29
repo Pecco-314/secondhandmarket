@@ -49,7 +49,6 @@ let myCartForm = new Vue({
             this.cntSuccess = 0;
             getCartList(this.page, async response => {
                 this.carts = response.data;
-                console.log(this.carts);
                 this.loading = true;
                 let promises = [];
                 for (let i = 0; i < this.carts.length; i++) {

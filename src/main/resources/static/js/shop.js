@@ -144,7 +144,6 @@ let shopApp = new Vue({
             this.options.forEach(e => e.selectState = (e.value === selection ? 'active' : ''))
             this.itemFilter.type = selection;
             this.itemFilter.checkCondition = 'TRUE';
-            console.log(this.itemFilter);
             this.getSearchResult();
         },
 
@@ -213,7 +212,6 @@ let shopApp = new Vue({
                 contentType: "application/json;charset=utf-8",
                 success: (responseStr) => {
                     let response = JSON.parse(responseStr);
-                    console.log(response);
                     if (response.status === 30200) {
                         this.countItem = response.data;
                     } else {

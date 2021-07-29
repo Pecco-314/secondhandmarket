@@ -173,9 +173,6 @@ let userTableForm = new Vue({
                                 duration: 600,
                                 type: 'success'
                             });
-                            console.log(this.tableData.length % this.pageSize)
-                            console.log(this.tableData.length / this.pageSize + 1)
-                            console.log(this.currentPage)
                             if (this.tableData.length % this.pageSize === 1
                                 && this.currentPage === Math.floor(this.tableData.length / this.pageSize) + 1
                                 && this.currentPage !== 1)
@@ -189,11 +186,9 @@ let userTableForm = new Vue({
             },
             handleSizeChange(val) {
                 this.pageSize = val;
-                console.log('每页 ${val} 条');
             },
             handleCurrentChange(val) {
                 this.currentPage = val;
-                console.log(`当前页: ${val}`);
             },
             clear() {
                 this.$refs.form.resetFields();
@@ -213,16 +208,13 @@ let adminInfoForm = new Vue({
         getAdminInfo() {
 
             let adminId = $.cookie("id");
-            console.log(adminId);
             $.ajax({
                 url: `${url}/requests/admin/info/${adminId}`,
                 method: 'get',
                 contentType: "application/json;charset=utf-8",
                 success: (responseStr) => {
-                    console.log(responseStr);
                     let response = JSON.parse(responseStr);
                     if (response.status === 10200) {
-                        console.log(response);
                         this.nickname = response.data.nickname;
 
                     }

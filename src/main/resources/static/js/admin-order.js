@@ -34,7 +34,6 @@ let ordersTable = new Vue({
         dateSearch() {
             this.loading = true;
             this.tableDataTime = [];
-            console.log(this.selectDatetime);
             if (this.selectDatetime == null) {
                 this.tableDataTime = this.tableDataAll;
             } else {
@@ -104,8 +103,6 @@ let ordersTable = new Vue({
         // },
         // filterHandler(value, row, column) {
         //     const property = column['property'];
-        //     console.log(property);
-        //     console.log(row[property]);
         //     return row[property] === value;
         // },
         getOrdersList() {
@@ -122,9 +119,7 @@ let ordersTable = new Vue({
                 contentType: "application/json;charset=utf-8",
                 success: (responseStr) => {
                     let response = JSON.parse(responseStr);
-                    console.log(response);
                     if (response.status === 40200) {
-                        console.log(response.data);
                         this.tableDataAll = response.data;
                         let promises = [];
                         for (let i = 0; i < this.tableDataAll.length; i++) {
@@ -140,19 +135,16 @@ let ordersTable = new Vue({
 
                     } else {
                         this.loading = false;
-                        console.log(response);
                     }
                 }
             })
         },
         handleSizeChange(val) {
             this.pageSize = val;
-            console.log('每页 ${val} 条');
         },
 
         handleCurrentChange(val) {
             this.currentPage = val;
-            console.log(`当前页: ${val}`);
         },
     }
 })
@@ -174,7 +166,6 @@ let adminInfoForm = new Vue({
                 success: (responseStr) => {
                     let response = JSON.parse(responseStr);
                     if (response.status === 10200) {
-                        console.log(response);
                         this.nickname = response.data.nickname;
                     }
                 }

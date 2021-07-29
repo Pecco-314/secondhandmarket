@@ -71,7 +71,6 @@ let goodsTable = new Vue({
                             }
                         }
                         this.handleFilterChange(this.filters);
-                        //console.log(this.tableData);
                     } else {
                         alert(`${response.message}（状态码：${response.status}）`);
                     }
@@ -82,7 +81,6 @@ let goodsTable = new Vue({
         openIllegalDialog(row) {
             this.dialogVisibleForIllegal = true;
             this.currentId = row.id;
-            console.log(this.currentId);
         },
 
         openPassDialog(row) {
@@ -147,12 +145,10 @@ let goodsTable = new Vue({
 
         handleSizeChange(val) {
             this.pageSize = val;
-            console.log('每页 ${val} 条');
         },
 
         handleCurrentChange(val) {
             this.currentPage = val;
-            console.log(`当前页: ${val}`);
         },
 
         // clear() {
@@ -179,7 +175,6 @@ let adminInfoForm = new Vue({
                 success: (responseStr) => {
                     let response = JSON.parse(responseStr);
                     if (response.status === 10200) {
-                        console.log(response);
                         this.nickname = response.data.nickname;
                     }
                 }

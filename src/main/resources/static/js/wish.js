@@ -36,7 +36,6 @@ let wishList = new Vue({
     },
     methods: {
         openCartDialog(wish) {
-            console.log(wish);
             if (wish.checkCondition === 'FALSE') {
                 this.dialogVisibleForFALSE = true;
             } else if (wish.quantity > 0) {
@@ -74,7 +73,6 @@ let wishList = new Vue({
                     this.$message.error('商品加购数已超过库存');
                 }
             })
-            // console.log(purchaseData);
             // $.ajax({
             //     url: `${url}/requests/cart/modifyCart`,
             //     method: 'post',
@@ -103,7 +101,6 @@ let wishList = new Vue({
                 if (this.wishes.length == 1 && this.page != 1) {
                     this.page--;
                 }
-                console.log(this);
                 this.getWishList();
             });
         },
@@ -130,7 +127,6 @@ let wishList = new Vue({
                 contentType: "application/json;charset=utf-8",
                 success: async (responseStr) => {
                     let response = JSON.parse(responseStr);
-                    console.log(response);
                     if (response.status === 10200) {
                         this.loading = true;
                         this.wishes = response.data;

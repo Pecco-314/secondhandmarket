@@ -73,7 +73,6 @@ Vue.component('page-header', {
             getUserInfo((response) => {
                 if (response.data.imagePath !== null) {
                     this.imageUrl = `http://1.15.220.157:8088/requests/user/${response.data.imagePath}`;
-                    console.log(this.imageUrl);
                 }
             })
         },
