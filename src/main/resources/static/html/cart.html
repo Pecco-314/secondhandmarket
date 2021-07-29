@@ -107,21 +107,41 @@
                                     <tr v-for="cart in carts" :key="cart.itemId">
 
                                         <td class="product-thumbnail">
-                                            <a :href=cart.url>
+                                            <a v-if="cart.checkCondition == 'FALSE'"
+                                               @click="dialogVisibleForFALSE = true">
+                                                <img :src=cart.imageUrl alt="Image">
+                                            </a>
+                                            <a v-else :href=cart.url>
                                                 <img :src=cart.imageUrl alt="Image">
                                             </a>
                                         </td>
 
                                         <td class="product-name">
-                                            <a :href=cart.url class="item__name" style="text-overflow: ellipsis;">{{cart.itemName}}</a>
+                                            <a v-if="cart.checkCondition == 'FALSE'"
+                                               @click="dialogVisibleForFALSE = true" class="item__name"
+                                               style="text-overflow: ellipsis;">{{cart.itemName}}</a>
+                                            <a v-else :href=cart.url class="item__name"
+                                               style="text-overflow: ellipsis;">{{cart.itemName}}</a>
                                         </td>
+
+                                        <el-dialog title="提示" :visible.sync="dialogVisibleForFALSE"
+                                                   width="30%">
+                                            该商品现已违规
+                                            <span slot="footer" class="dialog-footer">
+                                            <el-button type="primary"
+                                                       @click="dialogVisibleForFALSE=false">确 定</el-button>
+                                        </span>
+                                        </el-dialog>
 
                                         <td class="product-price">
                                             <span class="unit-amount">￥{{cart.price}}</span>
                                         </td>
 
                                         <td class="product-quantity">
-                                            <div class="adder" v-if="cart.max >= cart.quantity">
+                                            <div class="add-btn" v-if="cart.checkCondition == 'FALSE'">
+                                                <span class="stock-label" style="color: gray;">该商品现已违规</span>
+                                            </div>
+                                            <div class="adder" v-else-if="cart.max >= cart.quantity">
                                                 <span class="quantity-label"></span>
                                                 <el-input-number v-model=cart.quantity :min=1 :max=cart.max
                                                                  size="small"
@@ -146,7 +166,7 @@
                                                     </span>
                                                 </el-dialog>
                                             </div>
-                                            <div class="add-btn" v-else="cart.max == 0">
+                                            <div class="add-btn" v-else-if="cart.max == 0">
                                                 <span class="stock-label" style="color: gray;">商品库存不足</span>
                                             </div>
                                             <!--                                        <div class="input-counter">-->

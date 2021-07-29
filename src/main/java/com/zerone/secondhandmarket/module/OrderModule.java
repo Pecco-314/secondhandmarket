@@ -18,7 +18,7 @@ public class OrderModule {
     public static Result getOrderList(OrderService service, int userId, boolean isBuyer) {
         List<Order> list = service.getOrderByUserId(userId, isBuyer);
 
-        if (list == null || list.isEmpty()) {
+        if (list == null) {
             return new Result(Status.NO_QUALIFIED_ORDERS, "没有合适的订单", null);
         }
 
@@ -28,7 +28,7 @@ public class OrderModule {
     public static Result getOrderListByFilter(OrderService service, OrderFilter filter) {
         List<Order> list = service.getOrderListByFilter(filter);
 
-        if (list == null || list.isEmpty()) {
+        if (list == null) {
             return new Result(Status.NO_QUALIFIED_ORDERS, "没有合适的订单", null);
         }
 

@@ -5,6 +5,7 @@ let wishList = new Vue({
         page: 1,
         dialogVisibleForCart: false,
         dialogVisibleForCancelCollection: false,
+        dialogVisibleForFALSE: false,
         dialogVisibleForZero: false,
         cnt: 1,
         max: 1,
@@ -35,7 +36,10 @@ let wishList = new Vue({
     },
     methods: {
         openCartDialog(wish) {
-            if (wish.quantity > 0) {
+            console.log(wish);
+            if (wish.checkCondition === 'FALSE') {
+                this.dialogVisibleForFALSE = true;
+            } else if (wish.quantity > 0) {
                 this.cnt = 1;
                 this.dialogVisibleForCart = true;
                 this.currentId = wish.itemId;
@@ -67,7 +71,7 @@ let wishList = new Vue({
                     });
                     pageHeader.updateCart();
                 } else {
-                    this.$message.error('操作失败');
+                    this.$message.error('商品加购数已超过库存');
                 }
             })
             // console.log(purchaseData);
@@ -150,10 +154,13 @@ let wishList = new Vue({
 
 async function handleItemInfo(th, i) {
 
-    await getItemInfoByFilter('search', {id: th.wishes[i].itemId}, response => {
+    await getItemInfoById(th.wishes[i].itemId, response => {
+
         th.$set(th.wishes[i], 'name', response.data.name);
         th.$set(th.wishes[i], 'quantity', response.data.quantity);
         th.$set(th.wishes[i], 'price', response.data.price);
+        th.$set(th.wishes[i], 'checkCondition', response.data.checkCondition);
+
         if (response.data.coverPath === null)
             th.$set(th.wishes[i], 'imageUrl', `../img/null2.png`);
         else

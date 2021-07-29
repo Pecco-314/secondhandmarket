@@ -21,20 +21,14 @@ public class ItemModule {
 
     //获取主页物品
     public static Result getItemListForHomepage(ItemService itemService, ItemImageService itemImageService, TagsService tagsService) {
-        /*List<Item> itemList = itemService.getItemList()
-                .stream()
-                .filter(item -> item.getQuantity() > 0 && item.getCheckCondition() == ItemCheckCondition.TRUE)
-                .collect(Collectors.toList());
-
-        int size = itemList.size();
-        itemList = itemList.subList(Math.max(size - itemsInHomepage, 0), size);
-        Collections.reverse(itemList);*/
-
         List<Item> itemList = itemService.getItemListForHomepage();
+
+        if(itemList == null)
+            return new Result(Status.ITEM_ERROR, "无法获取首页物品", null);
 
         getItemTagsAndImages(itemImageService, tagsService, itemList, false, true);
 
-        return new Result(Status.ITEM_OK, "获取全部物品成功", itemList);
+        return new Result(Status.ITEM_OK, "获取首页物品成功", itemList);
     }
 
     //根据类型筛选
@@ -42,7 +36,7 @@ public class ItemModule {
         //获取所有符合条件的物品
         List<Item> list = service.getItemListByFilter(filter);
 
-        if (list == null || list.isEmpty()) {
+        if (list == null) {
             return new Result(Status.ITEM_ERROR, "无符合条件物品", null);
         }
 
@@ -131,6 +125,9 @@ public class ItemModule {
             itemService.updateItem(item);
             if (updateImages != null) {
                 List<String> originalImages = itemImageService.getImagesByItemId(item.getId());
+
+                if(originalImages == null)
+                    return new Result(Status.ITEM_ERROR, "更新物品失败", null);
                 /*更新图片信息*/
                 //删除更新后去掉的照片
                 for (String image : originalImages) {

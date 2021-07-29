@@ -96,7 +96,7 @@ let indexForm = new Vue({
                     });
                     setTimeout(pageHeader.updateCart, 500);
                 } else {
-                    this.$message.error('操作失败');
+                    this.$message.error('商品加购数已超过库存');
                 }
             })
             // $.ajax({

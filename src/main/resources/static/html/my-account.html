@@ -150,40 +150,44 @@
 
                                     <ul class="checkout-product">
                                         <el-skeleton :loading="loading" animated>
-                                        <li v-for="item in items" :key="item.itemId">
+                                            <li v-for="item in items" :key="item.itemId">
 
-                                            <img :src=item.imageurl alt="Images"
-                                                 style="width: 80px;height: 80px;background-color: #F6F6F6;position: absolute;left: 0;top: 20px;">
-                                            <div class="price-tag" style="left: 12%">
-                                                <h3><a :href=item.url class="ellipsis-type"
-                                                       style="text-overflow: ellipsis">{{item.name}}</a></h3>
-                                            </div>
-                                            <br>
-                                            <div class="price-tag" style="left: 33%;top:40%">{{item.quantity}}</div>
-                                            <div class="price-tag" style="left: 44%;top:40%">￥{{item.price}}</div>
-                                            <div class="price-tag" style="left: 57%;top:40%">
-                                                <i v-if="item.checkCondition === '审核未通过'" class="bx bx-x-circle">
-                                                    <div class="status-icon">{{item.checkCondition}}</div>
-                                                </i>
-                                                <i v-if="item.checkCondition === '审核中'" class="bx bx-revision">
-                                                    <div class="status-icon">{{item.checkCondition}}</div>
-                                                </i>
-                                                <i v-if="item.checkCondition === '审核通过'" class="bx bx-check-circle">
-                                                    <div class="status-icon">{{item.checkCondition}}</div>
-                                                </i>
-                                            </div>
-                                            <div class="price-tag" style="left: 75%;top:35%">
-                                                <el-button type="text" @click="openUpdateDialog(item)">
-                                                    修改
-                                                </el-button>
-                                            </div>
-                                            <div class="price-tag" style="left: 82%;top:35%">
-                                                <el-button type="text" @click="openDeleteDialog(item.id)">
-                                                    删除
-                                                </el-button>
-                                            </div>
-                                            <br>
-                                        </li>
+                                                <img :src=item.imageurl alt="Images"
+                                                     style="width: 80px;height: 80px;background-color: #F6F6F6;position: absolute;left: 0;top: 20px;">
+                                                <div class="price-tag" style="left: 12%">
+                                                    <h3>
+                                                        <a v-if="item.checkCondition == '审核通过' " :href=item.url
+                                                           class="ellipsis-type"
+                                                           style="text-overflow: ellipsis">{{item.name}}</a>
+                                                        <a v-else class="ellipsis-type"
+                                                           style="text-overflow: ellipsis">{{item.name}}</a></h3>
+                                                </div>
+                                                <br>
+                                                <div class="price-tag" style="left: 33%;top:40%">{{item.quantity}}</div>
+                                                <div class="price-tag" style="left: 44%;top:40%">￥{{item.price}}</div>
+                                                <div class="price-tag" style="left: 57%;top:40%">
+                                                    <i v-if="item.checkCondition === '审核未通过'" class="bx bx-x-circle">
+                                                        <div class="status-icon">{{item.checkCondition}}</div>
+                                                    </i>
+                                                    <i v-if="item.checkCondition === '审核中'" class="bx bx-revision">
+                                                        <div class="status-icon">{{item.checkCondition}}</div>
+                                                    </i>
+                                                    <i v-if="item.checkCondition === '审核通过'" class="bx bx-check-circle">
+                                                        <div class="status-icon">{{item.checkCondition}}</div>
+                                                    </i>
+                                                </div>
+                                                <div class="price-tag" style="left: 75%;top:35%">
+                                                    <el-button type="text" @click="openUpdateDialog(item)">
+                                                        修改
+                                                    </el-button>
+                                                </div>
+                                                <div class="price-tag" style="left: 82%;top:35%">
+                                                    <el-button type="text" @click="openDeleteDialog(item.id)">
+                                                        删除
+                                                    </el-button>
+                                                </div>
+                                                <br>
+                                            </li>
                                         </el-skeleton>
                                         <el-dialog title="修改物品" :before-close="clear"
                                                    :visible.sync="dialogVisibleForUpdate" width="50%">
@@ -298,7 +302,10 @@
                                                 <img :src=order.imageurl alt="Images"
                                                      style="width: 80px;height: 80px;background-color: #F6F6F6;position: absolute;left: 0;top: 20px;">
                                                 <div class="price-tag" style="left: 12%">
-                                                    <h3><a :href=order.url class="ellipsis-type"
+                                                    <h3><a v-if="order.checkCondition == 'TRUE'" :href=order.url
+                                                           class="ellipsis-type"
+                                                           style="text-overflow: ellipsis">{{order.name}}</a>
+                                                        <a v-else class="ellipsis-type"
                                                            style="text-overflow: ellipsis">{{order.name}}</a></h3>
                                                 </div>
                                                 <br>
@@ -432,7 +439,10 @@
                                                 <img :src=order.imageurl alt="Images"
                                                      style="width: 80px;height: 80px;background-color: #F6F6F6;position: absolute;left: 0;top: 20px;">
                                                 <div class="price-tag" style="left: 12%">
-                                                    <h3><a :href=order.url class="ellipsis-type"
+                                                    <h3><a v-if="order.checkCondition == 'TRUE'" :href=order.url
+                                                           class="ellipsis-type"
+                                                           style="text-overflow: ellipsis">{{order.name}}</a>
+                                                        <a v-else class="ellipsis-type"
                                                            style="text-overflow: ellipsis">{{order.name}}</a></h3>
                                                 </div>
                                                 <br>
