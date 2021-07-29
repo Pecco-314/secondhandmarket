@@ -122,18 +122,19 @@ let checkoutConfirm = new Vue({
                 this.ids = [{
                     id: getURLVariable('id'),
                     quantity: getURLVariable('cnt'),
-                    index: 0
+                    index: 1
                 }];
             } else if (type === 'cart') {
                 getCartList(null, response => {
                     let res = [];
+                    let cnt = 0;
                     for (let i = 0; i < response.data.length; ++i) {
                         getItemInfoById(response.data[i].itemId, innerResponse => {
                             if (innerResponse.data.quantity >= response.data[i].quantity && innerResponse.data.checkCondition === 'TRUE') {
                                 res.push({
                                     id: response.data[i].itemId,
                                     quantity: response.data[i].quantity,
-                                    index: i,
+                                    index: ++cnt,
                                 })
                             }
                         })
