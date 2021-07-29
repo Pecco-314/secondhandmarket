@@ -232,7 +232,7 @@ let itemsForm = new Vue({
         },
         async getItemList() {
             this.loading = true;
-            await getItemInfoByFilter('search', {seller: $.cookie('id'), page: this.page}, response => {
+            await getItemInfoByFilter('search', {seller: $.cookie('id'), page: this.page, imagesNeeded: true}, response => {
                 if (response.status === 30200) {
                     this.items = response.data;
                     for (let i = 0; i < this.items.length; i++) {
@@ -273,8 +273,7 @@ let itemsForm = new Vue({
                 this.form.imagesForPost.push(newFile);
             }
 
-        }
-        ,
+        },
         openDeleteDialog(id) {
             this.currentId = id;
             this.dialogVisibleForDelete = true;
@@ -507,6 +506,7 @@ async function handleItemInfo(form, i) {
         form.orders[i].price = response.data.price;
         form.orders[i].name = response.data.name;
         form.$set(form.orders[i], 'total', form.orders[i].price * form.orders[i].quantity);
+        form.$set(form.orders[i], 'checkCondition', response.data.checkCondition);
         form.$forceUpdate();
         form.cntSuccess++;
     });

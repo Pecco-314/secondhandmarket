@@ -6,6 +6,7 @@ let myCartForm = new Vue({
         page: 1,
         dialogVisibleForCancel: false,
         dialogVisibleForCart: false,
+        dialogVisibleForFALSE: false,
         cnt: 1,
         currentId: '',
         cntSuccess: 0,
@@ -40,7 +41,7 @@ let myCartForm = new Vue({
                     });
                     this.getCartList();
                 } else {
-                    this.$message.error('操作失败');
+                    this.$message.error('加入失败');
                 }
             })
         },
@@ -108,6 +109,7 @@ async function handleItemInfo(th, i) {
         th.$set(th.carts[i], 'max', response.data.quantity);
         th.$set(th.carts[i], 'itemName', response.data.name);
         th.$set(th.carts[i], 'price', response.data.price);
+        th.$set(th.carts[i], 'checkCondition', response.data.checkCondition);
         if (response.data.coverPath === null)
             th.$set(th.carts[i], 'imageUrl', `../img/null2.png`);
         else
