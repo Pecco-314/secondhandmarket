@@ -26,12 +26,12 @@ public class CartModule {
         return new Result(Status.CART_OK, "", count);
     }
 
-    public static Result modifyItemQuantity(CartService service, Cart cart) {
+    public static Result modifyItemQuantity(CartService service, Cart cart, boolean accumulate) {
         try {
             if (cart.getQuantity() == 0) {
                 service.deleteCart(cart.getUserId(), cart.getItemId());
             } else {
-                service.insertOrUpdateCart(cart);
+                service.insertOrUpdateCart(cart, accumulate);
             }
             return new Result(Status.CART_OK, "加入购物车成功", null);
 

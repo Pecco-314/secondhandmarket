@@ -62,7 +62,7 @@ public class CartController {
         if (CodeProcessor.validateIdToken(modification.getUserID(), modification.getToken())) {
             Cart cart = new Cart(modification.getUserID(), modification.getItemID(), modification.getQuantity());
 
-            Result result = CartModule.modifyItemQuantity(cartService, cart);
+            Result result = CartModule.modifyItemQuantity(cartService, cart, modification.isAccumulate());
 
             return result.toString();
 

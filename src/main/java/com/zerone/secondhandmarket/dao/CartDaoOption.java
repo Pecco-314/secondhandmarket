@@ -54,11 +54,20 @@ public class CartDaoOption {
         param.put("quantity", cart.getQuantity());
         return jdbcTemplate.update(sql, param);
     }
+
+    public int accumulateItemQuantity(Cart cart) {
+        String sql = "update shoppingcart set quantity=quantity+:quantity  where user_id=:user_id and item_id=:item_id";
+        Map<String, Object> param = new HashMap<>();
+        param.put("user_id", cart.getUserId());
+        param.put("item_id", cart.getItemId());
+        param.put("quantity", cart.getQuantity());
+        return jdbcTemplate.update(sql, param);
+    }
     //插入或更新购物车
-    public int insertOrUpdateCart(Cart cart)
+    public int insertOrUpdateCart(Cart cart, boolean accumulate)
     {
         if (getCartByKey(cart.getUserId(),cart.getItemId()) != null)
-            return modifyItemQuantity(cart);
+            return accumulate ? accumulateItemQuantity(cart) : modifyItemQuantity(cart);
         else
             return insertCart(cart);
     }

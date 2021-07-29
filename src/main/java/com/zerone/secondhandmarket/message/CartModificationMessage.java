@@ -18,4 +18,5 @@ public class CartModificationMessage {
 
     //modify
     private Integer quantity;
+    private boolean accumulate = false;
 }
