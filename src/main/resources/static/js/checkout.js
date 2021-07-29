@@ -111,7 +111,8 @@ let checkoutConfirm = new Vue({
         switchToTab: switchToTab,
         updateTotalPrice() {
             checkoutConfirm.totalPrice = 0;
-            for (let i = 0; i < checkoutConfirm.ids.length; ++i) {
+            console.log(checkoutConfirm.ids);
+            for (let i = 1; i <= checkoutConfirm.ids.length; ++i) {
                 checkoutConfirm.totalPrice += checkoutConfirm.$refs[i][0].totalPrice;
             }
         },
