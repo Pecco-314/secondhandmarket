@@ -95,6 +95,7 @@ let userinfoForm = new Vue({
                 success: (responseStr) => {
                     let response = JSON.parse(responseStr);
                     if (response.status === 50200) {
+                        pageHeader.getUserInfo();
                         elAlert(this, "修改成功", '', () => {
                         });
                     } else {
@@ -232,7 +233,11 @@ let itemsForm = new Vue({
         },
         async getItemList() {
             this.loading = true;
-            await getItemInfoByFilter('search', {seller: $.cookie('id'), page: this.page, imagesNeeded: true}, response => {
+            await getItemInfoByFilter('search', {
+                seller: $.cookie('id'),
+                page: this.page,
+                imagesNeeded: true
+            }, response => {
                 if (response.status === 30200) {
                     this.items = response.data;
                     for (let i = 0; i < this.items.length; i++) {

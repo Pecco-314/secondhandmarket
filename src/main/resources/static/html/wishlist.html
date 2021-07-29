@@ -74,7 +74,8 @@
 
                                     <tr v-for="wish in wishes" :key="wish.itemId">
                                         <td class="product-thumbnail">
-                                            <a v-if="wish.checkCondition='FALSE'" @click="dialogVisibleForFALSE=true">
+                                            <a v-if="wish.checkCondition == 'FALSE'"
+                                               @click="dialogVisibleForFALSE=true">
                                                 <img :src=wish.imageUrl alt="Image">
                                             </a>
                                             <a v-else :href=wish.url>
@@ -84,7 +85,7 @@
 
 
                                         <td class="product-name">
-                                            <a v-if="wish.checkCondition='FALSE'" @click="dialogVisibleForFALSE=true"
+                                            <a v-if="wish.checkCondition =='FALSE'" @click="dialogVisibleForFALSE=true"
                                                style="font-size:18px">{{wish.name}}</a>
                                             <a v-else :href=wish.url style="font-size:18px">{{wish.name}}</a>
                                         </td>
