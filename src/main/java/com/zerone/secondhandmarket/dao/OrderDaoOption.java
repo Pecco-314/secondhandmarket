@@ -187,6 +187,8 @@ public class OrderDaoOption {
             }
             param.put("state", filter.getState().toString());
         }
+
+        sql.append(" order by order_id desc");
     }
 
 }
