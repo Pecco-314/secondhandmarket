@@ -131,8 +131,8 @@
                                             <div class="add-btn" v-else-if="cart.max > 0">
                                                 <span class="stock-label" style="padding-right: 10px;color: gray;">请重新选择商品数量</span>
                                                 <a class="add-cart-btn selectable"
-                                                            @click="openCartDialog(cart.itemId)">重选</a>
-                                                <el-dialog title="加入购物车" :visible.sync="dialogVisibleForCart"
+                                                   @click="openCartDialog(cart.itemId)">重选</a>
+                                                <el-dialog title="重选数量" :visible.sync="dialogVisibleForCart"
                                                            width="30%">
                                                     <div class="adder">
                                                         <span class="quantity-label">数量</span>

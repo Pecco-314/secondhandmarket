@@ -55,28 +55,41 @@ let wishList = new Vue({
                 userID: parseInt($.cookie('id')),
                 token: $.cookie('token'),
                 itemID: this.currentId,
-                quantity: this.cnt
+                quantity: this.cnt,
+                accumulate: true,
             };
-            console.log(purchaseData);
-            $.ajax({
-                url: `${url}/requests/cart/modifyCart`,
-                method: 'post',
-                data: JSON.stringify(purchaseData),
-                contentType: "application/json;charset=utf-8",
-                success: (responseStr) => {
-                    let response = JSON.parse(responseStr);
-                    if (response.status === 60200) {
-                        this.dialogVisibleForCart = false
-                        this.$message({
-                            message: '加入购物车成功',
-                            type: 'success'
-                        });
-                        pageHeader.updateCart();
-                    } else {
-                        this.$message.error('操作失败');
-                    }
+            addToCart(purchaseData, response => {
+                if (response.status === 60200) {
+                    this.dialogVisibleForCart = false
+                    this.$message({
+                        message: '加入购物车成功',
+                        type: 'success'
+                    });
+                    pageHeader.updateCart();
+                } else {
+                    this.$message.error('操作失败');
                 }
             })
+            // console.log(purchaseData);
+            // $.ajax({
+            //     url: `${url}/requests/cart/modifyCart`,
+            //     method: 'post',
+            //     data: JSON.stringify(purchaseData),
+            //     contentType: "application/json;charset=utf-8",
+            //     success: (responseStr) => {
+            //         let response = JSON.parse(responseStr);
+            //         if (response.status === 60200) {
+            //             this.dialogVisibleForCart = false
+            //             this.$message({
+            //                 message: '加入购物车成功',
+            //                 type: 'success'
+            //             });
+            //             pageHeader.updateCart();
+            //         } else {
+            //             this.$message.error('操作失败');
+            //         }
+            //     }
+            // })
         },
 
         cancelCollection() {
@@ -137,7 +150,7 @@ let wishList = new Vue({
 
 async function handleItemInfo(th, i) {
 
-    await getItemInfoByFilter('search', {id:th.wishes[i].itemId}, response => {
+    await getItemInfoByFilter('search', {id: th.wishes[i].itemId}, response => {
         th.$set(th.wishes[i], 'name', response.data.name);
         th.$set(th.wishes[i], 'quantity', response.data.quantity);
         th.$set(th.wishes[i], 'price', response.data.price);

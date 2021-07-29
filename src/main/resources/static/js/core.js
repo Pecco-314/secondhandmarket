@@ -254,6 +254,19 @@ function getImageOrPlaceholder(path) {
         return `http://1.15.220.157:8088/requests/image/${path}`;
 }
 
+function addToCart(purchaseData, callback) {
+    $.ajax({
+        url: `${url}/requests/cart/modifyCart`,
+        method: 'post',
+        data: JSON.stringify(purchaseData),
+        contentType: "application/json;charset=utf-8",
+        success: (responseStr) => {
+            let response = JSON.parse(responseStr);
+            callback(response);
+        }
+    })
+}
+
 function delCookie() {
     let keys = document.cookie.match(/[^ =;]+(?==)/g)
     if (keys) {
@@ -361,7 +374,7 @@ async function getItemInfoByFilter(type, filter, callback) {
     })
 }
 
-async function getOrderInfoByFilter(type, filter, callback){
+async function getOrderInfoByFilter(type, filter, callback) {
     let defaultFilter = {
         orderId: null,
         buyer: null,

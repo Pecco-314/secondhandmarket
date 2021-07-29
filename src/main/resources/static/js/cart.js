@@ -28,27 +28,19 @@ let myCartForm = new Vue({
                 userID: parseInt($.cookie('id')),
                 token: $.cookie('token'),
                 itemID: this.currentId,
-                quantity: this.cnt
+                quantity: this.cnt,
+                accumulate: false,
             };
-            console.log(purchaseData);
-            $.ajax({
-                url: `${url}/requests/cart/modifyCart`,
-                method: 'post',
-                data: JSON.stringify(purchaseData),
-                contentType: "application/json;charset=utf-8",
-                success: (responseStr) => {
-                    let response = JSON.parse(responseStr);
-                    if (response.status === 60200) {
-                        this.dialogVisibleForCart = false
-                        this.$message({
-                            message: '加入购物车成功',
-                            type: 'success'
-                        });
-                        this.getCartList();
-                        //setTimeout(pageHeader.updateCart, 500);
-                    } else {
-                        this.$message.error('操作失败');
-                    }
+            addToCart(purchaseData, response => {
+                if (response.status === 60200) {
+                    this.dialogVisibleForCart = false
+                    this.$message({
+                        message: '加入购物车成功',
+                        type: 'success'
+                    });
+                    this.getCartList();
+                } else {
+                    this.$message.error('操作失败');
                 }
             })
         },
@@ -83,48 +75,30 @@ let myCartForm = new Vue({
                 token: $.cookie("token"),
 
                 itemID: itemID,
-                quantity: quantity
+                quantity: quantity,
+                accumulate: false,
             };
-            $.ajax({
-                url: `${url}/requests/cart/modifyCart`,
-                method: 'post',
-                data: JSON.stringify(identification),
-                contentType: "application/json;charset=utf-8",
-                success: (responseStr) => {
-                    let response = JSON.parse(responseStr);
-                    if (response.status === 60200) {
-                        if (quantity != 0) {
-                            for (let i = 0; i < this.carts.length; i++) {
-                                if (this.carts[i].itemId === itemID) {
-                                    this.carts[i].total = this.carts[i].price * quantity;
-                                    break;
-                                }
-                            }
-                        } else {
-                            if (this.carts.length == 1 && this.page != 1) {
-                                this.page--;
-                            }
-                            this.getCartList();
-                            pageHeader.updateCart();
+            addToCart(identification, response => {
+                if (quantity != 0) {
+                    for (let i = 0; i < this.carts.length; i++) {
+                        if (this.carts[i].itemId === itemID) {
+                            this.carts[i].total = this.carts[i].price * quantity;
+                            break;
                         }
                     }
+                } else {
+                    if (this.carts.length == 1 && this.page != 1) {
+                        this.page--;
+                    }
+                    this.getCartList();
+                    pageHeader.updateCart();
                 }
             })
+
         },
         removeCartItem() {
             this.changeQuantity(this.currentId, 0);
             this.dialogVisibleForCancel = false;
-            // for (let i = 0; i < this.carts.length; i++) {
-            //     if (this.carts[i].itemId === this.currentId) {
-            //         this.carts.splice(i, 1);
-            //         break;
-            //     }
-            // }
-            // if (this.carts.length == 1 && this.page != 1) {
-            //     this.page--;
-            // }
-            // setTimeout(this.getCartList(), 1000);
-            // setTimeout(pageHeader.updateCart, 500);
         }
     }
 })
