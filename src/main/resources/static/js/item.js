@@ -113,6 +113,11 @@ let itemApp = new Vue({
 $(async function () {
         await getItemInfoById(getURLVariable("id"), response => {
             itemApp.item = response.data;
+            if (itemApp.item.checkCondition !== 'TRUE') {
+                elAlert(itemApp, '商品尚未通过审核！', '', () => {
+                    window.open('../', '_self');
+                })
+            }
             itemApp.max = response.data.quantity;
             if (itemApp.max === 0) {
                 itemApp.min = 0;
@@ -138,7 +143,5 @@ $(async function () {
         getItemCollectedInfo(getURLVariable("id"), response => {
             itemApp.isCollected = response.data;
         });
-
-        console.log(itemApp);
     }
 )
