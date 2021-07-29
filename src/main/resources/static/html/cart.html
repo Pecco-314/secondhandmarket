@@ -182,7 +182,7 @@
 
                                         <td class="product-subtotal">
                                             <span class="subtotal-amount"
-                                                  v-if="cart.max >= cart.quantity">￥{{cart.total}}</span>
+                                                  v-if="cart.checkCondition != 'FALSE' && cart.max >= cart.quantity">￥{{cart.total}}</span>
 
                                             <a class="remove selectable" @click="openCancelDialog(cart.itemId)">
                                                 <i class='bx bx-trash'></i>
