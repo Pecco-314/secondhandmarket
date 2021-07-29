@@ -264,7 +264,7 @@
                                         <h2 style="display: inline-block">我的订单</h2>
                                         <div class="form-group" style="display: inline-block; margin-left: 58%">
                                             <el-select v-model="selectedType" style="padding: 0 0"
-                                                       @change="getOrderList">
+                                                       @change="getOrderList(false)">
                                                 <el-option v-for="option in options"
                                                            :value="option.value" :key="option.key"
                                                            :label="option.text">
@@ -383,7 +383,7 @@
                                                 :page-size="6"
                                                 :current-page.sync="page"
                                                 :total="countOrder"
-                                                @current-change="getOrderList"
+                                                @current-change="getOrderList(true)"
                                                 class="my-pagination">
                                         </el-pagination>
                                     </div>
@@ -398,7 +398,7 @@
                                         <h2 style="display: inline-block">我的售出</h2>
                                         <div class="form-group" style="display: inline-block; margin-left: 58%">
                                             <el-select v-model="selectedType" style="padding: 0 0"
-                                                       @change="getOrderList">
+                                                       @change="getOrderList(false)">
                                                 <el-option v-for="option in options"
                                                            :value="option.value" :key="option.key"
                                                            :label="option.text">
@@ -489,7 +489,7 @@
                                                 :page-size="6"
                                                 :current-page.sync="page"
                                                 :total="countOrder"
-                                                @current-change="getOrderList"
+                                                @current-change="getOrderList(true)"
                                                 class="my-pagination">
                                         </el-pagination>
                                     </div>
