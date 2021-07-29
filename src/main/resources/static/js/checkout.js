@@ -86,7 +86,7 @@ Vue.component('checkout-item', {
     template: `
     <li>
         <img :src="imageSrc" alt="Images">
-        <h3>{{name}}</h3>
+        <h3 class="ellipsis-type" style="text-overflow: ellipsis">{{name}}</h3>
         <span>￥{{price}}</span>
         <span class="quantity-tag">x{{quantity}}</span>
         <div class="price-tag">￥{{totalPrice}}</div>
@@ -129,7 +129,7 @@ let checkoutConfirm = new Vue({
                     let res = [];
                     for (let i = 0; i < response.data.length; ++i) {
                         getItemInfoById(response.data[i].itemId, innerResponse => {
-                            if (innerResponse.data.quantity >= response.data[i].quantity) {
+                            if (innerResponse.data.quantity >= response.data[i].quantity && innerResponse.data.checkCondition === 'TRUE') {
                                 res.push({
                                     id: response.data[i].itemId,
                                     quantity: response.data[i].quantity,
