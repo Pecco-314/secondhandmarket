@@ -142,7 +142,6 @@ public class UserController {
         try {
             MultipartFile[] multipartFiles = {multipartFile};
             Result result = UploadModule.upload("user", multipartFiles);
-            System.out.println(JSONMapper.writeValueAsString(result));
             return result.toString();
         } catch (Exception e) {
             e.printStackTrace();

@@ -53,7 +53,6 @@ public class ItemController {
     public String upload(@RequestParam("multipartfiles") MultipartFile[] multipartFiles) {
         try {
             Result result = UploadModule.upload("item", multipartFiles);
-            System.out.println(JSONMapper.writeValueAsString(result));
             return result.toString();
         } catch (Exception e) {
             e.printStackTrace();
@@ -95,7 +94,6 @@ public class ItemController {
         try (FileInputStream inputStream = new FileInputStream(file)) {
             byte[] bytes = new byte[inputStream.available()];
             inputStream.read(bytes, 0, inputStream.available());
-            System.out.println(bytes);
             return bytes;
         } catch (Exception e) {
             e.printStackTrace();
