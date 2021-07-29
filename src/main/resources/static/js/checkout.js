@@ -246,6 +246,12 @@ let paidButton = new Vue({
         async onPay() {
             let promises = [];
             for (const order of checkoutConfirm.orders) {
+                if(order.status !== 'UNPAID') {
+                    elAlert(this, '订单已过期！', '', () => {
+                        window.open('../', '_self');
+                    });
+                    return;
+                }
                 promises.push(changeOrderState(order, 'UNDELIVERED'));
             }
             await Promise.all(promises);
