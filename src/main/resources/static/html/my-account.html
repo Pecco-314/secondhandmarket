@@ -442,10 +442,10 @@
                                                      style="width: 80px;height: 80px;background-color: #F6F6F6;position: absolute;left: 0;top: 20px;">
                                                 <div class="price-tag" style="left: 12%">
                                                     <h3><a v-if="order.checkCondition == 'TRUE'" :href=order.url
-                                                           class="ellipsis-type"
+                                                           class="ellipsis-type;display: inline-flex;"
                                                            style="text-overflow: ellipsis">{{order.name}}</a>
                                                         <a v-else class="ellipsis-type"
-                                                           style="text-overflow: ellipsis;color: darkgray;">{{order.name}}
+                                                           style="text-overflow: ellipsis;color: darkgray;display: inline-flex;">{{order.name}}
                                                             <i class='bx bx-info-circle'></i>
                                                         </a>
                                                         <i class='bx bx-info-circle selectable'
