@@ -344,13 +344,13 @@ let ordersForm = new Vue({
     data() {
         return {
             options: [
-                {text: "全部", value: 'ALL'},
+                {text: "全部", value: null},
                 {text: "待付款", value: 'UNPAID'},
                 {text: "待发货", value: 'UNDELIVERED'},
                 {text: "待收货", value: 'UNRECEIVED'},
                 {text: "已完成", value: 'FINISHED'},
             ],
-            selectedType: 'ALL',
+            selectedType: null,
             orders: [],
             orderId: '',
             dialogVisibleForConfirm: false,
@@ -361,13 +361,12 @@ let ordersForm = new Vue({
             countOrder: 0,
         }
     },
-    async mounted() {
-        await getOrderInfoByFilter('count', {buyer: $.cookie('id')}, response => {
-            this.countOrder = response.data;
-        })
-    },
     methods: {
-        async getOrderList() {
+        async getOrderList(pageChanged) {
+            getOrderInfoByFilter('count', {buyer: $.cookie('id'), state: this.selectedType}, response => {
+                this.countOrder = response.data;
+            })
+            if (!pageChanged) this.page = 1;
             this.cntSuccess = 0;
             await setOrderList(this, 'buyer', this.selectedType, this.page);
         },
@@ -412,14 +411,14 @@ let sellsForm = new Vue({
     data() {
         return {
             options: [
-                {text: "全部", value: 'ALL'},
+                {text: "全部", value: null},
                 {text: "待付款", value: 'UNPAID'},
                 {text: "待发货", value: 'UNDELIVERED'},
                 {text: "待收货", value: 'UNRECEIVED'},
                 {text: "已完成", value: 'FINISHED'},
             ],
             loading: true,
-            selectedType: 'ALL',
+            selectedType: null,
             orders: [],
             orderId: '',
             dialogVisibleForConfirm: false,
@@ -428,13 +427,12 @@ let sellsForm = new Vue({
             countOrder: 0,
         }
     },
-    async mounted() {
-        await getOrderInfoByFilter('count', {seller: $.cookie('id')}, response => {
-            this.countOrder = response.data;
-        })
-    },
     methods: {
-        async getOrderList() {
+        async getOrderList(pageChanged) {
+            getOrderInfoByFilter('count', {seller: $.cookie('id'), state: this.selectedType}, response => {
+                this.countOrder = response.data;
+            })
+            if (!pageChanged) this.page = 1;
             this.cntSuccess = 0;
             await setOrderList(this, 'seller', this.selectedType, this.page);
         },
