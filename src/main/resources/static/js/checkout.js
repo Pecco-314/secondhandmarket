@@ -112,7 +112,8 @@ let checkoutConfirm = new Vue({
         updateTotalPrice() {
             checkoutConfirm.totalPrice = 0;
             for (let i = 1; i <= checkoutConfirm.ids.length; ++i) {
-                checkoutConfirm.totalPrice += checkoutConfirm.$refs[i][0].totalPrice;
+                if (checkoutConfirm.$refs[i] !== undefined)
+                    checkoutConfirm.totalPrice += checkoutConfirm.$refs[i][0].totalPrice;
             }
         },
         updateIds() {
@@ -178,33 +179,48 @@ let checkoutConfirm = new Vue({
         },
         onConfirm() {
             checkoutForm.$refs.form.validate(async valid => {
-                if (valid) {
-                    checkoutForm.cntSuccess = 0;
-                    if (!this.isConfirming) {
-                        this.isConfirming = true;
-                        let promises = [];
-                        this.orders = [];
-                        for (let i = 0; i < checkoutConfirm.ids.length; ++i) {
-                            promises.push(handleCheckoutItem(checkoutConfirm.$refs[i][0], this.orders));
-                        }
-                        await Promise.all(promises);
-                        this.isConfirming = false;
-                        if (checkoutForm.cntSuccess === checkoutConfirm.ids.length) {
-                            if (getURLVariable('type') === 'cart')
-                                clearCart(() => {
+                    if (valid) {
+                        checkoutForm.cntSuccess = 0;
+                        if (!this.isConfirming) {
+                            this.isConfirming = true;
+                            let promises = [];
+                            this.orders = [];
+                            for (let i = 1; i <= checkoutConfirm.ids.length; ++i) {
+                                if (checkoutConfirm.$refs[i] !== undefined)
+                                    promises.push(handleCheckoutItem(checkoutConfirm.$refs[i][0], this.orders));
+                            }
+                            await Promise.all(promises);
+                            this.isConfirming = false;
+                            if (checkoutForm.cntSuccess === checkoutConfirm.ids.length) {
+                                if (getURLVariable('type') === 'cart') {
+                                    for (let i = 1; i <= checkoutConfirm.ids.length; ++i) {
+                                        if (checkoutConfirm.$refs[i] !== undefined) {
+                                            let purchaseData = {
+                                                userID: $.cookie('id'),
+                                                token: $.cookie('token'),
+                                                itemID: checkoutConfirm.$refs[i][0].itemId,
+                                                quantity: 0,
+                                                accumulate: false,
+                                            }
+                                            console.log(purchaseData);
+                                            addToCart(purchaseData, function () {
+                                            });
+                                        }
+                                    }
+                                }
+                                elAlert(this, '订单已提交！', '', () => {
+                                    switchToTab(2);
+                                })
+                            } else {
+                                elAlert(this, `交易中发生异常（${checkoutForm.cntSuccess}项成功，${checkoutConfirm.ids.length - checkoutForm.cntSuccess}项失败）`, '', () => {
                                 });
-                            elAlert(this, '订单已提交！', '', () => {
-                                switchToTab(2);
-                            })
-                        } else {
-                            elAlert(this, `交易中发生异常（${checkoutForm.cntSuccess}项成功，${checkoutConfirm.ids.length - checkoutForm.cntSuccess}项失败）`, '', () => {
-                            });
+                            }
                         }
+                    } else {
+                        switchToTab(0);
                     }
-                } else {
-                    switchToTab(0);
                 }
-            })
+            )
         },
     }
 })
@@ -246,7 +262,7 @@ let paidButton = new Vue({
         async onPay() {
             let promises = [];
             for (const order of checkoutConfirm.orders) {
-                if(order.status !== 'UNPAID') {
+                if (order.status !== 'UNPAID') {
                     elAlert(this, '订单已过期！', '', () => {
                         window.open('../', '_self');
                     });
