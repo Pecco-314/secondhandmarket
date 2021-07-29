@@ -86,7 +86,7 @@ Vue.component('checkout-item', {
     template: `
     <li>
         <img :src="imageSrc" alt="Images">
-        <h3>{{name}}</h3>
+        <h3 class="ellipsis-type" style="text-overflow: ellipsis">{{name}}</h3>
         <span>￥{{price}}</span>
         <span class="quantity-tag">x{{quantity}}</span>
         <div class="price-tag">￥{{totalPrice}}</div>
@@ -111,7 +111,7 @@ let checkoutConfirm = new Vue({
         switchToTab: switchToTab,
         updateTotalPrice() {
             checkoutConfirm.totalPrice = 0;
-            for (let i = 0; i < checkoutConfirm.ids.length; ++i) {
+            for (let i = 1; i <= checkoutConfirm.ids.length; ++i) {
                 checkoutConfirm.totalPrice += checkoutConfirm.$refs[i][0].totalPrice;
             }
         },
@@ -246,6 +246,12 @@ let paidButton = new Vue({
         async onPay() {
             let promises = [];
             for (const order of checkoutConfirm.orders) {
+                if(order.status !== 'UNPAID') {
+                    elAlert(this, '订单已过期！', '', () => {
+                        window.open('../', '_self');
+                    });
+                    return;
+                }
                 promises.push(changeOrderState(order, 'UNDELIVERED'));
             }
             await Promise.all(promises);
