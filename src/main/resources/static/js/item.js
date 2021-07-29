@@ -24,7 +24,7 @@ let itemApp = new Vue({
                         setTimeout(pageHeader.updateCart, 500);
                         callback(response);
                     } else {
-                        this.$message.error('操作失败');
+                        this.$message.error('商品加购数已超过库存');
                     }
                 })
             } else {

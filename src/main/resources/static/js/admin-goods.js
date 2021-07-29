@@ -42,6 +42,7 @@ let goodsTable = new Vue({
                 }
             }
         },
+
         getGoodsList() {
             this.loading = true;
 

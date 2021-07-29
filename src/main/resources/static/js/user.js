@@ -509,6 +509,7 @@ async function handleItemInfo(form, i) {
         form.orders[i].price = response.data.price;
         form.orders[i].name = response.data.name;
         form.$set(form.orders[i], 'total', form.orders[i].price * form.orders[i].quantity);
+        form.$set(form.orders[i], 'checkCondition', response.data.checkCondition);
         form.$forceUpdate();
         form.cntSuccess++;
     });
