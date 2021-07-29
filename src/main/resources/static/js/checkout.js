@@ -86,7 +86,7 @@ Vue.component('checkout-item', {
     template: `
     <li>
         <img :src="imageSrc" alt="Images">
-        <h3>{{name}}</h3>
+        <h3 class="ellipsis-type" style="text-overflow: ellipsis">{{name}}</h3>
         <span>￥{{price}}</span>
         <span class="quantity-tag">x{{quantity}}</span>
         <div class="price-tag">￥{{totalPrice}}</div>

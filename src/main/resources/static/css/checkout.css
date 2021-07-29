@@ -29,3 +29,9 @@
 .checkout-tab ul li a {
     cursor: initial;
 }
+.ellipsis-type {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    cursor: pointer;
+}
