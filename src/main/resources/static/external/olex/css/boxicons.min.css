@@ -5628,6 +5628,7 @@
 }
 
 .bx-revision:before {
+    color: darkgray;
     content: "\ee13"
 }
 
