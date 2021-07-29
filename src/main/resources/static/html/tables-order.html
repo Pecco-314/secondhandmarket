@@ -289,7 +289,8 @@
                                     <div>
                                         <el-table
                                                 :data="tableDataResult.slice((currentPage - 1) * pageSize, currentPage * pageSize)"
-                                                style="width: 100%" class="table table-bordered" v-loading="loading">
+                                                style="width: 100%" class="table table-bordered" v-loading="loading"
+                                                @filter-change="unionSearch">
                                             <el-table-column type="expand">
                                                 <template slot-scope="props">
                                                     <el-form label-position="left" inline class="demo-table-expand">
@@ -342,8 +343,9 @@
                                             <el-table-column prop="email" label="买家邮箱"></el-table-column>
                                             <el-table-column prop="name" label="商品名称"></el-table-column>
                                             <el-table-column prop="state" label="订单状态" column-key="state"
-                                                             :filters="[{text: '待收货', value: 'UNFINISHED'},{text: '已完成', value: 'FINISHED'}]"
-                                                             :filter-method="filterHandler">
+                                                             :filters="[{text: '待收货', value: 'UNRECEIVED'},{text: '已完成', value: 'FINISHED'},
+                                                             {text: '待发货', value: 'UNDELIVERED'},{text: '待付款', value: 'UNPAID'}]"
+                                            >
                                                 <template slot-scope="props">
                                                     <span v-if="props.row.state === 'FINISHED'">已完成</span>
                                                     <span v-if="props.row.state === 'UNRECEIVED'">待收货</span>
@@ -360,7 +362,7 @@
                                                 :page-sizes="[10, 20, 30]"
                                                 :page-size="pageSize"
                                                 layout="total, sizes, prev, pager, next, jumper"
-                                                :total="tableDataSelected.length">
+                                                :total="tableDataResult.length">
                                         </el-pagination>
                                     </div>
 

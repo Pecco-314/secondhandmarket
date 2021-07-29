@@ -73,12 +73,12 @@
             <div id="sidebar-menu">
                 <ul>
 
-<!--                    <li>-->
-<!--                        <a href="index.html" class="waves-effect"><i class="ti-home"></i>-->
-<!--                            <span>主页-->
-<!--                                &lt;!&ndash; <span class="badge badge-primary pull-right">3</span>&ndash;&gt;-->
-<!--                                    </span></a>-->
-<!--                    </li>-->
+                    <!--                    <li>-->
+                    <!--                        <a href="index.html" class="waves-effect"><i class="ti-home"></i>-->
+                    <!--                            <span>主页-->
+                    <!--                                &lt;!&ndash; <span class="badge badge-primary pull-right">3</span>&ndash;&gt;-->
+                    <!--                                    </span></a>-->
+                    <!--                    </li>-->
 
                     <li>
                         <a href="../admin-user" class="waves-effect"><i class="ion-person-stalker"></i>
@@ -95,10 +95,10 @@
                             <span>订单管理</span> </span></a>
                     </li>
 
-<!--                    <li>-->
-<!--                        <a href="tables-basic.html" class="waves-effect"><i class="ion-person"></i>-->
-<!--                            <span>管理员信息</span> <span class="badge badge-success pull-right">8</span></a>-->
-<!--                    </li>-->
+                    <!--                    <li>-->
+                    <!--                        <a href="tables-basic.html" class="waves-effect"><i class="ion-person"></i>-->
+                    <!--                            <span>管理员信息</span> <span class="badge badge-success pull-right">8</span></a>-->
+                    <!--                    </li>-->
 
                 </ul>
             </div>
@@ -261,8 +261,9 @@
                                     <div id="goodsTable">
 
                                         <el-table
-                                                :data="tableData.slice((currentPage - 1) * pageSize, currentPage * pageSize)"
-                                                style="width: 100%" class="table table-bordered" v-loading="loading">
+                                                :data="tableDataResult.slice((currentPage - 1) * pageSize, currentPage * pageSize)"
+                                                style="width: 100%" class="table table-bordered" v-loading="loading"
+                                                @filter-change="handleFilterChange">
                                             <el-table-column type="expand">
                                                 <template slot-scope="props">
                                                     <el-form label-position="left" inline class="demo-table-expand">
@@ -303,12 +304,15 @@
                                                     {{ scope.$index + (currentPage - 1) * pageSize + 1 }}
                                                 </template>
                                             </el-table-column>
-                                            <el-table-column  label="商品图片" width="120px" style="text-align: center;">   <template slot-scope="scope"><img :src=scope.row.imageUrl  width="60px" height="60px"/> </template></el-table-column>
-                                            <el-table-column prop="id" label="商品ID" ></el-table-column>
-                                            <el-table-column prop="name" label="商品名称" ></el-table-column>
+                                            <el-table-column label="商品图片" width="120px" style="text-align: center;">
+                                                <template slot-scope="scope"><img :src=scope.row.imageUrl width="60px"
+                                                                                  height="60px"/></template>
+                                            </el-table-column>
+                                            <el-table-column prop="id" label="商品ID"></el-table-column>
+                                            <el-table-column prop="name" label="商品名称"></el-table-column>
                                             <el-table-column prop="checkCondition" label="状态" column-key="status"
                                                              :filters="[{text: '待审核', value: 'UNCHECKED'},{text: '正常', value: 'TRUE'}, {text: '违规', value: 'FALSE'}]"
-                                                             :filter-method="filterHandler" >
+                                            >
                                                 <template slot-scope="scope">
                                                     <span v-if="scope.row.checkCondition === 'TRUE'">正常</span>
                                                     <span v-if="scope.row.checkCondition === 'UNCHECKED'">待审核</span>
@@ -321,7 +325,8 @@
                                                         <el-button type="button"
                                                                    :disabled="scope.row.btnIllegalDisabled"
                                                                    @click="openIllegalDialog(scope.row)"
-                                                                   class="btn-sm btn-danger waves-effect waves-light" style="height: 30px;font-size: 12px;width: 50px;">
+                                                                   class="btn-sm btn-danger waves-effect waves-light"
+                                                                   style="height: 30px;font-size: 12px;width: 50px;">
                                                             违规
                                                         </el-button>
                                                     </div>
@@ -343,7 +348,7 @@
                                                 :page-sizes="[10, 20, 30]"
                                                 :page-size="pageSize"
                                                 layout="total, sizes, prev, pager, next, jumper"
-                                                :total="tableData.length">
+                                                :total="tableDataResult.length">
                                         </el-pagination>
                                         <el-dialog title="违规" :visible.sync="dialogVisibleForIllegal" width="30%">
                                             是否将该商品列入违规商品？

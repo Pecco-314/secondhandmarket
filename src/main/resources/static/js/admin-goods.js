@@ -3,11 +3,15 @@ let goodsTable = new Vue({
     data() {
         return {
             tableData: [],
+            tableDataResult: [],
             dialogVisibleForIllegal: false,
             dialogVisibleForPass: false,
             currentId: 0,
             currentPage: 1,
-            pageSize: 20,
+            pageSize: 10,
+            filters: {
+                status: [],
+            },
             loading: true,
         }
     },
@@ -18,15 +22,25 @@ let goodsTable = new Vue({
         // clearFilter() {
         //     this.$refs.goodsTable.clearFilter();
         // },
-        formatter(row, column) {
-            return row.address;
-        },
-        filterTag(value, row) {
-            return row.status === value;
-        },
-        filterHandler(value, row, column) {
-            const property = column['property'];
-            return row[property] === value;
+        // formatter(row, column) {
+        //     return row.address;
+        // },
+        // filterTag(value, row) {
+        //     return row.status === value;
+        // },
+        // filterHandler(value, row, column) {
+        //     const property = column['property'];
+        //     return row[property] === value;
+        // },
+        handleFilterChange(filters) {
+            this.currentPage = 1;
+            this.filters = filters;
+            this.tableDataResult = [];
+            for (let i = 0; i < this.tableData.length; i++) {
+                if (filters.status.length === 0 || filters.status.includes(this.tableData[i].checkCondition)) {
+                    this.tableDataResult.push(this.tableData[i]);
+                }
+            }
         },
         getGoodsList() {
             this.loading = true;
@@ -55,6 +69,7 @@ let goodsTable = new Vue({
                                 this.tableData[i].btnPassDisabled = false;
                             }
                         }
+                        this.handleFilterChange(this.filters);
                         //console.log(this.tableData);
                     } else {
                         alert(`${response.message}（状态码：${response.status}）`);

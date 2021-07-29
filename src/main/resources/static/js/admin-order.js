@@ -14,9 +14,12 @@ let ordersTable = new Vue({
             tableDataSelected: [],
             tableDataTime: [],
             tableDataResult: [],
+            filters: {
+                state: [],
+            },
             currentId: 0,
             currentPage: 1,
-            pageSize: 20,
+            pageSize: 10,
             cntSuccess: 0,
             loading: true,
         }
@@ -31,12 +34,18 @@ let ordersTable = new Vue({
         dateSearch() {
             this.loading = true;
             this.tableDataTime = [];
-            for (let i = 0; i < this.tableDataAll.length; i++) {
-                if (this.tableDataAll[i].time >= this.selectDatetime[0] && this.tableDataAll[i].time <= this.selectDatetime[1]) {
-                    this.tableDataTime.push(this.tableDataAll[i]);
+            console.log(this.selectDatetime);
+            if (this.selectDatetime == null) {
+                this.tableDataTime = this.tableDataAll;
+            } else {
+                for (let i = 0; i < this.tableDataAll.length; i++) {
+                    if (this.tableDataAll[i].time >= this.selectDatetime[0] && this.tableDataAll[i].time <= this.selectDatetime[1]) {
+                        this.tableDataTime.push(this.tableDataAll[i]);
+                    }
                 }
             }
-            this.unionSearch();
+
+            this.unionSearch(this.filters);
             this.loading = false;
         },
         onSearch() {
@@ -63,10 +72,10 @@ let ordersTable = new Vue({
                 }
             }
 
-            this.unionSearch();
+            this.unionSearch(this.filters);
             this.loading = false;
         },
-        unionSearch() {
+        unionSearch(filters) {
             this.tableDataResult = [];
             for (let i = 0; i < this.tableDataSelected.length; i++) {
                 for (let j = 0; j < this.tableDataTime.length; j++) {
@@ -76,17 +85,29 @@ let ordersTable = new Vue({
                     }
                 }
             }
+            this.handleFilterChange(filters);
         },
-        formatter(row, column) {
-            return row.address;
+        handleFilterChange(filters) {
+            this.currentPage = 1;
+            this.filters = filters;
+            for (let i = this.tableDataResult.length - 1; i >= 0; i--) {
+                if (filters.state.length !== 0 && !filters.state.includes(this.tableDataResult[i].state)) {
+                    this.tableDataResult.splice(i, 1);
+                }
+            }
         },
-        filterTag(value, row) {
-            return row.status === value;
-        },
-        filterHandler(value, row, column) {
-            const property = column['property'];
-            return row[property] === value;
-        },
+        // formatter(row, column) {
+        //     return row.address;
+        // },
+        // filterTag(value, row) {
+        //     return row.status === value;
+        // },
+        // filterHandler(value, row, column) {
+        //     const property = column['property'];
+        //     console.log(property);
+        //     console.log(row[property]);
+        //     return row[property] === value;
+        // },
         getOrdersList() {
             this.loading = true;
             this.cntSuccess = 0;

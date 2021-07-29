@@ -98,7 +98,7 @@ let userTableForm = new Vue({
             },
             currentId: '',
             currentPage: 1,
-            pageSize: 20,
+            pageSize: 10,
             loading: true,
         },
 
