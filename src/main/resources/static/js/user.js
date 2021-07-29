@@ -329,6 +329,8 @@ let itemsForm = new Vue({
                         elAlert(this, "删除成功", '', () => {
                         });
                         itemsForm.getItemList();
+                        this.page = 1;
+                        this.countItem--;
                     } else {
                         alert(`${response.message}（状态码：${response.status}）`);
                     }
