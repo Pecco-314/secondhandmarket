@@ -431,6 +431,14 @@ let sellsForm = new Vue({
             cntSuccess: 0,
             page: 1,
             countOrder: 0,
+            orderInfoDialogVisible: false,
+            orderInfo: {
+                receiverName: '',
+                phoneNumber: '',
+                campus: '',
+                dorm: '',
+                detailedAddress: '',
+            }
         }
     },
     methods: {
@@ -457,6 +465,14 @@ let sellsForm = new Vue({
             this.dialogVisibleForConfirm = true;
             this.orderId = orderId;
         },
+        showOrderInfoDialog(order){
+            this.orderInfoDialogVisible = true;
+            this.orderInfo.receiverName = order.receiverName;
+            this.orderInfo.phoneNumber = order.phoneNumber;
+            this.orderInfo.campus = order.campus;
+            this.orderInfo.dorm = order.dorm;
+            this.orderInfo.detailedAddress = (order.detailedAddress === '' ? '无' : order.detailedAddress);
+        }
     }
 })
 $(userinfoForm.getUserInfo);

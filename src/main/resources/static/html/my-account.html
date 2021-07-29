@@ -160,7 +160,8 @@
                                                            class="ellipsis-type"
                                                            style="text-overflow: ellipsis">{{item.name}}</a>
                                                         <a v-else class="ellipsis-type"
-                                                           style="text-overflow: ellipsis;color: darkgray;">{{item.name}}</a></h3>
+                                                           style="text-overflow: ellipsis;color: darkgray;">{{item.name}}</a>
+                                                    </h3>
                                                 </div>
                                                 <br>
                                                 <div class="price-tag" style="left: 33%;top:40%">{{item.quantity}}</div>
@@ -306,7 +307,8 @@
                                                            class="ellipsis-type"
                                                            style="text-overflow: ellipsis">{{order.name}}</a>
                                                         <a v-else class="ellipsis-type"
-                                                           style="text-overflow: ellipsis;color: darkgray;">{{order.name}}</a></h3>
+                                                           style="text-overflow: ellipsis;color: darkgray;">{{order.name}}</a>
+                                                    </h3>
                                                 </div>
                                                 <br>
                                                 <div class="price-tag" style="left: 31.5%;top:40%">
@@ -443,7 +445,12 @@
                                                            class="ellipsis-type"
                                                            style="text-overflow: ellipsis">{{order.name}}</a>
                                                         <a v-else class="ellipsis-type"
-                                                           style="text-overflow: ellipsis;color: darkgray;">{{order.name}}</a></h3>
+                                                           style="text-overflow: ellipsis;color: darkgray;">{{order.name}}
+                                                            <i class='bx bx-info-circle'></i>
+                                                        </a>
+                                                        <i class='bx bx-info-circle selectable'
+                                                           @click="showOrderInfoDialog(order)"></i>
+                                                    </h3>
                                                 </div>
                                                 <br>
                                                 <div class="price-tag" style="left: 31.5%;top:40%">
@@ -488,6 +495,59 @@
                                                         @click="confirm">确 定
                                                 </el-button>
                                             </span>
+                                        </el-dialog>
+                                        <el-dialog title="订单信息" :visible.sync="orderInfoDialogVisible" width="30%">
+                                            <el-form>
+                                                <el-form-item label-width="120px">
+                                    <span slot="label">
+                                        <span class="span-box">
+                                            <i class="el-icon-user ico-pre"></i>
+                                            <span>收货人：</span>
+                                        </span>
+                                    </span>
+                                                    {{orderInfo.receiverName}}
+                                                </el-form-item>
+                                                <el-form-item label-width="120px">
+                                    <span slot="label">
+                                        <span class="span-box">
+                                            <i class="el-icon-phone ico-pre"></i>
+                                            <span>电话：</span>
+                                        </span>
+                                    </span>
+                                                    {{orderInfo.phoneNumber}}
+                                                </el-form-item>
+                                                <el-form-item label-width="120px">
+                                    <span slot="label">
+                                        <span class="span-box">
+                                            <i class="el-icon-location-information ico-pre"></i>
+                                            <span>校区：</span>
+                                        </span>
+                                    </span>
+                                                    {{orderInfo.campus}}
+                                                </el-form-item>
+                                                <el-form-item label-width="120px">
+                                    <span slot="label">
+                                        <span class="span-box">
+                                            <i class="el-icon-school ico-pre"></i>
+                                            <span>公寓园区：</span>
+                                        </span>
+                                    </span>
+                                                    {{orderInfo.dorm}}
+                                                </el-form-item>
+                                                <el-form-item label-width="120px">
+                                    <span slot="label">
+                                        <span class="span-box">
+                                             <i class="el-icon-tickets ico-pre"></i>
+                                            <span>详细地址：</span>
+                                        </span>
+                                    </span>
+                                                    {{orderInfo.detailedAddress}}
+                                                </el-form-item>
+
+                                            </el-form>
+                                            <span slot="footer" class="dialog-footer">
+                                <el-button @click="dialogVisibleForContact = false">确 定</el-button>
+                            </span>
                                         </el-dialog>
                                     </ul>
                                     <el-empty v-show="orders.length === 0" description="暂无订单"></el-empty>
