@@ -292,7 +292,10 @@ function changeOrderState(order, state, callback) {
         contentType: "application/json;charset=utf-8",
         success: (responseStr) => {
             let response = JSON.parse(responseStr);
+            console.log(response.status);
             if (response.status === 40200) {
+                callback(response);
+            } else if (response.status === 40404) {
                 callback(response);
             } else {
                 alert(`${response.message}（状态码：${response.status}）`);
