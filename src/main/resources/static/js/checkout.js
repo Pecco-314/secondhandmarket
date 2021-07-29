@@ -126,27 +126,37 @@ let checkoutConfirm = new Vue({
                 }];
             } else if (type === 'cart') {
                 getCartList(null, response => {
-                    let res = [];
-                    let cnt = 0;
-                    for (let i = 0; i < response.data.length; ++i) {
-                        getItemInfoById(response.data[i].itemId, innerResponse => {
-                            if (innerResponse.data.quantity >= response.data[i].quantity && innerResponse.data.checkCondition === 'TRUE') {
-                                res.push({
-                                    id: response.data[i].itemId,
-                                    quantity: response.data[i].quantity,
-                                    index: ++cnt,
-                                })
-                            }
-                        })
-                        ;
+                        let res = [];
+                        let cnt = 0;
+                        let success = 0;
+                        for (let i = 0; i < response.data.length; ++i) {
+                            getItemInfoById(response.data[i].itemId, innerResponse => {
+                                if (innerResponse.data.quantity >= response.data[i].quantity && innerResponse.data.checkCondition === 'TRUE') {
+                                    res.push({
+                                        id: response.data[i].itemId,
+                                        quantity: response.data[i].quantity,
+                                        index: ++cnt,
+                                    })
+                                }
+                                success++;
+                                console.log(success);
+                                if (success === response.data.length) {
+                                    if (res.length === 0) {
+                                        elAlert(checkoutConfirm, '订单中无符合要求的商品', '', () => {
+                                            window.open('../cart', '_self');
+                                        })
+                                    }
+                                }
+                            })
+                        }
+                        if (response.data.length === 0) {
+                            elAlert(checkoutConfirm, '订单中无符合要求的商品', '', () => {
+                                window.open('../cart', '_self');
+                            });
+                        }
+                        this.ids = res;
                     }
-                    if (res.length == 0) {
-                        elAlert(checkoutConfirm, '订单中无符合要求的商品', '', () => {
-                            window.open('../cart', '_self');
-                        })
-                    }
-                    this.ids = res;
-                })
+                )
             } else if (type === 'by_id') {
                 let orderFilter = {
                     orderId: getURLVariable('order'),
