@@ -14,7 +14,7 @@ public class UserModule {
         List<User> list = service.getUserList();
         //List<SimplifiedUser> list = service.getSimplifiedUserList();
 
-        if(list == null || list.isEmpty())
+        if(list == null)
             return new Result(Status.USER_ERROR, "用户为空", null);
 
         return new Result(Status.USER_OK, "获取成功", list);
@@ -36,15 +36,6 @@ public class UserModule {
 
         return new Result(Status.OK, "", list);
     }
-
-    /*public static Result getSimplifiedUserInfo(UserService service, int userId) {
-        SimplifiedUser user = service.getSimplifiedUserInfoById(userId);
-
-        if(user == null)
-            return new Result(Status.USER_ERROR, "获取失败", null);
-
-        return new Result(Status.USER_OK, "获取成功", user);
-    }*/
 
     public static Result insertNewUser(UserService service, User user) {
         try {

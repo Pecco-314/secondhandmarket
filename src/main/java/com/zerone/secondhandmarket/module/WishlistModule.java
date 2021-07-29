@@ -11,7 +11,7 @@ public class WishlistModule {
     public static Result getWishlist(WishlistService service, int userId, Integer page) {
         List<Wishlist> list = service.getWishlistByUserId(userId, page);
 
-        if (list == null || list.isEmpty())
+        if (list == null)
             return new Result(Status.ERROR, "", null);
 
         return new Result(Status.OK, "", list);
